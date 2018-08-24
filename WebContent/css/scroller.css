@@ -1,0 +1,35 @@
+#scroller {
+    position: relative;
+}
+
+#scroller .innerScrollArea {
+    overflow: hidden; /* comment it for debug */
+    position: absolute;	
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+	
+}
+
+#scroller ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    /* overflow-x: scroll; */
+    white-space: nowrap;
+    position: relative; /* remove-whitespace */
+}
+
+#scroller li {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    position: absolute; /* remove-whitespace */
+}
+
+.scroller-custom {
+    height: 260px; 
+    margin: 0 auto;
+}

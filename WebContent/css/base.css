@@ -1,0 +1,180 @@
+.navbar-custom {
+    /*background-color: transparent;*/
+    background-image: none;
+    background-color: rgba(46, 51, 56, 0.9);
+    font-family: "標楷體", DFKai-sb, BiauKai;
+    /*font-family: Microsoft JhengHei;*/
+    font-size: 20px;
+}
+
+.navbar-custom .navbar-brand {
+    color: darkturquoise;
+}
+
+/*https://stackoverflow.com/questions/18474564/bootstrap-3-navbar-with-logo*/
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand > img {
+  height: 100%;
+  padding: 0px;
+  width: auto;
+}
+
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+    /*color: #3184cc;*/
+    color: #87CEFA;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #ffffff;
+	font-size:20px;
+}
+
+.menu-custom {
+    font-size: 18px;
+}
+
+.font-custom-large {
+    font-size: 24px;
+}
+
+.font-custom {
+    font-size: 18px;
+}
+
+.body-custom {
+    background-color: rgba(46, 51, 56, 0.9);
+    /*background-image: url("/img/bg.jpg");*/
+    /*for navbar-fixed-top test*/
+    min-height: 2000px;
+    padding-top: 54px;
+	font-family: "標楷體", DFKai-sb, BiauKai;
+}
+
+.hover-custom a:hover {
+    color: teal;
+    text-decoration: none;
+}
+
+.footer-custom {
+    margin-top: 100px;
+    font-size: 20px;
+    color:cornflowerblue;
+    /* http://stackoverflow.com/questions/19330611/fixed-footer-in-bootstrap */
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 100px;
+    list-style-type: none;
+}
+
+.panel-custom {
+    margin: 30px 20px 30px 20px;
+} 
+
+.movie_rank {
+    font-size: 18px;
+    color: floralwhite;
+    /*margin-top: 0px;*/
+}
+
+.rank_list ul {
+    list-style-type: none;
+    counter-reset: li;
+}
+
+.rank_list li::before {
+    color: cornflowerblue;
+    counter-increment: li;
+    content: counter(li)".   ";
+    display:inline-block;
+    width: 2em;
+}
+
+@media screen and (max-width: 992px) {
+    .rank_list li {
+        left: 30%;
+        width: 40%;
+        margin: auto;
+    }
+}
+
+.close-item {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  cursor: pointer;
+  display: none;
+}
+
+.pos-relative {
+  position: relative;
+}
+            
+.announce-div {
+  position: fixed;
+  top: 30%;
+  left: 33%;
+  padding:20px 20px 20px 20px;
+  width: 33%;
+  height:50%;
+  overflow:scroll;
+  background-color:white;
+  color:darkgray;
+  font-size: 18px;
+}
+            
+#lightBox{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 13, 26, 0.7);
+  z-index: 9999;
+}
+
+.margin-top-ten {
+    margin-top: 10px;
+}
+
+.horizontal-line {
+    border-top: 5px solid #eee;
+}
+
+.title-custom {
+    text-align: center;
+    color:aqua;
+}
+
+.img-custom {
+    width: 100%;
+    max-height: 100%;
+}
+
+.p-custom {
+    font-size:20px;
+    color:aliceblue;
+}
+
+.bgimg {
+    background-image: url("/img/bg.jpg");
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+}
+
+.search-bar-margin {
+    /*margin: 30px 0 30px 0;*/
+    /*
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+    */
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.serarch-bar-bg {
+    background-color: rgba(50, 50, 50, 0.8);
+}
