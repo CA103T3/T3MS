@@ -29,11 +29,7 @@
 
 .navbar-inverse .navbar-nav>li>a {
     color: #ffffff;
-	font-size:20px;
-}
-
-.menu-custom {
-    font-size: 18px;
+    font-size:20px;
 }
 
 .font-custom-large {
@@ -50,7 +46,7 @@
     /*for navbar-fixed-top test*/
     min-height: 2000px;
     padding-top: 54px;
-	font-family: "標楷體", DFKai-sb, BiauKai;
+    font-family: "標楷體", DFKai-sb, BiauKai;
 }
 
 .hover-custom a:hover {
@@ -76,7 +72,7 @@
 } 
 
 .movie_rank {
-    font-size: 18px;
+    font-size: 20px;
     color: floralwhite;
     /*margin-top: 0px;*/
 }
@@ -84,6 +80,8 @@
 .rank_list ul {
     list-style-type: none;
     counter-reset: li;
+    padding-left: 20px;
+    /*font-size: 20px;*/
 }
 
 .rank_list li::before {
