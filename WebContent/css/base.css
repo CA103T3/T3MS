@@ -32,8 +32,12 @@
     font-size:20px;
 }
 
+.custom-active > a {
+    color: #87CEFA !important;
+}
+
 .font-custom-large {
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .font-custom {
@@ -45,8 +49,31 @@
     /*background-image: url("/img/bg.jpg");*/
     /*for navbar-fixed-top test*/
     min-height: 2000px;
-    padding-top: 54px;
+    padding-top: 55px;
     font-family: "標楷體", DFKai-sb, BiauKai;
+}
+
+.body-template {
+    background-color: rgba(46, 51, 56, 0.9);
+    /*background-image: url("/img/bg.jpg");*/
+    /*for navbar-fixed-top test*/
+    /* min-height: 2000px; */
+    padding-top: 55px;
+    font-family: "標楷體", DFKai-sb, BiauKai;
+}
+
+.body-template-test {
+    background-color: rgba(46, 51, 56, 0.9);
+    /*background-image: url("/img/bg.jpg");*/
+    /*for navbar-fixed-top test*/
+    min-height: 2000px;
+    padding-top: 161px; /* fix search bar */ /* navbar + search bar: 55 + 106 = 161 */
+    font-family: "標楷體", DFKai-sb, BiauKai;
+}
+
+.searchbar-fixed {
+    /*position: fixed;*/
+    top: 55px;
 }
 
 .hover-custom a:hover {
