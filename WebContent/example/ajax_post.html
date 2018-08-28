@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ajax Post</title>
+<style>
+td {
+    width: 100px;
+}
+
+.talign_left {
+    text-align: left;
+}
+
+input[name="upfile1"] {
+    width: 150px;
+}
+</style>
+</head>
+<body>
+    <!-- <form id="myform" onsubmit="ajax_post(this); return false;" method="post" action="Ajax_doPost.do"> -->
+    <form id="myform" onsubmit="ajax_post(this); return false;" method="post" action="/T3MS/Ajax_doPost.do">
+        <div>
+            <table>
+                <tr class="talign_left">
+                    <th colspan="4"><h3>你喜歡吃什麼水果?</h3></th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="fruit" id="banana" value="香蕉">
+                        <label for="banana">香蕉</label></td>
+                    <td><input type="checkbox" name="fruit" id="apple" value="蘋果">
+                        <label for="apple">蘋果</label></td>
+                    <td><input type="checkbox" name="fruit" id="pineapple"
+                        value="鳳梨"> <label for="pineapple">鳳梨</label></td>
+                    <td><input type="checkbox" name="fruit" id="mango" value="芒果">
+                        <label for="mango">芒果</label></td>
+                </tr>
+                <tr class="talign_left">
+                    <th colspan="4"><h3>What programming language have you
+                            studied ?</h3></th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="program" id="c_pg" value="c">
+                        <label for="c_pg">C</label></td>
+                    <td><input type="checkbox" name="program" id="csharp_pg"
+                        value="c#"> <label for="csharp_pg">C#</label></td>
+                    <td><input type="checkbox" name="program" id="cpp_pg"
+                        value="cpp"> <label for="cpp_pg">C++</label></td>
+                    <td><input type="checkbox" name="program" id="python_pg"
+                        value="python"> <label for="python_pg">Python</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="program" id="java_pg"
+                        value="java"> <label for="java_pg">Java</label></td>
+                    <td><input type="checkbox" name="program" id="php_pg"
+                        value="php"> <label for="php_pg">PHP</label></td>
+                    <td><input type="checkbox" name="program" id="swift_pg"
+                        value="swift"> <label for="swift_pg">Swift</label></td>
+                    <td><input type="checkbox" name="program" id="javascript_pg"
+                        value="javascript"> <label for="javascript_pg">Javascript</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="program" id="jsp_pg"
+                        value="jsp"> <label for="jsp_pg">JSP</label></td>
+                    <td><input type="checkbox" name="program" id="asp_pg"
+                        value="asp"> <label for="asp_pg">ASP</label></td>
+                    <td><input type="checkbox" name="program" id="asp.net_pg"
+                        value="asp.net"> <label for="asp.net_pg">ASP.NET</label></td>
+                    <td><input type="checkbox" name="program" id="ruby_pg"
+                        value="ruby"> <label for="ruby_pg">Ruby</label></td>
+                </tr>
+                <tr class="talign_left">
+                    <th colspan="4"><h3>Gender</h3></th>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="gender" id="male" value="male">
+                        <label for="male">Male</label></td>
+                    <td><input type="radio" name="gender" id="female"
+                        value="female"> <label for="female">Female</label></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="talign_left">
+                    <th colspan="4"><h3>Where are you from ?</h3></th>
+                </tr>
+                <tr>
+                    <td><select name="where">
+                            <option value="">請選擇</option>
+                            <option value="Tainan">Tainan</option>
+                            <option value="Taipei">Taipei</option>
+                            <option value="Taichung">Taichung</option>
+                            <option value="Kaohsiung">Kaohsiung</option>
+                    </select></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="talign_left">
+                    <th colspan="4"><h3>請選擇上傳的圖片檔案</h3></th>
+                </tr>
+                <tr>
+                    <td><input type="file" name="upfile1"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style="text-align: center">
+                    <td colspan="4">
+                        <input type="submit" value="Ajax Post">
+                        <!--  
+                        <button type="button" onclick="ajax_post()">
+                            <h3>Ajax Post 送出</h3>
+                        </button>
+                        -->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+<script>
+    function ajaxSuccess () {
+	  console.log(this.responseText);
+	}
+
+    function createXHR() {
+        var xhr = null;
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        return xhr;
+    }
+    // https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest 使用 FormData 物件
+    function ajax_post(oFormElement) {
+        xhr = createXHR(); 
+        if( xhr == null ){
+          alert("Does not support Ajax...");  
+          return;
+        }
+        
+        if (!oFormElement.action) { return; }
+        xhr.onload = ajaxSuccess;
+        
+        xhr.open("post", oFormElement.action);
+        xhr.send(new FormData(oFormElement));
+        
+    }
+</script>
+</body>
+</html>
