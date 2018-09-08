@@ -1,0 +1,40 @@
+.ulnav {
+    margin-right: 30px;
+}
+
+/* .sidenav{
+    margin-top: 51px;
+} */
+#backimg {
+    position: absolute;
+    top: 5px;
+    left: 50px;
+    width: 60px;
+}
+
+#backimgstext {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 100px;
+}
+
+.nav .collapse a {
+    color: dimgrey;
+}
+
+@media (min-width: 768px) {
+    #slider_sub {
+        width: 250px;
+        position: absolute;
+        height: 1800px;
+    }
+
+    .mysearch {
+        margin: 10px 0;
+    }
+
+    .page_main {
+        margin-left: 260px;
+    }
+}

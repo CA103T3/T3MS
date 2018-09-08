@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <%@ include file="/forestage/template/link.jsp" %>
+        <title>M&amp;S</title>
         <style>
 
         </style>
@@ -25,7 +26,7 @@
         
         <%@ include file="/forestage/template/footer.jsp" %>
 
-        <script src="/T3MS/js/template.js"></script>
+        <script src="<%=request.getContextPath()%>/js/template.js"></script>
         <script>
         $(document).ready(function(){
             $("li:contains('合作影城')").addClass("custom-active");
