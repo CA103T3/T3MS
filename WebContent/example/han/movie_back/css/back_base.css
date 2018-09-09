@@ -1,18 +1,12 @@
-.ulnav {
-    margin-right: 30px;
-}
+/*https://stackoverflow.com/questions/18474564/bootstrap-3-navbar-with-logo*/
 
-/* .sidenav{
-    margin-top: 51px;
-} */
-#backimg {
-	/*
-    position: absolute;
-    top: 5px;
-    left: 50px;
-    width: 60px;
-	*/
-	height:100%;
+.navbar-brand {
+  padding: 0px !important;
+}
+.navbar-brand > img {
+  height: 100%;
+  padding: 0px;
+  width: auto;
 }
 
 #backimgstext {
@@ -25,15 +19,70 @@
 .nav .collapse a {
     color: dimgrey;
 }
-
-#slider_sub {
+/*
+#sidebar-wrapper {
     width: 200px !important;
-    /*position: fixed;*/
-    /*height: 1800px;*/
+}
+*/
+
+/* Toggle Styles */
+/* https://codepen.io/Xeoncross/pen/zxyWeW */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
+#wrapper.toggled {
+    padding-left: 200px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 200px;
+    width: 0;
+    height: 100%;
+    margin-left: -200px;
+    overflow-y: auto;
+    /*background: #000;*/
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 200px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -200px;
+}
+
+
+
 @media (min-width: 768px) {
-    #slider_sub {
+    #wrapper {
+        padding-left: 200px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+		width: 200px;
 		/*
         width: 200px;
         position: absolute;
@@ -41,6 +90,20 @@
         /*height: 1800px;*/
     }
 
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+	/*
     .mysearch {
         margin: 10px 0;
     }
@@ -48,4 +111,52 @@
     .page_main {
         margin-left: 260px;
     }
+	*/
+}
+
+.fs16 {
+    font-size: 16px;
+}
+
+.sidebar {
+  /*
+  background-color: #3cd0e7;
+  border-color: #5fbef2;
+  */
+  /*background-color: #89ccf0;*/
+  background-color: rgba(137, 204, 240, 0.8);
+  border-color: #43c5f4;
+  /*min-height: calc(100vh - 56px);*/
+  min-height: 100vh;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+  color: #f8f9f9;
+  background-color: #5fbef2;
+}
+.nav>li>a {
+    color: #000000;
+}
+
+#wrapper {
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-column {
+  -webkit-flex: 1;
+          flex: 1;
+}
+.mb0 {
+    margin-bottom: 0;
+}
+.mt20 {
+    margin-top: 20px;
+}
+.mt4 {
+    margin-top: 4px;
+}
+.mt50 {
+    margin-top: 50px;
+}
+.brs-none {
+    border-right-style: none;
 }
