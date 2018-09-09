@@ -48,8 +48,8 @@
                 <a href="#" class="navbar-brand">
                 <!-- <a href="#" class="NOnavbar-brand"> -->
                     <!-- <img id="backimg" src="/T3MS/example/han/movie_back/images/LOGO3.png" alt="logo"> -->
-                    <!-- <img id="backimg" src="<%=request.getContextPath()+request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/")+1)+"images/LOGO3.png"%>" alt="logo"> -->
-                    <img id="" src="<%=request.getContextPath()+"/img/M&S-05Z.png"%>" alt="logo">
+                    <img id="backimg" src="<%=request.getContextPath()+request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/")+1)+"images/LOGO3_SM.png"%>" alt="logo">
+                    <!-- <img id="" src="<%=request.getContextPath()+"/img/M&S-05Z.png"%>" alt="logo"> -->
                 </a>
                 <a href="#" class="btn menu-toggle mt4"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>
             </div>
