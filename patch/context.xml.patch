@@ -1,0 +1,12 @@
+--- "Servers/Tomcat v9.0 Server at localhost-config/context.xml"	2018-09-02 23:17:59.840683400 +0800
++++ "Servers/Tomcat v9.0 Server at localhost-config/context.xml"	2018-09-12 00:32:27.735950000 +0800
+@@ -16,7 +16,8 @@
+   limitations under the License.
+ --><!-- The contents of this file will be loaded for each web application --><Context antiResourceLocking="false" crossContext="true" privileged="true" reloadable="true">
+ 
+-    <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/TestDB" password="123456" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="hr"/>
++    <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/TestDB" password="123456" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="CA103"/>
++    <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/T3MS" password="123456" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="T3MS"/>
+ 
+     <!-- Default set of monitored resources. If one of these changes, the    -->
+     <!-- web application will be reloaded.                                   -->
