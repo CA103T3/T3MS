@@ -26,35 +26,40 @@ import java.sql.*;
 @WebServlet("/Test_DataSource")
 public class Test_DataSource extends HttpServlet {
 
-	public void doGet(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7163332003172065793L;
 
-		res.setContentType("text/plain; charset=UTF-8");
-		PrintWriter out = res.getWriter();
+    public void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
 
-		try {
-			Context ctx = new javax.naming.InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/T3MS");
-			if (ds != null) {
-				Connection conn = ds.getConnection();
+        res.setContentType("text/plain; charset=UTF-8");
+        PrintWriter out = res.getWriter();
 
-				if (conn != null) {
-					out.println("Got Connection: " + conn.toString());
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery("select * from cinema");
-					while (rs.next()) {
-						out.println("cinema_no = " + rs.getString(1));
-					}
-					conn.close();
-				}
-			}
-		} catch (NamingException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        try {
+            Context ctx = new javax.naming.InitialContext();
+            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/T3MS");
+            if (ds != null) {
+                Connection conn = ds.getConnection();
 
-	}
+                if (conn != null) {
+                    out.println("Got Connection: " + conn.toString());
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("select * from cinema");
+                    while (rs.next()) {
+                        out.println("cinema_no = " + rs.getString(1));
+                    }
+                    conn.close();
+                }
+            }
+        } catch (NamingException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
