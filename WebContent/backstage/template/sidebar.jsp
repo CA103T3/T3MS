@@ -179,7 +179,7 @@
                     </a>
                     <ul id="sub8" class="nav collapse">
                         <li>
-                            <a href="announcement.jsp">
+                            <a href="#">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;公告管理</a>
                         </li>
                         <li>

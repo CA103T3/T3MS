@@ -8,11 +8,11 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 8 [1.8.0_171]">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_171">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/chengmark/eclipse-workspace/CAgit/T3MS/WebContent/WEB-INF/lib/json-20180813.jar"/>
+	<classpathentry kind="lib" path="D:/T3_workspace/T3MS/WebContent/WEB-INF/lib/json-20180813.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
