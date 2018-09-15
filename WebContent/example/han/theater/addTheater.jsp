@@ -8,7 +8,61 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>M&amp;S</title>
     <%@ include file="/backstage/template/link.jsp" %>
+    <!-- <link rel="stylesheet" href="<%=request.getContextPath()+"/example/han/theater/css/btn-arrow.css"%>"> -->
     <style type="text/css">
+      .popover-content {
+        padding: 0px;
+      }
+      .dp-none {
+        display: none;
+      }
+      /* http://blog.koalite.com/bbg/ */
+      .btn-nonseat { 
+        color: #FFFFFF; 
+        background-color: #3E3B42; 
+        border-color: #4430A6; 
+      } 
+
+      .btn-nonseat:hover, 
+      .btn-nonseat:focus, 
+      .btn-nonseat:active, 
+      .btn-nonseat.active, 
+      .open .dropdown-toggle.btn-nonseat { 
+        color: #FFFFFF; 
+        background-color: #52627A; 
+        border-color: #4430A6; 
+      } 
+
+      .btn-nonseat:active, 
+      .btn-nonseat.active, 
+      .open .dropdown-toggle.btn-nonseat { 
+        background-image: none; 
+      } 
+
+      .btn-nonseat.disabled, 
+      .btn-nonseat[disabled], 
+      fieldset[disabled] .btn-nonseat, 
+      .btn-nonseat.disabled:hover, 
+      .btn-nonseat[disabled]:hover, 
+      fieldset[disabled] .btn-nonseat:hover, 
+      .btn-nonseat.disabled:focus, 
+      .btn-nonseat[disabled]:focus, 
+      fieldset[disabled] .btn-nonseat:focus, 
+      .btn-nonseat.disabled:active, 
+      .btn-nonseat[disabled]:active, 
+      fieldset[disabled] .btn-nonseat:active, 
+      .btn-nonseat.disabled.active, 
+      .btn-nonseat[disabled].active, 
+      fieldset[disabled] .btn-nonseat.active { 
+        background-color: #3E3B42; 
+        border-color: #4430A6; 
+      } 
+
+      .btn-nonseat .badge { 
+        color: #3E3B42; 
+        background-color: #FFFFFF; 
+      }
+
     </style>
 </head>
 
@@ -20,24 +74,24 @@
             <div class="container-fluid mt20">
                 <form class="form-horizontal">
                     <div class="form-group">
-                      <label class="col-sm-5 control-label">影城</label>
-                      <div class="col-sm-3">
+                      <label class="col-md-5 control-label">影城</label>
+                      <div class="col-md-3">
                         <input class="form-control" id="" type="text" value="威秀影城" readonly>
                       </div>
-                      <div class="col-sm-4">
+                      <div class="col-md-4">
                       </div> 
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-5 control-label">影廳名稱</label>
-                      <div class="col-sm-3">
+                      <label class="col-md-5 control-label">影廳名稱</label>
+                      <div class="col-md-3">
                         <input class="form-control" id="" type="text" value="" >
                       </div>
-                      <div class="col-sm-4">
+                      <div class="col-md-4">
                       </div> 
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-5 control-label">影廳設備</label>
-                      <div class="col-sm-3">
+                      <label class="col-md-5 control-label">影廳設備</label>
+                      <div class="col-md-3">
                         <select class="form-control">
                            <option value="數位">數位</option>
                            <option value="2D">2D</option>
@@ -50,13 +104,13 @@
                            <option value="GC 3D DIG">GC 3D DIG</option>
                         </select>
                       </div>
-                      <div class="col-sm-4">
+                      <div class="col-md-4">
                       </div> 
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-5 control-label">排數</label>
-                      <div class="col-sm-3">
-                        <select class="form-control">
+                      <label class="col-md-5 control-label">排數</label>
+                      <div class="col-md-3">
+                        <select class="form-control" id="row">
                            <option value="5">5</option>
                            <option value="6">6</option>
                            <option value="7">7</option>
@@ -81,13 +135,13 @@
                            <option value="26">26</option>
                         </select>
                       </div>
-                      <div class="col-sm-4">
+                      <div class="col-md-4">
                       </div> 
                     </div>
                     <div class="form-group">
-                      <label class="col-sm-5 control-label">行數</label>
-                      <div class="col-sm-3">
-                        <select class="form-control">
+                      <label class="col-md-5 control-label">行數</label>
+                      <div class="col-md-3">
+                        <select class="form-control" id="col">
                            <option value="5">5</option>
                            <option value="6">6</option>
                            <option value="7">7</option>
@@ -106,50 +160,122 @@
                            <option value="20">20</option>
                         </select>
                       </div>
-                      <div class="col-sm-4">
+                      <div class="col-md-1">
+                        <a href="#" class="btn btn-primary btn-md" id="gen_seat">
+                          <span class="glyphicon glyphicon-cog"></span>&nbsp;產生座位
+                        </a>
+                      </div>
+                      <div class="col-md-3">
                       </div> 
                     </div>
-                    <div class="">          
-                      <table class="">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Age</th>
-                            <th>City</th>
-                            <th>Country</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Anna</td>
-                            <td>Pitt</td>
-                            <td>35</td>
-                            <td>New York</td>
-                            <td>USA</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="form-group text-center">
-                      <span class="label label-primary">1</span>
-                      <button class="btn btn-warning btn-md" id="btn_1_1">1</button>
-                      <button class="btn btn-success btn-md" id="btn_1_2">2</button>
-                      <button class="btn btn-danger btn-md" id="btn_1_3">3</button>
-                      <button class="btn btn-default btn-md" id="btn_1_4">4</button>
-                    </div>
-                    <div class="form-group text-center">
-                      <button class="btn btn-warning btn-md" id="btn_1_1">1</button>
-                      <button class="btn btn-success btn-md" id="btn_1_2">2</button>
-                      <button class="btn btn-danger btn-md" id="btn_1_3">3</button>
-                      <button class="btn btn-default btn-md" id="btn_1_4">4</button>
+                    <div id="seat_div">
+                      <div class="form-group text-center">
+                        <i class="fa fa-location-arrow fa-lg" aria-hidden="true">1</i>
+                        <button type="button" class="seat btn btn-basic btn-md" id="btn_1_1">1</button><input type='text' class="dp-none" name='input_1_1' id='input_1_1' value='2'>
+                        <button type="button" class="seat btn btn-default btn-md" id="btn_1_2">2</button>
+                        <button type="button" class="seat btn btn-warning btn-md" id="btn_1_3">3</button>
+                        <button type="button" class="seat btn btn-default btn-md" id="btn_1_4">4</button>
+                        <button type="button" class="seat btn btn-warning btn-md" id="btn_1_5">1</button>
+                        <button type="button" class="seat btn btn-success btn-md" id="btn_1_6">2</button>
+                        <button type="button" class="seat btn btn-danger btn-md" id="btn_1_7">3</button>
+                        <button type="button" class="seat btn btn-default btn-md" id="btn_1_8">4</button>
+                        <button type="button" class="seat btn btn-warning btn-md" id="btn_1_9">1</button>
+                        <button type="button" class="seat btn btn-success btn-md" id="btn_1_10">2</button>
+                      </div>
+                      <div class="form-group text-center">
+                        <i class="fa fa-location-arrow fa-lg" aria-hidden="true">2</i>
+                        <button type="button" class="seat btn btn-warning btn-md" id="btn_2_1">1</button>
+                        <button type="button" class="seat btn btn-success btn-md" id="btn_2_2">2</button>
+                        <button type="button" class="seat btn btn-danger btn-md" id="btn_2_3">3</button>
+                        <button type="button" class="seat btn btn-default btn-md" id="btn_2_4">4</button>
+                        <button type="button" class="seat btn btn-warning btn-md" id="btn_2_5">1</button>
+                        <button type="button" class="seat btn btn-success btn-md" id="btn_2_6">2</button>
+                        <button type="button" class="seat btn btn-danger btn-md" id="btn_2_7">3</button>
+                        <button type="button" class="seat btn btn-default btn-md" id="btn_2_8">4</button>
+                        <button type="button" class="seat btn btn-warning btn-md" id="btn_2_9">1</button>
+                        <button type="button" class="seat btn btn-success btn-md" id="btn_2_10">2</button>
+                      </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        /*
+        $(document).on("click", "#btn_1_1", function(event){
+            console.log("click event.target.id: ", event.target.id);
+            $('#btn_1_1').popover({
+                html:true,
+                placement: "top",
+                content: function(){
+                    return "<div class='btn-group-vertical' style='border:0px' style='display:none'>" +
+                              "<button type='button' class='btn btn-nonseat optbtn' data-btn='btn_1_1' data-value='0' id='opt_1_1_0' data-input='input_1_1'>非座位</button>" +
+                              "<button type='button' class='btn btn-default optbtn' data-btn='btn_1_1' data-value='2' id='opt_1_1_2' data-input='input_1_1' style='border:0px'>可售座</button>" +
+                              "<button type='button' class='btn btn-warning optbtn' data-btn='btn_1_1' data-value='3' id='opt_1_1_3' data-input='input_1_1' style='border:0px'>保留座</button>" +
+                           "</div>";
+                }
+            });
+            $('#btn_1_1').popover("toggle");
+        });
+        */
+        //$(".optbtn").on("click", function(event){
+        $(document).on("click", ".optbtn", function(event){
+            console.log("event.target.id: ", event.target.id);
+            let tid = event.target.id;
+            let input = $("#"+tid).attr("data-input");
+            console.log("input id: ", input);
+            console.log("input id: ", $("#"+input).attr("id"));
+            $("#"+input).val($("#"+tid).attr("data-value"));
+            let bid = $("#"+tid).attr("data-btn");
+            console.log("bid ", "#"+bid);
+            console.log("bid class", $("#"+bid).attr("class"));
+            $("#"+bid).attr("class", ($("#"+tid).attr("class"))).removeClass("optbtn");
+            $("#"+bid).popover("hide");
+            //$("#"+bid).popover("destroy");
+        });
+
+        //$("#gen_seat").click(function(){
+        $(document).on("click", "#gen_seat", function(event){
+          $("#seat_div").empty();
+          let row = $("#row").val();
+          let col = $("#col").val();
+          console.log("row: " + row + " col: " + col);
+          let content = "";
+          for(let i = 1; i <= row; i++) {
+              content += "<div class='form-group text-center'>";
+              content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'>"+ i +"</i>&nbsp;";
+              for(let j = 1; j <= col; j++) {
+                  content += "<button type='button' class='seat btn btn-default btn-md' id='btn_"+ i + "_" + j + "'>" + j + "</button>";
+                  content += "<input type='text' class='dp-none' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
+              }
+              content += "</div>";
+          }
+          $("#seat_div").append(content);
+        });
+
+        $(document).on("click", ".seat", function(event){
+            console.log("click event.target.id: ", event.target.id);
+            let tid = event.target.id;
+            let pos = tid.substring(3);
+            console.log(pos);
+            $("#"+tid).popover({
+                html:true,
+                placement: "top",
+                content: function(){
+                    return "<div class='btn-group-vertical' style='border:0px'>" +
+                              "<button type='button' class='btn btn-nonseat optbtn' data-btn='"+ tid +"' data-value='0' id='opt_"+ pos +"_0' data-input='input_"+ pos +"'>非座位</button>" +
+                              "<button type='button' class='btn btn-default optbtn' data-btn='"+ tid +"' data-value='2' id='opt_"+ pos +"_2' data-input='input_"+ pos +"' style='border:0px'>可售座</button>" +
+                              "<button type='button' class='btn btn-warning optbtn' data-btn='"+ tid +"' data-value='3' id='opt_"+ pos +"_3' data-input='input_"+ pos +"' style='border:0px'>保留座</button>" +
+                           "</div>";
+                }
+            });
+            $('#'+tid).popover("toggle");
+        });
+
+      });
+    </script>
 </body>
 </html>
