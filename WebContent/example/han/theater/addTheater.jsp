@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.theater.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +64,6 @@
         color: #3E3B42; 
         background-color: #FFFFFF; 
       }
-
     </style>
 </head>
 
@@ -71,20 +72,33 @@
     <div id="wrapper" class="mt50">
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
-            <div class="container-fluid mt20">
-                <form class="form-horizontal">
+            <div class="container-fluid">
+                <h3 class="page-header"><label>新增影廳</label></h1>
+                <%-- 錯誤表列 --%>
+                <%-- <%=request.getAttribute("errorMsgs")%> --%>
+                <%-- ${errorMsgs.size()} --%>
+                <c:if test="${not empty errorMsgs}">
+                  <font style="color:red">請修正以下錯誤:</font>
+                  <ul>
+                    <c:forEach var="message" items="${errorMsgs}">
+                      <li style="color:red">${message}</li>
+                    </c:forEach>
+                  </ul>
+                </c:if>
+                <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
                     <div class="form-group">
                       <label class="col-md-5 control-label">影城</label>
                       <div class="col-md-3">
                         <input class="form-control" id="" type="text" value="威秀影城" readonly>
+                        <input class="form-control" id="" type="hidden" name="cinema_no" value="C001" readonly>
                       </div>
                       <div class="col-md-4">
-                      </div> 
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="col-md-5 control-label">影廳名稱</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" value="" >
+                        <input class="form-control" id="" type="text" name="theater_name" value="" >
                       </div>
                       <div class="col-md-4">
                       </div> 
@@ -92,7 +106,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">影廳設備</label>
                       <div class="col-md-3">
-                        <select class="form-control">
+                        <select class="form-control" name="equipment">
                            <option value="數位">數位</option>
                            <option value="2D">2D</option>
                            <option value="3D">3D</option>
@@ -110,7 +124,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">排數</label>
                       <div class="col-md-3">
-                        <select class="form-control" id="row">
+                        <select class="form-control" id="row" name="t_rows">
                            <option value="5">5</option>
                            <option value="6">6</option>
                            <option value="7">7</option>
@@ -141,7 +155,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">行數</label>
                       <div class="col-md-3">
-                        <select class="form-control" id="col">
+                        <select class="form-control" id="col" name="t_columns">
                            <option value="5">5</option>
                            <option value="6">6</option>
                            <option value="7">7</option>
@@ -161,12 +175,12 @@
                         </select>
                       </div>
                       <div class="col-md-1">
-                        <a href="#" class="btn btn-primary btn-md" id="gen_seat">
+                        <a href="#seat_div" class="btn btn-primary btn-md" id="gen_seat">
                           <span class="glyphicon glyphicon-cog"></span>&nbsp;產生座位
                         </a>
                       </div>
                       <div class="col-md-3">
-                      </div> 
+                      </div>
                     </div>
                     <div id="seat_div">
                       <div class="form-group text-center">
@@ -195,6 +209,10 @@
                         <button type="button" class="seat btn btn-warning btn-md" id="btn_2_9">1</button>
                         <button type="button" class="seat btn btn-success btn-md" id="btn_2_10">2</button>
                       </div>
+                    </div>
+                    <div class="form-group text-center">
+                      <input type="hidden" name="action" value="insert">
+                      <button type="submit" >送出</button>
                     </div>
                 </form>
 
@@ -249,7 +267,7 @@
               content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'>"+ i +"</i>&nbsp;";
               for(let j = 1; j <= col; j++) {
                   content += "<button type='button' class='seat btn btn-default btn-md' id='btn_"+ i + "_" + j + "'>" + j + "</button>";
-                  content += "<input type='text' class='dp-none' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
+                  content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
               }
               content += "</div>";
           }

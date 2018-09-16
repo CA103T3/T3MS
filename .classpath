@@ -13,6 +13,5 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/T3_workspace/T3MS/WebContent/WEB-INF/lib/json-20180813.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
