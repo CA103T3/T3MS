@@ -81,7 +81,9 @@ public class TheaterServletTest extends HttpServlet {
                     size++;
                     String[] str = name.split("_");
                     rows = Integer.valueOf(str[1]) > rows ? Integer.valueOf(str[1]) : rows;
-                    cols = Integer.valueOf(str[1]) > cols ? Integer.valueOf(str[1]) : cols;
+                    System.out.println("rows: " + rows + " ,str[1]: " + str[1]);
+                    cols = Integer.valueOf(str[2]) > cols ? Integer.valueOf(str[2]) : cols;
+                    System.out.println("cols: " + cols + " ,str[2]: " + str[2]);
                 }
 //                if(values.length > 0) {
 //                    out.println(name + " :");
