@@ -2,13 +2,14 @@ package example.han.theater.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,8 +28,8 @@ import com.theater.model.TheaterVO;
  */
 @WebServlet("/theater/TheaterServletTest")
 public class TheaterServletTest extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,41 +38,62 @@ public class TheaterServletTest extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletreq req, HttpServletres res)
-	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	    doPost(req, res);
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletreq req, HttpServletres res)
+     */
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        doPost(req, res);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletreq req, HttpServletres res)
-	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
-		res.setContentType("text/html; charset=utf-8");
-		PrintWriter out = res.getWriter();
-//        Enumeration enu = req.getParameterNames();
-//        while (enu.hasMoreElements()) {
-//            String name = (String) enu.nextElement();
-//            String[] values = req.getParameterValues(name);
-//
-//            if(values.length > 0) {
-//                out.println(name + " :");
-//                for(int i = 0; i < values.length; i++) {
-//                    out.println(i + " : " + values[i]);
-//                }
-//            }
-//        }
-		String action = req.getParameter("action");
-		
+    /**
+     * @see HttpServlet#doPost(HttpServletreq req, HttpServletres res)
+     */
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        res.setContentType("text/html; charset=utf-8");
+        //PrintWriter out = res.getWriter();
+
+        String action = req.getParameter("action");
+
         if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
-            
+
             List<String> errorMsgs = new LinkedList<String>();
             // Store this set in the request scope, in case we need to
             // send the ErrorPage view.
             req.setAttribute("errorMsgs", errorMsgs);
 
+            Enumeration<String> enu = req.getParameterNames();
+            int paramCount = 0;
+            Set<String> set = new HashSet<String>();
+            set.add("cinema_no");
+            set.add("theater_name");
+            set.add("equipment");
+            set.add("t_rows");
+            set.add("t_columns");
+            set.add("action");
+            int size = set.size();
+            int rows = 0, cols = 0;
+            while (enu.hasMoreElements()) {
+                String name = (String) enu.nextElement();
+                //String[] values = req.getParameterValues(name);
+                set.add(name);
+                if (size != set.size()) {
+                    size++;
+                    String[] str = name.split("_");
+                    rows = Integer.valueOf(str[1]) > rows ? Integer.valueOf(str[1]) : rows;
+                    cols = Integer.valueOf(str[1]) > cols ? Integer.valueOf(str[1]) : cols;
+                }
+//                if(values.length > 0) {
+//                    out.println(name + " :");
+//                    for(int i = 0; i < values.length; i++) {
+//                        out.println(i + " : " + values[i]);
+//                    }
+//                }
+                paramCount++;
+                //System.out.println(paramCount + " : " +name);
+            }
+            System.out.println("rows : " + rows); //real rows
+            System.out.println("cols : " + cols); //real columns
             try {
                 /***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
                 String theater_name = req.getParameter("theater_name");
@@ -84,33 +106,33 @@ public class TheaterServletTest extends HttpServlet {
                 } else if(!theater_name.trim().matches(theater_nameReg)) { //以下練習正則(規)表示式(regular-expression)
                     errorMsgs.add("影廳名稱: 只能是中、英文字母、數字和_ , 且長度必需在1到12之間");
                 }
-                
+
                 String cinema_no = req.getParameter("cinema_no").trim();
                 if (cinema_no == null || cinema_no.trim().length() == 0) {
                     errorMsgs.add("影城編號請勿空白");
                 }
-                
+
                 String equipment = req.getParameter("equipment").trim();
                 if (equipment == null || equipment.trim().length() == 0) {
                     errorMsgs.add("影廳設備請勿空白");
                 }
-                
+
                 Integer t_rows = null;
                 try {
                     t_rows = new Integer(req.getParameter("t_rows").trim());
                 } catch (NumberFormatException e) {
                     t_rows = 5;
-                    errorMsgs.add("排數請填數字.");
+                    errorMsgs.add("排數請填數字");
                 }
-                
+
                 Integer t_columns = null;
                 try {
                     t_columns = new Integer(req.getParameter("t_columns").trim());
                 } catch (NumberFormatException e) {
                     t_columns = 5;
-                    errorMsgs.add("行數請填數字.");
+                    errorMsgs.add("行數請填數字");
                 }
-                
+
                 JSONObject json = new JSONObject();
                 ArrayList<Integer> row_non_seat = new ArrayList<Integer>();
                 ArrayList<Integer> col_non_seat = new ArrayList<Integer>();
@@ -118,40 +140,46 @@ public class TheaterServletTest extends HttpServlet {
                 Integer seats = 0;
                 
                 // find out non-seat of row
-                for (int i = 1; i <= t_rows; i++) {
+                //for (int i = 1; i <= t_rows; i++) {
+                for (int i = 1; i <= rows; i++) {
                     int count = 0;
-                    for (int j = 1; j <= t_columns; j++) {
+                    //for (int j = 1; j <= t_columns; j++) {
+                    for (int j = 1; j <= cols; j++) {
                         String param = "input_" + i + "_" + j;
                         Integer v = Integer.parseInt(req.getParameter(param));
                         if(v == 0) count++;
                     }
                     //set flag if all are non-seat
-                    if(count == t_columns) {
+                    //if(count == t_columns) {
+                    if(count == cols) {
                         row_non_seat.add(1);
                     } else {
                         row_non_seat.add(0);
                     }
                 }
-                
+
                 System.out.println(row_non_seat.toString());
-                
+
                 // find out non-seat of column
-                for (int i = 1; i <= t_columns; i++) {
+                //for (int i = 1; i <= t_columns; i++) {
+                for (int i = 1; i <= cols; i++) {
                     int count = 0;
-                    for (int j = 1; j <= t_rows; j++) {
+                    //for (int j = 1; j <= t_rows; j++) {
+                    for (int j = 1; j <= rows; j++) {
                         String param = "input_" + j + "_" + i; // j - row , i - column
                         Integer v = Integer.parseInt(req.getParameter(param));
                         if(v == 0) count++;
                     }
                     //set flag if all are non-seat
-                    if(count == t_rows) {
+                    //if(count == t_rows) {
+                    if(count == rows) {
                         col_non_seat.add(1);
                     } else {
                         col_non_seat.add(0);
                     }
                 }
                 System.out.println(col_non_seat.toString());
-                
+
 //                for (int i = 1; i <= t_rows; i++) {
 //                    for (int j = 1; j <= t_columns; j++) {
 //                        String param = "input_" + i + "_" + j;
@@ -173,11 +201,13 @@ public class TheaterServletTest extends HttpServlet {
 //                }
 //                System.out.println(json.length());
 //                System.out.println(json.toString());
-                
-                for (int i = 1; i <= t_rows; i++) {
+
+                //for (int i = 1; i <= t_rows; i++) {
+                for (int i = 1; i <= rows; i++) {
                     row_minus += row_non_seat.get(i - 1);
                     col_minus = 0; //initial value of each column loop 
-                    for (int j = 1; j <= t_columns; j++) {
+                    //for (int j = 1; j <= t_columns; j++) {
+                    for (int j = 1; j <= cols; j++) {
                         col_minus += col_non_seat.get(j - 1);
                         String param = "input_" + i + "_" + j;
                         String key = i + "_" + j;
@@ -202,10 +232,17 @@ public class TheaterServletTest extends HttpServlet {
                     }
                 }
                 System.out.println("seats : " + seats);
-                System.out.println(json.length());
+                System.out.println("json.length(): " + json.length());
+                System.out.println(t_rows * t_columns);
                 System.out.println(json.toString());
+
+                //do not count cinema_no, theater_name, equipment, t_rows, t_columns, action
+                if((paramCount - 6) != (t_rows * t_columns)) {
+                    errorMsgs.add("排數, 行數與產生的座位數不相符");
+                }
+
                 StringReader seat_model = new StringReader(json.toString()); 
-                
+
                 TheaterVO theaterVO = new TheaterVO();
                 theaterVO.setTheater_name(theater_name);
                 theaterVO.setCinema_no(cinema_no);
@@ -219,12 +256,14 @@ public class TheaterServletTest extends HttpServlet {
                 if (!errorMsgs.isEmpty()) {
 //                    System.out.println("errorMsgs.size() : " + errorMsgs.size());
                     req.setAttribute("theaterVO", theaterVO); // 含有輸入格式錯誤的empVO物件,也存入req
+                    req.setAttribute("rows", rows);
+                    req.setAttribute("cols", cols);
                     RequestDispatcher failureView = req
                             .getRequestDispatcher("/example/han/theater/addTheater.jsp");
                     failureView.forward(req, res);
                     return;
                 }
-                
+
                 /***************************2.開始新增資料***************************************/
                 TheaterService tSvc = new TheaterService();
                 String theater_no = tSvc.addTheater(cinema_no, theater_name,
@@ -244,7 +283,7 @@ public class TheaterServletTest extends HttpServlet {
                 failureView.forward(req, res);
             }
         }
-		
-	}
+
+    }
 
 }

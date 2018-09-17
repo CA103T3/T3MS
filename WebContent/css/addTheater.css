@@ -1,0 +1,52 @@
+.popover-content {
+  padding: 0px;
+}
+.dp-none {
+  display: none;
+}
+/* http://blog.koalite.com/bbg/ */
+.btn-nonseat { 
+  color: #FFFFFF; 
+  background-color: #3E3B42; 
+  border-color: #4430A6; 
+} 
+
+.btn-nonseat:hover, 
+.btn-nonseat:focus, 
+.btn-nonseat:active, 
+.btn-nonseat.active, 
+.open .dropdown-toggle.btn-nonseat { 
+  color: #FFFFFF; 
+  background-color: #52627A; 
+  border-color: #4430A6; 
+} 
+
+.btn-nonseat:active, 
+.btn-nonseat.active, 
+.open .dropdown-toggle.btn-nonseat { 
+  background-image: none; 
+} 
+
+.btn-nonseat.disabled, 
+.btn-nonseat[disabled], 
+fieldset[disabled] .btn-nonseat, 
+.btn-nonseat.disabled:hover, 
+.btn-nonseat[disabled]:hover, 
+fieldset[disabled] .btn-nonseat:hover, 
+.btn-nonseat.disabled:focus, 
+.btn-nonseat[disabled]:focus, 
+fieldset[disabled] .btn-nonseat:focus, 
+.btn-nonseat.disabled:active, 
+.btn-nonseat[disabled]:active, 
+fieldset[disabled] .btn-nonseat:active, 
+.btn-nonseat.disabled.active, 
+.btn-nonseat[disabled].active, 
+fieldset[disabled] .btn-nonseat.active { 
+  background-color: #3E3B42; 
+  border-color: #4430A6; 
+} 
+
+.btn-nonseat .badge { 
+  color: #3E3B42; 
+  background-color: #FFFFFF; 
+}

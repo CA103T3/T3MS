@@ -16,59 +16,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>M&amp;S</title>
     <%@ include file="/backstage/template/link.jsp" %>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/addTheater.css">
     <style type="text/css">
-      .popover-content {
-        padding: 0px;
-      }
-      .dp-none {
-        display: none;
-      }
-      /* http://blog.koalite.com/bbg/ */
-      .btn-nonseat { 
-        color: #FFFFFF; 
-        background-color: #3E3B42; 
-        border-color: #4430A6; 
-      } 
 
-      .btn-nonseat:hover, 
-      .btn-nonseat:focus, 
-      .btn-nonseat:active, 
-      .btn-nonseat.active, 
-      .open .dropdown-toggle.btn-nonseat { 
-        color: #FFFFFF; 
-        background-color: #52627A; 
-        border-color: #4430A6; 
-      } 
-
-      .btn-nonseat:active, 
-      .btn-nonseat.active, 
-      .open .dropdown-toggle.btn-nonseat { 
-        background-image: none; 
-      } 
-
-      .btn-nonseat.disabled, 
-      .btn-nonseat[disabled], 
-      fieldset[disabled] .btn-nonseat, 
-      .btn-nonseat.disabled:hover, 
-      .btn-nonseat[disabled]:hover, 
-      fieldset[disabled] .btn-nonseat:hover, 
-      .btn-nonseat.disabled:focus, 
-      .btn-nonseat[disabled]:focus, 
-      fieldset[disabled] .btn-nonseat:focus, 
-      .btn-nonseat.disabled:active, 
-      .btn-nonseat[disabled]:active, 
-      fieldset[disabled] .btn-nonseat:active, 
-      .btn-nonseat.disabled.active, 
-      .btn-nonseat[disabled].active, 
-      fieldset[disabled] .btn-nonseat.active { 
-        background-color: #3E3B42; 
-        border-color: #4430A6; 
-      } 
-
-      .btn-nonseat .badge { 
-        color: #3E3B42; 
-        background-color: #FFFFFF; 
-      }
     </style>
 </head>
 
@@ -124,34 +74,15 @@
                         </select>
                       </div>
                       <div class="col-md-4">
-                      </div> 
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="col-md-5 control-label">排數</label>
                       <div class="col-md-3">
                         <select class="form-control" id="row" name="t_rows">
-                           <option value="5" ${(theaterVO.t_rows=="5")? 'selected': '' }>5</option>
-                           <option value="6" ${(theaterVO.t_rows=="6")? 'selected': '' }>6</option>
-                           <option value="7" ${(theaterVO.t_rows=="7")? 'selected': '' }>7</option>
-                           <option value="8" ${(theaterVO.t_rows=="8")? 'selected': '' }>8</option>
-                           <option value="9" ${(theaterVO.t_rows=="9")? 'selected': '' }>9</option>
-                           <option value="10"  ${(theaterVO.t_rows=="10")? 'selected': '' }>10</option>
-                           <option value="11"  ${(theaterVO.t_rows=="11")? 'selected': '' }>11</option>
-                           <option value="12"  ${(theaterVO.t_rows=="12")? 'selected': '' }>12</option>
-                           <option value="13"  ${(theaterVO.t_rows=="13")? 'selected': '' }>13</option>
-                           <option value="14"  ${(theaterVO.t_rows=="14")? 'selected': '' }>14</option>
-                           <option value="15"  ${(theaterVO.t_rows=="15")? 'selected': '' }>15</option>
-                           <option value="16"  ${(theaterVO.t_rows=="16")? 'selected': '' }>16</option>
-                           <option value="17"  ${(theaterVO.t_rows=="17")? 'selected': '' }>17</option>
-                           <option value="18"  ${(theaterVO.t_rows=="18")? 'selected': '' }>18</option>
-                           <option value="19"  ${(theaterVO.t_rows=="19")? 'selected': '' }>19</option>
-                           <option value="20"  ${(theaterVO.t_rows=="20")? 'selected': '' }>20</option>
-                           <option value="21"  ${(theaterVO.t_rows=="21")? 'selected': '' }>21</option>
-                           <option value="22"  ${(theaterVO.t_rows=="22")? 'selected': '' }>22</option>
-                           <option value="23"  ${(theaterVO.t_rows=="23")? 'selected': '' }>23</option>
-                           <option value="24"  ${(theaterVO.t_rows=="24")? 'selected': '' }>24</option>
-                           <option value="25"  ${(theaterVO.t_rows=="25")? 'selected': '' }>25</option>
-                           <option value="26"  ${(theaterVO.t_rows=="26")? 'selected': '' }>26</option>
+                          <c:forEach var="i" begin="5" end="26" step="1">
+                            <option value="${i}" ${(theaterVO.t_rows==i)? 'selected': '' }>${i}</option>
+                          </c:forEach>
                         </select>
                       </div>
                       <div class="col-md-4">
@@ -161,22 +92,9 @@
                       <label class="col-md-5 control-label">行數</label>
                       <div class="col-md-3">
                         <select class="form-control" id="col" name="t_columns">
-                           <option value="5" ${(theaterVO.t_columns=="5")? 'selected': '' }>5</option>
-                           <option value="6" ${(theaterVO.t_columns=="6")? 'selected': '' }>6</option>
-                           <option value="7" ${(theaterVO.t_columns=="7")? 'selected': '' }>7</option>
-                           <option value="8" ${(theaterVO.t_columns=="8")? 'selected': '' }>8</option>
-                           <option value="9" ${(theaterVO.t_columns=="9")? 'selected': '' }>9</option>
-                           <option value="10" ${(theaterVO.t_columns=="10")? 'selected': '' }>10</option>
-                           <option value="11" ${(theaterVO.t_columns=="11")? 'selected': '' }>11</option>
-                           <option value="12" ${(theaterVO.t_columns=="12")? 'selected': '' }>12</option>
-                           <option value="13" ${(theaterVO.t_columns=="13")? 'selected': '' }>13</option>
-                           <option value="14" ${(theaterVO.t_columns=="14")? 'selected': '' }>14</option>
-                           <option value="15" ${(theaterVO.t_columns=="15")? 'selected': '' }>15</option>
-                           <option value="16" ${(theaterVO.t_columns=="16")? 'selected': '' }>16</option>
-                           <option value="17" ${(theaterVO.t_columns=="17")? 'selected': '' }>17</option>
-                           <option value="18" ${(theaterVO.t_columns=="18")? 'selected': '' }>18</option>
-                           <option value="19" ${(theaterVO.t_columns=="19")? 'selected': '' }>19</option>
-                           <option value="20" ${(theaterVO.t_columns=="20")? 'selected': '' }>20</option>
+                          <c:forEach var="j" begin="5" end="20" step="1">
+                            <option value="${j}" ${(theaterVO.t_columns==j)? 'selected': '' }>${j}</option>
+                          </c:forEach>
                         </select>
                       </div>
                       <div class="col-md-1">
@@ -270,7 +188,7 @@
             let content = "";
             for(let i = 1; i <= row; i++) {
                 content += "<div class='form-group text-center'>";
-                content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + i + "&nbsp;&nbsp;";
+                content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
                 for(let j = 1; j <= col; j++) {
                     content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "'>" + j + "</button>";
                     content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
@@ -310,13 +228,15 @@
 
         <c:if test="${not empty theaterVO}">
           $("#seat_div").empty();
-          let row = ${theaterVO.t_rows};
-          let col = ${theaterVO.t_columns};
+          //let row = ${theaterVO.t_rows};
+          let row = ${rows};
+          //let col = ${theaterVO.t_columns};
+          let col = ${cols};
           console.log("row: " + row + " col: " + col);
           let content = "";
           for(let i = 1; i <= row; i++) {
               content += "<div class='form-group text-center'>";
-              content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + i + "&nbsp;&nbsp;";
+              content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
               for(let j = 1; j <= col; j++) {
                   content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "'>" + j + "</button>";
                   content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
