@@ -8,7 +8,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()+"/css/back_base.css"%>">
-
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/toastr.min.css">
+    <script src="<%=request.getContextPath()%>/js/toastr.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

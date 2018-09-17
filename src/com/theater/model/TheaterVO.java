@@ -3,6 +3,10 @@ package com.theater.model;
 import java.io.Reader;
 
 public class TheaterVO implements java.io.Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 721089029823905838L;
     private String theater_no;
     private String cinema_no;
     private String theater_name;
