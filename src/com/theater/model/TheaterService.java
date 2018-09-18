@@ -59,4 +59,8 @@ public class TheaterService {
     public List<TheaterVO> getAll() {
         return dao.getAll();
     }
+
+    public List<TheaterVO> getAllofCinema(String cinema_no) {
+        return dao.getAllofCinema(cinema_no);
+    }
 }
