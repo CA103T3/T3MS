@@ -65,7 +65,7 @@ public class FilmreviewServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-//
+
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				
@@ -162,8 +162,7 @@ public class FilmreviewServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/forestage/filmreview/fv_writing.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/forestage/filmreview/fv_writing.jsp");
 				failureView.forward(req, res);
 			}
 		}

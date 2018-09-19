@@ -50,7 +50,7 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-	<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/filmreview/filmreview.do" class="form-horizontal" role="form">
+	<form METHOD="post" ACTION="<%=request.getContextPath()%>/filmreview/filmreview.do" class="form-horizontal" role="form">
 		
 		<div class="container">
 			<div class="row ">

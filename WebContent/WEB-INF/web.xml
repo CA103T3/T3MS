@@ -21,4 +21,12 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
+  <servlet>
+    <servlet-name>FilmreviewServlet</servlet-name>
+    <servlet-class>com.filmreview.controller.FilmreviewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FilmreviewServlet</servlet-name>
+    <url-pattern>/filmreview/filmreview.do</url-pattern>
+  </servlet-mapping>
 </web-app>
