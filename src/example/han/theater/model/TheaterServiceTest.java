@@ -50,7 +50,8 @@ public class TheaterServiceTest extends HttpServlet {
         testGetAll();
         testDeleteTheater(theater_no);
         testGetAll();
-
+        String cinema_no = "C001";
+        testGetAllofCinema(cinema_no);
 	}
 
 //  insert into CINEMA (CINEMA_NO, CINEMA_NAME) values ('C001', '威秀影城');
@@ -66,9 +67,9 @@ public class TheaterServiceTest extends HttpServlet {
 
         //TheaterVO theaterVO = tSvc.addTheater(cinema_no, theater_name, t_rows, t_columns, seat_model, seats, equipment);
         String theater_no = tSvc.addTheater(cinema_no, theater_name, t_rows, t_columns, seat_model, seats, equipment);
-        
+
         out.println("Add Theater_no : " + theater_no);
-        
+
 //      out.println("Theater_no : " + theaterVO.getTheater_no());
 //      out.println("Cinema_no : " + theaterVO.getCinema_no());
 //      out.println("Theater_name : " + theaterVO.getTheater_name());
@@ -76,11 +77,11 @@ public class TheaterServiceTest extends HttpServlet {
 //      out.println("T_columns : " + theaterVO.getT_columns());
 //      out.println("Seats : " + theaterVO.getSeats());
 //      out.println("Equipment : " + theaterVO.getEquipment());
-        
+
         //can not use seat_model again after inserting to database
         //String seatModel = readString(seat_model);
         //System.out.println("theaterVO.getSeat_model():" + theaterVO.getSeat_model());
-        
+
         StringReader seatModel = new StringReader(clobContent);
         //https://www.baeldung.com/java-convert-reader-to-string
 //      char[] arr = new char[8 * 1024];
@@ -130,6 +131,14 @@ public class TheaterServiceTest extends HttpServlet {
     public void testGetAll() {
         List<TheaterVO> list = tSvc.getAll();
         out.println(list.size());
+        for(TheaterVO vo : list) {
+            out.println(vo.getTheater_no());
+        }
+    }
+
+    public void testGetAllofCinema(String cinema_no) {
+        List<TheaterVO> list = tSvc.getAllofCinema(cinema_no);
+        out.println(cinema_no + " list size() : " + list.size());
         for(TheaterVO vo : list) {
             out.println(vo.getTheater_no());
         }

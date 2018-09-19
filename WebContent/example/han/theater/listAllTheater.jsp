@@ -6,8 +6,8 @@
 
 <%
     TheaterService tSvc = new TheaterService();
-	List<TheaterVO> list = tSvc.getAllofCinema(request.getParameter("cinema_no"));
-	pageContext.setAttribute("list",list);
+    List<TheaterVO> list = tSvc.getAllofCinema(request.getParameter("cinema_no"));
+    pageContext.setAttribute("list",list);
 %>
 
 <!DOCTYPE html>
@@ -44,37 +44,34 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>檢視影廳</label></h1>
-                    <table id="theaters" class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>影廳編號</th>
-                                <th>影廳名稱</th>
-                                <th>排數</th>
-                                <th>行數</th>
-                                <th>座位數</th>
-                                <th>影廳設備</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-						<c:forEach var="theaterVO" items="${list}" begin="<%=0%>" end="<%=list.size()%>">
-                            <tr>
-                                <td>${theaterVO.theater_no}</td>
-                                <td>${theaterVO.theater_name}</td>
-                                <td>${theaterVO.t_rows}</td>
-                                <td>${theaterVO.t_columns}</td>
-                                <td>${theaterVO.seats}</td>
-                                <td>${theaterVO.equipment}</td>
-                                <td>$320,800</td>
-                            </tr>
-	                    </c:forEach>
-                        </tbody>
-                    </table>
+                <h3 class="page-header"><label>檢視影廳&nbsp;&nbsp;&nbsp;</label><a href="<%=request.getContextPath()%>/example/han/theater/addTheater.jsp?cinema_no=${param.cinema_no}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i><span class="fs16">&nbsp;新增影廳</span></a></h1>
+                <table id="theaters" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>影廳編號</th>
+                            <th>影廳名稱</th>
+                            <th>排數</th>
+                            <th>行數</th>
+                            <th>座位數</th>
+                            <th>影廳設備</th>
+                            <th>執行動作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="theaterVO" items="${list}" begin="<%=0%>" end="<%=list.size()%>">
+                        <tr>
+                            <td>${theaterVO.theater_no}</td>
+                            <td>${theaterVO.theater_name}</td>
+                            <td>${theaterVO.t_rows}</td>
+                            <td>${theaterVO.t_columns}</td>
+                            <td>${theaterVO.seats}</td>
+                            <td>${theaterVO.equipment}</td>
+                            <td><a href="" class="btn btn-success fs16"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視</a>&nbsp;&nbsp;<a href="" class="btn btn-warning fs16"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改</a>&nbsp;&nbsp;<a href="" class="btn btn-danger fs16"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除</a></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
-
-
-
         </div>
     </div>
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
@@ -85,7 +82,7 @@
             "url": "<%=request.getContextPath()%>/resources/Chinese-traditional.json"
           }
         });
-    } );
+    });
     </script>
 </body>
 </html>

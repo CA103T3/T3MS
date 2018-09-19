@@ -18,7 +18,13 @@
     <%@ include file="/backstage/template/link.jsp" %>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/addTheater.css">
     <style type="text/css">
-
+      #loding_spinner{
+          position:fixed;
+          _position:absolute;
+          top:40%;              /* center */
+          left:50%;
+          z-index:9999;         /* in front */
+      }
     </style>
 </head>
 
@@ -27,7 +33,7 @@
     <div id="wrapper" class="mt50">
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
-            <div class="container-fluid">
+            <div class="container">
                 <h3 class="page-header"><label>新增影廳</label></h1>
                 <%-- 錯誤表列 --%>
                 <%-- <%=request.getAttribute("errorMsgs")%> --%>
@@ -56,7 +62,7 @@
                         <input class="form-control" id="" type="text" name="theater_name" value="<%= (theaterVO==null) ? "" : theaterVO.getTheater_name() %>" >
                       </div>
                       <div class="col-md-4">
-                      </div> 
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="col-md-5 control-label">影廳設備</label>
@@ -98,9 +104,9 @@
                         </select>
                       </div>
                       <div class="col-md-1">
-                        <a href="#seat_div" class="btn btn-primary btn-md" id="gen_seat">
-                          <span class="glyphicon glyphicon-cog"></span>&nbsp;產生座位
-                        </a>
+                        <button type="button" class="btn btn-primary btn-md fs16" id="gen_seat">
+                          <i class="fa fa-cog" aria-hidden="true"></i>&nbsp;產生座位
+                        </button>
                       </div>
                       <div class="col-md-3">
                       </div>
@@ -135,13 +141,19 @@
                     </div>
                     <div class="form-group text-center">
                       <input type="hidden" name="action" value="insert">
-                      <button class="btn btn-basic" id="smtbtn" type="submit" disabled><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;送出</button>
+                      <button class="btn btn-basic fs16" id="smtbtn" type="submit" disabled><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;送出</button>
                     </div>
                 </form>
 
             </div>
         </div>
     </div>
+
+    <div id="loding_spinner" style="display: none;">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+      <span class="sr-only">座位產生中...</span>
+    </div>
+
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -181,23 +193,29 @@
 
         //$("#gen_seat").click(function(){
         $(document).on("click", "#gen_seat", function(event){
+            //$(".fa-cog").addClass("fa-spin");
+            //$(".fa-cog").removeClass("fa-spin");
             $("#seat_div").empty();
-            let row = $("#row").val();
-            let col = $("#col").val();
-            console.log("row: " + row + " col: " + col);
-            let content = "";
-            for(let i = 1; i <= row; i++) {
-                content += "<div class='form-group text-center'>";
-                content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
-                for(let j = 1; j <= col; j++) {
-                    content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "'>" + j + "</button>";
-                    content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
-                }
-                content += "</div>";
-            }
-            $("#seat_div").append(content);
-            $("#smtbtn").prop("disabled", false);
-            $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
+            $('#loding_spinner').fadeIn(200);
+            //$('#loding_spinner').fadeOut();
+            $('#loding_spinner').fadeOut(300, function(){
+              let row = $("#row").val();
+              let col = $("#col").val();
+              console.log("row: " + row + " col: " + col);
+              let content = "";
+              for(let i = 1; i <= row; i++) {
+                  content += "<div class='form-group text-center'>";
+                  content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
+                  for(let j = 1; j <= col; j++) {
+                      content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "'>" + j + "</button>";
+                      content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
+                  }
+                  content += "</div>";
+              }
+              $("#seat_div").append(content);
+              $("#smtbtn").prop("disabled", false);
+              $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
+            });
         });
 
         $(document).on("click", ".seat", function(event){
