@@ -55,7 +55,7 @@ public class TheaterServletTest extends HttpServlet {
 
         String action = req.getParameter("action");
 
-        if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
+        if ("insert".equals(action)) { // from addTheater.jsp
 
             List<String> errorMsgs = new LinkedList<String>();
             // Store this set in the request scope, in case we need to
@@ -98,7 +98,7 @@ public class TheaterServletTest extends HttpServlet {
             System.out.println("cols : " + cols); //real columns
             try {
                 /***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-                String theater_name = req.getParameter("theater_name");
+                String theater_name = req.getParameter("theater_name").trim();
                 String theater_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,12}$";
                 System.out.println("theater_name : " + theater_name);
                 System.out.println("theater_name length: " + theater_name.trim().length());
@@ -272,9 +272,9 @@ public class TheaterServletTest extends HttpServlet {
                         t_rows, t_columns, seat_model, seats, equipment);
                 
                 /***************************3.新增完成,準備轉交(Send the Success view)***********/
-//                String url = "/emp/listAllEmp.jsp";
-//                RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-//                successView.forward(req, res);
+                String url = "/example/han/theater/listAllTheater.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllTheater.jsp
+                successView.forward(req, res);
                 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
@@ -286,7 +286,7 @@ public class TheaterServletTest extends HttpServlet {
             }
         }
 
-        if ("delete".equals(action)) { // 來自listAllEmp.jsp 或  /dept/listEmps_ByDeptno.jsp的請求
+        if ("delete".equals(action)) { // from listAllTheater.jsp
 
             List<String> errorMsgs = new LinkedList<String>();
             // Store this set in the request scope, in case we need to
@@ -319,6 +319,57 @@ public class TheaterServletTest extends HttpServlet {
                 errorMsgs.add("刪除資料失敗:"+e.getMessage());
                 RequestDispatcher failureView = req
                         .getRequestDispatcher(requestURL);
+                failureView.forward(req, res);
+            }
+        }
+
+        if ("view".equals(action)) { // from listAllTheater.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+			String requestURL = req.getParameter("requestURL");
+
+            try {
+                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+                String theater_no = req.getParameter("theater_no");
+                if (theater_no == null || (theater_no.trim()).length() == 0) {
+                    errorMsgs.add("請輸入影廳編號");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************2.開始查詢資料*****************************************/
+                TheaterService tSvc = new TheaterService();
+                TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
+                if (theaterVO == null) {
+                    errorMsgs.add("查無資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)*************/
+                req.setAttribute("theaterVO", theaterVO); // 資料庫取出的theaterVO物件,存入req
+                String url = "/example/han/theater/listOneTheater.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneTheater.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理*************************************/
+            } catch (Exception e) {
+                errorMsgs.add("無法取得資料:" + e.getMessage());
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("requestURL");
                 failureView.forward(req, res);
             }
         }

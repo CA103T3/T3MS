@@ -70,10 +70,21 @@
                             <td>${theaterVO.seats}</td>
                             <td>${theaterVO.equipment}</td>
                             <td>
-                                <a href="" class="btn btn-success fs16"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視</a>&nbsp;&nbsp;
+<!--                                 <a href="" class="btn btn-success fs16"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視</a>&nbsp;&nbsp; -->
+                                <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
+                                    <button type="submit" id="view-btn-${s.index}" class="btn btn-success fs16 " >
+                                        <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視
+                                    </button>&nbsp;&nbsp;
+                                    <input type="hidden" name="theater_no" value="${theaterVO.theater_no}">
+                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"><!--送出本網頁的路徑給Controller-->
+                                    <input type="hidden" name="whichRecordIndex" value="${s.index}">
+                                    <input type="hidden" name="action" value="view">
+                                </form>
                                 <a href="" class="btn btn-warning fs16"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改</a>&nbsp;&nbsp;
                                 <form id="fm-del-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
-                                    <button type="button" id="del-btn-${s.index}" class="btn btn-danger fs16 del-btn" data-name="${theaterVO.theater_name}" data-form="fm-del-${s.index}"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除</button>
+                                    <button type="button" id="del-btn-${s.index}" class="btn btn-danger fs16 del-btn" data-name="${theaterVO.theater_name}" data-form="fm-del-${s.index}">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除
+                                    </button>
                                     <input type="hidden" name="theater_no" value="${theaterVO.theater_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"><!--送出本網頁的路徑給Controller-->
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
