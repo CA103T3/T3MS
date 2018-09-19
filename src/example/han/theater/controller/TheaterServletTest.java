@@ -286,6 +286,43 @@ public class TheaterServletTest extends HttpServlet {
             }
         }
 
+        if ("delete".equals(action)) { // 來自listAllEmp.jsp 或  /dept/listEmps_ByDeptno.jsp的請求
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑
+
+            try {
+                /***************************1.接收請求參數***************************************/
+               String theater_no = req.getParameter("theater_no");
+
+                /***************************2.開始刪除資料***************************************/
+               TheaterService tSvc = new TheaterService();
+//               TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
+               tSvc.deleteTheater(theater_no);
+
+                /***************************3.刪除完成,準備轉交(Send the Success view)***********/
+               // DeptService deptSvc = new DeptService();
+               // if(requestURL.equals("/dept/listEmps_ByDeptno.jsp") || requestURL.equals("/dept/listAllDept.jsp"))
+                   // req.setAttribute("listEmps_ByDeptno",deptSvc.getEmpsByDeptno(empVO.getDeptno())); // 資料庫取出的list物件,存入request
+
+               String url = requestURL;
+               System.out.println("requestURL: " + url);
+               RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
+               successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理**********************************/
+            } catch (Exception e) {
+                errorMsgs.add("刪除資料失敗:"+e.getMessage());
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher(requestURL);
+                failureView.forward(req, res);
+            }
+        }
+
     }
 
 }

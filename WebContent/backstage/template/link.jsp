@@ -14,6 +14,7 @@
     <script src="<%=request.getContextPath()%>/js/toastr.min.js"></script>
     <%--     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> --%>
     <script src="<%=request.getContextPath()%>/js/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/js/row().show().js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

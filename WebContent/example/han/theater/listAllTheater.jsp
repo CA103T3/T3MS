@@ -35,6 +35,9 @@
         table.dataTable thead .sorting_desc_disabled {
           background: url("<%=request.getContextPath()%>/img/sort_desc_disabled.png") no-repeat center right;
         }
+        .dp-inline {
+            display:inline;
+        }
     </style>
 </head>
 
@@ -58,7 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="theaterVO" items="${list}" begin="<%=0%>" end="<%=list.size()%>">
+                    <c:forEach var="theaterVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
                         <tr>
                             <td>${theaterVO.theater_no}</td>
                             <td>${theaterVO.theater_name}</td>
@@ -66,7 +69,17 @@
                             <td>${theaterVO.t_columns}</td>
                             <td>${theaterVO.seats}</td>
                             <td>${theaterVO.equipment}</td>
-                            <td><a href="" class="btn btn-success fs16"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視</a>&nbsp;&nbsp;<a href="" class="btn btn-warning fs16"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改</a>&nbsp;&nbsp;<a href="" class="btn btn-danger fs16"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除</a></td>
+                            <td>
+                                <a href="" class="btn btn-success fs16"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視</a>&nbsp;&nbsp;
+                                <a href="" class="btn btn-warning fs16"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改</a>&nbsp;&nbsp;
+                                <form method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
+                                    <button type="submit" class="btn btn-danger fs16"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除</button>
+                                    <input type="hidden" name="theater_no"      value="${theaterVO.theater_no}">
+                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"><!--送出本網頁的路徑給Controller-->
+                                    <input type="hidden" name="whichRecordIndex"  value="${s.index}">
+                                    <input type="hidden" name="action"     value="delete">
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -82,6 +95,32 @@
             "url": "<%=request.getContextPath()%>/resources/Chinese-traditional.json"
           }
         });
+
+        <c:if test="${not empty list}">
+            <c:if test="${not empty param.whichRecordIndex}">
+                setTimeout(function(){
+                    var table = $('#theaters').DataTable();
+                    if(table.rows().count()==${param.whichRecordIndex}) {
+                        table.row(table.rows().count() - 1).show().draw(false);
+                        console.log("last row: ", (table.rows().count() - 1), " show()");
+                    } else {
+                        table.row(${param.whichRecordIndex}).show().draw(false);
+                        console.log("row: ", ${param.whichRecordIndex}, " show()");
+                    }
+
+                }, 100);
+                // not work, use setTimeout
+                // var table = $('#theaters').DataTable();
+                // table.row(${param.whichRecordIndex}).show().draw(false);
+            </c:if>
+        </c:if>
+
+        //show errorMsgs
+        <c:if test="${not empty errorMsgs}">
+          <c:forEach var="message" items="${errorMsgs}">
+            toastr.error("${message}");
+          </c:forEach>
+        </c:if>
     });
     </script>
 </body>
