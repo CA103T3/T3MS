@@ -31,7 +31,7 @@ public class FilmreviewJNDIDAO implements FilmreviewDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR,ACTIVE) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?,?)";
+			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 			"SELECT FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR,ACTIVE FROM Filmreview order by FR_NO";
 	private static final String GET_ONE_STMT = 
@@ -62,7 +62,6 @@ public class FilmreviewJNDIDAO implements FilmreviewDAO_interface{
 			pstmt.setString(6, filmreviewVO.getUrl());
 			pstmt.setString(7, filmreviewVO.getMem_no());
 			pstmt.setString(8, filmreviewVO.getAuthor());
-			pstmt.setInt(9, filmreviewVO.getActive());
 			
 			pstmt.executeUpdate();
 			
@@ -111,8 +110,8 @@ public class FilmreviewJNDIDAO implements FilmreviewDAO_interface{
 			pstmt.setString(6, filmreviewVO.getUrl());
 			pstmt.setString(7, filmreviewVO.getMem_no());
 			pstmt.setString(8, filmreviewVO.getAuthor());
-			pstmt.setInt(9, filmreviewVO.getActive());
-			pstmt.setString(10, filmreviewVO.getFr_no());
+
+			pstmt.setString(9, filmreviewVO.getFr_no());
 			
 			pstmt.executeUpdate();
 			
@@ -209,7 +208,6 @@ public class FilmreviewJNDIDAO implements FilmreviewDAO_interface{
 				filmreviewVO.setUrl(rs.getString("url"));
 				filmreviewVO.setMem_no(rs.getString("mem_no"));
 				filmreviewVO.setAuthor(rs.getString("author"));
-				filmreviewVO.setActive(rs.getInt("active"));
 			
 				
 			} 
@@ -278,7 +276,6 @@ public class FilmreviewJNDIDAO implements FilmreviewDAO_interface{
 				filmreviewVO.setUrl(rs.getString("url"));
 				filmreviewVO.setMem_no(rs.getString("mem_no"));
 				filmreviewVO.setAuthor(rs.getString("author"));
-				filmreviewVO.setActive(rs.getInt("active"));
 				list.add(filmreviewVO);
 				
 			} 

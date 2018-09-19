@@ -18,7 +18,7 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR,ACTIVE) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?,?)";
+			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 			"SELECT FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR,ACTIVE FROM Filmreview order by FR_NO";
 	private static final String GET_ONE_STMT = 
@@ -26,7 +26,7 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 	private static final String DELETE = 
 			"DELETE FROM Filmreview where FR_NO = ?";
 	private static final String UPDATE = 
-			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=?, ACTIVE=? where FR_NO = ?";
+			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=? where FR_NO = ?";
 	
 	@Override
 	public void insert(FilmreviewVO filmreviewVO) {
@@ -49,7 +49,7 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 			pstmt.setString(6, filmreviewVO.getUrl());
 			pstmt.setString(7, filmreviewVO.getMem_no());
 			pstmt.setString(8, filmreviewVO.getAuthor());
-			pstmt.setInt(9, filmreviewVO.getActive());
+			
 			
 			pstmt.executeUpdate();
 			
@@ -98,8 +98,8 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 			pstmt.setString(6, filmreviewVO.getUrl());
 			pstmt.setString(7, filmreviewVO.getMem_no());
 			pstmt.setString(8, filmreviewVO.getAuthor());
-			pstmt.setInt(9, filmreviewVO.getActive());
-			pstmt.setString(10, filmreviewVO.getFr_no());
+			
+			pstmt.setString(9, filmreviewVO.getFr_no());
 			
 			pstmt.executeUpdate();
 			
@@ -196,7 +196,7 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 				filmreviewVO.setUrl(rs.getString("url"));
 				filmreviewVO.setMem_no(rs.getString("mem_no"));
 				filmreviewVO.setAuthor(rs.getString("author"));
-				filmreviewVO.setActive(rs.getInt("active"));
+				
 			
 				
 			} 
@@ -265,7 +265,7 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 				filmreviewVO.setUrl(rs.getString("url"));
 				filmreviewVO.setMem_no(rs.getString("mem_no"));
 				filmreviewVO.setAuthor(rs.getString("author"));
-				filmreviewVO.setActive(rs.getInt("active"));
+				
 				list.add(filmreviewVO);
 				
 			} 
@@ -318,14 +318,14 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 //		filmreview1.setMovie_no("666");
 //		
 //		
-//		filmreview1.setContent("步步步");
+//		filmreview1.setContent("好 看 !!");
 //		filmreview1.setEvaluation(new Double(5.0));
 //		filmreview1.setTitle("movie1");
-//		filmreview1.setSource("ez");
-//		filmreview1.setUrl("www.");
+//		filmreview1.setSource("我自己");
+//		filmreview1.setUrl("www.yahoo.com.tw");
 //		filmreview1.setMem_no("M001");
 //		filmreview1.setAuthor("610");
-//		filmreview1.setActive(1);
+//	
 //	
 //		dao.insert(filmreview1);
 //		
@@ -346,7 +346,6 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 //		filmreview2.setUrl("www.");
 //		filmreview2.setMem_no("M001");
 //		filmreview2.setAuthor("610");
-//		filmreview2.setActive(1);
 //		dao.update(filmreview2);
 //		
 //		System.out.println("OK");
@@ -358,21 +357,20 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 		
 //      選一個
 		
-		FilmreviewVO filmreview3 = dao.findByPrimaryKey("F00003");
-		
-		System.out.println(filmreview3.getFr_no()+" , ");
-		System.out.println(filmreview3.getMovie_no()+" , ");
-		System.out.println(filmreview3.getCreated_at()+" , ");
-		System.out.println(filmreview3.getUpdated_at()+" , ");
-		System.out.println(filmreview3.getContent()+" , ");
-		System.out.println(filmreview3.getEvaluation()+" , ");
-		System.out.println(filmreview3.getTitle()+" , ");
-		System.out.println(filmreview3.getSource()+" , ");
-		System.out.println(filmreview3.getUrl()+" , ");
-		System.out.println(filmreview3.getMem_no()+" , ");
-		System.out.println(filmreview3.getAuthor()+" , ");
-		System.out.println(filmreview3.getActive()+" , ");
-		
+//		FilmreviewVO filmreview3 = dao.findByPrimaryKey("F00003");
+//		
+//		System.out.println(filmreview3.getFr_no()+" , ");
+//		System.out.println(filmreview3.getMovie_no()+" , ");
+//		System.out.println(filmreview3.getCreated_at()+" , ");
+//		System.out.println(filmreview3.getUpdated_at()+" , ");
+//		System.out.println(filmreview3.getContent()+" , ");
+//		System.out.println(filmreview3.getEvaluation()+" , ");
+//		System.out.println(filmreview3.getTitle()+" , ");
+//		System.out.println(filmreview3.getSource()+" , ");
+//		System.out.println(filmreview3.getUrl()+" , ");
+//		System.out.println(filmreview3.getMem_no()+" , ");
+//		System.out.println(filmreview3.getAuthor()+" , ");
+//		
 //		
 		
 		
@@ -392,7 +390,6 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 //			System.out.println(fv.getUrl()+" , ");
 //			System.out.println(fv.getMem_no()+" , ");
 //			System.out.println(fv.getAuthor()+" , ");
-//			System.out.println(fv.getActive()+" , ");
 //		}
 		
 		

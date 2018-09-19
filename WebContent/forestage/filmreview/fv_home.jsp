@@ -10,11 +10,23 @@
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
   </head><body>
+  
+  
+ 
+  <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <a href="fv_list.jsp" class="btn btn-primary">我的影評</a>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="section">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1 class="text-center">Subscribe</h1>
+            <h1 class="text-center">搜尋</h1>
           </div>
         </div>
         <div class="row">
@@ -22,7 +34,7 @@
             <form role="form">
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Enter your email">
+                  <input type="text" class="form-control" placeholder="請輸入電影名稱">
                   <span class="input-group-btn">
                     <a class="btn btn-primary" type="submit">Go</a>
                   </span>
@@ -37,7 +49,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <a class="btn btn-block btn-lg btn-primary">寫</a>
+            <a href="fv_writing.jsp" class="btn btn-block btn-lg btn-primary">寫影評</a>
           </div>
         </div>
       </div>
@@ -47,8 +59,8 @@
         <div class="row">
           <div class="col-md-6">
             <div class="page-header">
-              <h1>page header
-                <small>Subtext</small>
+              <h1>最近影評
+                <small>熱門影評</small>
               </h1>
             </div>
           </div>

@@ -16,7 +16,7 @@ public class FilmreviewVO implements java.io.Serializable{
 	private String url;
 	private String mem_no;
 	private String author;
-	private Integer active;
+	
 	public String getFr_no() {
 		return fr_no;
 	}
@@ -83,12 +83,7 @@ public class FilmreviewVO implements java.io.Serializable{
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public Integer getActive() {
-		return active;
-	}
-	public void setActive(Integer active) {
-		this.active = active;
-	}
+	
 	
 	
 
