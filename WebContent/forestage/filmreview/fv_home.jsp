@@ -1,6 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.filmreview.model.*"%>    
+    
+    
+<%
+	FilmreviewDAO fvSvc = new FilmreviewDAO();
+	List<FilmreviewVO> list = fvSvc.getAll();
+	pageContext.setAttribute("list",list);
+%>
+
 <!DOCTYPE html>
+
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -9,7 +21,8 @@
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
-  </head><body>
+  </head>
+  <body>
   
   
  
@@ -22,6 +35,9 @@
         </div>
       </div>
     </div>
+    
+	    
+    
     <div class="section">
       <div class="container">
         <div class="row">
@@ -67,198 +83,67 @@
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-          </div>
-          <div class="col-md-7">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-              dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-              nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-              Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-              enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
-              felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
-              elementum semper nisi.</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-            <p class="text-center">Developer</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-          </div>
-          <div class="col-md-7">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-              dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-              nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-              Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-              enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
-              felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
-              elementum semper nisi.</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-            <p class="text-center">Developer</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-          </div>
-          <div class="col-md-7">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-              dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-              nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-              Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-              enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
-              felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
-              elementum semper nisi.</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-            <p class="text-center">Developer</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-          </div>
-          <div class="col-md-7">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-              dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-              nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-              Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-              enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
-              felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
-              elementum semper nisi.</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-            <p class="text-center">Developer</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-          </div>
-          <div class="col-md-7">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-              dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-              nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
-              Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In
-              enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
-              felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
-              elementum semper nisi.</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-            <p class="text-center">Developer</p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">John Doe</h3>
-          </div>
-        </div>
+    
+    
+    
+     
+    
+    
+    
         
-      </div>
-    </div>
-    <div class="section">
+    	<%@ include file="pagef.file" %> 
+		<c:forEach var="FilmreviewVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+        
+        <div class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 text-center">
-            <ul class="pagination pagination-sm">
-              <li>
-                <a href="#">Prev</a>
-              </li>
-              <li>
-                <a href="#">1</a>
-              </li>
-              <li>
-                <a href="#">2</a>
-              </li>
-              <li>
-                <a href="#">3</a>
-              </li>
-              <li>
-                <a href="#">4</a>
-              </li>
-              <li>
-                <a href="#">5</a>
-              </li>
-              <li>
-                <a href="#">Next</a>
-              </li>
-            </ul>
+        
+          <div class="col-md-1">
+          <a href="#">
+            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
+			</a>          
           </div>
-        </div>
+          
+          <div class="col-md-7">
+            <p>${FilmreviewVO.title}</p>
+          </div>
+          
+          <div class="col-md-1">
+            <h3 class="text-center">${FilmreviewVO.created_at}</h3>
+          </div>
+          
+          <div class="col-md-1">
+          <a href="#">
+            <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
+            <p class="text-center">${FilmreviewVO.mem_no}</p>
+            </a>
+          </div>
+          
+          <div class="col-md-1">
+            <h3 class="text-center">${FilmreviewVO.movie_no}</h3>
+          </div>
+          
+          <div class="col-md-1">
+            <h3 class="text-center">${FilmreviewVO.evaluation}</h3>
+          </div>
+          
+            </div>
       </div>
     </div>
+   
+          </c:forEach>
+         <%@ include file="pageb.file" %>
+          
+      
+  
+   
+   
+  
+  
+  
+  
+  
+  
   
 
 </body>

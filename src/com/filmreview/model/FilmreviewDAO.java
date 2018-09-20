@@ -1,7 +1,7 @@
 package com.filmreview.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,21 +21,18 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/T3MS");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "T3MS";
-	String passwd = "123456";
+	
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR,ACTIVE FROM Filmreview order by FR_NO";
+			"SELECT * FROM Filmreview order by FR_NO";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM Filmreview where FR_NO = ?";
 	private static final String DELETE = 
@@ -51,8 +48,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 		
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, filmreviewVO.getMovie_no());
@@ -69,9 +65,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 			
 		}catch(SQLException se){
 			throw new RuntimeException("A database error occured."+se.getMessage());
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+		
 		}finally {
 			if(pstmt != null) {
 				try {
@@ -98,8 +92,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 		
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, filmreviewVO.getMovie_no());
@@ -117,8 +110,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "+e.getMessage());
+		
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "+se.getMessage());
 		}finally{
@@ -148,16 +140,13 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 		
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, fr_no);
 			
 			pstmt.executeQuery();
 			
-		}catch(ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver."+e.getMessage());
 		}catch(SQLException se) {
 			throw new RuntimeException("A database error occured. "+se.getMessage());
 		}finally {
@@ -190,8 +179,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 		
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			pstmt.setString(1, fr_no);
 			rs = pstmt.executeQuery();
@@ -215,11 +203,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 			} 
 				
 				
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -259,8 +243,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 		
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -283,11 +266,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 			} 
 				
 				
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources

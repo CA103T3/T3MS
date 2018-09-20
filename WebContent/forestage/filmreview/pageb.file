@@ -1,0 +1,64 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+  
+  
+  
+  
+  
+  
+  <%if (pageNumber>1) {%>
+  
+  
+  
+   
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <ul class="pagination pagination-sm">
+            
+            <%if (pageNumber>0){%>
+  <b><font color=red>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
+<%}%>
+
+<b>●符 合 查 詢 條 件 如 下 所 示: 共<font color=red><%=rowNumber%></font>筆</b>
+
+</ul>
+          </div>
+<div class="col-md-12 text-center">
+            <ul class="pagination pagination-sm">
+            
+             <%if(pageIndex>=rowsPerPage){%>
+              <li>
+        		<A href="<%=request.getRequestURI()%>?whichPage=1">至第一頁</A>&nbsp;
+        	  </li>
+    		<%}%>
+              
+              
+              <%for (int i=1; i<=pageNumber; i++){%>
+              <li>
+           		 <A href="<%=request.getRequestURI()%>?whichPage=<%=i%>"><%=i%> </A>
+           	  </li>
+         	  <%}%> 
+            
+    <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
+       <li>
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">至最後一頁</A>&nbsp;
+         </li>
+    <%}%>
+    
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+   <%}%>
+  
+

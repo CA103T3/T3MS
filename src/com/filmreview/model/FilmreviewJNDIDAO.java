@@ -33,13 +33,13 @@ public class FilmreviewJNDIDAO implements FilmreviewDAO_interface{
 	private static final String INSERT_STMT = 
 			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR,ACTIVE FROM Filmreview order by FR_NO";
+			"SELECT * FROM Filmreview order by FR_NO";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM Filmreview where FR_NO = ?";
 	private static final String DELETE = 
 			"DELETE FROM Filmreview where FR_NO = ?";
 	private static final String UPDATE = 
-			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=?, ACTIVE=? where FR_NO = ?";
+			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=? where FR_NO = ?";
 	
 	@Override
 	public void insert(FilmreviewVO filmreviewVO) {

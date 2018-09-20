@@ -20,7 +20,7 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 	private static final String INSERT_STMT = 
 			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR,ACTIVE FROM Filmreview order by FR_NO";
+			"SELECT * FROM Filmreview order by FR_NO";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM Filmreview where FR_NO = ?";
 	private static final String DELETE = 
@@ -376,21 +376,21 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 		
 //		全都要
 		
-//		List<FilmreviewVO> list = dao.getAll();
-//		
-//		for(FilmreviewVO fv : list) {
-//			System.out.println(fv.getFr_no()+" , ");
-//			System.out.println(fv.getMovie_no()+" , ");
-//			System.out.println(fv.getCreated_at()+" , ");
-//			System.out.println(fv.getUpdated_at()+" , ");
-//			System.out.println(fv.getContent()+" , ");
-//			System.out.println(fv.getEvaluation()+" , ");
-//			System.out.println(fv.getTitle()+" , ");
-//			System.out.println(fv.getSource()+" , ");
-//			System.out.println(fv.getUrl()+" , ");
-//			System.out.println(fv.getMem_no()+" , ");
-//			System.out.println(fv.getAuthor()+" , ");
-//		}
+		List<FilmreviewVO> list = dao.getAll();
+		
+		for(FilmreviewVO fv : list) {
+			System.out.println(fv.getFr_no()+" , ");
+			System.out.println(fv.getMovie_no()+" , ");
+			System.out.println(fv.getCreated_at()+" , ");
+			System.out.println(fv.getUpdated_at()+" , ");
+			System.out.println(fv.getContent()+" , ");
+			System.out.println(fv.getEvaluation()+" , ");
+			System.out.println(fv.getTitle()+" , ");
+			System.out.println(fv.getSource()+" , ");
+			System.out.println(fv.getUrl()+" , ");
+			System.out.println(fv.getMem_no()+" , ");
+			System.out.println(fv.getAuthor()+" , ");
+		}
 		
 		
 		

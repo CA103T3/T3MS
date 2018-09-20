@@ -56,6 +56,8 @@ public class FilmreviewService {
     public FilmreviewVO  findByPrimaryKey(String fr_no) {
     	return dao.findByPrimaryKey(fr_no);
     	}
+    
+    
     public List<FilmreviewVO> getAll(){
     	return dao.getAll();
     }
