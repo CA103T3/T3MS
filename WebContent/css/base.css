@@ -18,7 +18,7 @@
 .navbar-brand > img {
   height: 100%;
   padding: 0px;
-  width: auto;
+  width: 50%;
 }
 
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
