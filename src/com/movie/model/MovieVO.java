@@ -7,7 +7,7 @@ public class MovieVO implements java.io.Serializable{
 	private String movie_type;
 	private String movie_name;
 	private String eng_name;
-	private String poster_path;
+	private byte[] poster_path;
 	private Date relased;
 	private String distributed;
 	private Integer length;
@@ -48,10 +48,10 @@ public class MovieVO implements java.io.Serializable{
 	public void setEng_name(String eng_name) {
 		this.eng_name = eng_name;
 	}
-	public String getPoster_path() {
+	public byte[] getPoster_path() {
 		return poster_path;
 	}
-	public void setPoster_path(String poster_path) {
+	public void setPoster_path(byte[] poster_path) {
 		this.poster_path = poster_path;
 	}
 	public Date getRelased() {

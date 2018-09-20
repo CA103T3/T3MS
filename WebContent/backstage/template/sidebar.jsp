@@ -135,7 +135,7 @@
                     </a>
                     <ul id="sub6" class="nav collapse">
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/movie/movie_List.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;電影管理</a>
                         </li>
                         <li>
@@ -179,7 +179,7 @@
                     </a>
                     <ul id="sub8" class="nav collapse">
                         <li>
-                            <a href="listAnnouncement.jsp">
+                            <a href="<%=request.getContextPath()%>/backstage/announcement/listAnnouncement.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;公告管理</a>
                         </li>
                         <li>

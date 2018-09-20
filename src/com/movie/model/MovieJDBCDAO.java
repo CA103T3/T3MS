@@ -2,6 +2,7 @@ package com.movie.model;
 
 import java.util.*;
 import java.sql.*;
+import java.io.*;
 
 public class MovieJDBCDAO implements MovieDAO_interface {
 
@@ -11,7 +12,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO MOVIE (movie_no,movie_type,movie_name,eng_name,poster_path,relased,distributed,length,language,madein,imdb,tomato,rating,trailer_url,brief_intro,active,director,starring)"
-			+ "VALUES (movie_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "VALUES ('MV'||LPAD(movie_seq.NEXTVAL,4,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "UPDATE MOVIE set " + "movie_type=?,movie_name=?,eng_name=?,"
 			+ "poster_path=?,relased=?,distributed=?," + "length=?,language=?,madein=?,imdb=?,"
 			+ "tomato=?,rating=?,trailer_url=?,brief_intro=?," + "active=?,director=?,starring=? " + "where movie_no=?";
@@ -34,7 +35,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 			pstmt.setString(1, movieVO.getMovie_type());
 			pstmt.setString(2, movieVO.getMovie_name());
 			pstmt.setString(3, movieVO.getEng_name());
-			pstmt.setString(4, movieVO.getPoster_path());
+			pstmt.setBytes(4, movieVO.getPoster_path());
 			pstmt.setDate(5, movieVO.getRelased());
 			pstmt.setString(6, movieVO.getDistributed());
 			pstmt.setInt(7, movieVO.getLength());
@@ -91,7 +92,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 			pstmt.setString(1, movieVO.getMovie_type());
 			pstmt.setString(2, movieVO.getMovie_name());
 			pstmt.setString(3, movieVO.getEng_name());
-			pstmt.setString(4, movieVO.getPoster_path());
+			pstmt.setBytes(4, movieVO.getPoster_path());
 			pstmt.setDate(5, movieVO.getRelased());
 			pstmt.setString(6, movieVO.getDistributed());
 			pstmt.setInt(7, movieVO.getLength());
@@ -201,7 +202,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 				movieVO.setMovie_type(rs.getString("movie_type"));
 				movieVO.setMovie_name(rs.getString("movie_name"));
 				movieVO.setEng_name(rs.getString("eng_name"));
-				movieVO.setPoster_path(rs.getString("poster_path"));
+				movieVO.setPoster_path(rs.getBytes("poster_path"));
 				movieVO.setRelased(rs.getDate("relased"));
 				movieVO.setDistributed(rs.getString("distributed"));
 				movieVO.setLength(rs.getInt("length"));
@@ -275,7 +276,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 				movieVO.setMovie_type(rs.getString("movie_type"));
 				movieVO.setMovie_name(rs.getString("movie_name"));
 				movieVO.setEng_name(rs.getString("eng_name"));
-				movieVO.setPoster_path(rs.getString("poster_path"));
+				movieVO.setPoster_path(rs.getBytes("poster_path"));
 				movieVO.setRelased(rs.getDate("relased"));
 				movieVO.setDistributed(rs.getString("distributed"));
 				movieVO.setLength(rs.getInt("length"));
@@ -330,57 +331,71 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 
 		MovieJDBCDAO dao = new MovieJDBCDAO();
 
+		
 		// ----------------INSERT------------------
-//		MovieVO movieVO1 = new MovieVO();
-//		movieVO1.setMovie_type("恐怖片");
-//		movieVO1.setMovie_name("鬼修女");
-//		movieVO1.setEng_name("ShowGirl");
-//		movieVO1.setPoster_path("img");
-//		movieVO1.setRelased(java.sql.Date.valueOf("2018-09-11"));
-//		movieVO1.setDistributed("華納");
-//		movieVO1.setLength(120);
-//		movieVO1.setLanguage("English");
-//		movieVO1.setMadein("USA");
-//		movieVO1.setImdb(87);
-//		movieVO1.setTomato("80分");
-//		movieVO1.setRating("限制級");
-//		movieVO1.setTrailer_url("www.yahoo.com.tw");
-//		movieVO1.setBrief_intro(
-//				"在《鬼修女》中，破紀錄賣座恐怖片《厲陰宅》及《厲陰宅2》的導演溫子仁，著手探索另一個駭人的黑暗角落。這部新片由柯林哈迪（《陰林》）執導，溫子仁及《厲陰宅》全系列製片人彼得沙佛朗製作。\r\n"
-//						+ "在羅馬尼亞一間與世隔絕的修道院中，有一個年輕的修女自殺了，梵蒂岡派出一名藏有悲慘過去的神父和一名剛入教的見習修女來調查。他們一起揭開這個教團的邪惡祕密，卻遭遇到一股邪惡的力量，也就是《厲陰宅2》中嚇壞觀眾的那個鬼修女，使修道院變成活人與受詛咒者之間的可怕戰場。他們不只可能會喪命，還可能會失去原本的信仰和自己的靈魂。");
-//		movieVO1.setActive(1);
-//		movieVO1.setDirector("李安");
-//		movieVO1.setStarring("許純美");
-//
-//		dao.insert(movieVO1);
-//		System.out.println("新增成功");
+//		try {	
+//			byte[] pic1 = getPictureByteArray("WebContent/img/Test_UP_IMG/05.jpeg");
+//			MovieVO movieVO1 = new MovieVO();
+//			movieVO1.setMovie_type("恐怖片10");
+//			movieVO1.setMovie_name("鬼修女10");
+//			movieVO1.setEng_name("ShowGirl");
+//			movieVO1.setPoster_path(pic1);
+//			movieVO1.setRelased(java.sql.Date.valueOf("2018-09-11"));
+//			movieVO1.setDistributed("華納");
+//			movieVO1.setLength(120);
+//			movieVO1.setLanguage("English");
+//			movieVO1.setMadein("USA");
+//			movieVO1.setImdb(87);
+//			movieVO1.setTomato("80分");
+//			movieVO1.setRating("限制級");
+//			movieVO1.setTrailer_url("www.yahoo.com.tw");
+//			movieVO1.setBrief_intro(
+//					"在《鬼修女》中，破紀錄賣座恐怖片《厲陰宅》及《厲陰宅2》的導演溫子仁，著手探索另一個駭人的黑暗角落。這部新片由柯林哈迪（《陰林》）執導，溫子仁及《厲陰宅》全系列製片人彼得沙佛朗製作。\r\n"
+//							+ "在羅馬尼亞一間與世隔絕的修道院中，有一個年輕的修女自殺了，梵蒂岡派出一名藏有悲慘過去的神父和一名剛入教的見習修女來調查。他們一起揭開這個教團的邪惡祕密，卻遭遇到一股邪惡的力量，也就是《厲陰宅2》中嚇壞觀眾的那個鬼修女，使修道院變成活人與受詛咒者之間的可怕戰場。他們不只可能會喪命，還可能會失去原本的信仰和自己的靈魂。");
+//			movieVO1.setActive(1);
+//			movieVO1.setDirector("李安");
+//			movieVO1.setStarring("許純美");
+//	
+//			dao.insert(movieVO1);
+//			System.out.println("新增成功");
+//		
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		
 		// ----------------INSERT------------------
 		// ----------------UPDATE------------------
-
-//		MovieVO movieVO2 = new MovieVO();
-//		movieVO2.setMovie_no("3");
-//		movieVO2.setMovie_type("喜劇片");
-//		movieVO2.setMovie_name("鬼修感");
-//		movieVO2.setEng_name("5566ShowGirl");
-//		movieVO2.setPoster_path("img");
-//		movieVO2.setRelased(java.sql.Date.valueOf("2018-09-15"));
-//		movieVO2.setDistributed("華納2");
-//		movieVO2.setLength(220);
-//		movieVO2.setLanguage("TAIWAN");
-//		movieVO2.setMadein("JAPAN");
-//		movieVO2.setImdb(88);
-//		movieVO2.setTomato("87分");
-//		movieVO2.setRating("普遍級");
-//		movieVO2.setTrailer_url("www.youtube.com.tw");
-//		movieVO2.setBrief_intro(
-//				"在《鬼修女2》中，破紀錄賣座恐怖片《厲陰宅》及《厲陰宅2》的導演溫子仁，著手探索另一個駭人的黑暗角落。這部新片由柯林哈迪（《陰林》）執導，溫子仁及《厲陰宅》全系列製片人彼得沙佛朗製作。\r\n"
-//						+ "在羅馬尼亞一間與世隔絕的修道院中。");
-//		movieVO2.setActive(1);
-//		movieVO2.setDirector("陳水扁");
-//		movieVO2.setStarring("馬英九");
+		
+//		try {
+//			byte[] pic2 = getPictureByteArray("WebContent/img/Test_UP_IMG/showgirl2.jpg");
+//			MovieVO movieVO2 = new MovieVO();
+//			movieVO2.setMovie_no("MV0002");
+//			movieVO2.setMovie_type("喜劇片5");
+//			movieVO2.setMovie_name("鬼修感2");
+//			movieVO2.setEng_name("5566ShowGirl");
+//			movieVO2.setPoster_path(pic2);
+//			movieVO2.setRelased(java.sql.Date.valueOf("2018-09-15"));
+//			movieVO2.setDistributed("華納2");
+//			movieVO2.setLength(220);
+//			movieVO2.setLanguage("TAIWAN");
+//			movieVO2.setMadein("JAPAN");
+//			movieVO2.setImdb(88);
+//			movieVO2.setTomato("87分");
+//			movieVO2.setRating("普遍級");
+//			movieVO2.setTrailer_url("www.youtube.com.tw");
+//			movieVO2.setBrief_intro(
+//					"在《鬼修女2》中，破紀錄賣座恐怖片《厲陰宅》及《厲陰宅2》的導演溫子仁，著手探索另一個駭人的黑暗角落。這部新片由柯林哈迪（《陰林》）執導，溫子仁及《厲陰宅》全系列製片人彼得沙佛朗製作。\r\n"
+//							+ "在羅馬尼亞一間與世隔絕的修道院中。");
+//			movieVO2.setActive(1);
+//			movieVO2.setDirector("陳水扁");
+//			movieVO2.setStarring("馬英九");
+//			
+//			dao.update(movieVO2);
+//			System.out.println("修改成功");
 //		
-//		dao.update(movieVO2);
-//		System.out.println("修改成功");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 		// ----------------UPDATE------------------
 		// ----------------DELETE------------------
@@ -416,31 +431,47 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 		// ----------------SELECT ONE--------------
 		// ----------------SELECT ALL--------------
 		
-		List<MovieVO> list = dao.getAll();
-		for (MovieVO amovie : list) {
-			System.out.println(amovie.getMovie_no() + ",");
-			System.out.println(amovie.getMovie_type() + ",");
-			System.out.println(amovie.getMovie_name() + ",");
-			System.out.println(amovie.getEng_name() + ",");
-			System.out.println(amovie.getPoster_path() + ",");
-			System.out.println(amovie.getRelased() + ",");
-			System.out.println(amovie.getDistributed() + ",");
-			System.out.println(amovie.getLength() + ",");
-			System.out.println(amovie.getLanguage() + ",");
-			System.out.println(amovie.getMadein() + ",");
-			System.out.println(amovie.getImdb() + ",");
-			System.out.println(amovie.getTomato() + ",");
-			System.out.println(amovie.getRating() + ",");
-			System.out.println(amovie.getTrailer_url() + ",");
-			System.out.println(amovie.getBrief_intro() + ",");
-			System.out.println(amovie.getActive() + ",");
-			System.out.println(amovie.getDirector() + ",");
-			System.out.println(amovie.getStarring() + ",");
-			System.out.println("---------------------");
-		}
+//		List<MovieVO> list = dao.getAll();
+//		for (MovieVO amovie : list) {
+//			System.out.println(amovie.getMovie_no() + ",");
+//			System.out.println(amovie.getMovie_type() + ",");
+//			System.out.println(amovie.getMovie_name() + ",");
+//			System.out.println(amovie.getEng_name() + ",");
+//			System.out.println(amovie.getPoster_path() + ",");
+//			System.out.println(amovie.getRelased() + ",");
+//			System.out.println(amovie.getDistributed() + ",");
+//			System.out.println(amovie.getLength() + ",");
+//			System.out.println(amovie.getLanguage() + ",");
+//			System.out.println(amovie.getMadein() + ",");
+//			System.out.println(amovie.getImdb() + ",");
+//			System.out.println(amovie.getTomato() + ",");
+//			System.out.println(amovie.getRating() + ",");
+//			System.out.println(amovie.getTrailer_url() + ",");
+//			System.out.println(amovie.getBrief_intro() + ",");
+//			System.out.println(amovie.getActive() + ",");
+//			System.out.println(amovie.getDirector() + ",");
+//			System.out.println(amovie.getStarring() + ",");
+//			System.out.println("---------------------");
+//		}
 		
 		// ----------------SELECT ALL--------------
 
+	}
+	
+	// 使用byte[]方式
+	public static byte[] getPictureByteArray(String path) throws IOException {
+		File file = new File(path);
+		FileInputStream fis = new FileInputStream(file);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[8192];
+		int i;
+		while ((i = fis.read(buffer)) != -1) {
+			baos.write(buffer, 0, i);
+		}
+		baos.close();
+		fis.close();
+
+		return baos.toByteArray();
 	}
 
 }

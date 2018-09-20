@@ -14,14 +14,14 @@ public class MovieJNDIDAO implements MovieDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/T3MS");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	private static final String INSERT_STMT = "INSERT INTO MOVIE (movie_no,movie_type,movie_name,eng_name,poster_path,relased,distributed,length,language,madein,imdb,tomato,rating,trailer_url,brief_intro,active,director,starring)"
-			+ "VALUES (movie_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "VALUES ('MV'||LPAD(movie_seq.NEXTVAL,4,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "UPDATE MOVIE set " + "movie_type=?,movie_name=?,eng_name=?,"
 			+ "poster_path=?,relased=?,distributed=?," + "length=?,language=?,madein=?,imdb=?,"
 			+ "tomato=?,rating=?,trailer_url=?,brief_intro=?," + "active=?,director=?,starring=? " + "where movie_no=?";
@@ -43,7 +43,7 @@ public class MovieJNDIDAO implements MovieDAO_interface {
 			pstmt.setString(1, movieVO.getMovie_type());
 			pstmt.setString(2, movieVO.getMovie_name());
 			pstmt.setString(3, movieVO.getEng_name());
-			pstmt.setString(4, movieVO.getPoster_path());
+			pstmt.setBytes(4, movieVO.getPoster_path());
 			pstmt.setDate(5, movieVO.getRelased());
 			pstmt.setString(6, movieVO.getDistributed());
 			pstmt.setInt(7, movieVO.getLength());
@@ -96,7 +96,7 @@ public class MovieJNDIDAO implements MovieDAO_interface {
 			pstmt.setString(1, movieVO.getMovie_type());
 			pstmt.setString(2, movieVO.getMovie_name());
 			pstmt.setString(3, movieVO.getEng_name());
-			pstmt.setString(4, movieVO.getPoster_path());
+			pstmt.setBytes(4, movieVO.getPoster_path());
 			pstmt.setDate(5, movieVO.getRelased());
 			pstmt.setString(6, movieVO.getDistributed());
 			pstmt.setInt(7, movieVO.getLength());
@@ -197,7 +197,7 @@ public class MovieJNDIDAO implements MovieDAO_interface {
 				movieVO.setMovie_type(rs.getString("movie_type"));
 				movieVO.setMovie_name(rs.getString("movie_name"));
 				movieVO.setEng_name(rs.getString("eng_name"));
-				movieVO.setPoster_path(rs.getString("poster_path"));
+				movieVO.setPoster_path(rs.getBytes("poster_path"));
 				movieVO.setRelased(rs.getDate("relased"));
 				movieVO.setDistributed(rs.getString("distributed"));
 				movieVO.setLength(rs.getInt("length"));
@@ -267,7 +267,7 @@ public class MovieJNDIDAO implements MovieDAO_interface {
 				movieVO.setMovie_type(rs.getString("movie_type"));
 				movieVO.setMovie_name(rs.getString("movie_name"));
 				movieVO.setEng_name(rs.getString("eng_name"));
-				movieVO.setPoster_path(rs.getString("poster_path"));
+				movieVO.setPoster_path(rs.getBytes("poster_path"));
 				movieVO.setRelased(rs.getDate("relased"));
 				movieVO.setDistributed(rs.getString("distributed"));
 				movieVO.setLength(rs.getInt("length"));
