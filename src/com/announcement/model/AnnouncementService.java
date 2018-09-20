@@ -36,8 +36,7 @@ public class AnnouncementService {
 		annVO.setActive(active);
 		annVO.setAnc_no(anc_no);
 		dao.update(annVO);
-System.out.println(anc_no);
-System.out.println(anc_con);
+
 		return dao.findByPrimaryKey(anc_no);
 	}
 
