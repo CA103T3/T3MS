@@ -18,7 +18,7 @@
     <%@ include file="/backstage/template/link.jsp" %>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/addTheater.css">
     <style type="text/css">
-	  /*
+      /*
       #loding_spinner{
           position:fixed;
           _position:absolute;
@@ -26,7 +26,10 @@
           left:50%;
           z-index:9999;         /* in front */
       }
-	  */
+      */
+      .dp-inline {
+          display:inline;
+      }
     </style>
 </head>
 
@@ -36,7 +39,31 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>影廳資訊</label></h1>
+                <h3 class="page-header">
+                    <label>影廳資訊&nbsp;&nbsp;</label>
+<!--                     <a href="<%=request.getContextPath()%>/example/han/theater/addTheater.jsp?cinema_no=${param.cinema_no}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span class="fs16">&nbsp;修改</span></a> -->
+                    <!-- class="dp-inline" does  not work here, use style -->
+                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>${param.requestURL}">
+                        <button type="submit" id="mod-btn" class="btn btn-warning fs16 " >
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改
+                        </button>
+                        <!-- <input type="hidden" name="theater_no" value="${theaterVO.theater_no}"> -->
+                        <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> --><!--送出本網頁的路徑給Controller-->
+                        <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
+                        <!-- <input type="hidden" name="action" value="view"> -->
+                    </form>
+                  <!--   <a href="<%=request.getContextPath()%>/example/han/theater/addTheater.jsp?cinema_no=${param.cinema_no}" class="btn btn-primary"><i class="fa fa-undo" aria-hidden="true"></i><span class="fs16">&nbsp;返回</span></a> -->
+                    <!-- class="dp-inline" does  not work here, use style -->
+                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>${param.requestURL}">
+                        <button type="submit" id="back-btn" class="btn btn-default fs16 " >
+                            <i class="fa fa-undo" aria-hidden="true"></i>返回
+                        </button>
+                        <!-- <input type="hidden" name="theater_no" value="${theaterVO.theater_no}"> -->
+                        <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> --><!--送出本網頁的路徑給Controller-->
+                        <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
+                        <!-- <input type="hidden" name="action" value="view"> -->
+                    </form>
+                </h3>
 
                 <div class="row">
                     <label class="col-md-6 control-label text-right">影城</label>
@@ -107,7 +134,7 @@
           console.log("row: " + row + " col: " + col);
           let content = "";
           for(let i = 1; i <= row; i++) {
-              content += "<div class='row text-center'>";
+              content += "<div class='row form-group text-center'>";
               content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
               for(let j = 1; j <= col; j++) {
                   content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "' disabled>" + j + "</button>";

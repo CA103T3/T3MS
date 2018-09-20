@@ -270,12 +270,13 @@ public class TheaterServletTest extends HttpServlet {
                 TheaterService tSvc = new TheaterService();
                 String theater_no = tSvc.addTheater(cinema_no, theater_name,
                         t_rows, t_columns, seat_model, seats, equipment);
-                
+
                 /***************************3.新增完成,準備轉交(Send the Success view)***********/
-                String url = "/example/han/theater/listAllTheater.jsp";
+                String url = "/example/han/theater/listAllTheater.jsp" + "?cinema_no=" + cinema_no;
+                System.out.println("url: " + url);
                 RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllTheater.jsp
                 successView.forward(req, res);
-                
+
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
                 errorMsgs.add(e.getMessage());

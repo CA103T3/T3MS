@@ -34,7 +34,7 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>新增影廳</label></h1>
+                <h3 class="page-header"><label>新增影廳</label></h3>
                 <%-- 錯誤表列 --%>
                 <%-- <%=request.getAttribute("errorMsgs")%> --%>
                 <%-- ${errorMsgs.size()} --%>
