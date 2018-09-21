@@ -5,10 +5,12 @@ import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.*;
 
 import com.movie.model.*;
+
+import sun.net.www.content.image.jpeg;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class MovieServlet extends HttpServlet {
@@ -37,7 +39,6 @@ public class MovieServlet extends HttpServlet {
 
 				/*************************** 2.開始刪除資料 ***************************************/
 				MovieService movieSvc = new MovieService();
-				MovieVO movieVO = movieSvc.getOneMovie(movie_no);
 				movieSvc.deleteMovie(movie_no);
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
@@ -60,8 +61,6 @@ public class MovieServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
-			String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/movie/movie_List.jsp 】 或
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
@@ -86,7 +85,8 @@ public class MovieServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) { // 來自movie_Update.jsp的請求
-
+			
+		
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -113,16 +113,24 @@ public class MovieServlet extends HttpServlet {
 				} else if (!eng_name.trim().matches(eng_name_enReg)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("電影英文名稱: 只能是英文");
 				}
-
+				
+				
+				Part part=req.getPart("poster_path");
+				String type=part.getContentType();
+				String ex = part.getContentType().substring(0,type.indexOf("/"));
+			
 				MovieService movieSvc = new MovieService();
 				byte[] poster_path = movieSvc.getOneMovie(movie_no).getPoster_path();
-				if (req.getPart("poster_path").getSize() != 0) {
-					InputStream in = req.getPart("poster_path").getInputStream();
+				if (part.getSize() != 0 &&  ex.equals("image") ) {
+					InputStream in = part.getInputStream();
 					poster_path = new byte[in.available()];
 					in.read(poster_path);
 					in.close();
+				}else {
+					errorMsgs.add("說好的正確檔案呢");
 				}
-
+				
+				
 				java.sql.Date relased = null;
 				try {
 					relased = java.sql.Date.valueOf(req.getParameter("relased").trim());
@@ -261,7 +269,7 @@ public class MovieServlet extends HttpServlet {
 				if (movie_type == null || movie_type.trim().length() == 0) {
 					errorMsgs.add("電影類別請勿空白");
 				}
-				System.out.println(movie_type);
+				
 				String movie_name = req.getParameter("movie_name");
 				if (movie_name == null || movie_name.trim().length() == 0) {
 					errorMsgs.add("電影中文名稱: 請勿空白");
@@ -274,12 +282,12 @@ public class MovieServlet extends HttpServlet {
 				} else if (!eng_name.trim().matches(eng_name_enReg)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("電影英文名稱: 只能是英文");
 				}
-
+				
+				
+				
 				InputStream in = req.getPart("poster_path").getInputStream();
 				byte[] poster_path = new byte[in.available()];
 				in.read(poster_path);
-
-
 
 				java.sql.Date relased = null;
 				try {
@@ -288,8 +296,6 @@ public class MovieServlet extends HttpServlet {
 					relased = new java.sql.Date(System.currentTimeMillis());
 					errorMsgs.add("請輸入日期!");
 				}
-
-
 
 				String distributed = req.getParameter("distributed").trim();
 				if (distributed == null || distributed.trim().length() == 0) {
@@ -408,5 +414,10 @@ public class MovieServlet extends HttpServlet {
 			}
 		}
 
+	}
+
+	private Object getFileNameFromPart(Part part) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

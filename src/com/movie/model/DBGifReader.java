@@ -19,6 +19,7 @@ public class DBGifReader extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
+		res.setContentType("image/jpeg");
 		ServletOutputStream out = res.getOutputStream();
 
 		try {

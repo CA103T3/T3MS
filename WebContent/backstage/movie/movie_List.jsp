@@ -21,7 +21,7 @@
 <%@ include file="/backstage/template/link.jsp"%>
 <!-- movie_back_movie CSS -->
 <link
-	href="D:\T3_workspace\T3MS\WebContent\css\movie_back_movie.css"
+	href="/css/movie_back_movie.css"
 	rel="stylesheet" type="text/css">
 <style type="text/css">
 <style>
@@ -144,7 +144,7 @@ img {
 									<th class="active">刪除內容</th>
 								</tr>
 								
-								<%@ include file="page1.file" %> 
+								<%@ include file="/resources/page_code/page1.file" %> 
 								<c:forEach var="movieVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 									<tr ${(movieVO.movie_no==param.movie_no) ? 'bgcolor=#CCCCFF':''}><!--將修改的那一筆加入對比色而已-->										
 										<td>${movieVO.movie_no}</td>
@@ -176,7 +176,7 @@ img {
 							</table>
 						
 						
-							<%@ include file="page2.file"%>
+							<%@ include file="/resources/page_code/page2.file"%>
 						</div>
 					</div>
 				</div>

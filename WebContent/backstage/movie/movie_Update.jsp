@@ -19,7 +19,7 @@
 
 <!-- movie_back_movie CSS -->
 <link
-	href="D:\T3_workspace\T3MS\WebContent\css\movie\movie_back_movie.css"
+	href="/css/movie_back_movie.css"
 	rel="stylesheet" type="text/css">
 <style type="text/css">
 </style>

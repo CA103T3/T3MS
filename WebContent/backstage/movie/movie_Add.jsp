@@ -17,7 +17,7 @@
 <title>M&amp;S</title>
 <%@ include file="/backstage/template/link.jsp"%>
 <!-- movie_back_movie CSS -->
-<link href="D:\T3_workspace\T3MS\WebContent\css\movie\movie_back_movie.css" rel="stylesheet" type="text/css">
+<link href="/css/movie_back_movie.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 </style>
 </head>
