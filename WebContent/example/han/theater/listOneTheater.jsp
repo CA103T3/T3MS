@@ -41,25 +41,24 @@
             <div class="container">
                 <h3 class="page-header">
                     <label>影廳資訊&nbsp;&nbsp;</label>
-<!--                     <a href="<%=request.getContextPath()%>/example/han/theater/addTheater.jsp?cinema_no=${param.cinema_no}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span class="fs16">&nbsp;修改</span></a> -->
                     <!-- class="dp-inline" does  not work here, use style -->
-                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>${param.requestURL}">
+                    <form id="fm-mod" method="post" style="display:inline" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
                         <button type="submit" id="mod-btn" class="btn btn-warning fs16 " >
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>修改
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改
                         </button>
-                        <!-- <input type="hidden" name="theater_no" value="${theaterVO.theater_no}"> -->
-                        <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> --><!--送出本網頁的路徑給Controller-->
+                        <input type="hidden" name="theater_no" value="${theaterVO.theater_no}">
+                        <!--  <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> -->
+                        <input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>">
                         <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
-                        <!-- <input type="hidden" name="action" value="view"> -->
+                        <input type="hidden" name="action" value="toUpdatePage">
                     </form>
-                  <!--   <a href="<%=request.getContextPath()%>/example/han/theater/addTheater.jsp?cinema_no=${param.cinema_no}" class="btn btn-primary"><i class="fa fa-undo" aria-hidden="true"></i><span class="fs16">&nbsp;返回</span></a> -->
                     <!-- class="dp-inline" does  not work here, use style -->
-                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>${param.requestURL}">
+                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/example/han/theater/listAllTheater.jsp?cinema_no=${theaterVO.cinema_no}">
                         <button type="submit" id="back-btn" class="btn btn-default fs16 " >
-                            <i class="fa fa-undo" aria-hidden="true"></i>返回
+                            <i class="fa fa-undo" aria-hidden="true"></i>&nbsp;返回
                         </button>
                         <!-- <input type="hidden" name="theater_no" value="${theaterVO.theater_no}"> -->
-                        <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> --><!--送出本網頁的路徑給Controller-->
+                        <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> -->
                         <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
                         <!-- <input type="hidden" name="action" value="view"> -->
                     </form>
