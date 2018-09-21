@@ -46,7 +46,7 @@
 <%--                     </c:forEach> --%>
 <!--                   </ul> -->
 <%--                 </c:if> --%>
-                <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
+                <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/theater/theater.do">
                     <div class="form-group">
                       <label class="col-md-5 control-label">影城</label>
                       <div class="col-md-3">

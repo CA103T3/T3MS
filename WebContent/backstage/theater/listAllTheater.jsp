@@ -70,7 +70,7 @@
                             <td>${theaterVO.seats}</td>
                             <td>${theaterVO.equipment}</td>
                             <td>
-                                <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
+                                <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/theater.do">
                                     <button type="submit" id="view-btn-${s.index}" class="btn btn-success fs16 " >
                                         <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視
                                     </button>&nbsp;&nbsp;
@@ -79,7 +79,7 @@
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="view">
                                 </form>
-                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
+                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/theater.do">
                                     <button type="submit" id="mod-btn-${s.index}" class="btn btn-warning fs16 " >
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改
                                     </button>&nbsp;&nbsp;
@@ -88,7 +88,7 @@
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="toUpdatePage">
                                 </form>
-                                <form id="fm-del-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
+                                <form id="fm-del-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/theater.do">
                                     <button type="button" id="del-btn-${s.index}" class="btn btn-danger fs16 del-btn" data-name="${theaterVO.theater_name}" data-form="fm-del-${s.index}">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除
                                     </button>

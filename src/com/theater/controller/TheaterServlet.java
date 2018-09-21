@@ -1,4 +1,4 @@
-package example.han.theater.controller;
+package com.theater.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,14 +26,14 @@ import com.theater.model.TheaterVO;
 /**
  * Servlet implementation class TheaterServlet
  */
-@WebServlet("/theater/TheaterServletTest")
-public class TheaterServletTest extends HttpServlet {
+//@WebServlet("/theater/TheaterServlet")
+public class TheaterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TheaterServletTest() {
+    public TheaterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

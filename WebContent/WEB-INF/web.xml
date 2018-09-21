@@ -37,4 +37,12 @@
   	<servlet-name>Announcement</servlet-name>
   	<url-pattern>/backstage/announcement/ann.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>TheaterServlet</servlet-name>
+    <servlet-class>com.theater.controller.TheaterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TheaterServlet</servlet-name>
+    <url-pattern>/theater/theater.do</url-pattern>
+  </servlet-mapping>
 </web-app>

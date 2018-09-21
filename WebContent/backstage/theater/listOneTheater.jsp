@@ -42,7 +42,7 @@
                 <h3 class="page-header">
                     <label>影廳資訊&nbsp;&nbsp;</label>
                     <!-- class="dp-inline" does  not work here, use style -->
-                    <form id="fm-mod" method="post" style="display:inline" action="<%=request.getContextPath()%>/theater/TheaterServletTest">
+                    <form id="fm-mod" method="post" style="display:inline" action="<%=request.getContextPath()%>/theater/theater.do">
                         <button type="submit" id="mod-btn" class="btn btn-warning fs16 " >
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改
                         </button>
