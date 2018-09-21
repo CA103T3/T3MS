@@ -299,7 +299,7 @@ public class TheaterServletTest extends HttpServlet {
                     req.setAttribute("rows", rows);
                     req.setAttribute("cols", cols);
                     RequestDispatcher failureView = req
-                            .getRequestDispatcher("/example/han/theater/addTheater.jsp");
+                            .getRequestDispatcher("/backstage/theater/addTheater.jsp");
                     failureView.forward(req, res);
                     return;//程式中斷
                 }
@@ -310,7 +310,7 @@ public class TheaterServletTest extends HttpServlet {
                         t_rows, t_columns, seat_model, seats, equipment);
 
                 /***************************3.新增完成,準備轉交(Send the Success view)***********/
-                String url = "/example/han/theater/listAllTheater.jsp" + "?cinema_no=" + cinema_no;
+                String url = "/backstage/theater/listAllTheater.jsp" + "?cinema_no=" + cinema_no;
                 System.out.println("url: " + url);
                 RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllTheater.jsp
                 successView.forward(req, res);
@@ -320,7 +320,7 @@ public class TheaterServletTest extends HttpServlet {
                 errorMsgs.add(e.getMessage());
                 System.out.println("其他可能的錯誤處理");
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/example/han/theater/addTheater.jsp");
+                        .getRequestDispatcher("/backstage/theater/addTheater.jsp");
                 failureView.forward(req, res);
             }
         }
@@ -428,7 +428,7 @@ public class TheaterServletTest extends HttpServlet {
                     req.setAttribute("rows", rows);
                     req.setAttribute("cols", cols);
                     RequestDispatcher failureView = req
-                            .getRequestDispatcher("/example/han/theater/updateTheater.jsp");
+                            .getRequestDispatcher("/backstage/theater/updateTheater.jsp");
                     failureView.forward(req, res);
                     return;//程式中斷
                 }
@@ -439,7 +439,7 @@ public class TheaterServletTest extends HttpServlet {
                         t_rows, t_columns, seat_model, seats, equipment);
 
                 /***************************3.修改完成,準備轉交(Send the Success view)***********/
-//                String url = "/example/han/theater/listAllTheater.jsp" + "?cinema_no=" + cinema_no;
+//                String url = "/backstage/theater/listAllTheater.jsp" + "?cinema_no=" + cinema_no;
 //                System.out.println("url: " + url);
                 String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
                 String url = requestURL;
@@ -451,7 +451,7 @@ public class TheaterServletTest extends HttpServlet {
                 errorMsgs.add("修改資料失敗:" + e.getMessage());
                 //System.out.println("其他可能的錯誤處理");
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/example/han/theater/updateTheater.jsp");
+                        .getRequestDispatcher("/backstage/theater/updateTheater.jsp");
                 failureView.forward(req, res);
             }
         }
@@ -531,7 +531,7 @@ public class TheaterServletTest extends HttpServlet {
 
                 /***************************3.查詢完成,準備轉交(Send the Success view)*************/
                 req.setAttribute("theaterVO", theaterVO); // 資料庫取出的theaterVO物件,存入req
-                String url = "/example/han/theater/listOneTheater.jsp";
+                String url = "/backstage/theater/listOneTheater.jsp";
                 RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneTheater.jsp
                 successView.forward(req, res);
 
@@ -582,7 +582,7 @@ public class TheaterServletTest extends HttpServlet {
 
                 /***************************3.查詢完成,準備轉交(Send the Success view)************/
                 req.setAttribute("theaterVO", theaterVO); // 資料庫取出的theaterVO物件,存入req
-                String url = "/example/han/theater/updateTheater.jsp";
+                String url = "/backstage/theater/updateTheater.jsp";
                 RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
                 successView.forward(req, res);
 

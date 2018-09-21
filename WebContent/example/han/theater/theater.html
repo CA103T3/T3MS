@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+    <link rel="stylesheet" href="/T3MS/example/han/theater/css/seat.css">
+    <title>M&amp;S</title>
+</head>
+
+<body>
+    <div class="container-fluid" style="min-height: 300px;">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        <div class="col-md-12 "><span class="pull-right" style="color: red; font-size: 1.5em; text-align: right; margin-bottom: 10px;">
+                                <!-- react-text: 8636 -->剩餘時間:
+                                <!-- /react-text -->
+                                <!-- react-text: 8637 -->3:40
+                                <!-- /react-text --></span>
+                            <div class="clearfix"></div>
+                            <div class="" style="margin-bottom: 10px;">
+                                <div class="center" style="display: inline-block;">
+                                    <div class="seat seat-normal" id="checkOK">&nbsp;</div><br>
+                                    <span style="padding: 3px;">可選取</span>
+                                </div>
+                                <div class="center" style="display: inline-block;">
+                                    <div class="seat seat-selected" id="checked">&nbsp;</div><br>
+                                    <span style="padding: 3px;">已選取</span>
+                                </div>
+                                <div class="center" style="display: inline-block;">
+                                    <div class="seat seat-locked" style="position: relative; display: inline-block;">&nbsp;</div><br><span
+                                        style="padding: 3px;">已鎖定</span>
+                                </div>
+                                <div class="center" style="display: inline-block;">
+                                    <div class="seat seat-sold" style="position: relative; display: inline-block;">&nbsp;</div><br><span
+                                        style="padding: 3px;">已賣出</span>
+                                </div>
+                            </div>
+                            <!-- 觀看座位 -->
+                            <div style="width: 100%; height: 590px; border: 1px solid black;">
+                                <div class="center" style="position: relative; height: 590px; overflow: auto;">
+                                    <div class="screen-placeholder" style="top: 0px; left: 0px; height: 40px; width: 1085px;">螢幕</div>
+
+                                    <div class="seat" style="top: 50px; left: 5px;">
+                                        <div class="seat-inner">A排</div>
+                                    </div>
+                                    
+                                        <div class="seat seat-normal" style="top: 50px; left: 50px;">
+                                            <a href="#" data-toggle="popover" title="Popover Header"><div class="seat-inner">1</div></a>
+                                        </div>
+                                    
+                                    <a href="#">
+                                        <div class="seat seat-normal" style="top: 50px; left: 95px;">
+                                            <div class="seat-inner">2</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat seat-normal seat-sold" style="top: 50px; left: 140px;">
+                                        <div class="seat-inner">3</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 230px; background-size: 30px 30px; background-position: center center; background-repeat: no-repeat;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 50px; left: 320px;">
+                                        <div class="seat-inner">A排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat seat-normal seat-sold" style="top: 50px; left: 590px;">
+                                        <div class="seat-inner">13</div>
+                                    </div>
+                                    <div class="seat seat-normal seat-sold" style="top: 50px; left: 635px;">
+                                        <div class="seat-inner">14</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 725px; background-size: 30px 30px; background-position: center center; background-repeat: no-repeat;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 770px; background-size: 30px 30px; background-position: center center; background-repeat: no-repeat;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 50px; left: 815px;">
+                                        <div class="seat-inner">A排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 50px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 50px; left: 1040px;">
+                                        <div class="seat-inner">A排</div>
+                                    </div>
+                                    <div class="seat" style="top: 95px; left: 5px;">
+                                        <div class="seat-inner">B排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 50px;">
+                                            <div class="seat-inner">1</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 95px;">
+                                            <div class="seat-inner">2</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 140px;">
+                                            <div class="seat-inner">3</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 185px;">
+                                            <div class="seat-inner">4</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 95px; left: 320px;">
+                                        <div class="seat-inner">B排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 95px; left: 815px;">
+                                        <div class="seat-inner">B排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 95px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 95px; left: 1040px;">
+                                        <div class="seat-inner">B排</div>
+                                    </div>
+                                    <div class="seat" style="top: 140px; left: 5px;">
+                                        <div class="seat-inner">C排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 50px;">
+                                            <div class="seat-inner">1</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 95px;">
+                                            <div class="seat-inner">2</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 140px;">
+                                            <div class="seat-inner">3</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 185px;">
+                                            <div class="seat-inner">4</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 140px; left: 320px;">
+                                        <div class="seat-inner">C排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 140px; left: 815px;">
+                                        <div class="seat-inner">C排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 140px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 140px; left: 1040px;">
+                                        <div class="seat-inner">C排</div>
+                                    </div>
+                                    <div class="seat" style="top: 230px; left: 5px;">
+                                        <div class="seat-inner">D排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 230px; left: 320px;">
+                                        <div class="seat-inner">D排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 230px; left: 815px;">
+                                        <div class="seat-inner">D排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 230px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 230px; left: 1040px;">
+                                        <div class="seat-inner">D排</div>
+                                    </div>
+                                    <div class="seat" style="top: 275px; left: 5px;">
+                                        <div class="seat-inner">E排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 275px; left: 320px;">
+                                        <div class="seat-inner">E排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 275px; left: 815px;">
+                                        <div class="seat-inner">E排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 275px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 275px; left: 1040px;">
+                                        <div class="seat-inner">E排</div>
+                                    </div>
+                                    <div class="seat" style="top: 320px; left: 5px;">
+                                        <div class="seat-inner">F排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 320px; left: 320px;">
+                                        <div class="seat-inner">F排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 320px; left: 815px;">
+                                        <div class="seat-inner">F排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 320px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 320px; left: 1040px;">
+                                        <div class="seat-inner">F排</div>
+                                    </div>
+                                    <div class="seat" style="top: 365px; left: 5px;">
+                                        <div class="seat-inner">G排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 365px; left: 320px;">
+                                        <div class="seat-inner">G排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 365px; left: 815px;">
+                                        <div class="seat-inner">G排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 365px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 365px; left: 1040px;">
+                                        <div class="seat-inner">G排</div>
+                                    </div>
+                                    <div class="seat" style="top: 410px; left: 5px;">
+                                        <div class="seat-inner">H排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 410px; left: 320px;">
+                                        <div class="seat-inner">H排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 410px; left: 815px;">
+                                        <div class="seat-inner">H排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 410px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 410px; left: 1040px;">
+                                        <div class="seat-inner">H排</div>
+                                    </div>
+                                    <div class="seat" style="top: 455px; left: 5px;">
+                                        <div class="seat-inner">K排</div>
+                                    </div>
+                                    <div class="seat seat-normal seat-sold" style="top: 455px; left: 50px;">
+                                        <div class="seat-inner">1</div>
+                                    </div>
+                                    <div class="seat seat-normal seat-sold" style="top: 455px; left: 95px;">
+                                        <div class="seat-inner">2</div>
+                                    </div>
+                                    <div class="seat seat-normal seat-sold" style="top: 455px; left: 140px;">
+                                        <div class="seat-inner">3</div>
+                                    </div>
+                                    <div class="seat seat-normal seat-sold" style="top: 455px; left: 185px;">
+                                        <div class="seat-inner">4</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 455px; left: 320px;">
+                                        <div class="seat-inner">K排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 455px; left: 815px;">
+                                        <div class="seat-inner">K排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 455px; left: 995px;">
+                                            <div class="seat-inner">22</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 455px; left: 1040px;">
+                                        <div class="seat-inner">K排</div>
+                                    </div>
+                                    <div class="seat" style="top: 500px; left: 5px;">
+                                        <div class="seat-inner">L排</div>
+                                    </div>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 50px;">
+                                            <div class="seat-inner">1</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 95px;">
+                                            <div class="seat-inner">2</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 140px;">
+                                            <div class="seat-inner">3</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 185px;">
+                                            <div class="seat-inner">4</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 230px;">
+                                            <div class="seat-inner">5</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 275px;">
+                                            <div class="seat-inner">6</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 320px;">
+                                            <div class="seat-inner">7</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 365px;">
+                                            <div class="seat-inner">8</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 410px;">
+                                            <div class="seat-inner">9</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 455px;">
+                                            <div class="seat-inner">10</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 500px;">
+                                            <div class="seat-inner">11</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 545px;">
+                                            <div class="seat-inner">12</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 590px;">
+                                            <div class="seat-inner">13</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 635px;">
+                                            <div class="seat-inner">14</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 680px;">
+                                            <div class="seat-inner">15</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 725px;">
+                                            <div class="seat-inner">16</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 770px;">
+                                            <div class="seat-inner">17</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 815px;">
+                                            <div class="seat-inner">18</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 860px;">
+                                            <div class="seat-inner">19</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 905px;">
+                                            <div class="seat-inner">20</div>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <div class=" seat seat-normal" style="top: 500px; left: 950px;">
+                                            <div class="seat-inner">21</div>
+                                        </div>
+                                    </a>
+                                    <div class="seat" style="top: 500px; left: 1040px;">
+                                        <div class="seat-inner">L排</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 觀看座位 -->
+                            <div class="col-md-12"><button disabled="" class="btn btn-showtimes btn-lg" style="margin-top: 20px; margin-bottom: 10px; float: right;">
+                                    <!-- react-text: 9240 -->還有 2 個座位待劃位
+                                    <!-- /react-text --></button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body" style="padding-top: 0px;">
+                        <div class="row">
+                            <table class="table table-hover" style="margin: 0px; border-bottom: 1px solid rgb(204, 204, 204);">
+                                <tbody>
+                                    <tr>
+                                        <th style="font-size: 1.3em;">電影名稱</th>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="pull-right" src="#"
+                                                style="width: 50px;">
+                                            <!-- react-text: 8569 -->粽邪
+                                            <!-- /react-text --><br><small>The Rope Curse</small></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 1.3em;">場次時間</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <!-- react-text: 8576 -->2018/09/07 00:00
+                                            <!-- /react-text -->
+                                            <!-- react-text: 8577 -->&nbsp;
+                                            <!-- /react-text --><span>
+                                                <!-- react-text: 8579 -->(
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8580 -->13 小時後
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8581 -->)
+                                                <!-- /react-text --></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 1.3em;">場次地點</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a target="_BLANK_" href="https://maps.google.com/maps/place/%E6%A8%B9%E6%9E%97%E7%A7%80%E6%B3%B0%E5%BB%A3%E5%A0%B4/@undefined,undefined,15z">
+                                                <!-- react-text: 8587 -->樹林秀泰廣場
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8588 -->
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8589 -->12廳
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8590 -->&nbsp;
+                                                <!-- /react-text --><i class="fa fa-map-marker" style="color: red;"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 1.3em;">票種/數量</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="pull-right">
+                                                <!-- react-text: 8597 -->$
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8598 -->400
+                                                <!-- /react-text --></span>
+                                            <!-- react-text: 8599 -->早優
+                                            <!-- /react-text -->
+                                            <!-- react-text: 8600 -->X
+                                            <!-- /react-text -->
+                                            <!-- react-text: 8601 -->2
+                                            <!-- /react-text -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="pull-right">
+                                                <!-- react-text: 8605 -->$
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8606 -->40
+                                                <!-- /react-text --></span>
+                                            <!-- react-text: 8607 -->手續費
+                                            <!-- /react-text -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-size: 1.3em;">明細</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="pull-right">
+                                                <!-- react-text: 8613 -->2
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8614 -->張
+                                                <!-- /react-text --></span>
+                                            <!-- react-text: 8615 -->電影票
+                                            <!-- /react-text -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="pull-right" style="font-size: 2em;">
+                                                <!-- react-text: 8619 -->$
+                                                <!-- /react-text -->
+                                                <!-- react-text: 8620 -->440
+                                                <!-- /react-text --></span><span style="font-size: 2em;">總價</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script type="text/javascript">
+            $(document).ready(function(){
+            
+                closepop = function(){
+                   $('[data-toggle="popover"]').popover('hide');
+                }
+                    
+                var pop = $('[data-toggle="popover"]').popover({
+                html:true,
+                placement: "top",
+                content: function(){
+                    return "<form name='statusForm'>"+
+                                "<div class='form-group'>"+
+                                    "<textarea class='form-control' name='estado' placeholder='Motivo de la no-disponibilidad' required></textarea>"+
+                                "</div>"+
+                                "<button class='button btn btn-success' type='button'>Aceptar</button>"+
+                                "<button class='button btn btn-success' type='button' onclick='closepop()'>Cancelar</button>"+
+                            "</form>"
+                }});
+            });
+            </script>
+</body>
+
+</html>

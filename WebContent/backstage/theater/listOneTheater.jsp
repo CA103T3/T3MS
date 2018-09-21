@@ -53,7 +53,7 @@
                         <input type="hidden" name="action" value="toUpdatePage">
                     </form>
                     <!-- class="dp-inline" does  not work here, use style -->
-                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/example/han/theater/listAllTheater.jsp?cinema_no=${theaterVO.cinema_no}">
+                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp?cinema_no=${theaterVO.cinema_no}">
                         <button type="submit" id="back-btn" class="btn btn-default fs16 " >
                             <i class="fa fa-undo" aria-hidden="true"></i>&nbsp;返回
                         </button>

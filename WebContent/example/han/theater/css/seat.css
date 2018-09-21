@@ -1,0 +1,195 @@
+/* mod */
+#checkOK {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+
+#checked {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+}
+
+.seat-inner:focus {
+    background-color: #88DD88;
+}
+
+.seat-inner {
+    margin-top: 2px;
+}
+
+.seat-normal:hover {
+    background-color: darkgray;
+}
+
+/* mod */
+.center {
+    text-align: center;
+}
+
+.block-center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.bottommargin-sm {
+    margin-bottom: 10px;
+}
+
+.bottommargin-lg {
+    margin-bottom: 20px;
+}
+
+.nobottommargin {
+    margin-bottom: 0px;
+}
+
+.color-showtimes {
+    color: #4f0061 !important;
+}
+
+.btn-showtimes {
+    background-color: #4f0061;
+    border-color: #2f0039;
+    color: white !important;
+}
+
+.btn-showtimes:hover {
+    background-color: #2f0039;
+}
+
+.btn-facebook {
+    background-color: #3b5998;
+    border-color: #3b5998;
+    color: white !important;
+}
+
+.btn-facebook:hover {
+    background-color: #3b5998;
+}
+
+.ReactModal__Content {
+    /* this remove the border of the modal box */
+    border: 0 !important;
+    background: transparent !important;
+}
+
+h4.modal-title {
+    padding: 0 !important;
+}
+
+@font-face {
+    font-family: 'code128';
+    src: url("/fonts/code128_XL.ttf");
+}
+
+.barcode {
+    font-family: code128;
+    font-size: 70px;
+    margin-top: 10px;
+}
+
+/* for seats */
+.seat {
+    position: absolute;
+    text-align: center;
+    padding-top: 8px;
+    border-radius: 4px;
+}
+
+.seat-normal {
+    background-color: #DDDDDD;
+    cursor: pointer;
+}
+
+/*
+.seat-normal:hover {
+    background-color: red;
+}
+*/
+.seat-selected {
+    background-color: #88DD88 !important;
+}
+
+.seat-locked {
+    background-color: #f0d140 !important;
+    cursor: not-allowed;
+}
+
+.seat-sold {
+    background-color: #DD4444 !important;
+    cursor: not-allowed;
+    color: #DDDDDD;
+}
+
+.screen-placeholder {
+    background-color: #888888;
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.visual-title {
+    color: white;
+    margin-top: 95px;
+    margin-left: 45px;
+    font-size: 36px;
+    font-weight: 200;
+    letter-spacing: 3px;
+}
+
+.section-title {
+    font-size: 26px;
+    color: #460056;
+    padding: 20px 0 0 0;
+}
+
+.section-subtitle {
+    font-family: 'ITCAVANTGARDEGOTHICLTMEDIUM' !important;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #460056;
+    padding: 5px 0 0 0;
+    font-weight: 100;
+}
+
+.circular {
+    width: 96px;
+    height: 96px;
+    border-radius: 48px;
+    display: inline-block;
+}
+
+.col_full {
+    padding-bottom: 20px;
+}
+
+.square-40 {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+}
+
+select.single {
+    height: 22px;
+    line-height: 22px;
+    padding: 2px 5px;
+    border: 1px solid #ccc;
+}
+
+.single-line {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

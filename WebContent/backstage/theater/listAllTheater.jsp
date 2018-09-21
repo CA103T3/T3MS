@@ -47,7 +47,7 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>檢視影廳&nbsp;&nbsp;&nbsp;</label><a href="<%=request.getContextPath()%>/example/han/theater/addTheater.jsp?cinema_no=${param.cinema_no}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i><span class="fs16">&nbsp;新增影廳</span></a></h3>
+                <h3 class="page-header"><label>檢視影廳&nbsp;&nbsp;&nbsp;</label><a href="<%=request.getContextPath()%>/backstage/theater/addTheater.jsp?cinema_no=${param.cinema_no}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i><span class="fs16">&nbsp;新增影廳</span></a></h3>
                 <table id="theaters" class="display" style="width:100%">
                     <thead>
                         <tr>
