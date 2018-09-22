@@ -11,7 +11,7 @@ public class MovieService {
 		dao = new MovieDAO();
 	}
 
-	public MovieVO addMovie(String movie_type, String movie_name, String eng_name, byte[] poster_path,
+	public MovieVO addMovie(String movie_type, String movie_name, String eng_name, byte[] movie_pic,
 			java.sql.Date relased, String distributed, Integer length, String language, String madein, Integer imdb,
 			String tomato, String rating, String trailer_url, String brief_intro, Integer active, String director,
 			String starring) {
@@ -20,7 +20,7 @@ public class MovieService {
 		movieVO.setMovie_type(movie_type);
 		movieVO.setMovie_name(movie_name);
 		movieVO.setEng_name(eng_name);
-		movieVO.setPoster_path(poster_path);
+		movieVO.setMovie_pic(movie_pic);
 		movieVO.setRelased(relased);
 		movieVO.setDistributed(distributed);
 		movieVO.setLength(length);
@@ -40,7 +40,7 @@ public class MovieService {
 	}
 
 	public MovieVO updateMovie(String movie_no, String movie_type, String movie_name, String eng_name,
-			byte[] poster_path, java.sql.Date relased, String distributed, Integer length, String language,
+			byte[] movie_pic, java.sql.Date relased, String distributed, Integer length, String language,
 			String madein, Integer imdb, String tomato, String rating, String trailer_url, String brief_intro,
 			Integer active, String director, String starring) {
 		MovieVO movieVO = new MovieVO();
@@ -49,7 +49,7 @@ public class MovieService {
 		movieVO.setMovie_type(movie_type);
 		movieVO.setMovie_name(movie_name);
 		movieVO.setEng_name(eng_name);
-		movieVO.setPoster_path(poster_path);
+		movieVO.setMovie_pic(movie_pic);
 		movieVO.setRelased(relased);
 		movieVO.setDistributed(distributed);
 		movieVO.setLength(length);
@@ -74,6 +74,7 @@ public class MovieService {
 
 	public MovieVO getOneMovie(String movie_no) {
 		return dao.findByPrimaryKey(movie_no);
+		           
 	}
 
 	public List<MovieVO> getAll() {

@@ -20,10 +20,10 @@ public class MovieDAO implements MovieDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO MOVIE (movie_no,movie_type,movie_name,eng_name,poster_path,relased,distributed,length,language,madein,imdb,tomato,rating,trailer_url,brief_intro,active,director,starring)"
+	private static final String INSERT_STMT = "INSERT INTO MOVIE (movie_no,movie_type,movie_name,eng_name,movie_pic,relased,distributed,length,language,madein,imdb,tomato,rating,trailer_url,brief_intro,active,director,starring)"
 			+ "VALUES ('MV'||LPAD(movie_seq.NEXTVAL,4,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "UPDATE MOVIE set " + "movie_type=?,movie_name=?,eng_name=?,"
-			+ "poster_path=?,relased=?,distributed=?," + "length=?,language=?,madein=?,imdb=?,"
+			+ "movie_pic=?,relased=?,distributed=?," + "length=?,language=?,madein=?,imdb=?,"
 			+ "tomato=?,rating=?,trailer_url=?,brief_intro=?," + "active=?,director=?,starring=? " + "where movie_no=?";
 	private static final String DELETE = "DELETE FROM movie where movie_no=?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MOVIE WHERE MOVIE_NO=?";
@@ -43,7 +43,7 @@ public class MovieDAO implements MovieDAO_interface {
 			pstmt.setString(1, movieVO.getMovie_type());
 			pstmt.setString(2, movieVO.getMovie_name());
 			pstmt.setString(3, movieVO.getEng_name());
-			pstmt.setBytes(4, movieVO.getPoster_path());
+			pstmt.setBytes(4, movieVO.getMovie_pic());
 			pstmt.setDate(5, movieVO.getRelased());
 			pstmt.setString(6, movieVO.getDistributed());
 			pstmt.setInt(7, movieVO.getLength());
@@ -96,7 +96,7 @@ public class MovieDAO implements MovieDAO_interface {
 			pstmt.setString(1, movieVO.getMovie_type());
 			pstmt.setString(2, movieVO.getMovie_name());
 			pstmt.setString(3, movieVO.getEng_name());
-			pstmt.setBytes(4, movieVO.getPoster_path());
+			pstmt.setBytes(4, movieVO.getMovie_pic());
 			pstmt.setDate(5, movieVO.getRelased());
 			pstmt.setString(6, movieVO.getDistributed());
 			pstmt.setInt(7, movieVO.getLength());
@@ -197,7 +197,7 @@ public class MovieDAO implements MovieDAO_interface {
 				movieVO.setMovie_type(rs.getString("movie_type"));
 				movieVO.setMovie_name(rs.getString("movie_name"));
 				movieVO.setEng_name(rs.getString("eng_name"));
-				movieVO.setPoster_path(rs.getBytes("poster_path"));
+				movieVO.setMovie_pic(rs.getBytes("movie_pic"));
 				movieVO.setRelased(rs.getDate("relased"));
 				movieVO.setDistributed(rs.getString("distributed"));
 				movieVO.setLength(rs.getInt("length"));
@@ -267,7 +267,7 @@ public class MovieDAO implements MovieDAO_interface {
 				movieVO.setMovie_type(rs.getString("movie_type"));
 				movieVO.setMovie_name(rs.getString("movie_name"));
 				movieVO.setEng_name(rs.getString("eng_name"));
-				movieVO.setPoster_path(rs.getBytes("poster_path"));
+				movieVO.setMovie_pic(rs.getBytes("movie_pic"));
 				movieVO.setRelased(rs.getDate("relased"));
 				movieVO.setDistributed(rs.getString("distributed"));
 				movieVO.setLength(rs.getInt("length"));

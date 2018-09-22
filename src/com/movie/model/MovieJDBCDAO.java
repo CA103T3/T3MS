@@ -11,10 +11,10 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 	String userid = "T3MS";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO MOVIE (movie_no,movie_type,movie_name,eng_name,poster_path,relased,distributed,length,language,madein,imdb,tomato,rating,trailer_url,brief_intro,active,director,starring)"
+	private static final String INSERT_STMT = "INSERT INTO MOVIE (movie_no,movie_type,movie_name,eng_name,movie_pic,relased,distributed,length,language,madein,imdb,tomato,rating,trailer_url,brief_intro,active,director,starring)"
 			+ "VALUES ('MV'||LPAD(movie_seq.NEXTVAL,4,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "UPDATE MOVIE set " + "movie_type=?,movie_name=?,eng_name=?,"
-			+ "poster_path=?,relased=?,distributed=?," + "length=?,language=?,madein=?,imdb=?,"
+			+ "movie_pic=?,relased=?,distributed=?," + "length=?,language=?,madein=?,imdb=?,"
 			+ "tomato=?,rating=?,trailer_url=?,brief_intro=?," + "active=?,director=?,starring=? " + "where movie_no=?";
 	private static final String DELETE = "DELETE FROM movie where movie_no=?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MOVIE WHERE MOVIE_NO=?";
@@ -35,7 +35,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 			pstmt.setString(1, movieVO.getMovie_type());
 			pstmt.setString(2, movieVO.getMovie_name());
 			pstmt.setString(3, movieVO.getEng_name());
-			pstmt.setBytes(4, movieVO.getPoster_path());
+			pstmt.setBytes(4, movieVO.getMovie_pic());
 			pstmt.setDate(5, movieVO.getRelased());
 			pstmt.setString(6, movieVO.getDistributed());
 			pstmt.setInt(7, movieVO.getLength());
@@ -92,7 +92,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 			pstmt.setString(1, movieVO.getMovie_type());
 			pstmt.setString(2, movieVO.getMovie_name());
 			pstmt.setString(3, movieVO.getEng_name());
-			pstmt.setBytes(4, movieVO.getPoster_path());
+			pstmt.setBytes(4, movieVO.getMovie_pic());
 			pstmt.setDate(5, movieVO.getRelased());
 			pstmt.setString(6, movieVO.getDistributed());
 			pstmt.setInt(7, movieVO.getLength());
@@ -202,7 +202,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 				movieVO.setMovie_type(rs.getString("movie_type"));
 				movieVO.setMovie_name(rs.getString("movie_name"));
 				movieVO.setEng_name(rs.getString("eng_name"));
-				movieVO.setPoster_path(rs.getBytes("poster_path"));
+				movieVO.setMovie_pic(rs.getBytes("movie_pic"));
 				movieVO.setRelased(rs.getDate("relased"));
 				movieVO.setDistributed(rs.getString("distributed"));
 				movieVO.setLength(rs.getInt("length"));
@@ -276,7 +276,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 				movieVO.setMovie_type(rs.getString("movie_type"));
 				movieVO.setMovie_name(rs.getString("movie_name"));
 				movieVO.setEng_name(rs.getString("eng_name"));
-				movieVO.setPoster_path(rs.getBytes("poster_path"));
+				movieVO.setMovie_pic(rs.getBytes("movie_pic"));
 				movieVO.setRelased(rs.getDate("relased"));
 				movieVO.setDistributed(rs.getString("distributed"));
 				movieVO.setLength(rs.getInt("length"));
@@ -334,12 +334,12 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 		
 		// ----------------INSERT------------------
 //		try {	
-//			byte[] pic1 = getPictureByteArray("WebContent/img/Test_UP_IMG/05.jpeg");
+//			byte[] pic1 = getPictureByteArray("WebContent/img/Test_UP_IMG/04.jpeg");
 //			MovieVO movieVO1 = new MovieVO();
-//			movieVO1.setMovie_type("恐怖片10");
-//			movieVO1.setMovie_name("鬼修女10");
+//			movieVO1.setMovie_type("恐怖片");
+//			movieVO1.setMovie_name("鬼修各");
 //			movieVO1.setEng_name("ShowGirl");
-//			movieVO1.setPoster_path(pic1);
+//			movieVO1.setMovie_pic(pic1);
 //			movieVO1.setRelased(java.sql.Date.valueOf("2018-09-11"));
 //			movieVO1.setDistributed("華納");
 //			movieVO1.setLength(120);
@@ -369,11 +369,11 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 //		try {
 //			byte[] pic2 = getPictureByteArray("WebContent/img/Test_UP_IMG/showgirl2.jpg");
 //			MovieVO movieVO2 = new MovieVO();
-//			movieVO2.setMovie_no("MV0002");
-//			movieVO2.setMovie_type("喜劇片5");
-//			movieVO2.setMovie_name("鬼修感2");
+//			movieVO2.setMovie_no("MV0001");
+//			movieVO2.setMovie_type("色情片");
+//			movieVO2.setMovie_name("鬼修哥");
 //			movieVO2.setEng_name("5566ShowGirl");
-//			movieVO2.setPoster_path(pic2);
+//			movieVO2.setMovie_pic(pic2);
 //			movieVO2.setRelased(java.sql.Date.valueOf("2018-09-15"));
 //			movieVO2.setDistributed("華納2");
 //			movieVO2.setLength(220);
@@ -407,12 +407,12 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 		// ----------------SELECT ONE--------------
 
 //		System.out.println("---------------------");
-//		MovieVO movieVO3 = dao.findByPrimaryKey("3");
+//		MovieVO movieVO3 = dao.findByPrimaryKey("MV0001");
 //		System.out.println(movieVO3.getMovie_no() + ",");
 //		System.out.println(movieVO3.getMovie_type() + ",");
 //		System.out.println(movieVO3.getMovie_name() + ",");
 //		System.out.println(movieVO3.getEng_name() + ",");
-//		System.out.println(movieVO3.getPoster_path() + ",");
+//		System.out.println(movieVO3.getMovie_pic + ",");
 //		System.out.println(movieVO3.getRelased() + ",");
 //		System.out.println(movieVO3.getDistributed() + ",");
 //		System.out.println(movieVO3.getLength() + ",");
@@ -427,7 +427,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 //		System.out.println(movieVO3.getDirector() + ",");
 //		System.out.println(movieVO3.getStarring() + ",");
 //		System.out.println("---------------------");
-//		
+		
 		// ----------------SELECT ONE--------------
 		// ----------------SELECT ALL--------------
 		
@@ -437,7 +437,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 //			System.out.println(amovie.getMovie_type() + ",");
 //			System.out.println(amovie.getMovie_name() + ",");
 //			System.out.println(amovie.getEng_name() + ",");
-//			System.out.println(amovie.getPoster_path() + ",");
+//			System.out.println(amovie.getMovie_pic + ",");
 //			System.out.println(amovie.getRelased() + ",");
 //			System.out.println(amovie.getDistributed() + ",");
 //			System.out.println(amovie.getLength() + ",");

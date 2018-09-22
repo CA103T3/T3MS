@@ -102,8 +102,8 @@
 											class="form-control" type="text" name="eng_name" value="<%=movieVO.getEng_name()%>">
 									</div>
 									<div class="form-group">
-										<label class="control-label">海報路徑:</label> <input
-											class="form-control" type="file" name="poster_path" >
+										<label class="control-label">電影圖片:</label> <input
+											class="form-control" type="file" name="movie_pic" >
 									</div>
 									<div class="form-group hidden-md hidden-sm has-feedback">
 										<label class="control-label">上映日期:</label> 

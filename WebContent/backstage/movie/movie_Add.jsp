@@ -91,8 +91,8 @@
 								</div>
 
 								<div class="form-group">
-									<label class="control-label">海報路徑:</label>
-									<input type="file" name="poster_path" class="form-control">
+									<label class="control-label">電影圖片:</label>
+									<input type="file" name="movie_pic" class="form-control">
 								</div>
 
 								<div class="form-group hidden-md hidden-sm has-feedback">

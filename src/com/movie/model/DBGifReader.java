@@ -27,10 +27,10 @@ public class DBGifReader extends HttpServlet {
 			
 			String movie_no = req.getParameter("movie_no");
 			ResultSet rs = stmt.executeQuery(
-				"SELECT poster_path FROM MOVIE WHERE MOVIE_NO = '" + movie_no + "'");
+				"SELECT movie_pic FROM MOVIE WHERE MOVIE_NO = '" + movie_no + "'");
 
 			if (rs.next()) {
-				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("poster_path"));
+				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("movie_pic"));
 				byte[] buf = new byte[4 * 1024]; // 4K buffer
 				int len;
 				while ((len = in.read(buf)) != -1) {

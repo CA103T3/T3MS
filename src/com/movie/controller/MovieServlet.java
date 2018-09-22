@@ -2,15 +2,11 @@ package com.movie.controller;
 
 import java.io.*;
 import java.util.*;
-
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
-
 import javax.servlet.http.*;
-
 import com.movie.model.*;
 
-import sun.net.www.content.image.jpeg;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class MovieServlet extends HttpServlet {
@@ -23,7 +19,72 @@ public class MovieServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+//------------------------------Search----------------------------------------------------------	
+				
+		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String str = req.getParameter("movie_no");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入電影編號");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backstage/movie/movie_List.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+							
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backstage/movie/movie_List.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************2.開始查詢資料*****************************************/
+				MovieService movieSvc = new MovieService();
+				MovieVO movieVO = movieSvc.getOneMovie(str);
+				
+				if (movieVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backstage/movie/movie_List.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("movieVO", movieVO); // 資料庫取出的movieVO物件,存入req
+				String url = "/backstage/movie/movie_One.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 movie_One.jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backstage/movie/movie_List.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+//----------------------------Delete--------------------------------------------------------------------
+		
 		if ("delete".equals(action)) { // 來自movie_List.jsp 的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -54,6 +115,8 @@ public class MovieServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+//----------------------------Update--------------------------------------------------------------------		
 
 		if ("getOne_For_Update".equals(action)) { // 來自movie_List.jsp 的請求
 
@@ -115,16 +178,16 @@ public class MovieServlet extends HttpServlet {
 				}
 				
 				
-				Part part=req.getPart("poster_path");
+				Part part=req.getPart("movie_pic");
 				String type=part.getContentType();
 				String ex = part.getContentType().substring(0,type.indexOf("/"));
 			
 				MovieService movieSvc = new MovieService();
-				byte[] poster_path = movieSvc.getOneMovie(movie_no).getPoster_path();
+				byte[] movie_pic = movieSvc.getOneMovie(movie_no).getMovie_pic();
 				if (part.getSize() != 0 &&  ex.equals("image") ) {
 					InputStream in = part.getInputStream();
-					poster_path = new byte[in.available()];
-					in.read(poster_path);
+					movie_pic = new byte[in.available()];
+					in.read(movie_pic);
 					in.close();
 				}else {
 					errorMsgs.add("說好的正確檔案呢");
@@ -213,7 +276,7 @@ public class MovieServlet extends HttpServlet {
 				movieVO.setMovie_type(movie_type);
 				movieVO.setMovie_name(movie_name);
 				movieVO.setEng_name(eng_name);
-				movieVO.setPoster_path(poster_path);
+				movieVO.setMovie_pic(movie_pic);
 				movieVO.setRelased(relased);
 				movieVO.setDistributed(distributed);
 				movieVO.setLength(length);
@@ -238,7 +301,7 @@ public class MovieServlet extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				movieSvc = new MovieService();
-				movieVO = movieSvc.updateMovie(movie_no, movie_type, movie_name, eng_name, poster_path, relased,
+				movieVO = movieSvc.updateMovie(movie_no, movie_type, movie_name, eng_name, movie_pic, relased,
 						distributed, length, language, madein, imdb, tomato, rating, trailer_url, brief_intro, active,
 						director, starring);
 
@@ -255,6 +318,8 @@ public class MovieServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+//----------------------------Insert--------------------------------------------------------------------		
 
 		if ("insert".equals(action)) { // 來自addMovie.jsp的請求
 
@@ -284,11 +349,13 @@ public class MovieServlet extends HttpServlet {
 				}
 				
 				
+				InputStream in = req.getPart("movie_pic").getInputStream();
+				byte[] movie_pic = new byte[in.available()];
+				in.read(movie_pic);
+				in.close();
 				
-				InputStream in = req.getPart("poster_path").getInputStream();
-				byte[] poster_path = new byte[in.available()];
-				in.read(poster_path);
-
+				
+				
 				java.sql.Date relased = null;
 				try {
 					relased = java.sql.Date.valueOf(req.getParameter("relased").trim());
@@ -371,7 +438,7 @@ public class MovieServlet extends HttpServlet {
 				movieVO.setMovie_type(movie_type);
 				movieVO.setMovie_name(movie_name);
 				movieVO.setEng_name(eng_name);
-				movieVO.setPoster_path(poster_path);
+				movieVO.setMovie_pic(movie_pic);
 				movieVO.setRelased(relased);
 				movieVO.setDistributed(distributed);
 				movieVO.setLength(length);
@@ -398,7 +465,7 @@ public class MovieServlet extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 
-				movieVO = movieSvc.addMovie(movie_type, movie_name, eng_name, poster_path, relased, distributed, length,
+				movieVO = movieSvc.addMovie(movie_type, movie_name, eng_name, movie_pic, relased, distributed, length,
 						language, madein, imdb, tomato, rating, trailer_url, brief_intro, active, director, starring);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/

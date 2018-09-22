@@ -85,6 +85,17 @@ img {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+#upbtn,#delbtn{
+	line-height:2;
+	position:relative;
+	top:23%;
+	vertical-align:middle;
+}
+
+input[type=text]:focus {
+    width: 20%; 
+}
+
 </style>
 
 </head>
@@ -116,6 +127,7 @@ img {
 									電影管理 <font color="#777777"> <span
 										style="font-size: 23.4px; line-height: 23.4px;">Movie
 											management&nbsp;</span>
+											
 												<a href="movie_Add.jsp" target="_blank">
 												<button id="btn6">新增電影</button>
 												</a>
@@ -127,10 +139,17 @@ img {
 					
 				</div>
 			</div>
+											
 			<div class="section">
 				<div class="container">
 					<div class="hidden-md row">
 						<div class="col-md-12 text-justify">
+						
+						<form METHOD="post" ACTION="movie.do" id="src_movie" >
+					        <input type="text" name="movie_no" placeholder="Search..">			  									
+			                <input type="hidden" name="action" value="getOne_For_Display">
+			                <input type="submit" value="送出">
+			            </form>
 						
 							<table class="table">
 
@@ -151,8 +170,8 @@ img {
 										<td>${movieVO.movie_name}</td>
 										<td><fmt:formatDate value="${movieVO.relased}" pattern="yyyy-MM-dd"/></td>
 										<td>${movieVO.active}</td>
-										<td><img id="poster_path" src="<%=request.getContextPath() %>/DBGifReader?movie_no=${movieVO.movie_no}"></td>
-										<td>
+										<td><img id="movie_pic" src="<%=request.getContextPath() %>/DBGifReader?movie_no=${movieVO.movie_no}"></td>
+										<td id="upbtn">
 											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie/movie.do" style="margin-bottom: 0px;">
 					     						<input type="submit" value="修改"> 
 					     						<input type="hidden" name="movie_no"      value="${movieVO.movie_no}">
@@ -161,7 +180,7 @@ img {
 					     						<input type="hidden" name="action"	    value="getOne_For_Update">
 				     						</FORM>
 			     						</td>
-										<td>
+										<td id="delbtn">
 											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie/movie.do" style="margin-bottom: 0px;">
 											    <input type="submit" value="刪除">
 											    <input type="hidden" name="movie_no"      value="${movieVO.movie_no}">
@@ -172,7 +191,7 @@ img {
 										</td>
 									</tr>
 									
-									</c:forEach>
+								  </c:forEach>
 							</table>
 						
 						
@@ -181,6 +200,8 @@ img {
 					</div>
 				</div>
 			</div>
+			
+			
 
 <!--movie管理內容 -->
 
