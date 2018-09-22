@@ -43,6 +43,8 @@ public class CinemaServiceTest extends HttpServlet {
         cSvc = new CinemaService();
         String cinema_no = testAddCinema();
         testGetOneCinema(cinema_no);
+        cinema_no = testAddCinema();
+        testGetOneCinema(cinema_no);
         testUpdateCinema(cinema_no);
         testGetOneCinema(cinema_no);
         cinema_no = testAddCinema();

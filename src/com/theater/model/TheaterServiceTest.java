@@ -21,7 +21,7 @@ import com.theater.model.TheaterVO;
  */
 @WebServlet("/TheaterServiceTest")
 public class TheaterServiceTest extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private TheaterService tSvc;
     PrintWriter out;
 
@@ -32,31 +32,33 @@ public class TheaterServiceTest extends HttpServlet {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    request.setCharacterEncoding("UTF-8");
-	    response.setContentType("text/plain; charset=UTF-8");
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/plain; charset=UTF-8");
 
         out = response.getWriter();
         out.append("Served at: ").append(request.getContextPath()).append("\n");
         tSvc = new TheaterService();
-	    String theater_no = testAddTheater();
-	    testGetOneTheater(theater_no);
-	    testUpdateTheater(theater_no);
-	    testGetOneTheater(theater_no);
-	    theater_no = testAddTheater();
+        String theater_no = testAddTheater();
+        testGetOneTheater(theater_no);
+        theater_no = testAddTheater();
+        testGetOneTheater(theater_no);
+        testUpdateTheater(theater_no);
+        testGetOneTheater(theater_no);
+        theater_no = testAddTheater();
         testGetAll();
         testDeleteTheater(theater_no);
         testGetAll();
         String cinema_no = "C001";
         testGetAllofCinema(cinema_no);
-	}
+    }
 
 //  insert into CINEMA (CINEMA_NO, CINEMA_NAME) values ('C001', '威秀影城');
-	public String testAddTheater() throws IOException {
-	    String cinema_no = "C001";
+    public String testAddTheater() throws IOException {
+        String cinema_no = "C001";
         String theater_name = "影廳";
         Integer t_rows = 20;
         Integer t_columns = 15;
@@ -97,7 +99,7 @@ public class TheaterServiceTest extends HttpServlet {
 
         out.println("Seat_model : " + str);
         return theater_no;
-	}
+    }
 
 //  insert into CINEMA (CINEMA_NO, CINEMA_NAME) values ('C002', '新光影城');
     public void testUpdateTheater(String theater_no) throws IOException {

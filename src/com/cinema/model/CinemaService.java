@@ -1,11 +1,9 @@
 package com.cinema.model;
 
-import java.io.Reader;
 import java.util.List;
 
 import com.cinema.model.CinemaDAO_interface;
 import com.cinema.model.CinemaVO;
-import com.theater.model.TheaterVO;
 
 public class CinemaService {
 
@@ -55,7 +53,7 @@ public class CinemaService {
 
         dao.update(cinemaVO);
     }
-    
+
     public void deleteCinema(String cinema_no) {
         dao.delete(cinema_no);
     }

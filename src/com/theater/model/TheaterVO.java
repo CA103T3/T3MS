@@ -2,7 +2,7 @@ package com.theater.model;
 
 import java.io.Reader;
 
-public class TheaterVO implements java.io.Serializable{
+public class TheaterVO implements java.io.Serializable {
     /**
      * 
      */
