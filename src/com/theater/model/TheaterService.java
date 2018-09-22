@@ -8,7 +8,7 @@ public class TheaterService {
     private TheaterDAO_interface dao;
     
     public TheaterService() {
-        dao = new TheaterDao();
+        dao = new TheaterDAO();
     }
 
     public String addTheater(String cinema_no, String theater_name,

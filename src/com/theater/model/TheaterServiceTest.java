@@ -43,9 +43,9 @@ public class TheaterServiceTest extends HttpServlet {
         out.append("Served at: ").append(request.getContextPath()).append("\n");
         tSvc = new TheaterService();
 	    String theater_no = testAddTheater();
-	    getOneTheater(theater_no);
+	    testGetOneTheater(theater_no);
 	    testUpdateTheater(theater_no);
-	    getOneTheater(theater_no);
+	    testGetOneTheater(theater_no);
 	    theater_no = testAddTheater();
         testGetAll();
         testDeleteTheater(theater_no);
@@ -115,7 +115,7 @@ public class TheaterServiceTest extends HttpServlet {
         out.println("testUpdateTheater Theater_no : " + theater_no);
     }
 
-    public void getOneTheater(String theater_no) throws IOException {
+    public void testGetOneTheater(String theater_no) throws IOException {
         TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
         out.println("Theater_no : " + theaterVO.getTheater_no());
         out.println("Cinema_no : " + theaterVO.getCinema_no());

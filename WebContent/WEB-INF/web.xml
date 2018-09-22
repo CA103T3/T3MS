@@ -30,12 +30,12 @@
     <url-pattern>/filmreview/filmreview.do</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>Announcement</servlet-name>
-  	<servlet-class>com.announcement.controllor.AnnouncementServlet</servlet-class>
+    <servlet-name>Announcement</servlet-name>
+    <servlet-class>com.announcement.controllor.AnnouncementServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>Announcement</servlet-name>
-  	<url-pattern>/backstage/announcement/ann.do</url-pattern>
+    <servlet-name>Announcement</servlet-name>
+    <url-pattern>/backstage/announcement/ann.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>TheaterServlet</servlet-name>
