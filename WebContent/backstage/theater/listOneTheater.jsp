@@ -3,6 +3,8 @@
 <%@ page import="com.theater.model.*"%>
 <%@ page import="java.io.Reader"%>
 <%@ page import="org.json.*"%>
+<%@ page import="java.io.IOException"%>
+<%@ page import="javax.servlet.jsp.SkipPageException"%>
 
 <%
   TheaterVO theaterVO = (TheaterVO) request.getAttribute("theaterVO");
@@ -160,6 +162,18 @@
             model.close();
             String str = buffer.toString();
             JSONObject json = new JSONObject(str);
+
+//             JSONObject json = null;
+//             try {
+//                 json = new JSONObject(str);
+//             }catch(JSONException e){
+        %>
+//                 toastr.error("座位非JSON格式!");
+//             }); //for $(document).ready(function(){
+        <%
+//                 throw new javax.servlet.jsp.SkipPageException();
+//             }
+
             Iterator<?> keys = json.keys();
             JSONArray ary = null;
             while(keys.hasNext()){

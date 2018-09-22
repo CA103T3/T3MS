@@ -154,9 +154,11 @@ public class TheaterServlet extends HttpServlet {
      *
      * @param  HttpServletRequest req
      * @param  Set<String> set
+     * @param  List<String> errorMsgs
      * @return int[] {rows, cols, paramCount}
      */
-    public int[] getRowsColsParamCount(HttpServletRequest req, Set<String> set) {
+    //public int[] getRowsColsParamCount(HttpServletRequest req, Set<String> set) {
+    public int[] getRowsColsParamCount(HttpServletRequest req, Set<String> set, List<String> errorMsgs) {
         Enumeration<String> enu = req.getParameterNames();
         int paramCount = 0;
         int rows = 0, cols = 0;
@@ -167,11 +169,17 @@ public class TheaterServlet extends HttpServlet {
             set.add(name);
             if (size != set.size()) {
                 size++;
-                String[] str = name.split("_");
-                rows = Integer.valueOf(str[1]) > rows ? Integer.valueOf(str[1]) : rows;
-                System.out.println("rows: " + rows + " ,str[1]: " + str[1]);
-                cols = Integer.valueOf(str[2]) > cols ? Integer.valueOf(str[2]) : cols;
-                System.out.println("cols: " + cols + " ,str[2]: " + str[2]);
+                try {
+                    String[] str = name.split("_");
+                    rows = Integer.valueOf(str[1]) > rows ? Integer.valueOf(str[1]) : rows;
+                    System.out.println("rows: " + rows + " ,str[1]: " + str[1]);
+                    cols = Integer.valueOf(str[2]) > cols ? Integer.valueOf(str[2]) : cols;
+                    System.out.println("cols: " + cols + " ,str[2]: " + str[2]);
+                } catch(Exception e) {
+                    errorMsgs.add("參數 : " + name + ", " + e.getClass().getSimpleName() + " : " + e.getMessage());
+                    int[] ret = {0, 0, 0};
+                    return ret;
+                }
             }
 //            if(values.length > 0) {
 //                out.println(name + " :");
@@ -224,7 +232,8 @@ public class TheaterServlet extends HttpServlet {
             int exclusiveParams = set.size();
             int rows = 0, cols = 0;
 
-            int[] ret = getRowsColsParamCount(req, set);
+            //int[] ret = getRowsColsParamCount(req, set);
+            int[] ret = getRowsColsParamCount(req, set, errorMsgs);
             rows = ret[0];
             cols = ret[1];
             paramCount = ret[2];
@@ -347,7 +356,8 @@ public class TheaterServlet extends HttpServlet {
             int exclusiveParams = set.size();
             int rows = 0, cols = 0;
 
-            int[] ret = getRowsColsParamCount(req, set);
+            //int[] ret = getRowsColsParamCount(req, set);
+            int[] ret = getRowsColsParamCount(req, set, errorMsgs);
             rows = ret[0];
             cols = ret[1];
             paramCount = ret[2];
