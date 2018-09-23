@@ -27,16 +27,16 @@ public class TypeDAO implements TypeDAO_interface {
         }
     }
 
-    private static final String INSERT_STMT = 
-            "INSERT INTO TICKETTYPE (TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE) VALUES ('TT'||LPAD(to_char(TICKETTYPE_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?)";
-        private static final String GET_ALL_STMT = 
-            "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE FROM TICKETTYPE order by TICKETTYPE_NO";
-        private static final String GET_ONE_STMT = 
-            "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE FROM TICKETTYPE where TICKETTYPE_NO = ?";
-        private static final String DELETE = 
-            "DELETE FROM TICKETTYPE where TICKETTYPE_NO = ?";
-        private static final String UPDATE = 
-            "UPDATE TICKETTYPE set THEATER_NO=?, IDENTITY=?, EQUIPMENT=?, TIME=?, PRICE=? where TICKETTYPE_NO = ?";    
+    private static final String INSERT_STMT =
+        "INSERT INTO TICKETTYPE (TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE) VALUES ('TT'||LPAD(to_char(TICKETTYPE_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?)";
+    private static final String GET_ALL_STMT =
+        "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE FROM TICKETTYPE order by TICKETTYPE_NO";
+    private static final String GET_ONE_STMT =
+        "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE FROM TICKETTYPE where TICKETTYPE_NO = ?";
+    private static final String DELETE =
+        "DELETE FROM TICKETTYPE where TICKETTYPE_NO = ?";
+    private static final String UPDATE =
+        "UPDATE TICKETTYPE set THEATER_NO=?, IDENTITY=?, EQUIPMENT=?, TIME=?, PRICE=? where TICKETTYPE_NO = ?";
 
     @Override
     public String insert(TypeVO typeVO) {

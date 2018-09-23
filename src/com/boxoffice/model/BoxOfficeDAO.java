@@ -1,4 +1,4 @@
-package com.session.model;
+package com.boxoffice.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,16 +6,15 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class SessionDAO implements SessionDAO_interface {
+
+public class BoxOfficeDAO implements BoxOfficeDAO_interface {
 
     // 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
     private static DataSource ds = null;
@@ -29,34 +28,32 @@ public class SessionDAO implements SessionDAO_interface {
     }
 
     private static final String INSERT_STMT =
-        "INSERT INTO MOVIE_SESSION (SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE) VALUES ('SES'||LPAD(to_char(MOVIE_SESSION_SEQ.NEXTVAL), 7, '0'), ?, ?, ?, ?)";
+        "INSERT INTO BOX_OFFICE_CHARTS (RANKING_NO,MOVIE_NO,STATISTICS,RANK,LOC) VALUES ('BOC'||LPAD(to_char(BOX_OFFICE_CHARTS_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, ?)";
     private static final String GET_ALL_STMT =
-        "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION order by SESSION_NO";
+        "SELECT RANKING_NO,MOVIE_NO,STATISTICS,RANK,LOC FROM BOX_OFFICE_CHARTS order by RANKING_NO";
     private static final String GET_ONE_STMT =
-        "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where SESSION_NO = ?";
+        "SELECT RANKING_NO,MOVIE_NO,STATISTICS,RANK,LOC FROM BOX_OFFICE_CHARTS where RANKING_NO = ?";
     private static final String DELETE =
-        "DELETE FROM MOVIE_SESSION where SESSION_NO = ?";
+        "DELETE FROM BOX_OFFICE_CHARTS where RANKING_NO = ?";
     private static final String UPDATE =
-        "UPDATE MOVIE_SESSION set THEATER_NO=?, MOVIE_NO=?, SESSION_TIME=?, SEAT_TABLE=? where SESSION_NO = ?";
-
+        "UPDATE BOX_OFFICE_CHARTS set MOVIE_NO=?, STATISTICS=?, RANK=?, LOC=? where RANKING_NO = ?";
+    
     @Override
-    public String insert(SessionVO sessionVO) {
+    public String insert(BoxOfficeVO boVO) {
 
         Connection con = null;
         PreparedStatement pstmt = null;
-        String session_no = null;
+        String ranking_no = null;
         try {
 
             con = ds.getConnection();
-            String[] cols = { "SESSION_NO" }; // 或 int cols[] = {1};
+            String[] cols = { "RANKING_NO" }; // 或 int cols[] = {1};
             pstmt = con.prepareStatement(INSERT_STMT, cols);
 
-            pstmt.setString(1, sessionVO.getTheater_no());
-            pstmt.setString(2, sessionVO.getMovie_no());
-//            pstmt.setTimestamp(3, sessionVO.getSession_time());
-            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Taipei"));
-            pstmt.setTimestamp(3, sessionVO.getSession_time(), cal);
-            pstmt.setString(4, sessionVO.getSeat_table());
+            pstmt.setString(1, boVO.getMovie_no());
+            pstmt.setDate(2, boVO.getStatistics());
+            pstmt.setInt(3, boVO.getRank());
+            pstmt.setInt(4, boVO.getLoc());
 
             pstmt.executeUpdate();
             
@@ -66,7 +63,7 @@ public class SessionDAO implements SessionDAO_interface {
             if (rs.next()) {
                 do {
                     for (int i = 1; i <= columnCount; i++) {
-                        session_no = rs.getString(i);
+                        ranking_no = rs.getString(i);
                         //System.out.println("自增主鍵值 = " + session_no);
                     }
                 } while (rs.next());
@@ -97,11 +94,11 @@ public class SessionDAO implements SessionDAO_interface {
                 }
             }
         }
-        return session_no;
+        return ranking_no;
     }
 
     @Override
-    public void update(SessionVO sessionVO) {
+    public void update(BoxOfficeVO boVO) {
 
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -111,11 +108,11 @@ public class SessionDAO implements SessionDAO_interface {
             con = ds.getConnection();
             pstmt = con.prepareStatement(UPDATE);
 
-            pstmt.setString(1, sessionVO.getTheater_no());
-            pstmt.setString(2, sessionVO.getMovie_no());
-            pstmt.setTimestamp(3, sessionVO.getSession_time());
-            pstmt.setString(4, sessionVO.getSeat_table());
-            pstmt.setString(5, sessionVO.getSession_no());
+            pstmt.setString(1, boVO.getMovie_no());
+            pstmt.setDate(2, boVO.getStatistics());
+            pstmt.setInt(3, boVO.getRank());
+            pstmt.setInt(4, boVO.getLoc());
+            pstmt.setString(5, boVO.getRanking_no());
 
             pstmt.executeUpdate();
 
@@ -143,7 +140,7 @@ public class SessionDAO implements SessionDAO_interface {
     }
 
     @Override
-    public void delete(String session_no) {
+    public void delete(String ranking_no) {
 
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -153,7 +150,7 @@ public class SessionDAO implements SessionDAO_interface {
             con = ds.getConnection();
             pstmt = con.prepareStatement(DELETE);
 
-            pstmt.setString(1, session_no);
+            pstmt.setString(1, ranking_no);
 
             pstmt.executeUpdate();
 
@@ -181,8 +178,8 @@ public class SessionDAO implements SessionDAO_interface {
     }
 
     @Override
-    public SessionVO findByPrimaryKey(String session_no) {
-        SessionVO sessionVO = null;
+    public BoxOfficeVO findByPrimaryKey(String ranking_no) {
+        BoxOfficeVO boVO = null;
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -192,18 +189,18 @@ public class SessionDAO implements SessionDAO_interface {
             con = ds.getConnection();
             pstmt = con.prepareStatement(GET_ONE_STMT);
 
-            pstmt.setString(1, session_no);
+            pstmt.setString(1, ranking_no);
 
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                // sessionVO 也稱為 Domain objects
-                sessionVO = new SessionVO();
-                sessionVO.setSession_no(rs.getString("SESSION_NO"));
-                sessionVO.setTheater_no(rs.getString("THEATER_NO"));
-                sessionVO.setMovie_no(rs.getString("MOVIE_NO"));
-                sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));
-                sessionVO.setSeat_table(rs.getString("SEAT_TABLE"));
+                // boVO 也稱為 Domain objects
+                boVO = new BoxOfficeVO();
+                boVO.setRanking_no(rs.getString("RANKING_NO"));
+                boVO.setMovie_no(rs.getString("MOVIE_NO"));
+                boVO.setStatistics(rs.getDate("STATISTICS"));
+                boVO.setRank(rs.getInt("RANK"));
+                boVO.setLoc(rs.getInt("LOC"));
             }
 
             // Handle any driver errors
@@ -234,14 +231,13 @@ public class SessionDAO implements SessionDAO_interface {
                 }
             }
         }
-        return sessionVO;
+        return boVO;
     }
 
     @Override
-    public List<SessionVO> getAll() {
-        List<SessionVO> list = new ArrayList<SessionVO>();
-        SessionVO sessionVO = null;
-
+    public List<BoxOfficeVO> getAll() {
+        List<BoxOfficeVO> list = new ArrayList<BoxOfficeVO>();
+        BoxOfficeVO boVO = null;
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -253,14 +249,14 @@ public class SessionDAO implements SessionDAO_interface {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                // sessionVO 也稱為 Domain objects
-                sessionVO = new SessionVO();
-                sessionVO.setSession_no(rs.getString("SESSION_NO"));
-                sessionVO.setTheater_no(rs.getString("THEATER_NO"));
-                sessionVO.setMovie_no(rs.getString("MOVIE_NO"));
-                sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));
-                sessionVO.setSeat_table(rs.getString("SEAT_TABLE"));
-                list.add(sessionVO); // Store the row in the list
+                // boVO 也稱為 Domain objects
+                boVO = new BoxOfficeVO();
+                boVO.setRanking_no(rs.getString("RANKING_NO"));
+                boVO.setMovie_no(rs.getString("MOVIE_NO"));
+                boVO.setStatistics(rs.getDate("STATISTICS"));
+                boVO.setRank(rs.getInt("RANK"));
+                boVO.setLoc(rs.getInt("LOC"));
+                list.add(boVO); // Store the row in the list
             }
 
             // Handle any driver errors
@@ -293,4 +289,5 @@ public class SessionDAO implements SessionDAO_interface {
         }
         return list;
     }
+
 }

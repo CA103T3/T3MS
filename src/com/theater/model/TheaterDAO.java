@@ -21,18 +21,18 @@ public class TheaterDAO implements TheaterDAO_interface {
         }
     }
     
-    private static final String INSERT_STMT = 
-            "INSERT INTO theater (THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT) VALUES ('T'||LPAD(to_char(THEATER_SEQ.NEXTVAL), 5, '0'), ?, ?, ?, ?, ?, ?, ?)";
-        private static final String GET_ALL_STMT = 
-            "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater order by THEATER_NO";
-        private static final String GET_ALL_OF_CINEMA_STMT =
-                "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater where CINEMA_NO = ? order by THEATER_NO";
-        private static final String GET_ONE_STMT = 
-            "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater where THEATER_NO = ?";
-        private static final String DELETE = 
-            "DELETE FROM theater where THEATER_NO = ?";
-        private static final String UPDATE = 
-            "UPDATE theater set CINEMA_NO=?, THEATER_NAME=?, T_ROWS=?, T_COLUMNS=?, SEAT_MODEL=?, SEATS=?, EQUIPMENT=? where THEATER_NO = ?";
+    private static final String INSERT_STMT =
+        "INSERT INTO theater (THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT) VALUES ('T'||LPAD(to_char(THEATER_SEQ.NEXTVAL), 5, '0'), ?, ?, ?, ?, ?, ?, ?)";
+    private static final String GET_ALL_STMT =
+        "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater order by THEATER_NO";
+    private static final String GET_ALL_OF_CINEMA_STMT =
+            "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater where CINEMA_NO = ? order by THEATER_NO";
+    private static final String GET_ONE_STMT =
+        "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater where THEATER_NO = ?";
+    private static final String DELETE =
+        "DELETE FROM theater where THEATER_NO = ?";
+    private static final String UPDATE =
+        "UPDATE theater set CINEMA_NO=?, THEATER_NAME=?, T_ROWS=?, T_COLUMNS=?, SEAT_MODEL=?, SEATS=?, EQUIPMENT=? where THEATER_NO = ?";
 
     @Override
     public String insert(TheaterVO theaterVO) {

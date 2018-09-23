@@ -28,16 +28,16 @@ public class CinemaDAO implements CinemaDAO_interface {
         }
     }
 
-    private static final String INSERT_STMT = 
-            "INSERT INTO cinema (CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE) VALUES ('C'||LPAD(to_char(CINEMA_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        private static final String GET_ALL_STMT = 
-            "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE FROM cinema order by CINEMA_NO";
-        private static final String GET_ONE_STMT = 
-            "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE FROM cinema where CINEMA_NO = ?";
-        private static final String DELETE = 
-            "DELETE FROM cinema where CINEMA_NO = ?";
-        private static final String UPDATE = 
-            "UPDATE cinema set CINEMA_NAME=?, CINEMA_ENGNAME=?, CINEMA_ADDRESS=?, CINEMA_TEL=?, INTRODUCTION=?, TRAFFIC=?, PHOTO_TITLE=?, PHOTO_PATH=?, ACTIVE=?, STATE=? where CINEMA_NO = ?";
+    private static final String INSERT_STMT =
+        "INSERT INTO cinema (CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE) VALUES ('C'||LPAD(to_char(CINEMA_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String GET_ALL_STMT =
+        "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE FROM cinema order by CINEMA_NO";
+    private static final String GET_ONE_STMT =
+        "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE FROM cinema where CINEMA_NO = ?";
+    private static final String DELETE =
+        "DELETE FROM cinema where CINEMA_NO = ?";
+    private static final String UPDATE =
+        "UPDATE cinema set CINEMA_NAME=?, CINEMA_ENGNAME=?, CINEMA_ADDRESS=?, CINEMA_TEL=?, INTRODUCTION=?, TRAFFIC=?, PHOTO_TITLE=?, PHOTO_PATH=?, ACTIVE=?, STATE=? where CINEMA_NO = ?";
 
     @Override
     public String insert(CinemaVO cinemaVO) {
