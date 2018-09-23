@@ -2,7 +2,6 @@ package com.cinema.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringReader;
 import java.util.List;
 
 import javax.servlet.ServletException;
