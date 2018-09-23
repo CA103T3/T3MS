@@ -20,13 +20,10 @@
 <title>M&amp;S</title>
 <%@ include file="/backstage/template/link.jsp"%>
 <!-- movie_back_movie CSS -->
-<link
-	href="/css/movie_back_movie.css"
-	rel="stylesheet" type="text/css">
-<style type="text/css">
+<link href="/css/movie_back_movie.css" rel="stylesheet" type="text/css">
+	
 <style>
-
-.table {border: 5px solid black;}
+.table {border: 0px solid black;}
 .table tr:nth-child(even) {background: #FFF; }
 .table tr:nth-child(odd) {background: #FAEBD7; }
 .table tbody tr td{line-height:219px; font-size:18px;} 
@@ -95,7 +92,6 @@ img {
 input[type=text]:focus {
     width: 20%; 
 }
-
 </style>
 
 </head>
