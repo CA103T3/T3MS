@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -51,7 +53,9 @@ public class SessionDAO implements SessionDAO_interface {
 
             pstmt.setString(1, sessionVO.getTheater_no());
             pstmt.setString(2, sessionVO.getMovie_no());
-            pstmt.setTimestamp(3, sessionVO.getSession_time());
+//            pstmt.setTimestamp(3, sessionVO.getSession_time());
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Taipei"));
+            pstmt.setTimestamp(3, sessionVO.getSession_time(), cal);
             pstmt.setString(4, sessionVO.getSeat_table());
 
             pstmt.executeUpdate();

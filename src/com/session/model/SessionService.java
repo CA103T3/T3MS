@@ -24,7 +24,7 @@ public class SessionService {
         return session_no;
     }
 
-    public void updateSession( String session_no, String theater_no, String movie_no, 
+    public void updateSession(String session_no, String theater_no, String movie_no,
             Timestamp session_time, String seat_table) {
 
         SessionVO sessionVO = new SessionVO();
