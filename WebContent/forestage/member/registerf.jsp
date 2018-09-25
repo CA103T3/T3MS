@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- 地址 -->
-	<script src="/T3MS/tw-city-selector-master/tw-city-selector.min.js"></script>
+	<script src="/T3MS/js/tw-city-selector.min.js"></script>
 	
 	<style type="text/css">
 	.shadow {
@@ -61,7 +61,7 @@
 	}
 
 	.bgm{
-		background-image: url('/T3MS/images/bg-01.jpg');
+		background-image: url('/T3MS/img/bg-01.jpg');
 		width: 100%;  
 		min-height: 100vh;
 		display: -webkit-box;
@@ -168,15 +168,17 @@
 		<div class="row align-items-center">
 			<div class="col-12 col-sm-10 offset-sm-1">
 			
-				<c:if test="${not empty errorMsgs}">
-					<font style="color:red"></font>
-					<ul>
-					    <c:forEach var="message" items="${errorMsgs}">
-							<li style="color:red;font-size:30px;font-weight:bold">${message.value}</li>
-						</c:forEach>
-					</ul>
-				</c:if>
-				
+			<c:if test="${not empty errorMsgs}">
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					
+							<ul>
+					   			<c:forEach var="message" items="${errorMsgs}">
+									<li style="color:red;font-size:30px;font-weight:bold">${message.value}</li>
+								</c:forEach>
+							</ul>
+				</div>
+			</c:if>
 			<hr>
 			
 				<form action="<%=request.getContextPath()%>/member/registerC.do" method="post">
@@ -223,7 +225,7 @@
 					<div class="form-row">
 						
 						<div class="col-md-4 mb-3">
-							<label for="validationDefault02">手機號碼</label>
+							<label for="validationDefault02">手機號碼</label><span class="errorm">&nbsp ${errorMsgs.phone}</span>
 							<input type="text" class="form-control" id="" name="phone" value="" required>
 						</div>
 
@@ -252,7 +254,7 @@
 					<div class="form-row">
 						
 						<div class="col-md-6 mb-3">
-							<label>通訊地址</label>
+							<label>通訊地址</label><span class="errorm">&nbsp ${errorMsgs.ad}&nbsp ${errorMsgs.dr}</span>
 								<div class="form-inline"><div role="tw-city-selector" data-bootstrap-style style="width: 500px"></div></div>
 						</div>
 						
@@ -263,7 +265,7 @@
 
 					<div class="form-row">
 						<div class="col-md-6 mb-3">
-							<input type="text" class="form-control" id="validationDefault03" name="address" value="富堡街富堡路8號7段" required>
+							<input type="text" class="form-control" id="validationDefault03" name="address" value="富堡街富堡路8號7段" required><span class="errorm">&nbsp ${errorMsgs.address}</span>
 						</div>
 					</div>
 

@@ -7,11 +7,11 @@ public class MemService {
 	private MemDAO_interface dao;
 
 	public MemService() {
-		dao = new MemJDBCDAO();
+		dao = new MemJNDIDAO();
 	}
 	
 	//會員註冊
-	public MemVO addmem(String email, String paw,String Lastname, String Firstname, String birthday, String phone, String IDNUM, Integer gender){
+	public MemVO addmem(String email, String paw,String Lastname, String Firstname, String birthday, String phone, String IDNUM, Integer gender, String addr, Integer locno){
 		MemVO memVO=new MemVO();
         
 		memVO.setEmail(email);
@@ -22,6 +22,10 @@ public class MemService {
 		memVO.setPhone(phone);
 		memVO.setIDNUM(IDNUM);
 		memVO.setGender(gender);
+		memVO.setAddr(addr);
+		memVO.setLocno(locno);
+		
+		
         dao.insert(memVO);
         
 		return memVO;	
@@ -35,17 +39,20 @@ public class MemService {
 		return dao.check(memVO);
 		
 	}
-	//登入
+	//登入檢查
 	public boolean allowuser(String email,String paw) {
 	    if (dao.isuserlogin(email, paw))
 	      return true;
 	    else
 	      return false;
 	  }
-	
+	//登入後透過EMAIL找到用戶VO
 	public MemVO getMemVO(String email) {
-		
 		return dao.findByemail(email);
+	}
+	//輸入認證信的認證碼後把狀態由0->1
+	public void passemail(String email) {
+		dao.passregistered(email);
 	}
 	
 }

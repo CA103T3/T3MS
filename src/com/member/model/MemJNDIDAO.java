@@ -1,19 +1,22 @@
 package com.member.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-
-public class MemJDBCDAO implements MemDAO_interface {
-	
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA103";
-	String passwd = "123456";
+import java.util.*; 
+import java.sql.*; 
+import javax.naming.Context; 
+import javax.naming.InitialContext; 
+import javax.naming.NamingException; 
+import javax.sql.DataSource;
+public class MemJNDIDAO implements MemDAO_interface {
+	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可 
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/T3MS");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT ="insert into MEMBER(mem_no,email,mem_pw,lname,fname,birthday,phone,IDNUM,gender,addr,locno,status,type,violation) values('M'||LPAD(to_char(member_seq.NEXTVAL), '3', '0'),?,?,?,?,TO_DATE(?,'yyyy/mm/dd'),?,?,?,?,?,0,0,0)";
 	private static final String GET_ALL_STMT = "SELECT memno, lname, fname FROM member";
@@ -29,9 +32,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			
+			con = ds.getConnection(); 
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1,memVO.getEmail());
@@ -47,11 +48,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 			
 			pstmt.executeUpdate();
 			
-//			 Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -81,8 +78,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 		String CHECK = "select * from MEMBER where EMAIL='"+memVO.getEmail()+"'";
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			
+			con = ds.getConnection(); 		
 			Statement stm = con.createStatement();
 	        ResultSet rs = stm.executeQuery(CHECK);
 	        
@@ -92,9 +89,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		    	System.out.println("帳號重複");
 		    	return false;
 		    }   
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -114,8 +109,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		 
         String sql="select * from MEMBER where EMAIL='"+email+"' and mem_pw='"+paw+"'";
         try{
-            Class.forName(driver);
-            con = DriverManager.getConnection(url,userid, passwd);
+        	con = ds.getConnection(); 
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(sql);
  
@@ -125,9 +119,7 @@ public class MemJDBCDAO implements MemDAO_interface {
             rs.close();
             stm.close();
             
-        }catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+       
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -166,8 +158,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection(); 
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, email);
@@ -196,11 +187,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 				
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -243,16 +230,12 @@ public class MemJDBCDAO implements MemDAO_interface {
 		PreparedStatement pstmt = null;	
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection(); 
 			pstmt = con.prepareStatement(PASS_REGISTERED);
 			pstmt.setInt(1, 1);
 			pstmt.setString(2, email);
 			pstmt.executeUpdate();
-		}catch(ClassNotFoundException e){
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

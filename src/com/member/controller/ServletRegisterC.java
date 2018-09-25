@@ -49,7 +49,7 @@ public class ServletRegisterC extends HttpServlet {
 			if (paw == null || paw.trim().length() == 0) {
 				errorMsgs.put("paw","密碼請勿空白");
 			} else if(!paw.trim().matches(pawReg)) { 
-				errorMsgs.put("paw","只能是英文、數字和_ , 長度2~10");
+				errorMsgs.put("paw","只能是英文、數字和_,長度2~10");
             }
 			
 			String paw2=req.getParameter("paw2");
@@ -61,11 +61,34 @@ public class ServletRegisterC extends HttpServlet {
 	        String firstname=req.getParameter("Firstname");
 	        String birthday =req.getParameter("birthday");
 	        String phone = req.getParameter("phone");
+	        String phonereg = "^[(0-9_)]{10}$";
+	        System.out.println(phone);
+	        if (phone == null || phone.trim().length() == 0) {
+				errorMsgs.put("phone","電話請勿空白");
+			} else if(!phone.trim().matches(phonereg)) { 
+				errorMsgs.put("phone","請輸入正確手機號碼");
+            }
 	        String IDNUM = req.getParameter("IDNUM");
 	        Integer gender = Integer.parseInt(req.getParameter("gender"));
-	        System.out.println(gender);
-			
-			
+	        String ad = req.getParameter("county");
+	        System.out.println("ad="+ad);
+	        if("".equals(ad.trim())) {
+	        	errorMsgs.put("ad","請選擇縣市");
+	        }
+	        String dr = req.getParameter("district");
+	        System.out.println("dr="+dr);
+	        Integer locno=null;
+	        if("".equals(dr.trim())) {
+	        	errorMsgs.put("dr","請選擇地區");
+	        }else {
+	        	locno = Integer.parseInt(req.getParameter("zipcode"));
+	        }
+	        System.out.println(locno);
+			String address = req.getParameter("address");
+	        if (address == null || address.trim().length() == 0) {
+				errorMsgs.put("address","請輸入通訊地址");
+	        }
+			String addr = ad+dr+address;
 			
 			MemVO memVO = new MemVO();
 			memVO.setEmail(email);
@@ -76,8 +99,8 @@ public class ServletRegisterC extends HttpServlet {
 			memVO.setPhone(phone);
 			memVO.setIDNUM(IDNUM);
 			memVO.setGender(gender);
-			System.out.println(memVO.getEmail());
-			System.out.println(memVO.getBirthday());
+			
+			
 			System.out.println(errorMsgs);
 			
 			
@@ -93,7 +116,7 @@ public class ServletRegisterC extends HttpServlet {
 			/***************************2.開始新增資料***************************************/
 			MemService memSvc = new MemService();
 			if(memSvc.checkduplicated(email)) {        //檢查重複註冊
-			memVO = memSvc.addmem(email, paw, lastname,  firstname,  birthday,  phone,  IDNUM,  gender);
+			memVO = memSvc.addmem(email, paw, lastname, firstname, birthday, phone, IDNUM, gender , addr, locno);
 			}else {
 				errorMsgs.put("email","EMAIL已被使用");
 				RequestDispatcher failureView = req

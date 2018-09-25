@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V16</title>
+	<title>memberlogin</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,17 +11,18 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/util.css">
-	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/main.css">
+	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/login.css">
 <!--===============================================================================================-->
+
 </head>
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('/T3MS/images/bg-01.jpg');">
+		<div class="container-login100" style="background-image: url('/T3MS/img/bg-01.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-50">
 			
 				<span class="login100-form-title p-b-41">
-					<img style="width:400px;" src='/T3MS/images/login.png'>
+					<img style="width:400px;" src='/T3MS/img/login.png'>
 				</span>
 				<form class="login100-form validate-form p-b-33 p-t-5" action="<%=request.getContextPath()%>/member/loginC.do"  method="post">
 
@@ -43,8 +44,8 @@
 				</form>
 				<div class="container" style="align-content: right">
 					<div class="align-items-end">
-					<a href="registerf.jsp">註冊會員</a>
-					<a href="">忘記密碼</a></div>
+					<a style="color:deeppink;" href="registerf.jsp">註冊會員</a>
+					<a style="color:deeppink;" href="">忘記密碼</a></div>
 				</div>
 			</div>
 		</div>
@@ -53,7 +54,7 @@
 
 
 	<div id="dropDownSelect1"></div>
-	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/js/jquery-3./.1.min.js"></script>
 	<script src="/js/main.js"></script>
 
 </body>

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import com.member.model.MemService;
 import com.member.model.MemVO;
 
+import example.MailService;
+
 
 
 public class ServletLoginC extends HttpServlet {
@@ -44,18 +46,30 @@ public class ServletLoginC extends HttpServlet {
             memVO = memSrc.getMemVO(email);
             session.setAttribute("memVO",memVO);
             
+            String memno = memVO.getmemno();
             String lname = memVO.getLastname();
             String fname = memVO.getFirstname();
+            String name = lname+fname;
             session.setAttribute("lname",lname);
             session.setAttribute("fname",fname);
             
+           
+//            Cookie username= new Cookie("email",email);
+//   
+//            username.setPath("/");
+//            username.setMaxAge(60*60);
+//            response.addCookie(username);
             
-            Cookie username= new Cookie("email",email);
-   
-            username.setPath("/");
-            username.setMaxAge(60*60);
-            response.addCookie(username);
-            response.sendRedirect("/forestage/member/successin.jsp");
+            if(memVO.getStatus()==0) {
+	            response.sendRedirect(request.getContextPath()+"/forestage/member/waitformail.jsp");
+	            
+	            MailService ms = new MailService();
+	            ms.setmail(memno, name, email);
+	            
+            }else if(memVO.getStatus()==1) {
+               	response.sendRedirect(request.getContextPath()+"/forestage/member/successin.jsp");
+       
+            }     
         }
         else { 
             result = "fail";
