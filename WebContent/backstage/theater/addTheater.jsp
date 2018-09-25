@@ -18,13 +18,6 @@
     <%@ include file="/backstage/template/link.jsp" %>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/addTheater.css">
     <style type="text/css">
-      #loding_spinner{
-          position:fixed;
-          _position:absolute;
-          top:40%;              /* center */
-          left:50%;
-          z-index:9999;         /* in front */
-      }
     </style>
 </head>
 

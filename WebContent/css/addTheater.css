@@ -50,3 +50,11 @@ fieldset[disabled] .btn-nonseat.active {
   color: #3E3B42; 
   background-color: #FFFFFF; 
 }
+
+#loding_spinner{
+    position:fixed;
+    _position:absolute;
+    top:40%;              /* center */
+    left:50%;
+    z-index:9999;         /* in front */
+}
