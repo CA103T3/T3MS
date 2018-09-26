@@ -78,10 +78,11 @@ public class CinemaServiceTest extends HttpServlet {
                 "－商場停車優惠：週一至週四憑台北信義威秀影城當日電影票根即可享當日汽車停車優惠一小時(每小時60元)。（注意事項：國定假日不適用｜每車最多折扺一小時｜於出口票亭時提供當日有效票根一張做為折扣憑證並回收｜免費電影票恕無法折抵停車費｜威秀影城商場保有最終解釋權。）" ;
         String photo_title = "台北京站威秀影城-圖片";
         String photo_path = "/T3MS/img/xxxx.jpg";
+        String photo_small = "/T3MS/img/xxxx-s.jpg";
         Integer active = 1;
         Integer state = 1;
 
-        String cinema_no = cSvc.addCinema(cinema_name, cinema_engname, cinema_address, cinema_tel, introduction, traffic, photo_title, photo_path, active, state);
+        String cinema_no = cSvc.addCinema(cinema_name, cinema_engname, cinema_address, cinema_tel, introduction, traffic, photo_title, photo_path, photo_small, active, state);
 
         out.println("Add cinema_no : " + cinema_no);
         return cinema_no;
@@ -98,6 +99,7 @@ public class CinemaServiceTest extends HttpServlet {
         out.println("Traffic : " + cinemaVO.getTraffic());
         out.println("Photo_title : " + cinemaVO.getPhoto_title());
         out.println("Photo_path : " + cinemaVO.getPhoto_path());
+        out.println("Photo_small : " + cinemaVO.getPhoto_small());
         out.println("Active : " + cinemaVO.getActive());
         out.println("State : " + cinemaVO.getState());
     }
@@ -124,10 +126,11 @@ public class CinemaServiceTest extends HttpServlet {
                 "－客運：可搭乘至「板橋客運站」下車，出口左轉步行約 3~5 分鐘即可到達" ;
         String photo_title = "板橋大遠百威秀影城-圖片";
         String photo_path = "/T3MS/img/yyyy.jpg";
+        String photo_small = "/T3MS/img/yyyy-s.jpg";
         Integer active = 0;
         Integer state = 0;
 
-        cSvc.updateCinema(cinema_no, cinema_name, cinema_engname, cinema_address, cinema_tel, introduction, traffic, photo_title, photo_path, active, state);
+        cSvc.updateCinema(cinema_no, cinema_name, cinema_engname, cinema_address, cinema_tel, introduction, traffic, photo_title, photo_path, photo_small, active, state);
         out.println("testUpdateCinema cinema_no : " + cinema_no);
     }
 

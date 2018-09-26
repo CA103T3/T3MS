@@ -15,6 +15,7 @@ public class CinemaVO implements java.io.Serializable {
     private String traffic;
     private String photo_title;
     private String photo_path;
+    private String photo_small;
     private Integer active;
     private Integer state;
 
@@ -71,6 +72,12 @@ public class CinemaVO implements java.io.Serializable {
     }
     public void setPhoto_path(String photo_path) {
         this.photo_path = photo_path;
+    }
+    public String getPhoto_small() {
+        return photo_small;
+    }
+    public void setPhoto_small(String photo_small) {
+        this.photo_small = photo_small;
     }
     public Integer getActive() {
         return active;

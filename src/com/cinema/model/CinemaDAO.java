@@ -29,15 +29,15 @@ public class CinemaDAO implements CinemaDAO_interface {
     }
 
     private static final String INSERT_STMT =
-        "INSERT INTO cinema (CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE) VALUES ('C'||LPAD(to_char(CINEMA_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        "INSERT INTO cinema (CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,PHOTO_SMALL,ACTIVE,STATE) VALUES ('C'||LPAD(to_char(CINEMA_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String GET_ALL_STMT =
-        "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE FROM cinema order by CINEMA_NO";
+        "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,PHOTO_SMALL,ACTIVE,STATE FROM cinema order by CINEMA_NO";
     private static final String GET_ONE_STMT =
-        "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,ACTIVE,STATE FROM cinema where CINEMA_NO = ?";
+        "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,PHOTO_SMALL,ACTIVE,STATE FROM cinema where CINEMA_NO = ?";
     private static final String DELETE =
         "DELETE FROM cinema where CINEMA_NO = ?";
     private static final String UPDATE =
-        "UPDATE cinema set CINEMA_NAME=?, CINEMA_ENGNAME=?, CINEMA_ADDRESS=?, CINEMA_TEL=?, INTRODUCTION=?, TRAFFIC=?, PHOTO_TITLE=?, PHOTO_PATH=?, ACTIVE=?, STATE=? where CINEMA_NO = ?";
+        "UPDATE cinema set CINEMA_NAME=?, CINEMA_ENGNAME=?, CINEMA_ADDRESS=?, CINEMA_TEL=?, INTRODUCTION=?, TRAFFIC=?, PHOTO_TITLE=?, PHOTO_PATH=?, PHOTO_SMALL=?, ACTIVE=?, STATE=? where CINEMA_NO = ?";
 
     @Override
     public String insert(CinemaVO cinemaVO) {
@@ -59,8 +59,9 @@ public class CinemaDAO implements CinemaDAO_interface {
             pstmt.setString(6, cinemaVO.getTraffic());
             pstmt.setString(7, cinemaVO.getPhoto_title());
             pstmt.setString(8, cinemaVO.getPhoto_path());
-            pstmt.setInt(9, cinemaVO.getActive());
-            pstmt.setInt(10, cinemaVO.getState());
+            pstmt.setString(9, cinemaVO.getPhoto_small());
+            pstmt.setInt(10, cinemaVO.getActive());
+            pstmt.setInt(11, cinemaVO.getState());
 
             pstmt.executeUpdate();
             
@@ -123,9 +124,10 @@ public class CinemaDAO implements CinemaDAO_interface {
             pstmt.setString(6, cinemaVO.getTraffic());
             pstmt.setString(7, cinemaVO.getPhoto_title());
             pstmt.setString(8, cinemaVO.getPhoto_path());
-            pstmt.setInt(9, cinemaVO.getActive());
-            pstmt.setInt(10, cinemaVO.getState());
-            pstmt.setString(11, cinemaVO.getCinema_no());
+            pstmt.setString(9, cinemaVO.getPhoto_small());
+            pstmt.setInt(10, cinemaVO.getActive());
+            pstmt.setInt(11, cinemaVO.getState());
+            pstmt.setString(12, cinemaVO.getCinema_no());
 
             pstmt.executeUpdate();
 
@@ -218,6 +220,7 @@ public class CinemaDAO implements CinemaDAO_interface {
                 cinemaVO.setTraffic(rs.getString("TRAFFIC"));
                 cinemaVO.setPhoto_title(rs.getString("PHOTO_TITLE"));
                 cinemaVO.setPhoto_path(rs.getString("PHOTO_PATH"));
+                cinemaVO.setPhoto_small(rs.getString("PHOTO_SMALL"));
                 cinemaVO.setActive(rs.getInt("ACTIVE"));
                 cinemaVO.setState(rs.getInt("STATE"));
             }
@@ -280,6 +283,7 @@ public class CinemaDAO implements CinemaDAO_interface {
                 cinemaVO.setTraffic(rs.getString("TRAFFIC"));
                 cinemaVO.setPhoto_title(rs.getString("PHOTO_TITLE"));
                 cinemaVO.setPhoto_path(rs.getString("PHOTO_PATH"));
+                cinemaVO.setPhoto_small(rs.getString("PHOTO_SMALL"));
                 cinemaVO.setActive(rs.getInt("ACTIVE"));
                 cinemaVO.setState(rs.getInt("STATE"));
                 list.add(cinemaVO); // Store the row in the list

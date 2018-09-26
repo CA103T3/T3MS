@@ -15,7 +15,7 @@ public class CinemaService {
 
     public String addCinema(String cinema_name, String cinema_engname, String cinema_address,
             String cinema_tel, String introduction, String traffic, String photo_title, String photo_path,
-            Integer active, Integer state) {
+            String photo_small, Integer active, Integer state) {
 
         CinemaVO cinemaVO = new CinemaVO();
         cinemaVO.setCinema_name(cinema_name);
@@ -26,6 +26,7 @@ public class CinemaService {
         cinemaVO.setTraffic(traffic);
         cinemaVO.setPhoto_title(photo_title);
         cinemaVO.setPhoto_path(photo_path);
+        cinemaVO.setPhoto_small(photo_small);
         cinemaVO.setActive(active);
         cinemaVO.setState(state);
         
@@ -36,7 +37,7 @@ public class CinemaService {
 
     public void updateCinema(String cinema_no, String cinema_name, String cinema_engname, String cinema_address,
             String cinema_tel, String introduction, String traffic, String photo_title, String photo_path,
-            Integer active, Integer state) {
+            String photo_small, Integer active, Integer state) {
 
         CinemaVO cinemaVO = new CinemaVO();
         cinemaVO.setCinema_no(cinema_no);
@@ -48,6 +49,7 @@ public class CinemaService {
         cinemaVO.setTraffic(traffic);
         cinemaVO.setPhoto_title(photo_title);
         cinemaVO.setPhoto_path(photo_path);
+        cinemaVO.setPhoto_small(photo_small);
         cinemaVO.setActive(active);
         cinemaVO.setState(state);
 

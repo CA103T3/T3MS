@@ -42,7 +42,7 @@
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
                 <h3 class="page-header"><label>新增影城</label></h3>
-                <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/cinema/cinema.do">
+                <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/cinema/cinema.do" enctype="multipart/form-data">
                     <div class="form-group">
                       <label class="col-md-5 control-label">影城名稱</label>
                       <div class="col-md-3">
@@ -97,7 +97,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">上線</label>
                       <div class="col-md-3">
-                        <input type="checkbox" name="active" class="toggleswitch">
+                        <input type="checkbox" name="active" class="toggleswitch" <%= (cinemaVO==null) ? "" : ((cinemaVO.getActive()==1) ? "checked" : "") %> >
                       </div>
                       <div class="col-md-4">
                       </div>
@@ -105,18 +105,18 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">合作狀態</label>
                       <div class="col-md-3">
-                        <input type="checkbox" name="state" class="toggleswitch">
+                        <input type="checkbox" name="state" class="toggleswitch" <%= (cinemaVO==null) ? "" : ((cinemaVO.getState()==1) ? "checked" : "") %>>
                       </div>
                       <div class="col-md-4">
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="traffic">交通資訊</label>
-                      <textarea class="form-control" id="traffic" name="traffic" rows="6" value="<%= (cinemaVO==null) ? "" : cinemaVO.getTraffic() %>"></textarea>
+                      <textarea class="form-control" id="traffic" name="traffic" rows="6"><%= (cinemaVO==null) ? "" : cinemaVO.getTraffic() %></textarea>
                     </div>
                     <div class="form-group">
                       <label for="introduction">影城介紹</label>
-                      <textarea class="form-control" id="introduction" name="introduction" rows="10" value="<%= (cinemaVO==null) ? "" : cinemaVO.getIntroduction() %>"></textarea>
+                      <textarea class="form-control" id="introduction" name="introduction" rows="10"><%= (cinemaVO==null) ? "" : cinemaVO.getIntroduction() %></textarea>
                     </div>
                     <div class="form-group text-center">
                       <input type="hidden" name="action" value="insert">
@@ -214,6 +214,7 @@
                   reader.readAsDataURL(obj.files[0]);
                   $("#img_div").css("display", "block");
               } else {
+
                   console.log(filename, " not image file");
                   //alert("not image file");
                   $.alert({
@@ -224,6 +225,7 @@
                   $("#img_div").css("display", "none");
                   //$("#inputFile").val("");
                   setTimeout(function(){ $("#inputFile").val(""); }, 100);
+
               }
           }
 
@@ -312,7 +314,10 @@
             }
         });
 
-        $('.toggleswitch').bootstrapToggle();
+        $('.toggleswitch').bootstrapToggle({
+            on: '是',
+            off: '否'
+        });
 
       });
     </script>

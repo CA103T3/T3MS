@@ -45,4 +45,12 @@
     <servlet-name>TheaterServlet</servlet-name>
     <url-pattern>/theater/theater.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CinemaServlet</servlet-name>
+    <servlet-class>com.cinema.controller.CinemaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CinemaServlet</servlet-name>
+    <url-pattern>/cinema/cinema.do</url-pattern>
+  </servlet-mapping>
 </web-app>
