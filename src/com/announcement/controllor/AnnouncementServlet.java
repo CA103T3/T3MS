@@ -54,7 +54,7 @@ public class AnnouncementServlet extends HttpServlet {
 				}
 				url = "/backstage/announcement/listAnnouncement.jsp?whichPage=" + finalPage;
 				AnnouncementService annSvc = new AnnouncementService();
-				annSvc.addAnn(anc_con, backstage_no); //新增一筆公告
+				annSvc.addAnn(anc_con, backstage_no); // 新增一筆公告
 				request.getRequestDispatcher(url).forward(request, response);
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
@@ -110,10 +110,11 @@ public class AnnouncementServlet extends HttpServlet {
 		if ("delete".equals(action)) {
 			List<String> errorMsgs = new LinkedList<>();
 			request.setAttribute("errorMsgs", errorMsgs);
+
 			try {
 				String anc_no = request.getParameter("anc_no").trim();
 				AnnouncementService annSvc = new AnnouncementService();
-				annSvc.delete(anc_no); //刪除一筆公告
+				annSvc.delete(anc_no); // 刪除一筆公告
 				String url = "/backstage/announcement/listAnnouncement.jsp";
 				request.getRequestDispatcher(url).forward(request, response);
 
@@ -140,25 +141,22 @@ public class AnnouncementServlet extends HttpServlet {
 				boolean openupdatereplyform2 = true;
 				request.setAttribute("openupdatereplyform2", openupdatereplyform2);
 				request.getRequestDispatcher(requestURL).forward(request, response);
-				return;
 
 			} catch (Exception e) {
 				errorMsgs.add("bootstrap error:" + e.getMessage());
 			}
 		}
 
-		if ("getOne_For_Update".equals(action)) {
+		if ("getOne_For_Delete".equals(action)) {
 			List<String> errorMsgs = new LinkedList<>();
 			request.setAttribute("errorMsgs", errorMsgs);
-			String requestURL = request.getParameter("requestURL");
-
+			String requestURL = request.getParameter("requestURL").trim();
+			String anc_no = request.getParameter("anc_no").trim();
 			try {
-				String anc_no = request.getParameter("anc_no").trim();
-				String url = "/backstage/announcement/update_ann_input.jsp";
-				AnnouncementService annSvc = new AnnouncementService();
-				AnnouncementVO annVO = annSvc.getOneAnn(anc_no);
-				request.setAttribute("annVO", annVO);
-				request.getRequestDispatcher(url).forward(request, response);
+				boolean deleteAnn = true;
+				request.setAttribute("deleteAnn", deleteAnn);
+				request.setAttribute("anc_no", anc_no);
+				request.getRequestDispatcher(requestURL).forward(request, response);
 
 			} catch (Exception e) {
 				errorMsgs.add("modify error" + e.getMessage());
