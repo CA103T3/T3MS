@@ -66,43 +66,43 @@
                     </form>
                 </h3>
 
-                <div class="row">
+                <div class="row form-group">
                     <label class="col-md-6 control-label text-right">影城</label>
                     <div class="col-md-6">
                       <label>${theaterVO.cinema_no} cinema_name(to be continued)</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label class="col-md-6 control-label text-right">影廳編號</label>
                     <div class="col-md-6">
                       <label>${theaterVO.theater_no}</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label class="col-md-6 control-label text-right">影廳名稱</label>
                     <div class="col-md-6">
                       <label>${theaterVO.theater_name}</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label class="col-md-6 control-label text-right">影廳設備</label>
                     <div class="col-md-6">
                       <label>${theaterVO.equipment}</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label class="col-md-6 control-label text-right">排數</label>
                     <div class="col-md-6">
                       <label>${theaterVO.t_rows}</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label class="col-md-6 control-label text-right">行數</label>
                     <div class="col-md-6">
                       <label>${theaterVO.t_columns}</label>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row form-group">
                     <label class="col-md-6 control-label text-right">座位數</label>
                     <div class="col-md-6">
                       <label>${theaterVO.seats}</label>

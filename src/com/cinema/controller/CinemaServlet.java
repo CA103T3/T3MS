@@ -22,8 +22,6 @@ import org.json.JSONObject;
 
 import com.cinema.model.CinemaService;
 import com.cinema.model.CinemaVO;
-import com.theater.model.TheaterService;
-import com.theater.model.TheaterVO;
 import com.common.util.ImageUtil;
 import com.common.util.UUIDGenerator;
 
@@ -62,7 +60,7 @@ public class CinemaServlet extends HttpServlet {
         //PrintWriter out = res.getWriter();
 
         String action = req.getParameter("action");
-        if ("insert".equals(action)) { // from addTheater.jsp
+        if ("insert".equals(action)) { // from addCinema.jsp
 
             List<String> errorMsgs = new LinkedList<String>();
             // Store this set in the request scope, in case we need to
@@ -83,13 +81,13 @@ public class CinemaServlet extends HttpServlet {
                 }
 
                 String cinema_engname = req.getParameter("cinema_engname").trim();
-                String cinema_engnameReg = "^[(a-zA-Z\\s)]{1,50}$";
+                String cinema_engnameReg = "^[(a-zA-Z0-9\\s)]{1,50}$";
                 System.out.println("cinema_engname : " + cinema_engname);
                 System.out.println("cinema_engname length: " + cinema_engname.trim().length());
                 if (cinema_engname == null || cinema_engname.trim().length() == 0) {
                     errorMsgs.add("影城英文名稱: 請勿空白");
                 } else if(!cinema_engname.trim().matches(cinema_engnameReg)) { //以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("影城英文名稱: 只能是英文字母和空白字元, 且長度必需在1到50之間");
+                    errorMsgs.add("影城英文名稱: 只能是英文字母、數字和空白字元, 且長度必需在1到50之間");
                 }
 
                 String cinema_address = req.getParameter("cinema_address").trim();
@@ -266,14 +264,14 @@ public class CinemaServlet extends HttpServlet {
                         introduction, traffic, photo_title, photo_path, photo_small, active, state);
 
                 /***************************3.新增完成,準備轉交(Send the Success view)***********/
-//                String url = "/backstage/theater/listAllTheater.jsp" + "?cinema_no=" + cinema_no;
-//                System.out.println("url: " + url);
-//                RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllTheater.jsp
-//                successView.forward(req, res);
+                String url = "/backstage/cinema/listAllCinema.jsp";
+                System.out.println("url: " + url);
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllCinema.jsp
+                successView.forward(req, res);
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add(e.getMessage());
+                errorMsgs.add(e.getMessage().replaceAll("\r|\n", ""));
                 System.out.println("其他可能的錯誤處理");
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/cinema/addCinema.jsp");
@@ -282,7 +280,7 @@ public class CinemaServlet extends HttpServlet {
             }
         }
 
-        if ("delete".equals(action)) { // from listAllTheater.jsp
+        if ("delete".equals(action)) { // from listAllCinema.jsp
 
             List<String> errorMsgs = new LinkedList<String>();
             // Store this set in the request scope, in case we need to
@@ -297,7 +295,6 @@ public class CinemaServlet extends HttpServlet {
 
                 /***************************2.開始刪除資料***************************************/
                CinemaService cSvc = new CinemaService();
-//               TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
                cSvc.deleteCinema(cinema_no);
 
                 /***************************3.刪除完成,準備轉交(Send the Success view)***********/
@@ -315,6 +312,56 @@ public class CinemaServlet extends HttpServlet {
             }
         }
 
+        if ("view".equals(action)) { // from listAllCinema.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+            String requestURL = req.getParameter("requestURL");
+
+            try {
+                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+                String cinema_no = req.getParameter("cinema_no");
+                if (cinema_no == null || (cinema_no.trim()).length() == 0) {
+                    errorMsgs.add("請輸入影城編號");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************2.開始查詢資料*****************************************/
+                CinemaService cSvc = new CinemaService();
+                CinemaVO cinemaVO = cSvc.getOneCinema(cinema_no);
+                if (cinemaVO == null) {
+                    errorMsgs.add("查無資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)*************/
+                req.setAttribute("cinemaVO", cinemaVO); // 資料庫取出的cinemaVO物件,存入req
+                String url = "/backstage/cinema/listOneCinema.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneCinema.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理*************************************/
+            } catch (Exception e) {
+                errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("requestURL");
+                failureView.forward(req, res);
+            }
+        }
 	}
 
     // 取出上傳的檔案名稱 (因為API未提供method,所以必須自行撰寫)

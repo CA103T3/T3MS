@@ -1,8 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.cinema.model.*"%>
-<%@ page import="java.io.Reader"%>
-<%@ page import="org.json.*"%>
 
 <%
     CinemaService cSvc = new CinemaService();
@@ -68,7 +66,7 @@
                                         <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="cinema_no" value="${cinemaVO.cinema_no}">
-                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
+                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="view">
                                 </form>
