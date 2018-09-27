@@ -160,3 +160,7 @@
 .brs-none {
     border-right-style: none;
 }
+
+.dp-inline {
+    display:inline;
+}

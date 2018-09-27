@@ -105,11 +105,11 @@
                     </a>
                     <ul id="sub5" class="nav collapse">
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/cinema/listAllCinema.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影城</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp?cinema_no=C001">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影廳</a>
                         </li>
                         <li>

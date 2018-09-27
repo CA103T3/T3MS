@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.theater.model.*"%>
+<%@ page import="com.cinema.model.*"%>
 <%@ page import="java.io.Reader"%>
 <%@ page import="org.json.*"%>
 
 <%
-    TheaterService tSvc = new TheaterService();
-    List<TheaterVO> list = tSvc.getAllofCinema(request.getParameter("cinema_no"));
+    CinemaService cSvc = new CinemaService();
+    List<CinemaVO> list = cSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
 
@@ -44,53 +44,49 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>檢視影廳&nbsp;&nbsp;&nbsp;</label><a href="<%=request.getContextPath()%>/backstage/theater/addTheater.jsp?cinema_no=${param.cinema_no}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i><span class="fs16">&nbsp;新增影廳</span></a></h3>
-                <table id="theaters" class="display" style="width:100%">
+                <h3 class="page-header"><label>檢視影城&nbsp;&nbsp;&nbsp;</label><a href="<%=request.getContextPath()%>/backstage/cinema/addCinema.jsp" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i><span class="fs16">&nbsp;新增影城</span></a></h3>
+                <table id="cinemas" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th>影廳編號</th>
-                            <th>影廳名稱</th>
-                            <th>排數</th>
-                            <th>行數</th>
-                            <th>座位數</th>
-                            <th>影廳設備</th>
+                            <th>影城編號</th>
+                            <th>影城名稱</th>
+                            <th>影城英文名稱</th>
+                            <th>影城地址</th>
                             <th>執行動作</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="theaterVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
+                    <c:forEach var="cinemaVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
                         <tr>
-                            <td>${theaterVO.theater_no}</td>
-                            <td>${theaterVO.theater_name}</td>
-                            <td>${theaterVO.t_rows}</td>
-                            <td>${theaterVO.t_columns}</td>
-                            <td>${theaterVO.seats}</td>
-                            <td>${theaterVO.equipment}</td>
+                            <td>${cinemaVO.cinema_no}</td>
+                            <td>${cinemaVO.cinema_name}</td>
+                            <td>${cinemaVO.cinema_engname}</td>
+                            <td>${cinemaVO.cinema_address}</td>
                             <td>
-                                <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/theater.do">
+                                <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/cinema/cinema.do">
                                     <button type="submit" id="view-btn-${s.index}" class="btn btn-success fs16 " >
                                         <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視
                                     </button>&nbsp;&nbsp;
-                                    <input type="hidden" name="theater_no" value="${theaterVO.theater_no}">
+                                    <input type="hidden" name="cinema_no" value="${cinemaVO.cinema_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="view">
                                 </form>
-                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/theater.do">
+                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/cinema/cinema.do">
                                     <button type="submit" id="mod-btn-${s.index}" class="btn btn-warning fs16 " >
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改
                                     </button>&nbsp;&nbsp;
-                                    <input type="hidden" name="theater_no" value="${theaterVO.theater_no}">
+                                    <input type="hidden" name="cinema_no" value="${cinemaVO.cinema_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="toUpdatePage">
                                 </form>
-                                <form id="fm-del-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/theater/theater.do">
-                                    <button type="button" id="del-btn-${s.index}" class="btn btn-danger fs16 del-btn" data-name="${theaterVO.theater_name}" data-form="fm-del-${s.index}">
+                                <form id="fm-del-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/cinema/cinema.do">
+                                    <button type="button" id="del-btn-${s.index}" class="btn btn-danger fs16 del-btn" data-name="${cinemaVO.cinema_name}" data-form="fm-del-${s.index}">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除
                                     </button>
-                                    <input type="hidden" name="theater_no" value="${theaterVO.theater_no}">
-                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
+                                    <input type="hidden" name="cinema_no" value="${cinemaVO.cinema_no}">
+                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="delete">
                                 </form>
@@ -105,7 +101,7 @@
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-        $('#theaters').DataTable({
+        $('#cinemas').DataTable({
           "language": {
             "url": "<%=request.getContextPath()%>/resources/Chinese-traditional.json"
           }
@@ -114,7 +110,7 @@
         <c:if test="${not empty list}">
             <c:if test="${not empty param.whichRecordIndex}">
                 setTimeout(function(){
-                    var table = $('#theaters').DataTable();
+                    var table = $('#cinemas').DataTable();
                     if(table.rows().count()==${param.whichRecordIndex}) { //when delete last row
                         table.row(table.rows().count() - 1).show().draw(false);
                         console.log("last row: ", (table.rows().count() - 1), " show()");
@@ -125,7 +121,7 @@
 
                 }, 100);
                 // not work, use setTimeout
-                // var table = $('#theaters').DataTable();
+                // var table = $('#cinemas').DataTable();
                 // table.row(${param.whichRecordIndex}).show().draw(false);
             </c:if>
         </c:if>

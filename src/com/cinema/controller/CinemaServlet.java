@@ -281,6 +281,40 @@ public class CinemaServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+
+        if ("delete".equals(action)) { // from listAllTheater.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑
+
+            try {
+                /***************************1.接收請求參數***************************************/
+               String cinema_no = req.getParameter("cinema_no");
+
+                /***************************2.開始刪除資料***************************************/
+               CinemaService cSvc = new CinemaService();
+//               TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
+               cSvc.deleteCinema(cinema_no);
+
+                /***************************3.刪除完成,準備轉交(Send the Success view)***********/
+               String url = requestURL;
+               System.out.println("requestURL: " + url);
+               RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
+               successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理**********************************/
+            } catch (Exception e) {
+                errorMsgs.add("刪除資料失敗: "+e.getMessage().replaceAll("\r|\n", ""));
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher(requestURL);
+                failureView.forward(req, res);
+            }
+        }
+
 	}
 
     // 取出上傳的檔案名稱 (因為API未提供method,所以必須自行撰寫)
