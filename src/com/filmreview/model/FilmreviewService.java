@@ -2,6 +2,7 @@ package com.filmreview.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 public class FilmreviewService {
 	private FilmreviewDAO_interface dao;
@@ -60,6 +61,10 @@ public class FilmreviewService {
     
     public List<FilmreviewVO> getAll(){
     	return dao.getAll();
+    }
+    
+    public Set<FilmreviewVO> getAllByMemNo(String movie_no){
+    	return dao.getAllByMemNo(movie_no);
     }
 	
 	

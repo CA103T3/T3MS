@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="utf-8">
 
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,17 +13,17 @@
     <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 <style>
-.middle {
-    .parent {
-    display: table;
-    table-layout: fixed;
+
+.center-vertical{
+
+position: relative;
+
+top: 50%;
+
+transform: translateY(50%);
+
 }
 
-.child {
-    display:table-cell;
-    vertical-align:middle;
-    text-align:center;
-}
 }
 </style>
 </head>
@@ -32,7 +32,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-right">
-            <a href="fv_home.jsp" class="btn btn-primary">ÂsÄı¼vµû</a>
+            <a href="fv_home.jsp" class="btn btn-primary">ç€è¦½å½±è©•</a>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1 class="text-center">·j´M</h1>
+            <h1 class="text-center">æœå°‹</h1>
           </div>
         </div>
         <div class="row">
@@ -49,7 +49,7 @@
             <form role="form">
               <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="½Ğ¿é¤J¹q¼v¦WºÙ">
+                  <input type="text" class="form-control" placeholder="è«‹è¼¸å…¥é›»å½±åç¨±">
                   <span class="input-group-btn">
                     <a class="btn btn-primary" type="submit">Go</a>
                   </span>
@@ -64,7 +64,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <a href="fv_writing.jsp" class="btn btn-block btn-lg btn-primary">¼g¼vµû</a>
+            <a href="fv_writing.jsp" class="btn btn-block btn-lg btn-primary">å¯«å½±è©•</a>
           </div>
         </div>
       </div>
@@ -74,46 +74,22 @@
         <div class="row">
           
           <div class="col-md-6">
-            <p>¼ĞÃD<br><br></p>
+            <p>æ¨™é¡Œ<br><br></p>
           </div>
           <div class="col-md-1">
-            <h3 class="text-center">¤é´Á</h3>
+            <h3 class="text-center">æ—¥æœŸ</h3>
           </div>
           <div class="col-md-2">
-            <h3 class="text-center">¹q¼v¦WºÙ</h3>
+            <h3 class="text-center">é›»å½±åç¨±</h3>
           </div>
           <div class="col-md-1">
-            <h3 class="text-center">µû¤À</h3>
+            <h3 class="text-center">è©•åˆ†</h3>
           </div>
           <div class="col-md-1 text-center ">
-            <a class="btn btn-primary " data-toggle="button">­×§ï</a>
+            <a class="btn btn-primary center-vertical" data-toggle="button">ä¿®æ”¹</a>
           </div>
           <div class="col-md-1 text-center">
-            <a class="btn btn-primary">§R°£</a>
-          </div>
-        </div>
-      </div>
-    </div><div class="section">
-      <div class="container">
-        <div class="row">
-          
-          <div class="col-md-6">
-            <p>¼ĞÃD<br><br></p>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">¤é´Á</h3>
-          </div>
-          <div class="col-md-2">
-            <h3 class="text-center">¹q¼v¦WºÙ</h3>
-          </div>
-          <div class="col-md-1">
-            <h3 class="text-center">µû¤À</h3>
-          </div>
-          <div class="col-md-1 text-center">
-            <a class="btn btn-primary" data-toggle="button">­×§ï</a>
-          </div>
-          <div class="col-md-1 text-center">
-            <a class="btn btn-primary">§R°£</a>
+            <a class="btn btn-primary center-vertical">åˆªé™¤</a>
           </div>
         </div>
       </div>

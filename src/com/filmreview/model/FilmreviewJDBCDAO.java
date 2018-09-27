@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 
 
@@ -27,7 +29,8 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 			"DELETE FROM Filmreview where FR_NO = ?";
 	private static final String UPDATE = 
 			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=? where FR_NO = ?";
-	
+	private static final String GET_ALL_MEM = 
+			"SELECT * FROM Filmreview where MOVIE_NO LIKE ?";
 	@Override
 	public void insert(FilmreviewVO filmreviewVO) {
 		
@@ -305,6 +308,75 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public Set<FilmreviewVO> getAllByMemNo(String movie_no) {
+		Set<FilmreviewVO> set = new LinkedHashSet<FilmreviewVO>();
+		FilmreviewVO filmreviewVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_MEM);
+			pstmt.setString(1, "%"+movie_no+"%");;
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				filmreviewVO = new FilmreviewVO();
+				filmreviewVO.setFr_no(rs.getString("fr_no"));
+				filmreviewVO.setMovie_no(rs.getString("movie_no"));
+				filmreviewVO.setCreated_at(rs.getDate("created_at"));
+				filmreviewVO.setUpdated_at(rs.getDate("updated_at"));
+				filmreviewVO.setContent(rs.getString("content"));
+				filmreviewVO.setEvaluation(rs.getDouble("evaluation"));
+				filmreviewVO.setTitle(rs.getString("title"));
+				filmreviewVO.setSource(rs.getString("source"));
+				filmreviewVO.setUrl(rs.getString("url"));
+				filmreviewVO.setMem_no(rs.getString("mem_no"));
+				filmreviewVO.setAuthor(rs.getString("author"));
+				set.add(filmreviewVO);
+				
+			} 
+				
+				
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} catch (ClassNotFoundException e) {
+			//  Auto-generated catch block
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
+	}
 	
 	
 	
@@ -376,9 +448,26 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 		
 //		全都要
 		
-		List<FilmreviewVO> list = dao.getAll();
+//		List<FilmreviewVO> list = dao.getAll();
+//		
+//		for(FilmreviewVO fv : list) {
+//			System.out.println(fv.getFr_no()+" , ");
+//			System.out.println(fv.getMovie_no()+" , ");
+//			System.out.println(fv.getCreated_at()+" , ");
+//			System.out.println(fv.getUpdated_at()+" , ");
+//			System.out.println(fv.getContent()+" , ");
+//			System.out.println(fv.getEvaluation()+" , ");
+//			System.out.println(fv.getTitle()+" , ");
+//			System.out.println(fv.getSource()+" , ");
+//			System.out.println(fv.getUrl()+" , ");
+//			System.out.println(fv.getMem_no()+" , ");
+//			System.out.println(fv.getAuthor()+" , ");
+//		}
 		
-		for(FilmreviewVO fv : list) {
+		
+		Set<FilmreviewVO> set = dao.getAllByMemNo("6");
+		
+		for(FilmreviewVO fv : set) {
 			System.out.println(fv.getFr_no()+" , ");
 			System.out.println(fv.getMovie_no()+" , ");
 			System.out.println(fv.getCreated_at()+" , ");
@@ -391,8 +480,7 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 			System.out.println(fv.getMem_no()+" , ");
 			System.out.println(fv.getAuthor()+" , ");
 		}
-		
-		
+//		
 		
 	}
 	

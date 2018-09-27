@@ -3,6 +3,7 @@ package com.filmreview.controller;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +26,62 @@ public class FilmreviewServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
+		
+		if ("getOne_For_Display".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String str = req.getParameter("movie_no");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入電影編號");
+				}
+// 				Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/forestage/filmreview/fv_home.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				/***************************2.開始查詢資料*****************************************/
+				FilmreviewService fvSvc = new FilmreviewService();
+				Set<FilmreviewVO> set = fvSvc.getAllByMemNo(str);
+				
+				if(set.size() == 0) {
+					errorMsgs.add("查無資料");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/forestage/filmreview/fv_home.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/forestage/filmreview/fv_home.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+//				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("fv_search", set); // 資料庫取出的VO物件,存入req
+				String urll = "/forestage/filmreview/fv_search.jsp";
+				
+				RequestDispatcher successView = req.getRequestDispatcher(urll); // 成功轉交jsp
+				successView.forward(req, res);
+
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/forestage/filmreview/fv_home.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		//-----------------------------------------------------------------------------------------------------
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 
@@ -57,7 +114,7 @@ public class FilmreviewServlet extends HttpServlet {
 		}
 		
 		
-		
+		//-------------------------------------------------------------------------------------------------------
 
 		if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
 			
