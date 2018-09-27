@@ -3,7 +3,7 @@
 <%@ page import="com.cinema.model.*"%>
 
 <%
-  CinemaVO cinemaVO = (CinemaVO) request.getAttribute("cinemaVO");
+  //CinemaVO cinemaVO = (CinemaVO) request.getAttribute("cinemaVO"); //can comment it, due to using EL
 %>
 <!DOCTYPE html>
 <html>

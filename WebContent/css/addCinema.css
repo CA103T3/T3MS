@@ -1,0 +1,13 @@
+#drop-container {
+    background: #ffffff;
+    /*min-height: 200px;*/
+    padding: 10px;
+    border: #07c6f1 2px dashed;
+    /*max-width: 600px;*/
+}
+
+#img_div {
+  height:100px;
+  display:none;
+  margin-bottom:10px;
+}
