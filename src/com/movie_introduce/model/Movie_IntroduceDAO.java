@@ -20,7 +20,7 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 	}
 	private static final String INSERT_STMT = 
 			"INSERT INTO MOVIE_INTRODUCE(introd_no,movie_no,source,url,author,title,content,created_at,updated_at,active)"
-			+ "VALUES ('MID'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,4,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)";
+			+ "VALUES ('MI'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,3,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)";
 
 	private static final String UPDATE = 
 			"UPDATE MOVIE_INTRODUCE SET MOVIE_NO=? ,SOURCE=? ,URL=? ,AUTHOR=? ,TITLE=? ,CONTENT=? ,UPDATED_AT=CURRENT_TIMESTAMP , ACTIVE=? WHERE INTROD_NO =?";
@@ -93,7 +93,7 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 			pstmt.setString(6, movie_introduceVO.getContent());
 			pstmt.setInt(7, movie_introduceVO.getActive());
 			pstmt.setString(8, movie_introduceVO.getIntrod_no());
-
+			
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -174,6 +174,7 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 			while (rs.next()) {
 				// Movie_IntroduceVO 也稱為 Domain objects
 				movie_introduceVO = new Movie_IntroduceVO();
+				movie_introduceVO.setIntrod_no(rs.getString("introd_no"));
 				movie_introduceVO.setMovie_no(rs.getString("movie_no"));
 				movie_introduceVO.setSource(rs.getString("source"));
 				movie_introduceVO.setUrl(rs.getString("url"));
@@ -183,6 +184,7 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 				movie_introduceVO.setCreated_at(rs.getDate("created_at"));
 				movie_introduceVO.setUpdated_at(rs.getDate("updated_at"));
 				movie_introduceVO.setActive(rs.getInt("active"));
+				
 			}
 
 			// Handle any SQL errors

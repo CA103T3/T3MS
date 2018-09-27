@@ -22,6 +22,9 @@
 	href="/css/movie_back_movie.css"
 	rel="stylesheet" type="text/css">
 <style type="text/css">
+textarea{
+resize: none;
+}
 </style>
 </head>
 
@@ -62,7 +65,7 @@
 								<form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie/movie.do" name="form1" enctype="multipart/form-data">
 									<div class="form-group has-error">
 										<label class="control-label">電影編號:*</label>
-										<div><%=movieVO.getMovie_no()%></div>
+										<div>${param.movie_no}</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label">電影種類:</label> <select
@@ -149,7 +152,7 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label">簡介:</label>
-										<textarea class="form-control" name="brief_intro" rows="6"><%=movieVO.getBrief_intro()%></textarea>
+										<textarea class="form-control" name="brief_intro" rows="22"><%=movieVO.getBrief_intro()%></textarea>
 									</div>
 									
 									<c:choose>

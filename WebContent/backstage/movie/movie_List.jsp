@@ -129,6 +129,7 @@ input[type=text]:focus {
 												</a>
 									</font>
 								</h1>
+								<hr class="style-five" />
 							</div>
 						</div>
 					</div>

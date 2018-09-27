@@ -19,6 +19,9 @@
 <!-- movie_back_movie CSS -->
 <link href="/css/movie_back_movie.css" rel="stylesheet" type="text/css">
 <style type="text/css">
+textarea{
+resize: none;
+}
 </style>
 </head>
 
@@ -92,7 +95,7 @@
 
 								<div class="form-group">
 									<label class="control-label">電影圖片:</label>
-									<input type="file" name="movie_pic" class="form-control">
+									<input type="file" name="movie_pic" class="form-control" accept="image/*">
 								</div>
 
 								<div class="form-group hidden-md hidden-sm has-feedback">
@@ -148,12 +151,12 @@
 
 								<div class="form-group hidden-md hidden-sm has-feedback">
 									<label class="control-label">預告片:</label>
-									<input type="TEXT" class="form-control" name="trailer_url" size="45" value="<%=(movieVO == null) ? "www." : movieVO.getTrailer_url()%>" />
+									<input type="TEXT" class="form-control" name="trailer_url" size="45" value="<%=(movieVO == null) ? "請輸入預告片網址" : movieVO.getTrailer_url()%>" />
 								</div>
 
 								<div class="form-group">
 									<label class="control-label">簡介:</label>
-									<textarea class="form-control" name="brief_intro" rows="6"><%=(movieVO == null) ? "請輸入內容" : movieVO.getBrief_intro()%></textarea>
+									<textarea class="form-control" name="brief_intro" rows="22"><%=(movieVO == null) ? "請輸入內容" : movieVO.getBrief_intro()%></textarea>
 								</div>
 
 								<div>

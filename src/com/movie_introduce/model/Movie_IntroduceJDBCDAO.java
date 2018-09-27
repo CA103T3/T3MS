@@ -11,7 +11,7 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO MOVIE_INTRODUCE(introd_no,movie_no,source,url,author,title,content,created_at,updated_at,active)"
-			+ "VALUES ('MID'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,4,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)";
+			+ "VALUES ('MI'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,3,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)";
 
 	private static final String UPDATE =
 			"UPDATE MOVIE_INTRODUCE SET MOVIE_NO=? ,SOURCE=? ,URL=? ,AUTHOR=? ,TITLE=? ,CONTENT=? ,UPDATED_AT=CURRENT_TIMESTAMP , ACTIVE=? WHERE INTROD_NO =?";
@@ -178,6 +178,7 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 			while (rs.next()) {
 				// Movie_IntroduceVO 也稱為 Domain objects
 				movie_introduceVO = new Movie_IntroduceVO();
+				movie_introduceVO.setIntrod_no(rs.getString("introd_no"));
 				movie_introduceVO.setMovie_no(rs.getString("movie_no"));
 				movie_introduceVO.setSource(rs.getString("source"));
 				movie_introduceVO.setUrl(rs.getString("url"));
@@ -292,12 +293,12 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 		Movie_IntroduceJDBCDAO dao = new Movie_IntroduceJDBCDAO();
 
 		// ----------------INSERT-------------------------------
-
+//
 //		Movie_IntroduceVO movie_introduceVO1 = new Movie_IntroduceVO();
-//		movie_introduceVO1.setMovie_no("M0001");
-//		movie_introduceVO1.setSource("Vogue_Movie");
+//		movie_introduceVO1.setMovie_no("M0006");
+//		movie_introduceVO1.setSource("Vogue_Movie2");
 //		movie_introduceVO1.setUrl("https://www.vogue.com.tw/Movie/content-42980.html");
-//		movie_introduceVO1.setAuthor("呂秀蓮");
+//		movie_introduceVO1.setAuthor("連勝文");
 //		movie_introduceVO1.setTitle("《一屍到底》當然得看之外，中秋連假有什麼電影推薦？看這5部就對了！");
 //		movie_introduceVO1.setContent("2018 中秋節好好的三天連假，上映的電影將近20部，在茫茫片海之中，要如何殺出重圍，命中自己最想看的電影？"
 //				+ "且讓《Vogue》撥開重重迷霧，為大家送上推薦選片明燈，包括最強話題的一屍到底、黃金兄弟、空中急診英雄、電影版空中急診英雄、凸槌特派員，看5部準沒錯！");
@@ -310,11 +311,11 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 		// ----------------UPDATE-------------------------------
 
 //		Movie_IntroduceVO movie_introduceVO2 = new Movie_IntroduceVO();
-//		movie_introduceVO2.setIntrod_no("MID0003");
-//		movie_introduceVO2.setMovie_no("M0005");
+//		movie_introduceVO2.setIntrod_no("MI003");
+//		movie_introduceVO2.setMovie_no("M0002");
 //		movie_introduceVO2.setSource("Vogue_Movie2");
 //		movie_introduceVO2.setUrl("https://www.vogue.com.tw/Movie/content-42950.html");
-//		movie_introduceVO2.setAuthor("連勝文");
+//		movie_introduceVO2.setAuthor("連勝文1");
 //		movie_introduceVO2.setTitle("《神鬼獵人》團隊打造，「藍魔鬼」寇帝史密麥菲上演極地存亡冒險");
 //		movie_introduceVO2.setContent(
 //				"還記得《X戰警：天啟》裡的飾演「藍魔鬼」的 Kodi Smit-McPhee寇帝史密麥菲嗎?他在新片《極地之王Alpha》裡飾演2萬年前的人類，為求生存在極地中與受傷的孤狼共同生活，在嚴峻的環境下想盡辦法活下來的畫面，"
@@ -334,7 +335,7 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 		// ----------------SELECT ONE---------------------------
 
 //		System.out.println("---------------------");
-//		Movie_IntroduceVO movie_introduceVO3 = dao.findByPrimaryKey("MID0001");
+//		Movie_IntroduceVO movie_introduceVO3 = dao.findByPrimaryKey("MI002");
 //		System.out.println(movie_introduceVO3.getMovie_no() + ",");
 //		System.out.println(movie_introduceVO3.getSource() + ",");
 //		System.out.println(movie_introduceVO3.getUrl() + ",");
