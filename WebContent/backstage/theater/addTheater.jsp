@@ -27,7 +27,18 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>新增影廳</label></h3>
+                <h3 class="page-header">
+                    <label>新增影廳&nbsp;&nbsp;</label>
+                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp?cinema_no=${param.cinema_no}">
+                        <button type="submit" id="back-btn" class="btn btn-default fs16 " >
+                            <i class="fa fa-undo" aria-hidden="true"></i>&nbsp;返回
+                        </button>
+                        <!-- <input type="hidden" name="theater_no" value="${theaterVO.theater_no}"> -->
+                        <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> -->
+                        <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
+                        <!-- <input type="hidden" name="action" value="view"> -->
+                    </form>
+                </h3>
                 <%-- 錯誤表列 --%>
                 <%-- <%=request.getAttribute("errorMsgs")%> --%>
                 <%-- ${errorMsgs.size()} --%>

@@ -10,4 +10,5 @@ public interface SessionDAO_interface {
     public void delete(String session_no);
     public SessionVO findByPrimaryKey(String session_no);
     public List<SessionVO> getAll();
+    public List<SessionVO> getAllofTheater(String theater_no);
 }

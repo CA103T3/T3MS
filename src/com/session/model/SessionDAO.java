@@ -32,6 +32,8 @@ public class SessionDAO implements SessionDAO_interface {
         "INSERT INTO MOVIE_SESSION (SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE) VALUES ('SES'||LPAD(to_char(MOVIE_SESSION_SEQ.NEXTVAL), 7, '0'), ?, ?, ?, ?)";
     private static final String GET_ALL_STMT =
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION order by SESSION_NO";
+    private static final String GET_ALL_OF_THEATER_STMT =
+            "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where THEATER_NO = ?  order by SESSION_NO";
     private static final String GET_ONE_STMT =
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where SESSION_NO = ?";
     private static final String DELETE =
@@ -250,6 +252,64 @@ public class SessionDAO implements SessionDAO_interface {
 
             con = ds.getConnection();
             pstmt = con.prepareStatement(GET_ALL_STMT);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // sessionVO 也稱為 Domain objects
+                sessionVO = new SessionVO();
+                sessionVO.setSession_no(rs.getString("SESSION_NO"));
+                sessionVO.setTheater_no(rs.getString("THEATER_NO"));
+                sessionVO.setMovie_no(rs.getString("MOVIE_NO"));
+                sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));
+                sessionVO.setSeat_table(rs.getString("SEAT_TABLE"));
+                list.add(sessionVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<SessionVO> getAllofTheater(String theater_no) {
+        List<SessionVO> list = new ArrayList<SessionVO>();
+        SessionVO sessionVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ALL_OF_THEATER_STMT);
+            pstmt.setString(1, theater_no);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {

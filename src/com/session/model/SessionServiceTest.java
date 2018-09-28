@@ -55,6 +55,8 @@ public class SessionServiceTest extends HttpServlet {
         testGetAll();
         testDeleteSession(session_no);
         testGetAll();
+        String theater_no = "T00001";
+        testGetAllofTheater(theater_no);
     }
 
     //INSERT INTO MOVIE (movie_no) values ('MV0001');
@@ -126,6 +128,14 @@ public class SessionServiceTest extends HttpServlet {
 
     public void testGetAll() {
         List<SessionVO> list = sSvc.getAll();
+        out.println(list.size());
+        for(SessionVO vo : list) {
+            out.println(vo.getSession_no());
+        }
+    }
+
+    public void testGetAllofTheater(String theater_no) {
+        List<SessionVO> list = sSvc.getAllofTheater(theater_no);
         out.println(list.size());
         for(SessionVO vo : list) {
             out.println(vo.getSession_no());

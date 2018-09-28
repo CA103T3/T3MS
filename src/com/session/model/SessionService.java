@@ -48,4 +48,8 @@ public class SessionService {
     public List<SessionVO> getAll() {
         return dao.getAll();
     }
+
+    public List<SessionVO> getAllofTheater(String theater_no) {
+        return dao.getAllofTheater(theater_no);
+    }
 }

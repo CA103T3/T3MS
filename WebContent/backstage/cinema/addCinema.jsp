@@ -25,7 +25,18 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>新增影城</label></h3>
+                <h3 class="page-header">
+                    <label>新增影城&nbsp;&nbsp;</label>
+                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/backstage/cinema/listAllCinema.jsp">
+                        <button type="submit" id="back-btn" class="btn btn-default fs16 " >
+                            <i class="fa fa-undo" aria-hidden="true"></i>&nbsp;返回
+                        </button>
+                        <!-- <input type="hidden" name="cinema_no" value="${cinemaVO.cinema_no}"> -->
+                        <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> -->
+                        <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
+                        <!-- <input type="hidden" name="action" value="view"> -->
+                    </form>
+                </h3>
                 <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/cinema/cinema.do" enctype="multipart/form-data">
                     <div class="form-group">
                       <label class="col-md-5 control-label">影城名稱</label>
