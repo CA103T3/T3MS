@@ -33,7 +33,7 @@
 </head>
 <body class="body-template">
 
-  <%@ include file="/forestage/template/header.jsp" %>
+  <%@ include file="/forestage/template/header_no_bar.jsp" %>
 
 
 
@@ -141,7 +141,7 @@
 					</div>
 
 					<div class="col-md-7">
-						<p>${fv.title}</p>
+						<a href="/T3MS//forestage/filmreview/fv.jsp?${fv.fr_no}"><h4>${fv.title}</h4></a>
 					</div>
 
 					<div class="col-md-1">

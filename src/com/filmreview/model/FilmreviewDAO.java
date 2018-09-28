@@ -34,7 +34,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 	private static final String INSERT_STMT = 
 			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT * FROM Filmreview order by FR_NO";
+			"SELECT * FROM Filmreview order by UPDATED_AT DESC";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM Filmreview where FR_NO = ?";
 	private static final String DELETE = 

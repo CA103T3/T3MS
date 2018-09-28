@@ -15,27 +15,31 @@
 
 <html>
 <head>
-<meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+
 <%@ include file="/forestage/template/link.jsp" %>
         <title>M&amp;S</title>
 
 
-
 <style>
-
+	.toto {margin-top: 60px;}
 	body {background-color:white !important;}
 	
 </style>
+
+
+
 </head>
 <body class="body-template">
 
-  <%@ include file="/forestage/template/header.jsp" %>
+
+
+  <%@ include file="/forestage/template/header_no_bar.jsp" %>
 
 	<!--   <div class="section"> -->
 	<!--       <div class="container"> -->
@@ -149,7 +153,7 @@
 					</div>
 
 					<div class="col-md-7">
-						<p>${FilmreviewVO.title}</p>
+						<a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?${FilmreviewVO.fr_no}"><h4>${FilmreviewVO.title}</h4></a>
 					</div>
 
 					<div class="col-md-1">
@@ -176,6 +180,7 @@
 
 	</c:forEach>
 	<%@ include file="pageb.file"%>
+	
 
 
 
