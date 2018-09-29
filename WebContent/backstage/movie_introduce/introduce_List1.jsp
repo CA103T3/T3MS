@@ -4,6 +4,7 @@
 <%@ page import="com.movie_introduce.model.*"%>
 <%@ page import="com.movie.model.*"%>
 
+
 <%
 	Movie_IntroduceService introduceSvc = new Movie_IntroduceService();
 	List<Movie_IntroduceVO> list = introduceSvc.getAll();
@@ -106,7 +107,7 @@
 									<tr ${(movie_introduceVO.introd_no==param.introd_no) ? 'bgcolor=#FFB6C1':''}>
 										<td>${movie_introduceVO.introd_no}</td>
 										<td>
-											<c:forEach var="movieVO" items="${movieSvc.all}">
+											<c:forEach var="movieVO" items="${movieSvc.all}" >
 	                    						<c:if test="${movie_introduceVO.movie_no == movieVO.movie_no}">
 		                    						${movieVO.movie_no}【${movieVO.movie_no} - ${movieVO.movie_name}】
 	                    						</c:if>
@@ -220,5 +221,6 @@
 		</div>
 	</div>
 	<script src="<%=request.getContextPath() + "/js/back_index.js"%>"></script>
+	
 </body>
 </html>

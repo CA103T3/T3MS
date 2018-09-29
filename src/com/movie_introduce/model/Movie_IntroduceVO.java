@@ -77,5 +77,5 @@ public class Movie_IntroduceVO implements java.io.Serializable{
 	public void setActive(Integer active) {
 		this.active = active;
 	}
-	
+   
 }
