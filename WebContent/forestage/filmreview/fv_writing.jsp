@@ -177,7 +177,7 @@
         <script src="<%=request.getContextPath()%>/js/template.js"></script>
         <script>
         $(document).ready(function(){
-            $("li:contains('合作影城')").addClass("custom-active");
+            $("li:contains('電影資訊')").addClass("custom-active");
         });
         </script>
 	

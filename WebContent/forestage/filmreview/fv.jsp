@@ -17,9 +17,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
 <%@ include file="/forestage/template/link.jsp"%>
 <title>M&amp;S</title>
 
@@ -195,7 +193,7 @@ input[type=submit]:hover {
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
 	<script>
 		$(document).ready(function() {
-			$("li:contains('合作影城')").addClass("custom-active");
+			$("li:contains('電影資訊')").addClass("custom-active");
 		});
 	</script>
 

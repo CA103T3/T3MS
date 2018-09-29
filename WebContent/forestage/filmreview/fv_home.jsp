@@ -153,7 +153,7 @@
 					</div>
 
 					<div class="col-md-7">
-						<a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?${FilmreviewVO.fr_no}"><h4>${FilmreviewVO.title}</h4></a>
+						<a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?${FilmreviewVO.fr_no}"><h2>${FilmreviewVO.title}</h2></a>
 					</div>
 
 					<div class="col-md-1">
@@ -189,7 +189,7 @@
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
 	<script>
 		$(document).ready(function() {
-			$("li:contains('合作影城')").addClass("custom-active");
+			$("li:contains('電影資訊')").addClass("custom-active");
 		});
 	</script>
 
