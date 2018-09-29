@@ -373,10 +373,10 @@ public class SessionDAO implements SessionDAO_interface {
 
             con = ds.getConnection();
             pstmt = con.prepareStatement(GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT);
-            System.out.println(cinema_no);
+            //System.out.println(cinema_no); //if no parameter, null
             pstmt.setString(1, cinema_no);
             rs = pstmt.executeQuery();
-            System.out.println(GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT);
+            //System.out.println(GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT);
             while (rs.next()) {
                 // sessionVO 也稱為 Domain objects
                 sessionVO = new SessionVO();
