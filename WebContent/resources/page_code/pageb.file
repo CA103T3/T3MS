@@ -22,7 +22,7 @@
   					<b><font color=red>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
 				<%}%>
 
-				<b>●符 合 查 詢 條 件 共<font color=red>【<%=rowNumber%>】</font>筆</b>
+				<b>●符 合 查 詢 條 件 共【<font color=red><%=rowNumber%></font>】筆</b>
 			</ul>
           <div>
 				<c:choose>
@@ -53,7 +53,7 @@
 					
 					<c:choose>
 						<c:when test="<%=whichPage <= 1%>">
-							<li class="disabled"><a href="#">&laquo;</a></li>
+							<li class="disabled"><a>&laquo;</a></li>
 						</c:when>
 						<c:otherwise>
 							<li><a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage - 1%>">&laquo;</a></li>
