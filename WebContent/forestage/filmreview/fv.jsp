@@ -71,7 +71,45 @@ input[type=submit]:hover {
 }
 </style>
 
+<style>
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+}
 
+.containe {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+
+
+.containe::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.containe img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+
+
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+</style>
 </head>
 <body class="body-template">
 	<%@ include file="/forestage/template/header.jsp"%>
@@ -167,10 +205,7 @@ input[type=submit]:hover {
 					<p>wtf!!!</p>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="section">
-		<div class="container ctnr" style="background-color: rgb(238, 238, 238) !important;">
+		
 			<div class="row">
 				<div class="col-md-1">
 					<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle img-responsive">
@@ -186,6 +221,29 @@ input[type=submit]:hover {
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
+	<div class="section">
+		<div class="container ctnr" style="background-color: rgb(238, 238, 238) !important;">
+			<div class="row">
+				<div class="containe">
+  <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width:100%;">
+  <p>Hello. How are you today?</p>
+  <span class="time-right">11:00</span>
+</div>
+
+<div class="containe">
+  <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width:100%;">
+  <p>Hello. How are you today?</p>
+  <span class="time-right">11:00</span>
+</div>
+
+			</div>
+		</div>
+	</div>
+
 
 
 	<%@ include file="/forestage/template/footer.jsp"%>

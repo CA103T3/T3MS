@@ -140,7 +140,7 @@
 
 
 
-	<%@ include file="pagef.file"%>
+	<%@ include file="/resources/page_code/pagef.file"%>
 	<c:forEach var="FilmreviewVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
 		<div class="section">
@@ -179,7 +179,7 @@
 		</div>
 
 	</c:forEach>
-	<%@ include file="pageb.file"%>
+	<%@ include file="/resources/page_code/pageb.file"%>
 	
 
 

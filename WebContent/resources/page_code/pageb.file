@@ -1,0 +1,93 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
+
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+ 
+  
+ <%if (pageNumber>1) {%>
+  
+  
+    <div class="section">
+      <div class="container">
+        <div class="row">
+        
+        
+          <div class="col-md-12 text-center">
+            <ul class="pagination pagination-sm">
+            
+           	 	<%if (pageNumber>0){%>
+  					<b><font color=red>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
+				<%}%>
+
+				<b>●符 合 查 詢 條 件 共<font color=red>【<%=rowNumber%>】</font>筆</b>
+			</ul>
+          <div>
+				<c:choose>
+					<%-- 總頁數小於5 設定迴圈 開始1 結束5 --%>
+					<c:when test="<%=pageNumber <= 5%>">
+						<c:set var="begin" value="1" />
+						<c:set var="end" value="<%=pageNumber%>" />
+					</c:when>
+					<%-- 大於5 設定迴圈 開始為目前頁數 結束為目前頁數+4 --%>
+					<c:otherwise>
+						<c:set var="begin" value="<%=whichPage%>" />
+						<c:set var="end" value="<%=whichPage + 4%>" />
+						<%-- 若是第一頁就設定開始為1 最末頁5 --%>
+						<c:if test="${begin -1 <=0} ">
+							<c:set var="begin" value="1" />
+							<c:set var="end" value="5" />
+						</c:if>
+						<%-- 若end超過最末頁 開始頁設定最大頁-4 --%>
+						<c:if test="${end} > <%=pageNumber%>">
+							<c:set var="begin" value="<%=pageNumber - 4%>" />
+							<c:set var="end" value="<%=pageNumber%>" />
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+ 				<ul class="pagination">
+ 				
+					<%-- 判斷第一頁時無法按上一頁 --%>
+					
+					<c:choose>
+						<c:when test="<%=whichPage <= 1%>">
+							<li class="disabled"><a href="#">&laquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage - 1%>">&laquo;</a></li>
+						</c:otherwise>
+					</c:choose>
+ 					<c:forEach var="i" begin="${begin}" end="${end}">
+						<c:choose>
+							<c:when test="${i == page1.whichPage}">
+								<li class="active"><a>${i}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="<%=request.getRequestURI()%>?whichPage=${i}">${i}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+ 					<%-- 判斷最末頁無法按下一頁 --%>
+ 					
+					<c:choose>
+						<c:when test="<%=whichPage >= pageNumber%>">
+							<li class="disabled"><a>&raquo;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage + 1%>">&raquo;</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+			
+			
+        </div>
+      </div>
+    </div>
+  
+  
+   <%}%>
+  
