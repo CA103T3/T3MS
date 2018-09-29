@@ -1,6 +1,8 @@
 package com.session.model;
 
 import java.sql.Timestamp;
+import com.movie.model.MovieVO;
+import com.theater.model.TheaterVO;
 
 public class SessionVO implements java.io.Serializable {
 
@@ -13,7 +15,21 @@ public class SessionVO implements java.io.Serializable {
     private String movie_no;
     private Timestamp session_time;
     private String seat_table;
+    private MovieVO movieVO;
+    private TheaterVO theaterVO;
 
+    public MovieVO getMovieVO() {
+        return movieVO;
+    }
+    public void setMovieVO(MovieVO movieVO) {
+        this.movieVO = movieVO;
+    }
+    public TheaterVO getTheaterVO() {
+        return theaterVO;
+    }
+    public void setTheaterVO(TheaterVO theaterVO) {
+        this.theaterVO = theaterVO;
+    }
     public String getSession_no() {
         return session_no;
     }

@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.session.model.*"%>
+<%@ page import="com.theater.model.*"%>
+<%@ page import="com.movie.model.*"%>
 <%@ page import="java.sql.Timestamp"%>
 <%@ page import="java.text.DateFormat"%>
 <%@ page import="java.text.SimpleDateFormat"%>
@@ -8,7 +10,7 @@
 
 <%
     SessionService sSvc = new SessionService();
-    List<SessionVO> list = sSvc.getAllofTheater(request.getParameter("theater_no"));
+    List<SessionVO> list = sSvc.getAllofJoinTheaterMovieWhereTheaterNoCinema(request.getParameter("cinema_no"));
     pageContext.setAttribute("list",list);
 %>
 
@@ -22,6 +24,21 @@
     <title>M&amp;S</title>
     <%@ include file="/backstage/template/link.jsp" %>
     <style type="text/css">
+        table.dataTable thead .sorting {
+          background: url("<%=request.getContextPath()%>/img/sort_both.png") no-repeat center right;
+        }
+        table.dataTable thead .sorting_asc {
+          background: url("<%=request.getContextPath()%>/img/sort_asc.png") no-repeat center right;
+        }
+        table.dataTable thead .sorting_desc {
+          background: url("<%=request.getContextPath()%>/img/sort_desc.png") no-repeat center right;
+        }
+        table.dataTable thead .sorting_asc_disabled {
+          background: url("<%=request.getContextPath()%>/img/sort_asc_disabled.png") no-repeat center right;
+        }
+        table.dataTable thead .sorting_desc_disabled {
+          background: url("<%=request.getContextPath()%>/img/sort_desc_disabled.png") no-repeat center right;
+        }
     </style>
 </head>
 
@@ -36,8 +53,8 @@
                     <thead>
                         <tr>
                             <th>場次編號</th>
-                            <th>影廳編號-名稱</th>
-                            <th>電影編號-名稱</th>
+                            <th>影廳名稱</th>
+                            <th>電影名稱</th>
                             <th>場次時間</th>
                             <th>執行動作</th>
                         </tr>
@@ -46,8 +63,8 @@
                     <c:forEach var="sessionVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
                         <tr>
                             <td>${sessionVO.session_no}</td>
-                            <td>${sessionVO.theater_no}</td>
-                            <td>${sessionVO.movie_no}</td>
+                            <td>${sessionVO.theaterVO.theater_name}</td>
+                            <td>${sessionVO.movieVO.movie_name}</td>
 <%--                             <c:set value="${sessionVO}" var="sessionVO" scope="page"></c:set> --%>
                             <%
                                 //https://yq.aliyun.com/articles/70182
@@ -65,7 +82,7 @@
                                         <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="session_no" value="${sessionVO.session_no}">
-                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="view">
                                 </form>
@@ -74,7 +91,7 @@
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="session_no" value="${sessionVO.session_no}">
-                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="toUpdatePage">
                                 </form>
@@ -83,7 +100,7 @@
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除
                                     </button>
                                     <input type="hidden" name="session_no" value="${sessionVO.session_no}">
-                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="delete">
                                 </form>

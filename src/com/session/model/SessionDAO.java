@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+import com.movie.model.MovieVO;
+import com.theater.model.TheaterVO;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -33,7 +35,11 @@ public class SessionDAO implements SessionDAO_interface {
     private static final String GET_ALL_STMT =
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION order by SESSION_NO";
     private static final String GET_ALL_OF_THEATER_STMT =
-            "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where THEATER_NO = ?  order by SESSION_NO";
+            "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where THEATER_NO = ? order by SESSION_NO";
+    private static final String GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT =
+            "select MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,MOVIE_SESSION.MOVIE_NO,MOVIE_SESSION.SESSION_TIME,MOVIE_SESSION.SEAT_TABLE, THEATER.THEATER_NAME, MOVIE.MOVIE_NAME "
+            + "from MOVIE_SESSION left join THEATER on MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO left join MOVIE on MOVIE_SESSION.MOVIE_NO = MOVIE.MOVIE_NO "
+            + "where MOVIE_SESSION.THEATER_NO in (select THEATER.THEATER_NO from THEATER where THEATER.CINEMA_NO = ?) order by SESSION_NO";
     private static final String GET_ONE_STMT =
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where SESSION_NO = ?";
     private static final String DELETE =
@@ -321,6 +327,72 @@ public class SessionDAO implements SessionDAO_interface {
                 sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));
                 sessionVO.setSeat_table(rs.getString("SEAT_TABLE"));
                 list.add(sessionVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<SessionVO> getAllofJoinTheaterMovieWhereTheaterNoCinema(String cinema_no) {
+        List<SessionVO> list = new ArrayList<SessionVO>();
+        SessionVO sessionVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT);
+            System.out.println(cinema_no);
+            pstmt.setString(1, cinema_no);
+            rs = pstmt.executeQuery();
+            System.out.println(GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT);
+            while (rs.next()) {
+                // sessionVO 也稱為 Domain objects
+                sessionVO = new SessionVO();
+                sessionVO.setSession_no(rs.getString("SESSION_NO"));
+                sessionVO.setTheater_no(rs.getString("THEATER_NO"));
+                sessionVO.setMovie_no(rs.getString("MOVIE_NO"));
+                sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));
+                sessionVO.setSeat_table(rs.getString("SEAT_TABLE"));
+                MovieVO movieVO = new MovieVO();
+                movieVO.setMovie_name(rs.getString("MOVIE_NAME"));
+                sessionVO.setMovieVO(movieVO);
+                TheaterVO theaterVO = new TheaterVO();
+                theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
+                sessionVO.setTheaterVO(theaterVO);
+                list.add(sessionVO); // Store the row in the list
+                System.out.println(rs.getString("SESSION_NO"));
             }
 
             // Handle any driver errors

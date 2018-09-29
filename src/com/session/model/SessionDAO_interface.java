@@ -11,4 +11,5 @@ public interface SessionDAO_interface {
     public SessionVO findByPrimaryKey(String session_no);
     public List<SessionVO> getAll();
     public List<SessionVO> getAllofTheater(String theater_no);
+    public List<SessionVO> getAllofJoinTheaterMovieWhereTheaterNoCinema(String cinema_no);
 }

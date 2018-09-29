@@ -52,4 +52,8 @@ public class SessionService {
     public List<SessionVO> getAllofTheater(String theater_no) {
         return dao.getAllofTheater(theater_no);
     }
+
+    public List<SessionVO> getAllofJoinTheaterMovieWhereTheaterNoCinema(String cinema_no) {
+        return dao.getAllofJoinTheaterMovieWhereTheaterNoCinema(cinema_no);
+    }
 }
