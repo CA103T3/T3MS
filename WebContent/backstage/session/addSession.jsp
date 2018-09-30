@@ -118,7 +118,7 @@
     </div>
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script type="text/javascript">
-        //generate seats from ajax done
+        //generate seats from ajax done or sessionVO (failureView.forward from SessionServlet)
         function gen_seat(row, col, model) {
             $("#seat_div").empty();
             //$('#loding_spinner').fadeIn(200);
@@ -219,75 +219,29 @@
             });
 
             <%-- generate seats from theater (initialize seats) --%>
-            <c:if test="${not empty tList.get(0) && empty sessionVO}">
-                $("#seat_div").empty();
-                let row = ${tList.get(0).t_rows};
-                //let row = ${rows};
-                let col = ${tList.get(0).t_columns};
-                //let col = ${cols};
-                console.log("row: " + row + " col: " + col);
-                let content = "";
-                for(let i = 1; i <= row; i++) {
-                    content += "<div class='form-group text-center'>";
-                    content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
-                    for(let j = 1; j <= col; j++) {
-                        content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "'>" + j + "</button>";
-                        content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
+            <%
+            if(tList.size() != 0) {
+                if(tList.get(0) != null && sessionVO == null) {
+                    Reader model = tList.get(0).getSeat_model();
+                    char[] arr = new char[8 * 1024];
+                    StringBuilder buffer = new StringBuilder();
+                    int numCharsRead;
+                    while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+                        buffer.append(arr, 0, numCharsRead);
                     }
-                    content += "</div>";
-                }
-                $("#seat_div").append(content);
-                $("#smtbtn").prop("disabled", false);
-                $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
-            </c:if>
 
-            <%
-            /* update status of seats from theater */
-            if(tList.get(0) != null && sessionVO == null) {
-                Reader model = tList.get(0).getSeat_model();
-                char[] arr = new char[8 * 1024];
-                StringBuilder buffer = new StringBuilder();
-                int numCharsRead;
-                while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
-                    buffer.append(arr, 0, numCharsRead);
-                }
-
-                model.close();
-                String str = buffer.toString();
-                JSONObject json = new JSONObject(str);
-                Iterator<?> keys = json.keys();
-                JSONArray ary = null;
-                while(keys.hasNext()){
-                    String key = (String)keys.next();
-                    ary = json.getJSONArray(key);
-
-                    switch((String)ary.get(1)) {
-                        case "0":
-            %>
-                            $("#btn_<%=key%>").attr("class", "seat btn btn-nonseat btn-md");
-                            $("#btn_<%=key%>").attr("disabled", "disabled");
-            <%
-                            break;
-                        case "2":
-            %>
-                            $("#btn_<%=key%>").attr("class", "seat btn btn-default btn-md");
-            <%
-                            break;
-                        case "3":
-            %>
-                            $("#btn_<%=key%>").attr("class", "seat btn btn-warning btn-md");
-            <%
-                            break;
-                        default:
-                            break;
-                    }
-            %>
-                    $("#input_<%=key%>").val(<%=ary.get(1)%>);
-<%--             <%=key%> <%=" "%> <%=json.get(key)%> <%=" "%> <%=ary.get(0)%> <%=" "%> <%=ary.get(1)%> --%>
-            <%
+                    model.close();
+                    String strModel = buffer.toString();
+                    pageContext.setAttribute("strModel", strModel);
                 }
             }
             %>
+            <c:if test="${not empty tList && empty sessionVO}">
+                let row_init = ${tList.get(0).t_rows};
+                let col_init = ${tList.get(0).t_columns};
+                let model_init = ${strModel};
+                gen_seat(row_init, col_init, model_init);
+            </c:if>
 
             <%
             /* generate seats from sessionVO (failureView.forward from SessionServlet) */

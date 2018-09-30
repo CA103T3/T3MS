@@ -137,7 +137,12 @@ public class SessionServlet extends HttpServlet {
                 TheaterService tSvc = new TheaterService();
                 TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
 
-                if(seats != (theaterVO.getSeats())) {
+                //https://stackoverflow.com/questions/1514910/how-to-properly-compare-two-integers-in-java
+                //https://stackoverflow.com/questions/1700081/why-is-128-128-false-but-127-127-is-true-when-comparing-integer-wrappers-in-ja
+                //https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.1.7
+                if(seats.intValue() != theaterVO.getSeats().intValue()) {
+                    //System.out.println("theaterVO.getSeats() : " + theaterVO.getSeats());
+                    //System.out.println("seats : " + seats);
                     errorMsgs.add("與影廳座位模版的座位數不相符");
                 }
 

@@ -160,163 +160,160 @@
 
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
-        /*
-        $(document).on("click", "#btn_1_1", function(event){
-            console.log("click event.target.id: ", event.target.id);
-            $('#btn_1_1').popover({
-                html:true,
-                placement: "top",
-                content: function(){
-                    return "<div class='btn-group-vertical' style='border:0px' style='display:none'>" +
-                              "<button type='button' class='btn btn-nonseat optbtn' data-btn='btn_1_1' data-value='0' id='opt_1_1_0' data-input='input_1_1'>非座位</button>" +
-                              "<button type='button' class='btn btn-default optbtn' data-btn='btn_1_1' data-value='2' id='opt_1_1_2' data-input='input_1_1' style='border:0px'>可售座</button>" +
-                              "<button type='button' class='btn btn-warning optbtn' data-btn='btn_1_1' data-value='3' id='opt_1_1_3' data-input='input_1_1' style='border:0px'>保留座</button>" +
-                           "</div>";
-                }
-            });
-            $('#btn_1_1').popover("toggle");
-        });
-        */
-        //$(".optbtn").on("click", function(event){
-        $(document).on("click", ".optbtn", function(event){
-            console.log("event.target.id: ", event.target.id);
-            let tid = event.target.id;
-            let input = $("#"+tid).attr("data-input");
-            console.log("input id: ", input);
-            console.log("input id: ", $("#"+input).attr("id"));
-            console.log(input + " val: " + $("#"+input).val());
-            $("#"+input).val($("#"+tid).attr("data-value"));
-            let bid = $("#"+tid).attr("data-btn");
-            console.log("bid ", "#"+bid);
-            console.log("bid class", $("#"+bid).attr("class"));
-            $("#"+bid).attr("class", ($("#"+tid).attr("class"))).removeClass("optbtn").addClass("seat").addClass("btn-md");
-            $("#"+bid).popover("hide");
-            //$("#"+bid).popover("destroy");
-        });
-
-        //$("#gen_seat").click(function(){
-        $(document).on("click", "#gen_seat", function(event){
-            //$(".fa-cog").addClass("fa-spin");
-            //$(".fa-cog").removeClass("fa-spin");
+        function gen_seat(row, col, model) {
             $("#seat_div").empty();
-            $('#loding_spinner').fadeIn(200);
-            //$('#loding_spinner').fadeOut();
+            //$('#loding_spinner').fadeIn(200);
             $('#loding_spinner').fadeOut(300, function(){
-              let row = $("#row").val();
-              let col = $("#col").val();
-              console.log("row: " + row + " col: " + col);
-              let content = "";
-              for(let i = 1; i <= row; i++) {
-                  content += "<div class='form-group text-center'>";
-                  content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
-                  for(let j = 1; j <= col; j++) {
-                      content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "'>" + j + "</button>";
-                      content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
-                  }
-                  content += "</div>";
-              }
-              $("#seat_div").append(content);
-              $("#smtbtn").prop("disabled", false);
-              $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
-            });
-        });
+                console.log("row: " + row + " col: " + col);
+                let content = "";
+                for(let i = 1; i <= row; i++) {
+                    content += "<div class='form-group text-center'>";
+                    content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
+                    for(let j = 1; j <= col; j++) {
+                        content += "<button type='button' class='seat btn ";
+                        let key = i + "_" + j ;
+                        switch(model[key][1]) {
+                            case "0":
+                                content += "btn-nonseat";
+                                break;
+                            case "2":
+                                content += "btn-default";
+                                break;
+                            case "3":
+                                content += "btn-warning";
+                                break;
+                            default:
+                                console.log("switch default: ", model[key][1]);
+                                break;
+                        }
 
-        $(document).on("click", ".seat", function(event){
-            console.log("click event.target.id: ", event.target.id);
-            let tid = event.target.id;
-            let pos = tid.substring(3);
-            console.log(pos);
-            $("#"+tid).popover({
-                html:true,
-                placement: "top",
-                content: function(){
-                    return "<div class='btn-group-vertical' style='border:0px'>" +
-                              "<button type='button' class='btn btn-nonseat optbtn' data-btn='"+ tid +"' data-value='0' id='opt"+ pos +"_0' data-input='input"+ pos +"'>非座位</button>" +
-                              "<button type='button' class='btn btn-default optbtn' data-btn='"+ tid +"' data-value='2' id='opt"+ pos +"_2' data-input='input"+ pos +"' style='border:0px'>可售座</button>" +
-                              "<button type='button' class='btn btn-warning optbtn' data-btn='"+ tid +"' data-value='3' id='opt"+ pos +"_3' data-input='input"+ pos +"' style='border:0px'>保留座</button>" +
-                           "</div>";
+                        content += " btn-md' id='btn_" + i + "_" + j + "' " ;
+                        if(model[key][1] == "0") {
+                            content += "disabled";
+                        }
+                        content += " >" + j + "</button>";
+                        content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='" + model[key][1] + "'>&nbsp;";
+                    }
+                    content += "</div>";
                 }
+                $("#seat_div").append(content);
+                $("#smtbtn").prop("disabled", false);
+                $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
             });
-            $('#'+tid).popover("toggle");
-        });
-
-        //show errorMsgs
-        <c:if test="${not empty errorMsgs}">
-          <c:forEach var="message" items="${errorMsgs}">
-            toastr.error("${message}");
-          </c:forEach>
-        </c:if>
-
-        <c:if test="${not empty theaterVO}">
-          $("#seat_div").empty();
-          //let row = ${theaterVO.t_rows};
-          let row = ${rows};
-          //let col = ${theaterVO.t_columns};
-          let col = ${cols};
-          console.log("row: " + row + " col: " + col);
-          let content = "";
-          for(let i = 1; i <= row; i++) {
-              content += "<div class='form-group text-center'>";
-              content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
-              for(let j = 1; j <= col; j++) {
-                  content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "'>" + j + "</button>";
-                  content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
-              }
-              content += "</div>";
-          }
-          $("#seat_div").append(content);
-          $("#smtbtn").prop("disabled", false);
-          $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
-        </c:if>
-
-        <%
-        if(theaterVO != null) {
-            Reader model = theaterVO.getSeat_model();
-            char[] arr = new char[8 * 1024];
-            StringBuilder buffer = new StringBuilder();
-            int numCharsRead;
-            while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
-                buffer.append(arr, 0, numCharsRead);
-            }
-
-            model.close();
-            String str = buffer.toString();
-            JSONObject json = new JSONObject(str);
-            Iterator<?> keys = json.keys();
-            JSONArray ary = null;
-            while(keys.hasNext()){
-                String key = (String)keys.next();
-                ary = json.getJSONArray(key);
-
-                switch((String)ary.get(1)) {
-                    case "0":
-        %>
-                        $("#btn_<%=key%>").attr("class", "seat btn btn-nonseat btn-md");
-        <%
-                        break;
-                    case "2":
-        %>
-                        $("#btn_<%=key%>").attr("class", "seat btn btn-default btn-md");
-        <%
-                        break;
-                    case "3":
-        %>
-                        $("#btn_<%=key%>").attr("class", "seat btn btn-warning btn-md");
-        <%
-                        break;
-                    default:
-                        break;
-                }
-        %>
-                $("#input_<%=key%>").val(<%=ary.get(1)%>);
-<%--         <%=key%> <%=" "%> <%=json.get(key)%> <%=" "%> <%=ary.get(0)%> <%=" "%> <%=ary.get(1)%> --%>
-        <%
-            }
         }
-        %>
 
-      });
+        $(document).ready(function(){
+            /*
+            $(document).on("click", "#btn_1_1", function(event){
+                console.log("click event.target.id: ", event.target.id);
+                $('#btn_1_1').popover({
+                    html:true,
+                    placement: "top",
+                    content: function(){
+                        return "<div class='btn-group-vertical' style='border:0px' style='display:none'>" +
+                                  "<button type='button' class='btn btn-nonseat optbtn' data-btn='btn_1_1' data-value='0' id='opt_1_1_0' data-input='input_1_1'>非座位</button>" +
+                                  "<button type='button' class='btn btn-default optbtn' data-btn='btn_1_1' data-value='2' id='opt_1_1_2' data-input='input_1_1' style='border:0px'>可售座</button>" +
+                                  "<button type='button' class='btn btn-warning optbtn' data-btn='btn_1_1' data-value='3' id='opt_1_1_3' data-input='input_1_1' style='border:0px'>保留座</button>" +
+                               "</div>";
+                    }
+                });
+                $('#btn_1_1').popover("toggle");
+            });
+            */
+            //$(".optbtn").on("click", function(event){
+            $(document).on("click", ".optbtn", function(event){
+                console.log("event.target.id: ", event.target.id);
+                let tid = event.target.id;
+                let input = $("#"+tid).attr("data-input");
+                console.log("input id: ", input);
+                console.log("input id: ", $("#"+input).attr("id"));
+                console.log(input + " val: " + $("#"+input).val());
+                $("#"+input).val($("#"+tid).attr("data-value"));
+                let bid = $("#"+tid).attr("data-btn");
+                console.log("bid ", "#"+bid);
+                console.log("bid class", $("#"+bid).attr("class"));
+                $("#"+bid).attr("class", ($("#"+tid).attr("class"))).removeClass("optbtn").addClass("seat").addClass("btn-md");
+                $("#"+bid).popover("hide");
+                //$("#"+bid).popover("destroy");
+            });
+
+            //$("#gen_seat").click(function(){
+            $(document).on("click", "#gen_seat", function(event){
+                //$(".fa-cog").addClass("fa-spin");
+                //$(".fa-cog").removeClass("fa-spin");
+                $("#seat_div").empty();
+                $('#loding_spinner').fadeIn(200);
+                //$('#loding_spinner').fadeOut();
+                $('#loding_spinner').fadeOut(300, function(){
+                  let row = $("#row").val();
+                  let col = $("#col").val();
+                  console.log("row: " + row + " col: " + col);
+                  let content = "";
+                  for(let i = 1; i <= row; i++) {
+                      content += "<div class='form-group text-center'>";
+                      content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
+                      for(let j = 1; j <= col; j++) {
+                          content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "'>" + j + "</button>";
+                          content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
+                      }
+                      content += "</div>";
+                  }
+                  $("#seat_div").append(content);
+                  $("#smtbtn").prop("disabled", false);
+                  $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
+                });
+            });
+
+            $(document).on("click", ".seat", function(event){
+                console.log("click event.target.id: ", event.target.id);
+                let tid = event.target.id;
+                let pos = tid.substring(3);
+                console.log(pos);
+                $("#"+tid).popover({
+                    html:true,
+                    placement: "top",
+                    content: function(){
+                        return "<div class='btn-group-vertical' style='border:0px'>" +
+                                  "<button type='button' class='btn btn-nonseat optbtn' data-btn='"+ tid +"' data-value='0' id='opt"+ pos +"_0' data-input='input"+ pos +"'>非座位</button>" +
+                                  "<button type='button' class='btn btn-default optbtn' data-btn='"+ tid +"' data-value='2' id='opt"+ pos +"_2' data-input='input"+ pos +"' style='border:0px'>可售座</button>" +
+                                  "<button type='button' class='btn btn-warning optbtn' data-btn='"+ tid +"' data-value='3' id='opt"+ pos +"_3' data-input='input"+ pos +"' style='border:0px'>保留座</button>" +
+                               "</div>";
+                    }
+                });
+                $('#'+tid).popover("toggle");
+            });
+
+            //show errorMsgs
+            <c:if test="${not empty errorMsgs}">
+              <c:forEach var="message" items="${errorMsgs}">
+                toastr.error("${message}");
+              </c:forEach>
+            </c:if>
+
+            <%
+            if(theaterVO != null) {
+                Reader model = theaterVO.getSeat_model();
+                char[] arr = new char[8 * 1024];
+                StringBuilder buffer = new StringBuilder();
+                int numCharsRead;
+                while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+                    buffer.append(arr, 0, numCharsRead);
+                }
+
+                model.close();
+                String strModel = buffer.toString();
+                pageContext.setAttribute("strModel", strModel);
+            }
+            %>
+
+            <c:if test="${not empty theaterVO}">
+                let row = ${rows};
+                let col = ${cols};
+                let model = ${strModel};
+                gen_seat(row, col, model);
+            </c:if>
+
+        });
     </script>
 </body>
 </html>
