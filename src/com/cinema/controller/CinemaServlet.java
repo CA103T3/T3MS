@@ -33,7 +33,7 @@ import com.common.util.UUIDGenerator;
 //上傳過程中無論是單個文件超過maxFileSize值，或者上傳的總量大於maxRequestSize 值都會拋出IllegalStateException 異常
 
 public class CinemaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     String saveDirectory = "/img/cinema"; // 上傳檔案的目地目錄;  用 java.io.File 於 ContextPath 之下, 自動建立目地目錄
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,17 +43,17 @@ public class CinemaServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	    doPost(req, res);
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        doPost(req, res);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         res.setContentType("text/html; charset=utf-8");
         //PrintWriter out = res.getWriter();
@@ -659,7 +659,7 @@ public class CinemaServlet extends HttpServlet {
                 failureView.forward(req, res);
             }
         }
-	}
+    }
 
     // 取出上傳的檔案名稱 (因為API未提供method,所以必須自行撰寫)
     public String getFileNameFromPart(Part part) {

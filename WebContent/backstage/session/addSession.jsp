@@ -126,6 +126,7 @@
             toastr.error("${message}");
           </c:forEach>
         </c:if>
+
         $.datetimepicker.setLocale('zh'); // kr ko ja en
         $('#session_time').datetimepicker({
            theme: '',          //theme: 'dark',
@@ -148,19 +149,6 @@
                 data: {'action': 'get_seat_model', 'theater_no': $("#theater_no").val()},
                 dataType: 'json',
                 beforeSend: function (xhr) {
-                    /*
-                    $.blockUI({ message: '<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span><h3>處理中</h3>',
-                                css: {
-                                          border: 'none',
-                                          padding: '15px',
-                                          backgroundColor: '#000',
-                                          '-webkit-border-radius': '10px',
-                                          '-moz-border-radius': '10px',
-                                          opacity: .5,
-                                          color: '#fff'
-                                      }
-                    });
-                    */
                     $('#loding_spinner').fadeIn(200);
                 }
             }).done(function (data, textStatus) {
@@ -207,7 +195,6 @@
                 */
 
             }).always(function (jqXHR, textStatus) {
-                //$.unblockUI();
                 $('#loding_spinner').fadeOut(300);
             });
 
