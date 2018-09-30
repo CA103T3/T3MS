@@ -48,7 +48,10 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>檢視電影場次&nbsp;&nbsp;&nbsp;</label><a href="<%=request.getContextPath()%>/backstage/cinema/addCinema.jsp" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i><span class="fs16">&nbsp;新增電影場次</span></a></h3>
+                <h3 class="page-header">
+                    <label>檢視電影場次&nbsp;&nbsp;&nbsp;</label>
+                    <a href="<%=request.getContextPath()%>/backstage/session/addSession.jsp?cinema_no=${param.cinema_no}" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i><span class="fs16">&nbsp;新增電影場次</span></a>
+                </h3>
                 <table id="cinemas" class="display" style="width:100%">
                     <thead>
                         <tr>
