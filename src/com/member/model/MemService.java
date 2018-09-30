@@ -55,4 +55,40 @@ public class MemService {
 		dao.passregistered(email);
 	}
 	
+	//修改會員資料
+	public MemVO updatemem(String lname,String fname,String phone, String addr, Integer locno, byte[] memimg,String memno,String idnum,Integer gender,Integer status,Integer type,String extname,String birthday,Integer violation,String introduction, String email) {
+		MemVO memVO = new MemVO();
+		memVO.setLastname(lname);
+		memVO.setFirstname(fname);
+		memVO.setPhone(phone);
+		memVO.setAddr(addr);
+		memVO.setLocno(locno);
+		memVO.setMemimg(memimg);
+		memVO.setEmail(email);
+
+		memVO.setmemno(memno);
+		memVO.setIDNUM(idnum);
+		memVO.setGender(gender);
+		memVO.setStatus(status);
+		memVO.setType(type);
+		memVO.setExtname(extname);
+		memVO.setBirthday(birthday);
+		memVO.setViolation(violation);
+		memVO.setIntroduction(introduction);
+		dao.update(memVO);
+		return memVO;
+	}
+	
+	//忘記密碼的傻屌
+		public boolean forgotpaw(String email,String idnum) {
+		    if (dao.forgotcheck(email, idnum))
+		      return true;
+		    else
+		      return false;
+		  }
+	//修改密碼
+		public void changepaw(String paw, String email) {
+			dao.changepassword(paw, email);
+		}
+	
 }

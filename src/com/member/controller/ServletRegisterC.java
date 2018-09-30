@@ -12,9 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.member.model.MemService;
 import com.member.model.MemVO;
+
+import example.MailService;
 
 
 @WebServlet("/ServletRegisterC")
@@ -126,9 +129,30 @@ public class ServletRegisterC extends HttpServlet {
 				return;
 			}
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/
-			String url ="/forestage/member/loginf.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); 
-			successView.forward(req, res);				
+//			String url ="/forestage/member/loginf.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); 
+//			successView.forward(req, res);
+			res.sendRedirect(req.getContextPath()+"/forestage/member/waitformail.jsp");
+			
+			MemService memSrc= new MemService();
+	        HttpSession session = req.getSession();
+	        memVO = new MemVO();
+            
+            memVO = memSrc.getMemVO(email);
+            session.setAttribute("memVO",memVO);
+            
+            String memno = memVO.getmemno();
+            String lname = memVO.getLastname();
+            String fname = memVO.getFirstname();
+            String name = lname+fname;
+            req.setAttribute("memno", memno);
+            req.setAttribute("email", email);
+			
+			
+            
+            MailService ms = new MailService();
+            ms.setmail(memno, name, email);
+            
 			
 			/***************************其他可能的錯誤處理**********************************/
 		

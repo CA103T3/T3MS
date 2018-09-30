@@ -190,7 +190,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 				memVO.setStatus(rs.getInt("STATUS"));
 				memVO.setType(rs.getInt("TYPE"));
 				memVO.setViolation(rs.getInt("VIOLATION"));
-				memVO.setMemimg(rs.getByte("MEMIMG"));
+				memVO.setMemimg(rs.getBytes("MEMIMG"));
 				memVO.setExtname(rs.getString("EXTNAME"));
 				memVO.setIntroduction(rs.getString("INTRODUCTION"));
 				
@@ -274,6 +274,20 @@ public class MemJDBCDAO implements MemDAO_interface {
 				}
 			}
 		}
+	}
+
+
+	@Override
+	public boolean forgotcheck(String email, String idnum) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void changepassword(String paw, String email) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

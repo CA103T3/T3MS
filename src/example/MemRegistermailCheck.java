@@ -37,7 +37,11 @@ public class MemRegistermailCheck extends HttpServlet {
 		
 		String tempAuth = jedis.get(memVO.getMemno());
 		if (tempAuth == null) {
-			System.out.println("連結信已逾時，請重新申請");
+			System.out.println("連結已逾時，請重新申請");
+			out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+	         out.println("<BODY>連結已逾時，請重新申請<BR>");
+	         out.println("<h1 style='color:red;align:center;'>失敗!</h1>");
+	         out.println("</BODY></HTML>");
 		} else if (str.equals(tempAuth)){
 			System.out.println("驗證成功!");
 			System.out.println(memVO.getEmail());
@@ -48,9 +52,9 @@ public class MemRegistermailCheck extends HttpServlet {
 		} else {
 			System.out.println("驗證有誤，請重新申請");
 			 out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-	            out.println("<BODY>驗證碼錯誤!<BR>");
-	            out.println("<h1 style='color:red;align:center;'>失敗!</h1>");
-	            out.println("</BODY></HTML>");
+	         out.println("<BODY>驗證碼錯誤!<BR>");
+	         out.println("<h1 style='color:red;align:center;'>失敗!</h1>");
+	         out.println("</BODY></HTML>");
 		}
 
 		

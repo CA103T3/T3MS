@@ -90,7 +90,7 @@
 		left: 0;
 		background-color: rgba(0,0,0,0.65);
 	}
-	.btn{
+	.btnp{
 		font-family: Ubuntu-Bold;
 		font-size: 18px;
 		color: #fff;
@@ -155,7 +155,7 @@
 			font-weight:bold;
 		}
 </style>
-	
+	<%@ include file="/forestage/template/link.jsp" %>
 <title>register</title>
 </head>
 <body>
@@ -164,8 +164,9 @@
 <jsp:useBean id="MemSrc" scope="page" class="com.member.model.MemService" />
 
 <div class="bgm">
-	<div class="container shadow p-3 mb-5 bg-white rounded">
-		<div class="row align-items-center">
+	<div class="container shadow p-3 mb-5">
+	<%@ include file="/forestage/template/header.jsp" %>
+		<div class="row align-items-center bg-white rounded">
 			<div class="col-12 col-sm-10 offset-sm-1">
 			
 			<c:if test="${not empty errorMsgs}">
@@ -390,7 +391,7 @@ ez訂網站會員為富爾特科技股份有限公司經營管理，為了確保
 							</label>
 						</div>
 					</div>
-					<button class="btn" type="submit">註冊</button>
+					<button class="btnp" type="submit">註冊</button>
 				</form>
 				<hr>
 

@@ -22,8 +22,8 @@ public class MemJNDIDAO implements MemDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT memno, lname, fname FROM member";
 	private static final String GET_ONE_STMT = "SELECT * FROM member where email = ?";
 	private static final String PASS_REGISTERED ="UPDATE MEMBER SET STATUS=? WHERE EMAIL=?";
-	
-	
+	private static final String UPDATE = "UPDATE MEMBER SET lname=?,fname=?,phone=?,addr=?,locno=?,memimg=? WHERE EMAIL=?";
+	private static final String CHANGEPASSWORD = "UPDATE MEMBER SET MEM_PW=? WHERE EMAIL=?";
 	
 	@Override
 	public void insert(MemVO memVO) {		
@@ -141,7 +141,46 @@ public class MemJNDIDAO implements MemDAO_interface {
 	
 	@Override
 	public void update(MemVO memVO) {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE);
+			//lname=?,fname=?,phone=?,addr=?,locno=?,memimg=? WHERE EMAIL=?
+			pstmt.setString(1, memVO.getLastname());
+			pstmt.setString(2, memVO.getFirstname());
+			pstmt.setString(3, memVO.getPhone());
+			pstmt.setString(4, memVO.getAddr());
+			pstmt.setInt(5, memVO.getLocno());
+			pstmt.setBytes(6, memVO.getMemimg());
+			pstmt.setString(7, memVO.getEmail());
+			
+			pstmt.executeUpdate();
+			System.out.println("修改成功");
+			
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
 		
 	}
 	@Override
@@ -181,7 +220,7 @@ public class MemJNDIDAO implements MemDAO_interface {
 				memVO.setStatus(rs.getInt("STATUS"));
 				memVO.setType(rs.getInt("TYPE"));
 				memVO.setViolation(rs.getInt("VIOLATION"));
-				memVO.setMemimg(rs.getByte("MEMIMG"));
+				memVO.setMemimg(rs.getBytes("MEMIMG"));
 				memVO.setExtname(rs.getString("EXTNAME"));
 				memVO.setIntroduction(rs.getString("INTRODUCTION"));
 				
@@ -260,7 +299,74 @@ public class MemJNDIDAO implements MemDAO_interface {
 	}
 	
 	
+	@Override
+	public boolean forgotcheck(String email,String idnum) {
+		Connection con=null;
+		boolean isValid = false;
+		 
+        String sql="select * from MEMBER where EMAIL='"+email+"' and IDNUM='"+idnum+"'";
+        try{
+        	con = ds.getConnection(); 
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+ 
+            if(rs.next()){
+                isValid = true;
+            }
+            rs.close();
+            stm.close();
+            
+       
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+        if(isValid){
+            return true;
+        }
+        else return false;
+    }
 	
+	@Override
+	public void changepassword(String paw,String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;	
+		try {
+
+			con = ds.getConnection(); 
+			pstmt = con.prepareStatement(CHANGEPASSWORD);
+			pstmt.setString(1, paw);
+			pstmt.setString(2, email);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured."
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	
 	
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import com.member.model.MemVO;
 import example.MailService;
 
 
-
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class ServletLoginC extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -50,9 +51,9 @@ public class ServletLoginC extends HttpServlet {
             String lname = memVO.getLastname();
             String fname = memVO.getFirstname();
             String name = lname+fname;
-            session.setAttribute("lname",lname);
-            session.setAttribute("fname",fname);
-            
+            request.setAttribute("memno", memno);
+            request.setAttribute("email", email);
+            session.setAttribute("email", email);
            
 //            Cookie username= new Cookie("email",email);
 //   

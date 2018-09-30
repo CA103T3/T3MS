@@ -13,14 +13,14 @@
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/util.css">
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/login.css">
 <!--===============================================================================================-->
-
+<%@ include file="/forestage/template/link.jsp" %>
 </head>
 <body>
 	
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('/T3MS/img/bg-01.jpg');">
-			<div class="wrap-login100 p-t-30 p-b-50">
-			
+			<div class="wrap-login100 p-t-30 p-b-100">
+<%-- 				<%@ include file="/forestage/template/header.jsp" %> --%>
 				<span class="login100-form-title p-b-41">
 					<img style="width:400px;" src='/T3MS/img/login.png'>
 				</span>
@@ -45,7 +45,7 @@
 				<div class="container" style="align-content: right">
 					<div class="align-items-end">
 					<a style="color:deeppink;" href="registerf.jsp">註冊會員</a>
-					<a style="color:deeppink;" href="">忘記密碼</a></div>
+					<a style="color:deeppink;" href="forgotpaw.jsp">忘記密碼</a></div>
 				</div>
 			</div>
 		</div>

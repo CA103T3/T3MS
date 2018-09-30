@@ -1,6 +1,12 @@
 package com.member.model;
 
-public class MemVO implements java.io.Serializable{
+import java.util.Date;
+
+
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+
+public class MemVO implements java.io.Serializable,HttpSessionBindingListener{
 
 	private String memno;
 	private String email;
@@ -15,10 +21,26 @@ public class MemVO implements java.io.Serializable{
 	private String addr;
 	private Integer status;
 	private Integer type;
-	private Byte memimg;
+	private byte[] memimg;
 	private String extname;
 	private Integer violation;
 	private String introduction;
+	
+	
+	
+	//登入登出監聽器
+	public void valueBound(HttpSessionBindingEvent event) {
+	    System.out.println(("[" + new Date() + "-會員登入] BOUND as " + event.getName()  +" "+ this.firstname + "已登入 to " + event.getSession().getId()));
+	  }
+	  
+	  public void valueUnbound(HttpSessionBindingEvent event) {
+	    System.out.println(("[" + new Date() + "-會員登出] UNBOUND as " + event.getName() +" "+ this.firstname + "已登出 from " + event.getSession().getId()));
+	  }
+	
+	
+	
+	
+	
 	
 	
 	public String getmemno() {
@@ -105,10 +127,10 @@ public class MemVO implements java.io.Serializable{
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	public Byte getMeming() {
+	public byte[] getMemimg() {
 		return memimg;
 	}
-	public void setMemimg(Byte memimg) {
+	public void setMemimg(byte[] memimg) {
 		this.memimg = memimg;
 	}
 	public String getExtname() {
