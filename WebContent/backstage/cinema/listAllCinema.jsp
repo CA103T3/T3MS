@@ -125,8 +125,8 @@
         </c:if>
 
         $(document).on("click", ".del-btn", function(event){
-            console.log("event.target.id: ", event.target.id);
-            let tid = event.target.id;
+            console.log("event.currentTarget.id: ", event.currentTarget.id);
+            let tid = event.currentTarget.id;
             let form = $("#"+tid).attr("data-form");
             let name = $("#"+tid).attr("data-name");
             console.log("form id: ", form);

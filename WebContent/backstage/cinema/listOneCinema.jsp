@@ -99,7 +99,7 @@
                 <div class="row form-group">
                     <label class="col-md-2 control-label text-right">圖片</label>
                     <div class="col-md-10">
-                      <img src="${cinemaVO.photo_path}" style="max-height: 500px">
+                      <img src="${cinemaVO.photo_path}" alt="${cinemaVO.photo_title}" style="max-height: 500px">
                     </div>
                 </div>
                 <div class="row form-group">

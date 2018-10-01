@@ -88,7 +88,7 @@
                       </div>
                     </div>
                     <div class="row container text-center" id="img_div">
-                      <img src='<%= (cinemaVO==null) ? "" : cinemaVO.getPhoto_small() %>' style="max-height: 100%;">
+                      <img src='<%= (cinemaVO==null) ? "" : cinemaVO.getPhoto_small() %>' alt='<%= (cinemaVO==null) ? "" : cinemaVO.getPhoto_title() %>' style="max-height: 100%;">
                     </div>
                     <div class="form-group">
                       <label class="col-md-5 control-label">上線</label>

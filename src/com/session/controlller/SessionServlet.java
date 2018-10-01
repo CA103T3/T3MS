@@ -216,6 +216,57 @@ public class SessionServlet extends HttpServlet {
             }
         }
 
+        if ("view".equals(action)) { // from listAllSession.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+            String requestURL = req.getParameter("requestURL");
+
+            try {
+                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+                String session_no = req.getParameter("session_no");
+                if (session_no == null || (session_no.trim()).length() == 0) {
+                    errorMsgs.add("缺少場次編號資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************2.開始查詢資料*****************************************/
+                SessionService sSvc = new SessionService();
+                SessionVO sessionVO = sSvc.getOneofJoinTheaterMovieWhereSessionNo(session_no);
+                if (sessionVO == null) {
+                    errorMsgs.add("查無資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)*************/
+                req.setAttribute("sessionVO", sessionVO); // 資料庫取出的sessionVO物件,存入req
+                String url = "/backstage/session/listOneSession.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneSession.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理*************************************/
+            } catch (Exception e) {
+                errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("requestURL");
+                failureView.forward(req, res);
+            }
+        }
+
         if ("get_seat_model".equals(action)) { // from addSession.jsp ajax
 
             List<String> errorMsgs = new LinkedList<String>();

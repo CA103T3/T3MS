@@ -42,6 +42,10 @@ public class SessionDAO implements SessionDAO_interface {
             + "where MOVIE_SESSION.THEATER_NO in (select THEATER.THEATER_NO from THEATER where THEATER.CINEMA_NO = ?) order by SESSION_NO";
     private static final String GET_ONE_STMT =
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where SESSION_NO = ?";
+    private static final String GET_ONE_OF_JOIN_THEATER_MOVIE_WHERE_SESSIONNO_STMT =
+            "select MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,MOVIE_SESSION.MOVIE_NO,MOVIE_SESSION.SESSION_TIME,MOVIE_SESSION.SEAT_TABLE, THEATER.THEATER_NAME, MOVIE.MOVIE_NAME "
+            + "from MOVIE_SESSION left join THEATER on MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO left join MOVIE on MOVIE_SESSION.MOVIE_NO = MOVIE.MOVIE_NO "
+            + "where SESSION_NO = ?";
     private static final String DELETE =
         "DELETE FROM MOVIE_SESSION where SESSION_NO = ?";
     private static final String UPDATE =
@@ -424,5 +428,68 @@ public class SessionDAO implements SessionDAO_interface {
             }
         }
         return list;
+    }
+
+    @Override
+    public SessionVO getOneofJoinTheaterMovieWhereSessionNo(String session_no) {
+        SessionVO sessionVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ONE_OF_JOIN_THEATER_MOVIE_WHERE_SESSIONNO_STMT);
+            //System.out.println(cinema_no); //if no parameter, null
+            pstmt.setString(1, session_no);
+            rs = pstmt.executeQuery();
+            //System.out.println(GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT);
+            while (rs.next()) {
+                // sessionVO 也稱為 Domain objects
+                sessionVO = new SessionVO();
+                sessionVO.setSession_no(rs.getString("SESSION_NO"));
+                sessionVO.setTheater_no(rs.getString("THEATER_NO"));
+                sessionVO.setMovie_no(rs.getString("MOVIE_NO"));
+                sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));
+                sessionVO.setSeat_table(rs.getString("SEAT_TABLE"));
+                MovieVO movieVO = new MovieVO();
+                movieVO.setMovie_name(rs.getString("MOVIE_NAME"));
+                sessionVO.setMovieVO(movieVO);
+                TheaterVO theaterVO = new TheaterVO();
+                theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
+                sessionVO.setTheaterVO(theaterVO);
+                //System.out.println(rs.getString("SESSION_NO"));
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return sessionVO;
     }
 }

@@ -176,8 +176,8 @@
         $(document).ready(function(){
             //$(".optbtn").on("click", function(event){
             $(document).on("click", ".optbtn", function(event){
-                console.log("event.target.id: ", event.target.id);
-                let tid = event.target.id;
+                console.log("event.currentTarget.id: ", event.currentTarget.id);
+                let tid = event.currentTarget.id;
                 let input = $("#"+tid).attr("data-input");
                 console.log("input id: ", input);
                 console.log("input id: ", $("#"+input).attr("id"));
@@ -219,8 +219,8 @@
             });
 
             $(document).on("click", ".seat", function(event){
-                console.log("click event.target.id: ", event.target.id);
-                let tid = event.target.id;
+                console.log("click event.currentTarget.id: ", event.currentTarget.id);
+                let tid = event.currentTarget.id;
                 let pos = tid.substring(3);
                 console.log(pos);
                 $("#"+tid).popover({

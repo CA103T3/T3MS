@@ -2,6 +2,7 @@ package com.session.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -15,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.theater.model.*;
 
 
 
@@ -47,10 +50,13 @@ public class SessionServiceTest extends HttpServlet {
         sSvc = new SessionService();
         String session_no = testAddSession();
         testGetOneSession(session_no);
+
         session_no = testAddSession();
         testGetOneSession(session_no);
         testUpdateSession(session_no);
         testGetOneSession(session_no);
+        testGetOneofJoinTheaterMovieWhereSessionNo(session_no);
+
         session_no = testAddSession();
         testGetAll();
         testDeleteSession(session_no);
@@ -59,10 +65,12 @@ public class SessionServiceTest extends HttpServlet {
         testGetAllofTheater(theater_no);
         String cinema_no = "C001";
         testGetAllofJoinTheaterMovieWhereTheaterNoCinema(cinema_no);
+
+
     }
 
     //INSERT INTO MOVIE (movie_no) values ('MV0001');
-    public String testAddSession() {
+    public String testAddSession() throws IOException {
         String theater_no = "T00001";
         String movie_no = "MV0001";
         //SimpleDateFormat parse java.util.Date -> getTime() -> java.sql.Timestamp
@@ -78,7 +86,21 @@ public class SessionServiceTest extends HttpServlet {
         }
         Timestamp session_time = new Timestamp(utilDate.getTime());
 
-        String seat_table = "This is the CLOB";
+        TheaterService tSvc = new TheaterService();
+        TheaterVO tVO = tSvc.getOneTheater(theater_no);
+        String seat_table = null;
+        if(tVO != null) {
+            Reader model = tVO.getSeat_model();
+            char[] arr = new char[8 * 1024];
+            StringBuilder buffer = new StringBuilder();
+            int numCharsRead;
+            while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+                buffer.append(arr, 0, numCharsRead);
+            }
+
+            model.close();
+            seat_table = buffer.toString();
+        }
 
         String session_no = sSvc.addSession(theater_no, movie_no, session_time, seat_table);
 
@@ -107,7 +129,7 @@ public class SessionServiceTest extends HttpServlet {
     }
 
     //INSERT INTO MOVIE (movie_no) values ('MV0002');
-    public void testUpdateSession(String session_no) {
+    public void testUpdateSession(String session_no) throws IOException {
         String theater_no = "T00002";
         String movie_no = "MV0002";
         //SimpleDateFormat parse java.util.Date -> getTime() -> java.sql.Timestamp
@@ -123,7 +145,21 @@ public class SessionServiceTest extends HttpServlet {
         }
         Timestamp session_time = new Timestamp(utilDate.getTime());
 
-        String seat_table = "update This is the CLOB";
+        TheaterService tSvc = new TheaterService();
+        TheaterVO tVO = tSvc.getOneTheater(theater_no);
+        String seat_table = null;
+        if(tVO != null) {
+            Reader model = tVO.getSeat_model();
+            char[] arr = new char[8 * 1024];
+            StringBuilder buffer = new StringBuilder();
+            int numCharsRead;
+            while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+                buffer.append(arr, 0, numCharsRead);
+            }
+
+            model.close();
+            seat_table = buffer.toString();
+        }
 
         sSvc.updateSession(session_no, theater_no, movie_no, session_time, seat_table);
     }
@@ -147,9 +183,28 @@ public class SessionServiceTest extends HttpServlet {
     public void testGetAllofJoinTheaterMovieWhereTheaterNoCinema(String cinema_no) {
         List<SessionVO> list = sSvc.getAllofJoinTheaterMovieWhereTheaterNoCinema(cinema_no);
         out.println(list.size());
-        for(SessionVO vo : list) {
-            out.println(vo.getSession_no());
+        for(SessionVO sessionVO : list) {
+            out.println(sessionVO.getSession_no());
+            out.println("theater_name : " + sessionVO.getTheaterVO().getTheater_name());
+            out.println("movie_name : " + sessionVO.getMovieVO().getMovie_name());
         }
+    }
+
+    public void testGetOneofJoinTheaterMovieWhereSessionNo(String session_no) {
+        SessionVO sessionVO = sSvc.getOneofJoinTheaterMovieWhereSessionNo(session_no);
+        out.println("Session_no : " + sessionVO.getSession_no());
+        out.println("Theater_no : " + sessionVO.getTheater_no());
+        out.println("Movie_no : " + sessionVO.getMovie_no());
+        out.println("Session_time : " + sessionVO.getSession_time());
+        Timestamp session_time = sessionVO.getSession_time();
+        Date date = new Date(session_time.getTime());
+        out.println("Timestamp convert to java.util.Date : " + date);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strDate = dateFormat.format(date);
+        out.println("converted java.util.Date to String : " + strDate);
+        out.println("Seat_tabl : " + sessionVO.getSeat_table());
+        out.println("theater_name : " + sessionVO.getTheaterVO().getTheater_name());
+        out.println("movie_name : " + sessionVO.getMovieVO().getMovie_name());
     }
 
     public void testDeleteSession(String session_no) {
