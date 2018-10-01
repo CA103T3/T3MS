@@ -326,8 +326,11 @@ public class TheaterServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add("其他錯誤: " + e.getMessage().replaceAll("\r|\n", ""));
-                System.out.println("其他可能的錯誤處理");
+                if(e.getMessage() != null) {
+                    errorMsgs.add("其他錯誤: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("其他錯誤");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/theater/addTheater.jsp");
                 failureView.forward(req, res);
@@ -459,8 +462,11 @@ public class TheaterServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add("修改資料失敗: " + e.getMessage().replaceAll("\r|\n", ""));
-                //System.out.println("其他可能的錯誤處理");
+                if(e.getMessage() != null) {
+                    errorMsgs.add("修改資料失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("修改資料失敗");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/theater/updateTheater.jsp");
                 failureView.forward(req, res);
@@ -497,7 +503,11 @@ public class TheaterServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add("刪除資料失敗: "+e.getMessage().replaceAll("\r|\n", ""));
+                if(e.getMessage() != null) {
+                    errorMsgs.add("刪除資料失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("刪除資料失敗");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher(requestURL);
                 failureView.forward(req, res);
@@ -548,7 +558,11 @@ public class TheaterServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理*************************************/
             } catch (Exception e) {
-                errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
+                if(e.getMessage() != null) {
+                    errorMsgs.add("無法取得資料: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("無法取得資料");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("requestURL");
                 failureView.forward(req, res);
@@ -599,7 +613,11 @@ public class TheaterServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理************************************/
             } catch (Exception e) {
-                errorMsgs.add("修改資料取出時失敗: "+e.getMessage().replaceAll("\r|\n", ""));
+                if(e.getMessage() != null) {
+                    errorMsgs.add("修改資料取出時失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("修改資料取出時失敗");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher(requestURL);
                 failureView.forward(req, res);

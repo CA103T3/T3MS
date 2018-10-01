@@ -9,7 +9,7 @@ public class TypeVO implements java.io.Serializable {
     private String type_no;
     private String theater_no;
     private String identify;
-    private String equipment;
+    //private String equipment;
     private String time;
     private Integer price;
 
@@ -31,12 +31,12 @@ public class TypeVO implements java.io.Serializable {
     public void setIdentify(String identify) {
         this.identify = identify;
     }
-    public String getEquipment() {
-        return equipment;
-    }
-    public void setEquipment(String equipment) {
-        this.equipment = equipment;
-    }
+    // public String getEquipment() {
+        // return equipment;
+    // }
+    // public void setEquipment(String equipment) {
+        // this.equipment = equipment;
+    // }
     public String getTime() {
         return time;
     }

@@ -42,7 +42,7 @@
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
                 <h3 class="page-header">
-                  <label>新增電影場次&nbsp;&nbsp;</label>
+                    <label>新增電影場次&nbsp;&nbsp;</label>
                     <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/backstage/session/listAllSession.jsp?cinema_no=<%=request.getParameter("cinema_no")%>">
                         <button type="submit" id="back-btn" class="btn btn-default fs16 " >
                             <i class="fa fa-undo" aria-hidden="true"></i>&nbsp;返回

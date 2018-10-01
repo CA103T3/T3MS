@@ -441,10 +441,12 @@ CREATE TABLE TICKETTYPE (
   TICKETTYPE_NO VARCHAR2(10) NOT NULL,
   THEATER_NO    VARCHAR2(10) NOT NULL,
   IDENTITY      VARCHAR2(100),
-  EQUIPMENT     VARCHAR2(20),
+--  EQUIPMENT     VARCHAR2(20),
   TIME          VARCHAR2(20),
   PRICE         NUMBER);
 
+-- ALTER TABLE TICKETTYPE
+  -- DROP COLUMN EQUIPMENT;
 --------------------------------------------------------
 --  for Table MEAL
 --------------------------------------------------------

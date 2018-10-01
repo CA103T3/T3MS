@@ -27,16 +27,25 @@ public class TypeDAO implements TypeDAO_interface {
         }
     }
 
+    // private static final String INSERT_STMT =
+        // "INSERT INTO TICKETTYPE (TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE) VALUES ('TT'||LPAD(to_char(TICKETTYPE_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?)";
+    // private static final String GET_ALL_STMT =
+        // "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE FROM TICKETTYPE order by TICKETTYPE_NO";
+    // private static final String GET_ONE_STMT =
+        // "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE FROM TICKETTYPE where TICKETTYPE_NO = ?";
+    // private static final String UPDATE =
+        // "UPDATE TICKETTYPE set THEATER_NO=?, IDENTITY=?, EQUIPMENT=?, TIME=?, PRICE=? where TICKETTYPE_NO = ?";
+
     private static final String INSERT_STMT =
-        "INSERT INTO TICKETTYPE (TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE) VALUES ('TT'||LPAD(to_char(TICKETTYPE_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?, ?)";
+        "INSERT INTO TICKETTYPE (TICKETTYPE_NO,THEATER_NO,IDENTITY,TIME,PRICE) VALUES ('TT'||LPAD(to_char(TICKETTYPE_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?)";
     private static final String GET_ALL_STMT =
-        "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE FROM TICKETTYPE order by TICKETTYPE_NO";
+        "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,TIME,PRICE FROM TICKETTYPE order by TICKETTYPE_NO";
     private static final String GET_ONE_STMT =
-        "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,EQUIPMENT,TIME,PRICE FROM TICKETTYPE where TICKETTYPE_NO = ?";
+        "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,TIME,PRICE FROM TICKETTYPE where TICKETTYPE_NO = ?";
     private static final String DELETE =
         "DELETE FROM TICKETTYPE where TICKETTYPE_NO = ?";
     private static final String UPDATE =
-        "UPDATE TICKETTYPE set THEATER_NO=?, IDENTITY=?, EQUIPMENT=?, TIME=?, PRICE=? where TICKETTYPE_NO = ?";
+        "UPDATE TICKETTYPE set THEATER_NO=?, IDENTITY=?, TIME=?, PRICE=? where TICKETTYPE_NO = ?";
 
     @Override
     public String insert(TypeVO typeVO) {
@@ -52,9 +61,11 @@ public class TypeDAO implements TypeDAO_interface {
 
             pstmt.setString(1, typeVO.getTheater_no());
             pstmt.setString(2, typeVO.getIdentify());
-            pstmt.setString(3, typeVO.getEquipment());
-            pstmt.setString(4, typeVO.getTime());
-            pstmt.setInt(5, typeVO.getPrice());
+            pstmt.setString(3, typeVO.getTime());
+            pstmt.setInt(4, typeVO.getPrice());
+            // pstmt.setString(3, typeVO.getEquipment());
+            // pstmt.setString(4, typeVO.getTime());
+            // pstmt.setInt(5, typeVO.getPrice());
 
             pstmt.executeUpdate();
             
@@ -111,10 +122,13 @@ public class TypeDAO implements TypeDAO_interface {
 
             pstmt.setString(1, typeVO.getTheater_no());
             pstmt.setString(2, typeVO.getIdentify());
-            pstmt.setString(3, typeVO.getEquipment());
-            pstmt.setString(4, typeVO.getTime());
-            pstmt.setInt(5, typeVO.getPrice());
-            pstmt.setString(6, typeVO.getType_no());
+            pstmt.setString(3, typeVO.getTime());
+            pstmt.setInt(4, typeVO.getPrice());
+            pstmt.setString(5, typeVO.getType_no());
+            // pstmt.setString(3, typeVO.getEquipment());
+            // pstmt.setString(4, typeVO.getTime());
+            // pstmt.setInt(5, typeVO.getPrice());
+            // pstmt.setString(6, typeVO.getType_no());
 
             pstmt.executeUpdate();
 
@@ -201,7 +215,7 @@ public class TypeDAO implements TypeDAO_interface {
                 typeVO.setType_no(rs.getString("TICKETTYPE_NO"));
                 typeVO.setTheater_no(rs.getString("THEATER_NO"));
                 typeVO.setIdentify(rs.getString("IDENTITY"));
-                typeVO.setEquipment(rs.getString("EQUIPMENT"));
+                // typeVO.setEquipment(rs.getString("EQUIPMENT"));
                 typeVO.setTime(rs.getString("TIME"));
                 typeVO.setPrice(rs.getInt("PRICE"));
             }
@@ -258,7 +272,7 @@ public class TypeDAO implements TypeDAO_interface {
                 typeVO.setType_no(rs.getString("TICKETTYPE_NO"));
                 typeVO.setTheater_no(rs.getString("THEATER_NO"));
                 typeVO.setIdentify(rs.getString("IDENTITY"));
-                typeVO.setEquipment(rs.getString("EQUIPMENT"));
+                // typeVO.setEquipment(rs.getString("EQUIPMENT"));
                 typeVO.setTime(rs.getString("TIME"));
                 typeVO.setPrice(rs.getInt("PRICE"));
                 list.add(typeVO); // Store the row in the list

@@ -53,11 +53,12 @@ public class TypeServiceTest extends HttpServlet {
     public String testAddType() {
         String theater_no = "T00001";
         String identify = "ADULT";
-        String equipment = "數位";
+        // String equipment = "數位";
         String time = "NORMAL";
         Integer price = 300;
 
-        String type_no = tSvc.addType(theater_no, identify, equipment, time, price);
+        // String type_no = tSvc.addType(theater_no, identify, equipment, time, price);
+        String type_no = tSvc.addType(theater_no, identify, time, price);
 
         out.println("Add type_no : " + type_no);
         return type_no;
@@ -68,7 +69,7 @@ public class TypeServiceTest extends HttpServlet {
         out.println("type_no : " + typeVO.getType_no());
         out.println("theater_no : " + typeVO.getTheater_no());
         out.println("identify : " + typeVO.getIdentify());
-        out.println("equipment : " + typeVO.getEquipment());
+        // out.println("equipment : " + typeVO.getEquipment());
         out.println("time : " + typeVO.getTime());
         out.println("price : " + typeVO.getPrice());
     }
@@ -76,11 +77,12 @@ public class TypeServiceTest extends HttpServlet {
     public void testUpdateType(String type_no) {
         String theater_no = "T00002";
         String identify = "COMPLIMENTARY";
-        String equipment = "GC 3D DIG";
+        // String equipment = "GC 3D DIG";
         String time = "MAITNEE";
         Integer price = 250;
 
-        tSvc.updateType(type_no, theater_no, identify, equipment, time, price);
+        // tSvc.updateType(type_no, theater_no, identify, equipment, time, price);
+        tSvc.updateType(type_no, theater_no, identify, time, price);
         out.println("testUpdateType type_no : " + type_no);
     }
 

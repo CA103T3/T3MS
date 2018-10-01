@@ -9,13 +9,14 @@ public class TypeService {
         dao = new TypeDAO();
     }
 
-    public String addType(String theater_no, String identify, String equipment,
+    //public String addType(String theater_no, String identify, String equipment,
+    public String addType(String theater_no, String identify,
             String time, Integer price) {
 
         TypeVO typeVO = new TypeVO();
         typeVO.setTheater_no(theater_no);
         typeVO.setIdentify(identify);
-        typeVO.setEquipment(equipment);
+        // typeVO.setEquipment(equipment);
         typeVO.setTime(time);
         typeVO.setPrice(price);
         
@@ -25,13 +26,14 @@ public class TypeService {
     }
 
     public void updateType(String type_no, String theater_no, String identify,
-            String equipment, String time, Integer price) {
+            String time, Integer price) {
+            // String equipment, String time, Integer price) {
 
         TypeVO typeVO = new TypeVO();
         typeVO.setType_no(type_no);
         typeVO.setTheater_no(theater_no);
         typeVO.setIdentify(identify);
-        typeVO.setEquipment(equipment);
+        // typeVO.setEquipment(equipment);
         typeVO.setTime(time);
         typeVO.setPrice(price);
 

@@ -175,8 +175,11 @@ public class SessionServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add("其他錯誤: " + e.getMessage());
-                System.out.println("其他可能的錯誤處理");
+                if(e.getMessage() != null) {
+                    errorMsgs.add("其他錯誤: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("其他錯誤");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
                 failureView.forward(req, res);
@@ -309,11 +312,13 @@ public class SessionServlet extends HttpServlet {
                 successView.forward(req, res);
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add("修改資料失敗:  " + e.getMessage());
-                System.out.println("其他可能的錯誤處理");
+                if(e.getMessage() != null) {
+                    errorMsgs.add("修改資料失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("修改資料失敗");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/session/updateSession.jsp");
-                        //.getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
                 failureView.forward(req, res);
                 e.printStackTrace();
             }
@@ -344,7 +349,11 @@ public class SessionServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add("刪除資料失敗: "+e.getMessage().replaceAll("\r|\n", ""));
+                if(e.getMessage() != null) {
+                    errorMsgs.add("刪除資料失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("刪除資料失敗");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher(requestURL);
                 failureView.forward(req, res);
@@ -395,7 +404,11 @@ public class SessionServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理*************************************/
             } catch (Exception e) {
-                errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
+                if(e.getMessage() != null) {
+                    errorMsgs.add("無法取得資料: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("無法取得資料");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("requestURL");
                 failureView.forward(req, res);
@@ -446,7 +459,11 @@ public class SessionServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理************************************/
             } catch (Exception e) {
-                errorMsgs.add("修改資料取出時失敗: "+e.getMessage().replaceAll("\r|\n", ""));
+                if(e.getMessage() != null) {
+                    errorMsgs.add("修改資料取出時失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("修改資料取出時失敗");
+                }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher(requestURL);
                 failureView.forward(req, res);
@@ -505,7 +522,11 @@ public class SessionServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add("查詢資料失敗: "+e.getMessage().replaceAll("\r|\n", ""));
+                if(e.getMessage() != null) {
+                    errorMsgs.add("查詢資料失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("查詢資料失敗");
+                }
 //                RequestDispatcher failureView = req
 //                        .getRequestDispatcher(requestURL);
 //                failureView.forward(req, res);
