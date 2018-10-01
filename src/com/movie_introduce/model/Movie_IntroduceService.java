@@ -12,7 +12,7 @@ public class Movie_IntroduceService {
 	
 	
 	public Movie_IntroduceVO addMovie_Itde(String movie_no,String source,String url,
-			String author,String title,String content,Integer active) {
+			String author,String title,String content,Integer active,String photo_path,String photo_small) {
 		
 		Movie_IntroduceVO movie_introduceVO = new Movie_IntroduceVO();
 		
@@ -23,13 +23,15 @@ public class Movie_IntroduceService {
 		movie_introduceVO.setTitle(title);
 		movie_introduceVO.setContent(content);
 		movie_introduceVO.setActive(active);
+		movie_introduceVO.setPhoto_path(photo_path);
+		movie_introduceVO.setPhoto_small(photo_small);
 		dao.insert(movie_introduceVO);
 		
 		return movie_introduceVO;
 	}
 	
 	public Movie_IntroduceVO updateMovie_Itde(String introd_no ,String movie_no,String source,String url,
-			String author,String title,String content,Integer active) {
+			String author,String title,String content,Integer active,String photo_path,String photo_small) {
 		
 		Movie_IntroduceVO movie_introduceVO = new Movie_IntroduceVO();
 		
@@ -41,6 +43,8 @@ public class Movie_IntroduceService {
 		movie_introduceVO.setTitle(title);
 		movie_introduceVO.setContent(content);
 		movie_introduceVO.setActive(active);
+		movie_introduceVO.setPhoto_path(photo_path);
+		movie_introduceVO.setPhoto_small(photo_small);
 		dao.update(movie_introduceVO);
 		
 		return movie_introduceVO;

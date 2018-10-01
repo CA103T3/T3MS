@@ -23,20 +23,33 @@
       
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="<%=request.getContextPath()%>/css/introduceM.css" rel="stylesheet" type="text/css">	
-        <style>
-/* .zxx_text_overflow_5{   */
-/* width:27em;    */
-/* white-space:nowrap;    */
-/* text-overflow:ellipsis;   */
-/* -o-text-overflow:ellipsis;    */
-/* overflow:hidden;   */
-/* }   */
-        </style>
+        <link href="<%=request.getContextPath()%>/css/movieALL.css" rel="stylesheet" type="text/css">
+      <style>
+		     #movie_pic{width:500px;height:300px;}
+	
+		     .text-primary {color: #86abcc;font-weight:bold;}
+          
+             a {color: #ff54a7;}
+             .breadcrumb{background-color:#42474b; margin-top：50px;}
+            
+             
+   </style>
+
         
     </head>
     <body class="body-template">
         <%@ include file="/forestage/template/header_no_bar.jsp" %>
         
+    <!-- Preloader -->
+	    <div class="preloader" id="preloader" >
+	        <div class="lds-css ng-scope">
+	            <div class="lds-ripple">
+	                <div></div>
+	                <div></div>
+	            </div>
+	        </div>
+	    </div>
+    <!-- Preloader End -->
         
      <!-- --------------------------------電影介紹list------------------------------------------------ -->
         
@@ -67,15 +80,30 @@
                     </div>
                 </div>
                 
-<%@ include file="/resources/page_code/page1.file"%>
+<%@ include file="/resources/page_code/pagef.file"%>
 
- <!-- ---------------------------電影情報內容----------------------------------------- -->  
+ <!-- ---------------------------電影情報內容----------------------------------------- --> 
+ 				<div class="container">
+                        <div class="row">
+ 							<div class="span6">
+							  <ul class="breadcrumb">
+								<li>
+									<a href="#">MS首頁</a> <span class="divider">></span>
+								</li>
+								<li class="active" style="color:#ffffff;">電影介紹</li>										
+							 </ul>
+							</div>
+						</div>
+ 				</div>
+ 				
 			   <c:forEach var="movie_introduceVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                 <div class="section">
                     <div class="container">
                         <div class="row">
+                        	
                             <div class="col-md-6">
-                                <img src="http://pingendo.github.io/pingendo-bootstrap/assets/blurry/800x600/11.jpg" class="img-responsive">
+                            	<img id="movie_pic" src="${movie_introduceVO.photo_path}" class="hvr-float-shadow"> 
+                            	                   
                             </div>
                             <div class="col-md-6">
                                 <h3 contenteditable="true">${movie_introduceVO.created_at}</h3>
@@ -93,84 +121,19 @@
                     </div>
                 </div>
                </c:forEach>  
-              
-              
-      
-              
+                            
             </div>
         </div> 
         
+</div>
+<%@ include file="/resources/page_code/pageb.file"%>
         
- <!-- ---------------------------分頁處理----------------------------------------- -->     
-         <div>
-				<c:choose>
-					<%-- 總頁數小於5 設定迴圈 開始1 結束5 --%>
-					<c:when test="<%=pageNumber <= 5%>">
-						<c:set var="begin" value="1" />
-						<c:set var="end" value="<%=pageNumber%>" />
-					</c:when>
-					<%-- 大於5 設定迴圈 開始為目前頁數 結束為目前頁數+4 --%>
-					<c:otherwise>
-						<c:set var="begin" value="<%=whichPage%>" />
-						<c:set var="end" value="<%=whichPage + 4%>" />
-						<%-- 若是第一頁就設定開始為1 最末頁5 --%>
-						<c:if test="${begin -1 <=0} ">
-							<c:set var="begin" value="1" />
-							<c:set var="end" value="5" />
-						</c:if>
-						<%-- 若end超過最末頁 開始頁設定最大頁-4 --%>
-						<c:if test="${end} > <%=pageNumber%>">
-							<c:set var="begin" value="<%=pageNumber - 4%>" />
-							<c:set var="end" value="<%=pageNumber%>" />
-						</c:if>
-					</c:otherwise>
-				</c:choose>
- 				<ul class="pagination">
-					<%-- 判斷第一頁時無法按上一頁 --%>
-					<c:choose>
-						<c:when test="<%=whichPage <= 1%>">
-							<li class="disabled"><a href="#">&laquo;</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage - 1%>">&laquo;</a></li>
-						</c:otherwise>
-					</c:choose>
- 					<c:forEach var="i" begin="${begin}" end="${end}">
-						<c:choose>
-							<c:when test="${i == page1.whichPage}">
-								<li class="active"><a href="#">${i}</a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="<%=request.getRequestURI()%>?whichPage=${i}">${i}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
- 					<%-- 判斷最末頁無法按下一頁 --%>
-					<c:choose>
-						<c:when test="<%=whichPage >= pageNumber%>">
-							<li class="disabled"><a href="#">&raquo;</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage + 1%>">&raquo;</a></li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</div>
-<%@ include file="/resources/page_code/page2.file"%>
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
+             
         <!-- --------------------------------電影介紹list------------------------------------------------ -->
         
         <%@ include file="/forestage/template/footer.jsp" %>
+        
+<!-- text Indentation -->
 <script>
 $(document).ready(function(){   
 	$(".zxx_text_overflow_5").each(function()  
@@ -182,5 +145,19 @@ $(document).ready(function(){
 	});  
 	 }); 
  </script>
+ <script>
+        $(document).ready(function(){
+            $("li:contains('電影資訊')").addClass("custom-active");
+        });
+ </script>
+ 
+
+<!-- Preloader -->
+
+<script>
+$(window).on('load', function () {
+    $('#preloader').fadeOut('slow');
+});
+</script>
     </body>
 </html>

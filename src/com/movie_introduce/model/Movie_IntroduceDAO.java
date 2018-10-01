@@ -18,12 +18,11 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	private static final String INSERT_STMT = 
-			"INSERT INTO MOVIE_INTRODUCE(introd_no,movie_no,source,url,author,title,content,created_at,updated_at,active)"
-			+ "VALUES ('MI'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,3,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)";
+	private static final String INSERT_STMT = "INSERT INTO MOVIE_INTRODUCE(introd_no,movie_no,source,url,author,title,content,created_at,updated_at,active,photo_path,photo_small)"
+			+ "VALUES ('MI'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,3,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?,?)";
 
-	private static final String UPDATE = 
-			"UPDATE MOVIE_INTRODUCE SET MOVIE_NO=? ,SOURCE=? ,URL=? ,AUTHOR=? ,TITLE=? ,CONTENT=? ,UPDATED_AT=CURRENT_TIMESTAMP , ACTIVE=? WHERE INTROD_NO =?";
+	private static final String UPDATE =
+			"UPDATE MOVIE_INTRODUCE SET MOVIE_NO=? ,SOURCE=? ,URL=? ,AUTHOR=? ,TITLE=? ,CONTENT=? ,UPDATED_AT=CURRENT_TIMESTAMP , ACTIVE=? ,PHOTO_PATH=?, PHOTO_SMALL=? WHERE INTROD_NO =?";
 
 	private static final String DELETE = 
 			"DELETE FROM MOVIE_INTRODUCE WHERE INTROD_NO = ?";
@@ -51,7 +50,9 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 			pstmt.setString(5, movie_introduceVO.getTitle());
 			pstmt.setString(6, movie_introduceVO.getContent());
 			pstmt.setInt(7, movie_introduceVO.getActive());
-
+			pstmt.setString(8, movie_introduceVO.getPhoto_path());
+			pstmt.setString(9, movie_introduceVO.getPhoto_small());
+			
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -92,8 +93,10 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 			pstmt.setString(5, movie_introduceVO.getTitle());
 			pstmt.setString(6, movie_introduceVO.getContent());
 			pstmt.setInt(7, movie_introduceVO.getActive());
-			pstmt.setString(8, movie_introduceVO.getIntrod_no());
-			
+			pstmt.setString(8, movie_introduceVO.getPhoto_path());
+			pstmt.setString(9, movie_introduceVO.getPhoto_small());
+			pstmt.setString(10, movie_introduceVO.getIntrod_no());
+						
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -184,6 +187,8 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 				movie_introduceVO.setCreated_at(rs.getDate("created_at"));
 				movie_introduceVO.setUpdated_at(rs.getDate("updated_at"));
 				movie_introduceVO.setActive(rs.getInt("active"));
+				movie_introduceVO.setPhoto_path(rs.getString("photo_path"));
+				movie_introduceVO.setPhoto_small(rs.getString("photo_small"));
 				
 			}
 
@@ -245,6 +250,8 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 				movie_introduceVO.setCreated_at(rs.getDate("created_at"));
 				movie_introduceVO.setUpdated_at(rs.getDate("updated_at"));
 				movie_introduceVO.setActive(rs.getInt("active"));
+				movie_introduceVO.setPhoto_path(rs.getString("photo_path"));
+				movie_introduceVO.setPhoto_small(rs.getString("photo_small"));
 				list.add(movie_introduceVO);
 				// Store the row in the list
 			}

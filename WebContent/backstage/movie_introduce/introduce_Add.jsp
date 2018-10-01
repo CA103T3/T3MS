@@ -24,6 +24,10 @@
 textarea{
 resize: none;
 }
+
+#addbtn{
+margin-top: 10px;
+}
 </style>
 </head>
 
@@ -64,7 +68,7 @@ resize: none;
 
 
 
-							<form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie_introduce/movie_introduce.do" name="form1" >
+							<form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie_introduce/movie_introduce.do" name="form1" enctype="multipart/form-data" >
 
 							
 								<div class="form-group">
@@ -103,16 +107,30 @@ resize: none;
 								</div>
 
 								<div>
+								    <label class="control-label">狀態:</label>
 									<input type="radio" name="active" value="0" checked="checked">
 									<label for="contactChoice1">下線</label>
 									<input type="radio" name="active" value="1">
 									<label for="contactChoice2">上線</label>
 								</div>
-
-								<input type="hidden" name="action" value="insert">
+								<label class="control-label">圖片:</label>
+								 <div class="form-group">                                
+	                                 <div class="col-md-4" id="drop-container">
+	                                     <input class="form-control" id="inputFile" type="file" data-img="dpimg" name="photo_path" value="" >
+	                                 </div>
+	                                 
+	                                 <div class="col-md-4">
+	                                     <label class="control-label">可拖曳圖片到左方區塊</label>
+	                                 </div>
+                                 </div>
+                                 
+                                                                
+                                 <div class="row container text-center" id="img_div"></div>
+                              
+                                <input type="hidden" name="action" value="insert">
 								<input type="hidden" name="content">							
-								<input type="submit" value="送出新增">
-
+								<button  id="addbtn" type="submit" class="btn btn-primary btn-lg btn-block">送出新增</button> 
+							  
 							</form>
 
 						</div>
@@ -140,6 +158,114 @@ resize: none;
           });
           
       });
- </script>    
+ </script> 
+ 
+  <script type="text/javascript">
+      function preview_image(e) {
+          /*
+          //http://talkerscode.com/webtricks/preview-image-before-upload-using-javascript.php
+          var reader = new FileReader();
+          reader.onload = function() {
+              var output = document.getElementById('output_image');
+              output.src = reader.result;
+          }
+          reader.readAsDataURL(event.target.files[0]);
+          */
+          console.log("preview_image");
+
+          //https://stackoverflow.com/questions/7394750/adding-event-as-parameter-within-function-using-addeventlistener-doesnt-work
+          if (!e) // i.e. the argument is undefined or null
+              e = window.event;
+
+          // cross browser
+          var obj = e.target ? e.target : event.srcElement;
+          //console.log(e);
+          //console.log(e.target);
+          //console.log(obj);
+          //console.log(event.srcElement);
+          //console.log(event.srcElement.id);
+          //console.log(obj.id);
+          img_id = obj.getAttribute("data-img");
+          img = document.getElementById(img_id);
+          var found;
+          if (img) {
+              console.log("found");
+              found = true;
+          } else {
+              console.log("not found");
+              var img = document.createElement("img");
+              img.setAttribute("style", "max-height: 100%;");
+              img.id = obj.getAttribute("data-img");
+              found = false;
+          }
+          /*
+          var reader = new FileReader();
+          reader.onload = function() {
+              img.src = reader.result;
+              img.id = event.target.getAttribute("data-index");
+              console.log(img.id);
+          }
+          reader.readAsDataURL(event.target.files[0]);
+
+          if(!found) {
+              var idiv = document.getElementById("img_div");
+              idiv.appendChild(img);
+              console.log("appendChild");
+          }
+          */
+          var ver = getInternetExplorerVersion();
+          if (ver > -1 && ver <= 9) {
+              //img.src = obj.files[0];
+              img.src = obj.value;
+              console.log("old : " + ver);
+          } else {
+              console.log("new : " + ver);
+              var reader = new FileReader();
+              //https://developer.mozilla.org/zh-TW/docs/Web/API/FileReader
+              //FileReader.onload
+              //load 事件處理器，於讀取完成時觸發。
+              reader.onload = function() {
+                  //https://developer.mozilla.org/zh-TW/docs/Web/API/FileReader
+                  //FileReader.result Read only
+                  //讀入的資料內容。只有在讀取完成之後此屬性才有效，而資料的格式則取決於是由哪一個方法進行讀取。
+                  img.src = reader.result;
+                  img.id = obj.getAttribute("data-img");
+                  console.log(img.id);
+              }
+              console.log("obj.files[0].name: " + obj.files[0].name);
+              let filename = obj.files[0].name;
+              //console.log("obj.get(0).files: " + obj.get(0).files);
+              // Read in the image file as a data URL.
+              //reader.readAsDataURL(obj.files[0]);
+
+              //https://developer.mozilla.org/zh-TW/docs/Web/API/File/Using_files_from_web_applications
+              let imageType = /image.*/;
+              if (obj.files[0].type.match(imageType)) {
+              //if (obj.get(0).files.type.match(imageType)) {
+                  reader.readAsDataURL(obj.files[0]);
+                  $("#img_div").css("display", "block");
+              } else {
+
+                  console.log(filename, " not image file");
+                  //alert("not image file");
+                  $.alert({
+                      title: '請選擇圖檔',
+                      content: filename + ' 非圖檔!',
+                  });
+                  $("#img_div").empty();
+                  $("#img_div").css("display", "none");
+                  //$("#inputFile").val("");
+                  setTimeout(function(){ $("#inputFile").val(""); }, 100);
+
+              }
+          }
+
+          if (!found) {
+              var idiv = document.getElementById("img_div");
+              idiv.appendChild(img);
+              console.log("appendChild");
+          }
+      }  
+      </script> 
 </body>
 </html>

@@ -16,6 +16,8 @@ public class Movie_IntroduceVO implements java.io.Serializable{
 	private Date created_at;
 	private Date updated_at;
 	private Integer active;
+	private String photo_path;
+    private String photo_small;
 	
 	public String getIntrod_no() {
 		return introd_no;
@@ -76,6 +78,18 @@ public class Movie_IntroduceVO implements java.io.Serializable{
 	}
 	public void setActive(Integer active) {
 		this.active = active;
+	}
+	public String getPhoto_path() {
+		return photo_path;
+	}
+	public void setPhoto_path(String photo_path) {
+		this.photo_path = photo_path;
+	}
+	public String getPhoto_small() {
+		return photo_small;
+	}
+	public void setPhoto_small(String photo_small) {
+		this.photo_small = photo_small;
 	}
    
 }

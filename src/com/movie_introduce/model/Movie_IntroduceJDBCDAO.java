@@ -10,11 +10,11 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 	String userid = "T3MS";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO MOVIE_INTRODUCE(introd_no,movie_no,source,url,author,title,content,created_at,updated_at,active)"
-			+ "VALUES ('MI'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,3,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)";
+	private static final String INSERT_STMT = "INSERT INTO MOVIE_INTRODUCE(introd_no,movie_no,source,url,author,title,content,created_at,updated_at,active,photo_path,photo_small)"
+			+ "VALUES ('MI'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,3,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?,?)";
 
 	private static final String UPDATE =
-			"UPDATE MOVIE_INTRODUCE SET MOVIE_NO=? ,SOURCE=? ,URL=? ,AUTHOR=? ,TITLE=? ,CONTENT=? ,UPDATED_AT=CURRENT_TIMESTAMP , ACTIVE=? WHERE INTROD_NO =?";
+			"UPDATE MOVIE_INTRODUCE SET MOVIE_NO=? ,SOURCE=? ,URL=? ,AUTHOR=? ,TITLE=? ,CONTENT=? ,UPDATED_AT=CURRENT_TIMESTAMP , ACTIVE=? ,PHOTO_PATH=?, PHOTO_SMALL=? WHERE INTROD_NO =?";
 
 	private static final String DELETE =
 			"DELETE FROM MOVIE_INTRODUCE WHERE INTROD_NO = ?";
@@ -43,7 +43,8 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 			pstmt.setString(5, movie_introduceVO.getTitle());
 			pstmt.setString(6, movie_introduceVO.getContent());
 			pstmt.setInt(7, movie_introduceVO.getActive());
-
+			pstmt.setString(8, movie_introduceVO.getPhoto_path());
+			pstmt.setString(9, movie_introduceVO.getPhoto_small());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -88,8 +89,11 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 			pstmt.setString(5, movie_introduceVO.getTitle());
 			pstmt.setString(6, movie_introduceVO.getContent());
 			pstmt.setInt(7, movie_introduceVO.getActive());
-			pstmt.setString(8, movie_introduceVO.getIntrod_no());
-
+			pstmt.setString(8, movie_introduceVO.getPhoto_path());
+			pstmt.setString(9, movie_introduceVO.getPhoto_small());
+			pstmt.setString(10, movie_introduceVO.getIntrod_no());
+			
+			
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -188,6 +192,8 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 				movie_introduceVO.setCreated_at(rs.getDate("created_at"));
 				movie_introduceVO.setUpdated_at(rs.getDate("updated_at"));
 				movie_introduceVO.setActive(rs.getInt("active"));
+				movie_introduceVO.setPhoto_path(rs.getString("photo_path"));
+				movie_introduceVO.setPhoto_small(rs.getString("photo_small"));
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -251,6 +257,8 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 				movie_introduceVO.setCreated_at(rs.getDate("created_at"));
 				movie_introduceVO.setUpdated_at(rs.getDate("updated_at"));
 				movie_introduceVO.setActive(rs.getInt("active"));
+				movie_introduceVO.setPhoto_path(rs.getString("photo_path"));
+				movie_introduceVO.setPhoto_small(rs.getString("photo_small"));
 				list.add(movie_introduceVO);
 				// Store the row in the list
 			}
@@ -295,7 +303,7 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 		// ----------------INSERT-------------------------------
 //
 //		Movie_IntroduceVO movie_introduceVO1 = new Movie_IntroduceVO();
-//		movie_introduceVO1.setMovie_no("M0006");
+//		movie_introduceVO1.setMovie_no("MV003");
 //		movie_introduceVO1.setSource("Vogue_Movie2");
 //		movie_introduceVO1.setUrl("https://www.vogue.com.tw/Movie/content-42980.html");
 //		movie_introduceVO1.setAuthor("連勝文");
@@ -303,16 +311,18 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 //		movie_introduceVO1.setContent("2018 中秋節好好的三天連假，上映的電影將近20部，在茫茫片海之中，要如何殺出重圍，命中自己最想看的電影？"
 //				+ "且讓《Vogue》撥開重重迷霧，為大家送上推薦選片明燈，包括最強話題的一屍到底、黃金兄弟、空中急診英雄、電影版空中急診英雄、凸槌特派員，看5部準沒錯！");
 //		movie_introduceVO1.setActive(0);
-//
+//		movie_introduceVO1.setPhoto_path("jpg");
+//		movie_introduceVO1.setPhoto_small("Sjpg");
 //		dao.insert(movie_introduceVO1);
+//		
 //		System.out.println("新增成功");
 
 		// ----------------INSERT-------------------------------
 		// ----------------UPDATE-------------------------------
 
 //		Movie_IntroduceVO movie_introduceVO2 = new Movie_IntroduceVO();
-//		movie_introduceVO2.setIntrod_no("MI003");
-//		movie_introduceVO2.setMovie_no("M0002");
+//		movie_introduceVO2.setIntrod_no("MI002");
+//		movie_introduceVO2.setMovie_no("MV002");
 //		movie_introduceVO2.setSource("Vogue_Movie2");
 //		movie_introduceVO2.setUrl("https://www.vogue.com.tw/Movie/content-42950.html");
 //		movie_introduceVO2.setAuthor("連勝文1");
@@ -321,7 +331,8 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 //				"還記得《X戰警：天啟》裡的飾演「藍魔鬼」的 Kodi Smit-McPhee寇帝史密麥菲嗎?他在新片《極地之王Alpha》裡飾演2萬年前的人類，為求生存在極地中與受傷的孤狼共同生活，在嚴峻的環境下想盡辦法活下來的畫面，"
 //						+ "不禁令人想到李奧納多狄卡皮歐在《神鬼獵人》裡的處境。");
 //		movie_introduceVO2.setActive(1);
-//
+//		movie_introduceVO2.setPhoto_path("gif");
+//		movie_introduceVO2.setPhoto_small("Sgif");
 //		dao.update(movie_introduceVO2);
 //		System.out.println("修改成功");
 
@@ -335,7 +346,7 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 		// ----------------SELECT ONE---------------------------
 
 //		System.out.println("---------------------");
-//		Movie_IntroduceVO movie_introduceVO3 = dao.findByPrimaryKey("MI002");
+//		Movie_IntroduceVO movie_introduceVO3 = dao.findByPrimaryKey("MI001");
 //		System.out.println(movie_introduceVO3.getMovie_no() + ",");
 //		System.out.println(movie_introduceVO3.getSource() + ",");
 //		System.out.println(movie_introduceVO3.getUrl() + ",");
@@ -345,6 +356,8 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 //		System.out.println(movie_introduceVO3.getCreated_at() + ",");
 //		System.out.println(movie_introduceVO3.getUpdated_at() + ",");
 //		System.out.println(movie_introduceVO3.getActive() + ",");
+//		System.out.println(movie_introduceVO3.getPhoto_path() + ",");
+//		System.out.println(movie_introduceVO3.getPhoto_small() + ",");
 //		System.out.println("---------------------");
 
 		// ----------------SELECT ONE---------------------------
@@ -363,8 +376,9 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 //			System.out.println(mitd.getCreated_at() + ",");
 //			System.out.println(mitd.getUpdated_at() + ",");
 //			System.out.println(mitd.getActive() + ",");
+//			System.out.println(mitd.getPhoto_path() + ",");
+//			System.out.println(mitd.getPhoto_small() + ",");
 //			System.out.println("---------------------");
-//
 //		}
 
 		// ----------------SELECT ALL---------------------------
