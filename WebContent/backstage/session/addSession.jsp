@@ -240,7 +240,7 @@
                 let row_init = ${tList.get(0).t_rows};
                 let col_init = ${tList.get(0).t_columns};
                 let model_init = ${strModel};
-                gen_seat(row_init, col_init, model_init);
+                gen_seat_session(row_init, col_init, model_init);
             </c:if>
 
             <%
@@ -277,7 +277,7 @@
                     //console.log(textStatus);
 
                     if (data.status == "done") {
-                        gen_seat(data.t_rows, data.t_columns, data.seat_model);
+                        gen_seat_session(data.t_rows, data.t_columns, data.seat_model);
                     }
 
                 }).fail(function (jqXHR, textStatus, errorThrown) {
