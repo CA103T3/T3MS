@@ -20,18 +20,6 @@
     <%@ include file="/backstage/template/link.jsp" %>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/addTheater.css">
     <style type="text/css">
-      /*
-      #loding_spinner{
-          position:fixed;
-          _position:absolute;
-          top:40%;              /* center */
-          left:50%;
-          z-index:9999;         /* in front */
-      }
-      */
-      .dp-inline {
-          display:inline;
-      }
     </style>
 </head>
 
@@ -116,98 +104,84 @@
 
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
+        //a little different from addTheater.jsp and addSession.jsp
+        function gen_seat_disabled(row, col, model) {
+            $("#seat_div").empty();
+            //$('#loding_spinner').fadeIn(200);
+            //$('#loding_spinner').fadeOut(300, function(){
+                console.log("row: " + row + " col: " + col);
+                let content = "";
+                for(let i = 1; i <= row; i++) {
+                    content += "<div class='form-group text-center'>";
+                    content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
+                    for(let j = 1; j <= col; j++) {
+                        content += "<button type='button' class='seat btn ";
+                        let key = i + "_" + j ;
+                        switch(model[key][1]) {
+                            case "0":
+                                content += "btn-nonseat";
+                                break;
+                            case "2":
+                                content += "btn-default";
+                                break;
+                            case "3":
+                                content += "btn-warning";
+                                break;
+                            default:
+                                console.log("switch default: ", model[key][1]);
+                                break;
+                        }
 
-        //show errorMsgs
-        <c:if test="${not empty errorMsgs}">
-          <c:forEach var="message" items="${errorMsgs}">
-            toastr.error("${message}");
-          </c:forEach>
-        </c:if>
-
-        <%-- generate seats --%>
-        <c:if test="${not empty theaterVO}">
-          $("#seat_div").empty();
-          let row = ${theaterVO.t_rows};
-          //let row = ${rows};
-          let col = ${theaterVO.t_columns};
-          //let col = ${cols};
-          console.log("row: " + row + " col: " + col);
-          let content = "";
-          for(let i = 1; i <= row; i++) {
-              content += "<div class='row form-group text-center'>";
-              content += "<i class='fa fa-location-arrow fa-lg' aria-hidden='true'></i>&nbsp;" + ('0'+i).slice(-2) + "&nbsp;&nbsp;";
-              for(let j = 1; j <= col; j++) {
-                  content += "<button type='button' class='seat btn btn-default btn-md' id='btn_" + i + "_" + j + "' disabled>" + j + "</button>";
-                  content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='2'>&nbsp;";
-              }
-              content += "</div>";
-          }
-          $("#seat_div").append(content);
-          $("#smtbtn").prop("disabled", false);
-          $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
-        </c:if>
-
-        <%-- set status of seats --%>
-        <%
-        if(theaterVO != null) {
-            Reader model = theaterVO.getSeat_model();
-            char[] arr = new char[8 * 1024];
-            StringBuilder buffer = new StringBuilder();
-            int numCharsRead;
-            while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
-                buffer.append(arr, 0, numCharsRead);
-            }
-
-            model.close();
-            String str = buffer.toString();
-            JSONObject json = new JSONObject(str);
-
-//             JSONObject json = null;
-//             try {
-//                 json = new JSONObject(str);
-//             }catch(JSONException e){
-        %>
-//                 toastr.error("座位非JSON格式!");
-//             }); //for $(document).ready(function(){
-        <%
-//                 throw new javax.servlet.jsp.SkipPageException();
-//             }
-
-            Iterator<?> keys = json.keys();
-            JSONArray ary = null;
-            while(keys.hasNext()){
-                String key = (String)keys.next();
-                ary = json.getJSONArray(key);
-
-                switch((String)ary.get(1)) {
-                    case "0":
-        %>
-                        $("#btn_<%=key%>").attr("class", "seat btn btn-nonseat btn-md");
-        <%
-                        break;
-                    case "2":
-        %>
-                        $("#btn_<%=key%>").attr("class", "seat btn btn-default btn-md");
-        <%
-                        break;
-                    case "3":
-        %>
-                        $("#btn_<%=key%>").attr("class", "seat btn btn-warning btn-md");
-        <%
-                        break;
-                    default:
-                        break;
+                        content += " btn-md' id='btn_" + i + "_" + j + "' " ;
+                        /*
+                        if(model[key][1] == "0") {
+                            content += "disabled";
+                        }
+                        */
+                        content += " disabled>" + j + "</button>";
+                        content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='" + model[key][1] + "'>&nbsp;";
+                    }
+                    content += "</div>";
                 }
-        %>
-                $("#input_<%=key%>").val(<%=ary.get(1)%>);
-<%--         <%=key%> <%=" "%> <%=json.get(key)%> <%=" "%> <%=ary.get(0)%> <%=" "%> <%=ary.get(1)%> --%>
-        <%
-            }
+                $("#seat_div").append(content);
+                $("#smtbtn").prop("disabled", false);
+                $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
+            //});
         }
-        %>
 
-      });
+        $(document).ready(function(){
+
+            //show errorMsgs
+            <c:if test="${not empty errorMsgs}">
+              <c:forEach var="message" items="${errorMsgs}">
+                toastr.error("${message}");
+              </c:forEach>
+            </c:if>
+
+            <%-- generate seats --%>
+            <%
+            if(theaterVO != null) {
+                Reader model = theaterVO.getSeat_model();
+                char[] arr = new char[8 * 1024];
+                StringBuilder buffer = new StringBuilder();
+                int numCharsRead;
+                while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+                    buffer.append(arr, 0, numCharsRead);
+                }
+
+                model.close();
+                String strModel = buffer.toString();
+                pageContext.setAttribute("strModel", strModel);
+            }
+            %>
+
+            <c:if test="${not empty theaterVO}">
+                let row = ${theaterVO.t_rows};
+                let col = ${theaterVO.t_columns};
+                let model = ${strModel};
+                gen_seat_disabled(row, col, model);
+            </c:if>
+        });
     </script>
 </body>
 </html>

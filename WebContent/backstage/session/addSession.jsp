@@ -119,7 +119,7 @@
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script type="text/javascript">
         //generate seats from ajax done or sessionVO (failureView.forward from SessionServlet)
-        function gen_seat(row, col, model) {
+        function gen_seat_session(row, col, model) {
             $("#seat_div").empty();
             //$('#loding_spinner').fadeIn(200);
             $('#loding_spinner').fadeOut(300, function(){
@@ -255,7 +255,7 @@
                 let row = <%=row%> ;
                 let col = <%=col%> ;
                 let model = <%=seat_table%> ;
-                gen_seat(row, col, model);
+                gen_seat_session(row, col, model);
             <%
             }
 

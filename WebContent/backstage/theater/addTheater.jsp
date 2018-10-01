@@ -160,10 +160,11 @@
 
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script type="text/javascript">
-        function gen_seat(row, col, model) {
+        //the same as updateTheater.jsp, but a little different from addSession.jsp
+        function gen_seat_theater(row, col, model) {
             $("#seat_div").empty();
             //$('#loding_spinner').fadeIn(200);
-            $('#loding_spinner').fadeOut(300, function(){
+            //$('#loding_spinner').fadeOut(300, function(){
                 console.log("row: " + row + " col: " + col);
                 let content = "";
                 for(let i = 1; i <= row; i++) {
@@ -188,9 +189,11 @@
                         }
 
                         content += " btn-md' id='btn_" + i + "_" + j + "' " ;
+                        /*
                         if(model[key][1] == "0") {
                             content += "disabled";
                         }
+                        */
                         content += " >" + j + "</button>";
                         content += "<input type='hidden' name='input_" + i + "_" + j + "' id='input_" + i + "_" + j + "' value='" + model[key][1] + "'>&nbsp;";
                     }
@@ -199,7 +202,7 @@
                 $("#seat_div").append(content);
                 $("#smtbtn").prop("disabled", false);
                 $("#smtbtn").removeClass("btn-basic").addClass("btn-primary");
-            });
+            //});
         }
 
         $(document).ready(function(){
@@ -310,7 +313,7 @@
                 let row = ${rows};
                 let col = ${cols};
                 let model = ${strModel};
-                gen_seat(row, col, model);
+                gen_seat_theater(row, col, model);
             </c:if>
 
         });
