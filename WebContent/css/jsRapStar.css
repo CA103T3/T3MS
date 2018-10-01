@@ -1,0 +1,17 @@
+.rapStarBack{
+color:white;
+display:inline-block;
+font-size:32px;
+margin:auto;
+position:relative;
+cursor:pointer;	
+text-shadow: 0 0 8px black;
+}	
+.rapStarFront{
+top:0px;
+color:yellow;
+display:block;
+overflow:hidden;
+position:absolute;		
+z-index:1;
+}	

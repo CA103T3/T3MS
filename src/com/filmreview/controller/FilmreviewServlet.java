@@ -3,12 +3,14 @@ package com.filmreview.controller;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import com.filmreview.model.FilmreviewDAO;
 import com.filmreview.model.FilmreviewService;
 import com.filmreview.model.FilmreviewVO;
 
@@ -224,7 +226,78 @@ public class FilmreviewServlet extends HttpServlet {
 			}
 		}
 		
+		//---------------------------------------------------------------
 		
+		
+		if ("getOne_From06".equals(action)) {
+
+			try {
+				// Retrieve form parameters.
+				String fr_no =req.getParameter("fr_no");
+
+				FilmreviewDAO dao = new FilmreviewDAO();
+				FilmreviewVO fvVO =  dao.findByPrimaryKey(fr_no);
+
+				req.setAttribute("fvVO", fvVO); // 資料庫取出的empVO物件,存入req
+				
+				//Bootstrap_modal
+				boolean openModal=true;
+				req.setAttribute("openModal",openModal );
+				
+				// 取出的empVO送給listOneEmp.jsp
+				RequestDispatcher successView = req
+						.getRequestDispatcher("/backstage/filmreview/fv_dele.jsp");
+				successView.forward(req, res);
+				return;
+
+				// Handle any unusual exceptions
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+		//--------------------------------------------------------------------------------------------
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp 或  /dept/listEmps_ByDeptno.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+//			String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】 或 【 /emp/listEmps_ByCompositeQuery.jsp】
+
+			try {
+				/***************************1.接收請求參數***************************************/
+				String fr_no = req.getParameter("fr_no");
+				
+				/***************************2.開始刪除資料***************************************/
+				FilmreviewService fvSvc = new FilmreviewService();
+				fvSvc.delete(fr_no);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+//				DeptService deptSvc = new DeptService();
+//				if(requestURL.equals("/filmreview/listAllDept.jsp"))
+//					req.setAttribute("listEmps_ByDeptno",fvSvc.findByPrimaryKey(fvVO.getFr_no())); // 資料庫取出的list物件,存入request
+//				
+//				if(requestURL.equals("/emp/listEmps_ByCompositeQuery.jsp")){
+//					HttpSession session = req.getSession();
+//					Map<String, String[]> map = (Map<String, String[]>)session.getAttribute("map");
+//					List<EmpVO> list  = empSvc.getAll(map);
+//					req.setAttribute("listEmps_ByCompositeQuery",list); //  複合查詢, 資料庫取出的list物件,存入request
+//				}
+				
+				String urll = "/backstage/filmreview/fv_dele.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(urll); // 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backstage/filmreview/fv_dele.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		
 	}
 }

@@ -14,19 +14,25 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <%@ include file="/forestage/template/link.jsp" %>
         <title>M&amp;S</title>
 
+<link rel="stylesheet" href="/T3MS/css/jsRapStar.css" />
+<script src="/T3MS/js/jsRapStar.js"></script>
+
 
 <style>
 	.toto {margin-top: 60px;}
-	body {background-color:white !important;}
 	
+	
+.ctnr {
+	border-radius: 5px;
+	background-color: rgb(238, 238, 238);
+	padding: 20px;
+}
 </style>
-
-
 
 </head>
 
@@ -37,23 +43,38 @@
 	<script>
 		$(document).ready(function() {
 			$('#summernote').summernote();
+			$('#dem5').jsRapStar({colorFront:'yellow',length:5,starHeight:26,step:false,
+				onClick:function(score){
+					score=score.toFixed(1);
+					$(this)[0].StarF.css({color:'yellow'});
+					document.getElementById("inputEmail").value=score;
+					},
+				onMousemove:function(score){
+					score=score.toFixed(1);
+					$(this).attr('title','Ocena '+score);
+				}
+				});
 		});
 	</script>
 
 
 
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+	
 	<form METHOD="post" ACTION="<%=request.getContextPath()%>/filmreview/filmreview.do" class="form-horizontal" role="form">
 		
-		<div class="container">
+		<div class="container ctnr">
 			<div class="row ">
+			<div class="text-center">
+			<c:if test="${not empty errorMsgs}">
+		
+		
+			<c:forEach var="message" items="${errorMsgs}">
+				<div style="color: red">${message}</div>
+			</c:forEach>
+		
+	</c:if>
+	</div>
+	
 				<div class="col-md-12 toto">
 
 					<div class="form-group ">
@@ -76,10 +97,13 @@
 					<div class="form-group">
 						<div class="col-sm-2">
 							<label for="inputPassword3" class="control-label">評分</label>
+							
 						</div>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputEmail3" name="evaluation" value="<%=(filmreviewVO == null) ? "5.0" : filmreviewVO.getEvaluation()%>" placeholder="評分">
-
+						<div class="col-sm-2">
+						<div id="dem5" start="5"></div>
+						</div>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="inputEmail" name="evaluation" value="<%=(filmreviewVO == null) ? "5.0" : filmreviewVO.getEvaluation()%>" placeholder="評分" readonly="value">
 						</div>
 					</div>
 				</div>
@@ -87,7 +111,7 @@
 		</div>
 
 		<div class="section">
-			<div class="container">
+			<div class="container ctnr">
 				<div class="row">
 					<div class="col-sm-2">
 						<label for="inputPassword3" class="control-label">內容</label>
@@ -104,7 +128,7 @@
 			</div>
 		</div>
 		<div class="section">
-			<div class="container">
+			<div class="container ctnr">
 				<div class="row">
 					<div class="col-md-12">
 
@@ -117,7 +141,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="container">
+		<div class="section">
+		<div class="container ctnr">
 			<div class="row">
 				<div class="col-md-12">
 
@@ -157,18 +182,15 @@
 							<input type="text" class="form-control" id="inputEmail3" name="url" value="<%=(filmreviewVO == null) ? "影評網址" : filmreviewVO.getUrl()%>" placeholder="影評網址">
 						</div>
 					</div>
-					<div class="section">
-						<div class="container">
-							<div class="row">
+					
 								<div class="col-md-12 text-center">
 									<input type="hidden" name="action" value="insert">
 									<button type="submit" class="btn btn-default">發佈</button>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
+						
 			</div>
+		</div>
 		</div>
 	</form>
 	
@@ -179,7 +201,7 @@
         $(document).ready(function(){
             $("li:contains('電影資訊')").addClass("custom-active");
         });
-        </script>
+       </script>
 	
 </body>
 </html>

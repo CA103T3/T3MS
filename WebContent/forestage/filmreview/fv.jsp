@@ -17,12 +17,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <%@ include file="/forestage/template/link.jsp"%>
+
+
+<link rel="stylesheet" href="/T3MS/css/jsRapStar.css" />
+<script src="/T3MS/css/jsRapStar.js"></script>
 <title>M&amp;S</title>
 
 
 <style>
+.containe {
+	border: 2px solid #dedede;
+	background-color: #f1f1f1;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.containe::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.containe img {
+	float: left;
+	max-width: 60px;
+	width: 100%;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+
+.time-right {
+	float: right;
+	color: #aaa;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -71,45 +104,7 @@ input[type=submit]:hover {
 }
 </style>
 
-<style>
-body {
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 0 20px;
-}
 
-.containe {
-    border: 2px solid #dedede;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-
-
-.containe::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-.containe img {
-    float: left;
-    max-width: 60px;
-    width: 100%;
-    margin-right: 20px;
-    border-radius: 50%;
-}
-
-
-
-.time-right {
-    float: right;
-    color: #aaa;
-}
-
-</style>
 </head>
 <body class="body-template">
 	<%@ include file="/forestage/template/header.jsp"%>
@@ -137,9 +132,7 @@ body {
 	<div class="section">
 		<div class="container ctnr">
 			<div class="row">
-				<p>
-				${fv.content}
-				</p>
+				<p>${fv.content}</p>
 			</div>
 		</div>
 	</div>
@@ -149,32 +142,46 @@ body {
 	<div class="section">
 		<div class="container ctnr">
 			<div class="row">
-				<div class="col-md-12">
-					<hr>
-				</div>
-			</div>
 
-			<div class="row">
+
+
+
 				<div class="col-md-12">
 					<h3>電影評分:</h3>
-					<h3>${fv.evaluation}</h3>
-					<h3>影評網址:</h3>
-					<h3>${fv.url}</h3>
-					<h3>影評來源:</h3>
-					<h3>${fv.source}</h3>
-
-
+				</div>
+				<div class="col-md-2">
+					<div id="dem5" start="${fv.evaluation}"></div>
+				</div>
+				<div class="col-md-10">
+					<h4>${fv.evaluation}分</h4>
 				</div>
 
-			</div>
 
-			<div class="row">
+
+				<div class="col-md-12">
+					<h3>影評網址:</h3>
+					<h3>${fv.url}</h3>
+				</div>
+				<div class="col-md-12">
+					<h3>影評來源:</h3>
+					<h3>${fv.source}</h3>
+				</div>
+
+
+
+
+
+
+
 				<div class="col-md-12">
 					<hr>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+
 	<div class="container ctnr">
 		<form action="/action_page.php">
 
@@ -190,59 +197,43 @@ body {
 		</form>
 	</div>
 
+
+
+
+
 	<div class="section">
-		<div class="container ctnr" style="background-color: rgb(238, 238, 238) !important;">
-			<div class="row">
-				<div class="col-md-1">
-					<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle img-responsive">
-				</div>
-				<div class="col-md-11">
-					<div>
-						<h3 class="text-left">
-							John Doe <small>5秒前</small>
-						</h3>
-					</div>
-					<p>wtf!!!</p>
-				</div>
-			</div>
-		
-			<div class="row">
-				<div class="col-md-1">
-					<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle img-responsive">
-				</div>
-				<div class="col-md-11">
-					<div>
-						<h3 class="text-left">
-							John Doe <small>5秒前</small>
-						</h3>
-					</div>
-					<p>wtf!!!</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	
-	
-	
-	<div class="section">
-		<div class="container ctnr" style="background-color: rgb(238, 238, 238) !important;">
+		<div class="container ctnr">
 			<div class="row">
 				<div class="containe">
-  <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width:100%;">
-  <p>Hello. How are you today?</p>
-  <span class="time-right">11:00</span>
-</div>
-
-<div class="containe">
-  <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width:100%;">
-  <p>Hello. How are you today?</p>
-  <span class="time-right">11:00</span>
-</div>
-
+					<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 100%;">
+					<p>Hello. How are you today?</p>
+					<span class="time-right">11:00</span>
+				</div>
 			</div>
 		</div>
 	</div>
+
+
+
+	<!-- 	<div class="section"> -->
+	<!-- 		<div class="container ctnr" style="background-color: rgb(238, 238, 238) !important;"> -->
+	<!-- 			<div class="row"> -->
+	<!-- 				<div class="col-md-12"> -->
+	<!-- 					<div class="containe"> -->
+	<!-- 						<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 100%;"> -->
+	<!-- 						<p style="margin-bottom: 35px;">Hello. How are you today?<span class="time-right">11:00</span></p> -->
+	<!-- 							<div class="containe" style="margin-left: 80px;"> -->
+	<!-- 								<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 100%;"> -->
+	<!-- 								<p>Hello. How are you today?</p> -->
+	<!-- 								<span class="time-right">11:00</span> -->
+	<!-- 						</div>						 -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div>		 -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+
+
 
 
 
@@ -251,7 +242,13 @@ body {
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
 	<script>
 		$(document).ready(function() {
-			$("li:contains('電影資訊')").addClass("custom-active");
+			$("li:contains('合作影城')").addClass("custom-active");
+			$('#dem5').jsRapStar({
+				length : 5,
+				starHeight : 26,
+				enabled : false,
+			});
+
 		});
 	</script>
 
