@@ -271,7 +271,7 @@ public class CinemaServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add(e.getMessage().replaceAll("\r|\n", ""));
+                errorMsgs.add("其他錯誤: " + e.getMessage().replaceAll("\r|\n", ""));
                 System.out.println("其他可能的錯誤處理");
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/cinema/addCinema.jsp");
@@ -570,7 +570,7 @@ public class CinemaServlet extends HttpServlet {
                 /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
                 String cinema_no = req.getParameter("cinema_no");
                 if (cinema_no == null || (cinema_no.trim()).length() == 0) {
-                    errorMsgs.add("請輸入影城編號");
+                    errorMsgs.add("無影城編號資料");
                 }
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {
@@ -622,7 +622,7 @@ public class CinemaServlet extends HttpServlet {
                 /***************************1.接收請求參數****************************************/
                 String cinema_no = req.getParameter("cinema_no");
                 if (cinema_no == null || (cinema_no.trim()).length() == 0) {
-                    errorMsgs.add("請輸入影廳編號");
+                    errorMsgs.add("無影城編號資料");
                 }
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {
@@ -648,7 +648,7 @@ public class CinemaServlet extends HttpServlet {
                 /***************************3.查詢完成,準備轉交(Send the Success view)************/
                 req.setAttribute("cinemaVO", cinemaVO); // 資料庫取出的cinemaVO物件,存入req
                 String url = "/backstage/cinema/updateCinema.jsp";
-                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交updateCinema.jsp
                 successView.forward(req, res);
 
                 /***************************其他可能的錯誤處理************************************/

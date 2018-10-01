@@ -326,7 +326,7 @@ public class TheaterServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add(e.getMessage().replaceAll("\r|\n", ""));
+                errorMsgs.add("其他錯誤: " + e.getMessage().replaceAll("\r|\n", ""));
                 System.out.println("其他可能的錯誤處理");
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/theater/addTheater.jsp");
@@ -594,7 +594,7 @@ public class TheaterServlet extends HttpServlet {
                 /***************************3.查詢完成,準備轉交(Send the Success view)************/
                 req.setAttribute("theaterVO", theaterVO); // 資料庫取出的theaterVO物件,存入req
                 String url = "/backstage/theater/updateTheater.jsp";
-                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交updateTheater.jsp
                 successView.forward(req, res);
 
                 /***************************其他可能的錯誤處理************************************/

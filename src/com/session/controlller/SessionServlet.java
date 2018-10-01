@@ -92,7 +92,7 @@ public class SessionServlet extends HttpServlet {
                 /***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
                 cinema_no = req.getParameter("cinema_no");
                 if (cinema_no == null || cinema_no.trim().length() == 0) {
-                    errorMsgs.add("無此影城編號資料");
+                    errorMsgs.add("無影城編號資料");
                 }
 
                 String theater_no = req.getParameter("theater_no");
@@ -175,10 +175,145 @@ public class SessionServlet extends HttpServlet {
 
                 /***************************其他可能的錯誤處理**********************************/
             } catch (Exception e) {
-                errorMsgs.add("其他錯誤 " + e.getMessage());
+                errorMsgs.add("其他錯誤: " + e.getMessage());
                 System.out.println("其他可能的錯誤處理");
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
+                failureView.forward(req, res);
+                e.printStackTrace();
+            }
+        }
+
+        if ("update".equals(action)) { // from updateSession.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            //Enumeration<String> enu = req.getParameterNames();
+            int paramCount = 0;
+            Set<String> set = new HashSet<String>();
+            set.add("cinema_no");
+            set.add("theater_no");
+            set.add("movie_no");
+            set.add("session_time");
+            set.add("action");
+            set.add("session_no"); //different from "insert" of action
+            set.add("requestURL"); //different from "insert" of action
+            set.add("whichRecordIndex"); //different from "insert" of action
+            int exclusiveParams = set.size();
+            int rows = 0, cols = 0;
+
+            //int[] ret = getRowsColsParamCount(req, set);
+            TheaterServlet theaterServlet = new TheaterServlet();
+            int[] ret = theaterServlet.getRowsColsParamCount(req, set, errorMsgs);
+            rows = ret[0];
+            cols = ret[1];
+            paramCount = ret[2];
+//            String cinema_no = null;
+            SessionVO sessionVO = new SessionVO();
+            try {
+                /***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+//                cinema_no = req.getParameter("cinema_no");
+//                if (cinema_no == null || cinema_no.trim().length() == 0) {
+//                    errorMsgs.add("無影城編號資料");
+//                }
+
+                String session_no = req.getParameter("session_no");
+                if (session_no == null || session_no.trim().length() == 0) {
+                    errorMsgs.add("無影城編號資料");
+                }
+
+                String theater_no = req.getParameter("theater_no");
+                if (theater_no == null || theater_no.trim().length() == 0) {
+                    errorMsgs.add("影廳名稱請勿空白");
+                }
+
+                String movie_no = req.getParameter("movie_no");
+                if (movie_no == null || movie_no.trim().length() == 0) {
+                    errorMsgs.add("電影名稱請勿空白");
+                }
+
+                String strDate = req.getParameter("session_time");
+                if (strDate == null || strDate.trim().length() == 0) {
+                    errorMsgs.add("場次時間請勿空白");
+                }
+
+                //SimpleDateFormat parse java.util.Date -> getTime() -> java.sql.Timestamp
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Taipei"));
+                Date utilDate = null;
+                try {
+                    utilDate = dateFormat.parse(strDate);
+                } catch (ParseException e) {
+                    errorMsgs.add("場次時間格式不符合");
+                    e.printStackTrace();
+                }
+
+                Timestamp session_time = null;
+                if(utilDate != null) {
+                    session_time = new Timestamp(utilDate.getTime());
+                    sessionVO.setSession_time(session_time);
+                }
+
+                JSONObject json = new JSONObject();
+                Integer seats = theaterServlet.getSeats(req, rows , cols ,json);
+
+                System.out.println("seats : " + seats);
+                System.out.println("json.length(): " + json.length());
+                System.out.println(json.toString());
+
+                TheaterService tSvc = new TheaterService();
+                TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
+
+                //https://stackoverflow.com/questions/1514910/how-to-properly-compare-two-integers-in-java
+                //https://stackoverflow.com/questions/1700081/why-is-128-128-false-but-127-127-is-true-when-comparing-integer-wrappers-in-ja
+                //https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.1.7
+                if(seats.intValue() != theaterVO.getSeats().intValue()) {
+                    //System.out.println("theaterVO.getSeats() : " + theaterVO.getSeats());
+                    //System.out.println("seats : " + seats);
+                    errorMsgs.add("與影廳座位模版的座位數不相符");
+                }
+
+                String seat_table = json.toString();
+
+                sessionVO.setTheater_no(theater_no);
+                sessionVO.setMovie_no(movie_no);
+
+                sessionVO.setSeat_table(seat_table);
+
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+//                    System.out.println("errorMsgs.size() : " + errorMsgs.size());
+                    req.setAttribute("sessionVO", sessionVO); // 含有輸入格式錯誤的sessionVO物件,也存入req
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher("/backstage/session/updateSession.jsp");
+                            //.getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************2.開始修改資料***************************************/
+                SessionService sSvc = new SessionService();
+                sSvc.updateSession(session_no, theater_no, movie_no, session_time, seat_table);
+
+                /***************************3.修改完成,準備轉交(Send the Success view)***********/
+//                String url = "/backstage/session/listAllSession.jsp?cinema_no=" + cinema_no;
+//                System.out.println("url: " + url);
+//                RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllTheater.jsp
+//                successView.forward(req, res);
+                String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+                String url = requestURL;
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交回送出修改的來源網頁
+                successView.forward(req, res);
+                /***************************其他可能的錯誤處理**********************************/
+            } catch (Exception e) {
+                errorMsgs.add("修改資料失敗:  " + e.getMessage());
+                System.out.println("其他可能的錯誤處理");
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("/backstage/session/updateSession.jsp");
+                        //.getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
                 failureView.forward(req, res);
                 e.printStackTrace();
             }
@@ -263,6 +398,57 @@ public class SessionServlet extends HttpServlet {
                 errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("requestURL");
+                failureView.forward(req, res);
+            }
+        }
+
+        if ("toUpdatePage".equals(action)) { // from listAllSession.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+
+            try {
+                /***************************1.接收請求參數****************************************/
+                String session_no = req.getParameter("session_no");
+                if (session_no == null || (session_no.trim()).length() == 0) {
+                    errorMsgs.add("無電影場次編號");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+                /***************************2.開始查詢資料****************************************/
+                SessionService sSvc = new SessionService();
+                SessionVO sessionVO = sSvc.getOneofJoinTheaterMovieWhereSessionNo(session_no);
+                if (sessionVO == null) {
+                    errorMsgs.add("查無資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)************/
+                req.setAttribute("sessionVO", sessionVO); // 資料庫取出的sessionVO物件,存入req
+                String url = "/backstage/session/updateSession.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交updateSession.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理************************************/
+            } catch (Exception e) {
+                errorMsgs.add("修改資料取出時失敗: "+e.getMessage().replaceAll("\r|\n", ""));
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher(requestURL);
                 failureView.forward(req, res);
             }
         }

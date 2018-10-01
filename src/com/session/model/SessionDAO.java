@@ -396,7 +396,7 @@ public class SessionDAO implements SessionDAO_interface {
                 theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
                 sessionVO.setTheaterVO(theaterVO);
                 list.add(sessionVO); // Store the row in the list
-                System.out.println(rs.getString("SESSION_NO"));
+                //System.out.println(rs.getString("SESSION_NO"));
             }
 
             // Handle any driver errors
