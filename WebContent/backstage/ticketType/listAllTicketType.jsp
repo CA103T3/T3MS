@@ -55,19 +55,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="TypeVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
+                    <c:forEach var="typeVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
                         <tr>
-                            <td>${TypeVO.type_no}</td>
-                            <td>${TypeVO.theaterVO.theater_name}</td>
-                            <td>${(TypeVO.identify=="ADULT")? "全票": '' }${(TypeVO.identify=="COMPLIMENTARY")? "優待票": '' }${(TypeVO.identify=="GROUP")? "團體票": '' }</td>
-                            <td>${(TypeVO.time=="NORMAL")? "一般": '' }${(TypeVO.time=="MAITNEE")? "早場": '' }</td>
-                            <td>${TypeVO.price}</td>
+                            <td>${typeVO.type_no}</td>
+                            <td>${typeVO.theaterVO.theater_name}</td>
+                            <td>${(typeVO.identify=="ADULT") ? "全票" : ''}${(typeVO.identify=="COMPLIMENTARY") ? "優待票" : ''}${(typeVO.identify=="GROUP") ? "團體票" : ''}</td>
+                            <td>${(typeVO.time=="NORMAL") ? "一般" : ''}${(typeVO.time=="MAITNEE") ? "早場" : ''}</td>
+                            <td>${typeVO.price}</td>
                             <td>
                                 <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/ticketType/ticketType.do">
                                     <button type="submit" id="view-btn-${s.index}" class="btn btn-success fs16 " >
                                         <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="cinema_no" value="${param.cinema_no}">
+                                    <input type="hidden" name="type_no" value="${typeVO.type_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="view">
@@ -77,14 +78,16 @@
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="cinema_no" value="${param.cinema_no}">
+                                    <input type="hidden" name="type_no" value="${typeVO.type_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="toUpdatePage">
                                 </form>
                                 <form id="fm-del-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/ticketType/ticketType.do">
-                                    <button type="button" id="del-btn-${s.index}" class="btn btn-danger fs16 del-btn" data-name="${TypeVO.type_no}" data-form="fm-del-${s.index}">
+                                    <button type="button" id="del-btn-${s.index}" class="btn btn-danger fs16 del-btn" data-name="${typeVO.type_no}" data-form="fm-del-${s.index}">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除
                                     </button>
+                                    <input type="hidden" name="type_no" value="${typeVO.type_no}">
                                     <input type="hidden" name="cinema_no" value="${param.cinema_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">

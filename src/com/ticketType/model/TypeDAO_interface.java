@@ -9,4 +9,5 @@ public interface TypeDAO_interface {
     public TypeVO findByPrimaryKey(String type_no);
     public List<TypeVO> getAll();
     public List<TypeVO> getAllofCinema(String cinema_no);
+    public TypeVO getOneTypeJoinTheater(String type_no);
 }

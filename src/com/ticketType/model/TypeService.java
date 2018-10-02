@@ -55,4 +55,8 @@ public class TypeService {
     public List<TypeVO> getAllofCinema(String cinema_no) {
         return dao.getAllofCinema(cinema_no);
     }
+
+    public TypeVO getOneTypeJoinTheater(String type_no) {
+        return dao.getOneTypeJoinTheater(type_no);
+    }
 }

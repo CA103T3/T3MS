@@ -18,6 +18,9 @@ import com.cinema.model.CinemaService;
 import com.cinema.model.CinemaVO;
 import com.common.util.ImageUtil;
 import com.common.util.UUIDGenerator;
+import com.session.model.SessionService;
+import com.session.model.SessionVO;
+import com.theater.model.TheaterService;
 import com.ticketType.model.TypeService;
 import com.ticketType.model.TypeVO;
 
@@ -116,9 +119,10 @@ public class TicketTypeServlet extends HttpServlet {
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {
 //                    System.out.println("errorMsgs.size() : " + errorMsgs.size());
-                    req.setAttribute("typeVO", typeVO); // 含有輸入格式錯誤的cinemaVO物件,也存入req
+                    req.setAttribute("typeVO", typeVO); // 含有輸入格式錯誤的typeVO物件,也存入req
                     RequestDispatcher failureView = req
-                            .getRequestDispatcher("/backstage/ticketType/addTicketType.jsp?cinema_no=" + cinema_no);
+                            .getRequestDispatcher("/backstage/ticketType/addTicketType.jsp");
+                            //.getRequestDispatcher("/backstage/ticketType/addTicketType.jsp?cinema_no=" + cinema_no);
                     failureView.forward(req, res);
                     return;//程式中斷
                 }
@@ -141,9 +145,160 @@ public class TicketTypeServlet extends HttpServlet {
                     errorMsgs.add("其他錯誤");
                 }
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/backstage/ticketType/addTicketType.jsp?cinema_no=" + cinema_no);
+                        .getRequestDispatcher("/backstage/ticketType/addTicketType.jsp");
+                        //.getRequestDispatcher("/backstage/ticketType/addTicketType.jsp?cinema_no=" + cinema_no);
                 failureView.forward(req, res);
                 e.printStackTrace();
+            }
+        }
+
+        if ("delete".equals(action)) { // from listAllTicketType.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            String requestURL = req.getParameter("requestURL"); // 送出刪除的來源網頁路徑
+
+            try {
+                /***************************1.接收請求參數***************************************/
+               String type_no = req.getParameter("type_no");
+
+                /***************************2.開始刪除資料***************************************/
+               TypeService tSvc = new TypeService();
+               tSvc.deleteType(type_no);
+
+                /***************************3.刪除完成,準備轉交(Send the Success view)***********/
+               // DeptService deptSvc = new DeptService();
+               // if(requestURL.equals("/dept/listEmps_ByDeptno.jsp") || requestURL.equals("/dept/listAllDept.jsp"))
+                   // req.setAttribute("listEmps_ByDeptno",deptSvc.getEmpsByDeptno(empVO.getDeptno())); // 資料庫取出的list物件,存入request
+
+               String url = requestURL;
+               //System.out.println("requestURL: " + url);
+               RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後,轉交回送出刪除的來源網頁
+               successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理**********************************/
+            } catch (Exception e) {
+                if(e.getMessage() != null) {
+                    errorMsgs.add("刪除資料失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("刪除資料失敗");
+                }
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher(requestURL);
+                failureView.forward(req, res);
+            }
+        }
+
+        if ("view".equals(action)) { // from listAllTicketType.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+            String requestURL = req.getParameter("requestURL");
+
+            try {
+                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+                String type_no = req.getParameter("type_no");
+                if (type_no == null || (type_no.trim()).length() == 0) {
+                    errorMsgs.add("缺少票種票價編號資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************2.開始查詢資料*****************************************/
+                TypeService tSvc = new TypeService();
+                TypeVO typeVO = tSvc.getOneTypeJoinTheater(type_no);
+                if (typeVO == null) {
+                    errorMsgs.add("查無資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)*************/
+                req.setAttribute("typeVO", typeVO); // 資料庫取出的typeVO物件,存入req
+                String url = "/backstage/ticketType/listOneTicketType.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneSession.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理*************************************/
+            } catch (Exception e) {
+                if(e.getMessage() != null) {
+                    errorMsgs.add("無法取得資料: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("無法取得資料");
+                }
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("requestURL");
+                failureView.forward(req, res);
+            }
+        }
+
+        if ("toUpdatePage".equals(action)) { // from listAllTicketType.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+
+            try {
+                /***************************1.接收請求參數****************************************/
+                String type_no = req.getParameter("type_no");
+                if (type_no == null || (type_no.trim()).length() == 0) {
+                    errorMsgs.add("無票種票價編號");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+                /***************************2.開始查詢資料****************************************/
+                TypeService tSvc = new TypeService();
+                TypeVO typeVO = tSvc.getOneTypeJoinTheater(type_no);
+                if (typeVO == null) {
+                    errorMsgs.add("查無資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)************/
+                req.setAttribute("typeVO", typeVO); // 資料庫取出的typeVO物件,存入req
+                String url = "/backstage/ticketType/updateTicketType.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交updateSession.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理************************************/
+            } catch (Exception e) {
+                if(e.getMessage() != null) {
+                    errorMsgs.add("修改資料取出時失敗: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("修改資料取出時失敗");
+                }
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher(requestURL);
+                failureView.forward(req, res);
             }
         }
 	}

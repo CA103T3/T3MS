@@ -62,7 +62,7 @@ public class SessionServlet extends HttpServlet {
 
         String action = req.getParameter("action");
 
-        if ("insert".equals(action)) { // from addTheater.jsp
+        if ("insert".equals(action)) { // from addSession.jsp
 
             List<String> errorMsgs = new LinkedList<String>();
             // Store this set in the request scope, in case we need to
@@ -158,7 +158,8 @@ public class SessionServlet extends HttpServlet {
 //                    System.out.println("errorMsgs.size() : " + errorMsgs.size());
                     req.setAttribute("sessionVO", sessionVO); // 含有輸入格式錯誤的sessionVO物件,也存入req
                     RequestDispatcher failureView = req
-                            .getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
+                            .getRequestDispatcher("/backstage/session/addSession.jsp");
+                            //.getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
                     failureView.forward(req, res);
                     return;//程式中斷
                 }
@@ -181,7 +182,8 @@ public class SessionServlet extends HttpServlet {
                     errorMsgs.add("其他錯誤");
                 }
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
+                        .getRequestDispatcher("/backstage/session/addSession.jsp");
+                        //.getRequestDispatcher("/backstage/session/addSession.jsp?cinema_no=" + cinema_no);
                 failureView.forward(req, res);
                 e.printStackTrace();
             }

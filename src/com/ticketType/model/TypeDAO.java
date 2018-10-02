@@ -39,7 +39,7 @@ public class TypeDAO implements TypeDAO_interface {
         // "UPDATE TICKETTYPE set THEATER_NO=?, IDENTITY=?, EQUIPMENT=?, TIME=?, PRICE=? where TICKETTYPE_NO = ?";
 
     private static final String INSERT_STMT =
-        "INSERT INTO TICKETTYPE (TICKETTYPE_NO,THEATER_NO,IDENTITY,TIME,PRICE) VALUES ('TT'||LPAD(to_char(TICKETTYPE_SEQ.NEXTVAL), 3, '0'), ?, ?, ?, ?)";
+        "INSERT INTO TICKETTYPE (TICKETTYPE_NO,THEATER_NO,IDENTITY,TIME,PRICE) VALUES ('TT'||LPAD(to_char(TICKETTYPE_SEQ.NEXTVAL), 5, '0'), ?, ?, ?, ?)";
     private static final String GET_ALL_STMT =
         "SELECT TICKETTYPE_NO,THEATER_NO,IDENTITY,TIME,PRICE FROM TICKETTYPE order by TICKETTYPE_NO";
     private static final String GET_ONE_STMT =
@@ -52,6 +52,10 @@ public class TypeDAO implements TypeDAO_interface {
         "SELECT TICKETTYPE_NO,TICKETTYPE.THEATER_NO,IDENTITY,TIME,PRICE,THEATER.THEATER_NAME FROM TICKETTYPE " +
         " left join THEATER on TICKETTYPE.THEATER_NO = THEATER.THEATER_NO " +
         " where TICKETTYPE.THEATER_NO in (select THEATER.THEATER_NO from THEATER where THEATER.CINEMA_NO = ?) order by TICKETTYPE_NO";
+    private static final String GET_ONE_JOIN_THEATER_STMT =
+            "SELECT TICKETTYPE_NO,TICKETTYPE.THEATER_NO,IDENTITY,TIME,PRICE,THEATER.THEATER_NAME FROM TICKETTYPE " +
+            " left join THEATER on TICKETTYPE.THEATER_NO = THEATER.THEATER_NO " +
+            " where TICKETTYPE_NO = ? ";
 
     @Override
     public String insert(TypeVO typeVO) {
@@ -377,4 +381,63 @@ public class TypeDAO implements TypeDAO_interface {
         return list;
     }
 
+    @Override
+    public TypeVO getOneTypeJoinTheater(String type_no) {
+        TypeVO typeVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ONE_JOIN_THEATER_STMT);
+            pstmt.setString(1, type_no);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // typeVO 也稱為 Domain objects
+                typeVO = new TypeVO();
+                typeVO.setType_no(rs.getString("TICKETTYPE_NO"));
+                typeVO.setTheater_no(rs.getString("THEATER_NO"));
+                typeVO.setIdentify(rs.getString("IDENTITY"));
+                // typeVO.setEquipment(rs.getString("EQUIPMENT"));
+                typeVO.setTime(rs.getString("TIME"));
+                typeVO.setPrice(rs.getInt("PRICE"));
+                TheaterVO theaterVO = new TheaterVO();
+                theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
+                typeVO.setTheaterVO(theaterVO);
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return typeVO;
+    }
 }

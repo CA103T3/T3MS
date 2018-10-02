@@ -40,6 +40,7 @@ public class TypeServiceTest extends HttpServlet {
         tSvc = new TypeService();
         String type_no = testAddType();
         testGetOneType(type_no);
+        testGetOneTypeJoinTheater(type_no);
         type_no = testAddType();
         testGetOneType(type_no);
         testUpdateType(type_no);
@@ -75,6 +76,17 @@ public class TypeServiceTest extends HttpServlet {
         out.println("time : " + typeVO.getTime());
         out.println("price : " + typeVO.getPrice());
     }
+
+    public void testGetOneTypeJoinTheater(String type_no) {
+        TypeVO typeVO = tSvc.getOneTypeJoinTheater(type_no);
+        out.println("type_no : " + typeVO.getType_no());
+        out.println("theater_no : " + typeVO.getTheater_no());
+        out.println("identify : " + typeVO.getIdentify());
+        // out.println("equipment : " + typeVO.getEquipment());
+        out.println("time : " + typeVO.getTime());
+        out.println("price : " + typeVO.getPrice());
+        out.println("theater_name : " + typeVO.getTheaterVO().getTheater_name());
+    }    
 
     public void testUpdateType(String type_no) {
         String theater_no = "T00002";
