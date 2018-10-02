@@ -2,13 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.filmreview.model.*"%>
+<%@ page import="com.filmreview_msg.model.*"%>
+
 
 
 
 <%
 	FilmreviewDAO fvSvc = new FilmreviewDAO();
-	FilmreviewVO fv = fvSvc.findByPrimaryKey(request.getQueryString());
+	FilmreviewVO fv = fvSvc.findByPrimaryKey(request.getParameter("fr_no").trim());
 	pageContext.setAttribute("fv", fv);
+	
+	Filmreview_MsgDAO fvmSvc = new Filmreview_MsgDAO();
+	Set<Filmreview_MsgVO> fvm = fvmSvc.getAllByFrNo(request.getParameter("fr_no").trim());
+	pageContext.setAttribute("fvm", fvm);
 %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +30,7 @@
 
 
 <link rel="stylesheet" href="/T3MS/css/jsRapStar.css" />
-<script src="/T3MS/css/jsRapStar.js"></script>
+<script src="/T3MS/js/jsRapStar.js"></script>
 <title>M&amp;S</title>
 
 
@@ -178,24 +184,23 @@ input[type=submit]:hover {
 				</div>
 			</div>
 		</div>
+		
 	</div>
-
-
-
-	<div class="container ctnr">
-		<form action="/action_page.php">
+	<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/filmreview_msg/filmreview_msg.do" class="form-horizontal" >
+		<input type="hidden" name="fr_no" value="${fv.fr_no}"> <input type="hidden" name="mem_no" value="${fv.mem_no}">
+		<div class="container ctnr">
 
 			<div class="row">
-
-
-				<textarea id="subject" name="subject" placeholder="Write something.." style="height: 200px"></textarea>
-
+				
+				<textarea id="subject" name="content" placeholder="Write something.." style="height: 200px"></textarea>
 			</div>
 			<div class="text-right">
+				<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> 
+				<input type="hidden" name="action" value="insert"> 	
 				<input type="submit" value="送出">
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
 
 
 
@@ -203,13 +208,21 @@ input[type=submit]:hover {
 
 	<div class="section">
 		<div class="container ctnr">
+	<c:forEach var="fvm" items="${fvm}" >
 			<div class="row">
-				<div class="containe">
-					<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 100%;">
-					<p>Hello. How are you today?</p>
-					<span class="time-right">11:00</span>
+				<div class="containe" style="height: 84px; background-color: white;">
+					<div class="col-md-1 text-center">
+
+						<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 80%;">
+
+					</div>
+
+					<a>${fvm.mem_no}:</a>
+					<p>${fvm.content}</p>
+					<span class="time-right">${fvm.updated_at}</span>
 				</div>
 			</div>
+	</c:forEach>
 		</div>
 	</div>
 

@@ -78,7 +78,7 @@
                                         <td>${fvVO.author}</td>
                                         <td>
 										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/filmreview/filmreview.do" style="margin-bottom: 0px;">
-											<button type="submit" class="btn btn-danger">Danger</button>
+											<button type="submit" class="btn btn-danger">刪除</button>
 											<input type="hidden" name="fr_no" value="${fvVO.fr_no}">
 											
 											<input type="hidden" name="action" value="delete">

@@ -53,4 +53,12 @@
     <servlet-name>CinemaServlet</servlet-name>
     <url-pattern>/cinema/cinema.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Filmreview_MsgServlet</servlet-name>
+    <servlet-class>com.filmreview_msg.controller.Filmreview_MsgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Filmreview_MsgServlet</servlet-name>
+    <url-pattern>/forestage/filmreview_msg/filmreview_msg.do</url-pattern>
+  </servlet-mapping>
 </web-app>

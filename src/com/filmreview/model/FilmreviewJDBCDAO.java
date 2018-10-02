@@ -385,23 +385,23 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 		FilmreviewJDBCDAO dao = new FilmreviewJDBCDAO();
 		// 新增
 		
-//		FilmreviewVO filmreview1 = new FilmreviewVO();
-//		
-//		filmreview1.setMovie_no("666");
-//		
-//		
-//		filmreview1.setContent("好 看 !!");
-//		filmreview1.setEvaluation(new Double(5.0));
-//		filmreview1.setTitle("movie1");
-//		filmreview1.setSource("我自己");
-//		filmreview1.setUrl("www.yahoo.com.tw");
-//		filmreview1.setMem_no("M001");
-//		filmreview1.setAuthor("610");
-//	
-//	
-//		dao.insert(filmreview1);
-//		
-//		System.out.println("OK");
+		FilmreviewVO filmreview1 = new FilmreviewVO();
+		
+		filmreview1.setMovie_no("666");
+		
+		
+		filmreview1.setContent("好 看 !!");
+		filmreview1.setEvaluation(new Double(5.0));
+		filmreview1.setTitle("movie1");
+		filmreview1.setSource("我自己");
+		filmreview1.setUrl("www.yahoo.com.tw");
+		filmreview1.setMem_no("M001");
+		filmreview1.setAuthor("610");
+	
+	
+		dao.insert(filmreview1);
+		
+		System.out.println("OK");
 	
 //		 修改
 		
@@ -465,22 +465,22 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 //		}
 		
 		
-		Set<FilmreviewVO> set = dao.getAllByMemNo("6");
-		
-		for(FilmreviewVO fv : set) {
-			System.out.println(fv.getFr_no()+" , ");
-			System.out.println(fv.getMovie_no()+" , ");
-			System.out.println(fv.getCreated_at()+" , ");
-			System.out.println(fv.getUpdated_at()+" , ");
-			System.out.println(fv.getContent()+" , ");
-			System.out.println(fv.getEvaluation()+" , ");
-			System.out.println(fv.getTitle()+" , ");
-			System.out.println(fv.getSource()+" , ");
-			System.out.println(fv.getUrl()+" , ");
-			System.out.println(fv.getMem_no()+" , ");
-			System.out.println(fv.getAuthor()+" , ");
-		}
+//		Set<FilmreviewVO> set = dao.getAllByMemNo("6");
 //		
+//		for(FilmreviewVO fv : set) {
+//			System.out.println(fv.getFr_no()+" , ");
+//			System.out.println(fv.getMovie_no()+" , ");
+//			System.out.println(fv.getCreated_at()+" , ");
+//			System.out.println(fv.getUpdated_at()+" , ");
+//			System.out.println(fv.getContent()+" , ");
+//			System.out.println(fv.getEvaluation()+" , ");
+//			System.out.println(fv.getTitle()+" , ");
+//			System.out.println(fv.getSource()+" , ");
+//			System.out.println(fv.getUrl()+" , ");
+//			System.out.println(fv.getMem_no()+" , ");
+//			System.out.println(fv.getAuthor()+" , ");
+//		}
+////		
 		
 	}
 	

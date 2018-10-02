@@ -153,7 +153,7 @@
 					</div>
 
 					<div class="col-md-7">
-						<a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?${FilmreviewVO.fr_no}"><h2>${FilmreviewVO.title}</h2></a>
+						<a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?fr_no=${FilmreviewVO.fr_no}"><h2>${FilmreviewVO.title}</h2></a>
 					</div>
 
 					<div class="col-md-1">

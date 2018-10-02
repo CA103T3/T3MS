@@ -141,7 +141,7 @@
 					</div>
 
 					<div class="col-md-7">
-						<a href="/T3MS//forestage/filmreview/fv.jsp?${fv.fr_no}"><h2>${fv.title}</h2></a>
+						<a href="/T3MS//forestage/filmreview/fv.jsp?fr_no=${fv.fr_no}"><h2>${fv.title}</h2></a>
 					</div>
 
 					<div class="col-md-1">
