@@ -104,7 +104,7 @@
                     </div>
                     <div class="form-group text-center">
                       <input type="hidden" name="action" value="insert">
-                      <input class="form-control" id="" type="hidden" name="cinema_no" value="${param.cinema_no}" readonly>
+                      <input class="form-control" id="" type="hidden" name="cinema_no" value="${param.cinema_no}" >
                       <button class="btn btn-primary fs16" id="smtbtn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;送出</button>
                     </div>
                 </form>

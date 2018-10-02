@@ -59,7 +59,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">購票身分</label>
                       <div class="col-md-3">
-                        <select class="form-control" name="identify">
+                        <select class="form-control" id="identify" name="identify">
                            <option value="ADULT" ${(typeVO.identify=="ADULT") ? 'selected': '' }>全票</option>
                            <option value="COMPLIMENTARY" ${(typeVO.identify=="COMPLIMENTARY")? 'selected': '' }>優待票</option>
                            <option value="GROUP" ${(typeVO.identify=="GROUP")? 'selected': '' }>團體票</option>
@@ -71,7 +71,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">放映時段</label>
                       <div class="col-md-3">
-                        <select class="form-control" name="time">
+                        <select class="form-control" id="time" name="time">
                            <option value="NORMAL" ${(typeVO.time=="NORMAL") ? 'selected': '' }>一般</option>
                            <option value="MAITNEE" ${(typeVO.time=="MAITNEE")? 'selected': '' }>早場</option>
                         </select>
@@ -82,13 +82,14 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">票價</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="price" value="<%= (typeVO==null) ? "" : typeVO.getPrice() %>" >
+                        <input class="form-control" id="price" type="text" name="price" value='<%= (typeVO==null) ? "" : (typeVO.getPrice()==null) ? "" : typeVO.getPrice() %>' >
                       </div>
                       <div class="col-md-4">
                       </div>
                     </div>
                     <div class="form-group text-center">
                       <input type="hidden" name="action" value="insert">
+                      <input class="form-control" id="" type="hidden" name="cinema_no" value="${param.cinema_no}" >
                       <button class="btn btn-primary fs16" id="smtbtn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;送出</button>
                     </div>
                 </form>
