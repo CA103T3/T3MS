@@ -1,5 +1,7 @@
 package com.ticketType.model;
 
+import com.theater.model.TheaterVO;
+
 public class TypeVO implements java.io.Serializable {
 
     /**
@@ -12,6 +14,15 @@ public class TypeVO implements java.io.Serializable {
     //private String equipment;
     private String time;
     private Integer price;
+    private TheaterVO theaterVO;
+
+    public TheaterVO getTheaterVO() {
+        return theaterVO;
+    }
+
+    public void setTheaterVO(TheaterVO theaterVO) {
+        this.theaterVO = theaterVO;
+    }
 
     public String getType_no() {
         return type_no;

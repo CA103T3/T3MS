@@ -113,7 +113,7 @@
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影廳</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/session/listAllSession.jsp?cinema_no=C001">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;電影場次</a>
                         </li>
                         <li>

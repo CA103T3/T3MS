@@ -48,6 +48,8 @@ public class TypeServiceTest extends HttpServlet {
         testGetAll();
         testDeleteTheater(type_no);
         testGetAll();
+        String cinema_no = "C001";
+        testGetAllofCinema(cinema_no);
 	}
 
     public String testAddType() {
@@ -94,8 +96,17 @@ public class TypeServiceTest extends HttpServlet {
         }
     }
 
+    public void testGetAllofCinema(String cinema_no) {
+        List<TypeVO> list = tSvc.getAllofCinema(cinema_no);
+        out.println("GetAllofCinema: " + list.size());
+        for(TypeVO vo : list) {
+            out.println(vo.getType_no());
+            out.println("theater_name : " + vo.getTheaterVO().getTheater_name());
+        }
+    }
+
     public void testDeleteTheater(String type_no) {
         tSvc.deleteType(type_no);
         out.println("delete type_no : " + type_no);
-    }    
+    }
 }

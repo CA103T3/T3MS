@@ -8,4 +8,5 @@ public interface TypeDAO_interface {
     public void delete(String type_no);
     public TypeVO findByPrimaryKey(String type_no);
     public List<TypeVO> getAll();
+    public List<TypeVO> getAllofCinema(String cinema_no);
 }

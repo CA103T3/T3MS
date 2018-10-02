@@ -51,4 +51,8 @@ public class TypeService {
     public List<TypeVO> getAll() {
         return dao.getAll();
     }
+
+    public List<TypeVO> getAllofCinema(String cinema_no) {
+        return dao.getAllofCinema(cinema_no);
+    }
 }
