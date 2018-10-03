@@ -1,11 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.theater.model.*"%>
+<%@ page import="com.cinema.model.*"%>
 <%@ page import="java.io.Reader"%>
 <%@ page import="org.json.*"%>
 
 <%
-  TheaterVO theaterVO = (TheaterVO) request.getAttribute("theaterVO");
+    TheaterVO theaterVO = (TheaterVO) request.getAttribute("theaterVO");
+    CinemaService cSvc = new CinemaService();
+    CinemaVO cinemaVO = cSvc.getOneCinema(request.getParameter("cinema_no"));
+    pageContext.setAttribute("cinemaVO",cinemaVO);
 %>
 <!DOCTYPE html>
 <html>
@@ -52,10 +56,10 @@
 <%--                 </c:if> --%>
                 <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/theater/theater.do">
                     <div class="form-group">
-                      <label class="col-md-5 control-label">影城</label>
+                      <label class="col-md-5 control-label">影城名稱</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" value="威秀影城" readonly>
-                        <input class="form-control" id="" type="hidden" name="cinema_no" value="C001" readonly>
+                        <input class="form-control" id="" type="text" value="${cinemaVO.cinema_name}" readonly>
+                        <input class="form-control" id="cinema_no" type="hidden" name="cinema_no" value="${param.cinema_no}">
                       </div>
                       <div class="col-md-4">
                       </div>

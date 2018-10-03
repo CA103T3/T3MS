@@ -180,7 +180,7 @@
                 timepicker: true,   //timepicker: false,
                 step: 1,            //step: 60 (這是timepicker的預設間隔60分鐘)
                 format: 'Y-m-d H:i:00',
-                value: '${(sessionVO==null) ? "new Date()" : session_time}',
+                value: '${(sessionVO.session_time==null) ? "new Date()" : session_time}',
                 //disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
                 //startDate:         '2017/07/10',  // 起始日
                 //minDate:           '-1970-01-01', // 去除今日(不含)之前

@@ -3,7 +3,6 @@ package com.session.controlller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
-import java.io.StringReader;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -169,7 +168,7 @@ public class SessionServlet extends HttpServlet {
                 String session_no = sSvc.addSession(theater_no, movie_no, session_time, seat_table);
 
                 /***************************3.新增完成,準備轉交(Send the Success view)***********/
-                String url = "/backstage/session/listAllSession.jsp?cinema_no=" + cinema_no;
+                String url = "/backstage/session/listAllSession.jsp";
                 System.out.println("url: " + url);
                 RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllTheater.jsp
                 successView.forward(req, res);
@@ -275,10 +274,19 @@ public class SessionServlet extends HttpServlet {
                 //https://stackoverflow.com/questions/1514910/how-to-properly-compare-two-integers-in-java
                 //https://stackoverflow.com/questions/1700081/why-is-128-128-false-but-127-127-is-true-when-comparing-integer-wrappers-in-ja
                 //https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.1.7
-                if(seats.intValue() != theaterVO.getSeats().intValue()) {
-                    //System.out.println("theaterVO.getSeats() : " + theaterVO.getSeats());
-                    //System.out.println("seats : " + seats);
-                    errorMsgs.add("與影廳座位模版的座位數不相符");
+                if(theaterVO != null) {
+                    if (seats.intValue() != theaterVO.getSeats().intValue()) {
+                        // System.out.println("theaterVO.getSeats() : " + theaterVO.getSeats());
+                        // System.out.println("seats : " + seats);
+                        errorMsgs.add("與影廳座位模版的座位數不相符");
+                    }
+                } else {
+                    errorMsgs.add("查無影廳資料,請查新操作");
+                    String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+                    String url = requestURL;
+                    RequestDispatcher successView = req.getRequestDispatcher(url); // 查無影廳資料 轉交回送出修改的來源網頁
+                    successView.forward(req, res);
+                    return;
                 }
 
                 String seat_table = json.toString();

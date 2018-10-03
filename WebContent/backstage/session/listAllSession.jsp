@@ -105,6 +105,7 @@
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;刪除
                                     </button>
                                     <input type="hidden" name="session_no" value="${sessionVO.session_no}">
+                                    <input type="hidden" name="cinema_no" value="${param.cinema_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="delete">

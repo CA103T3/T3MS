@@ -117,7 +117,7 @@
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;電影場次</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/ticketType/listAllTicketType.jsp?cinema_no=C001">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;票種/票價</a>
                         </li>
                         <li>

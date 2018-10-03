@@ -21,6 +21,7 @@ import com.common.util.UUIDGenerator;
 import com.session.model.SessionService;
 import com.session.model.SessionVO;
 import com.theater.model.TheaterService;
+import com.theater.model.TheaterVO;
 import com.ticketType.model.TypeService;
 import com.ticketType.model.TypeVO;
 
@@ -174,6 +175,16 @@ public class TicketTypeServlet extends HttpServlet {
                 if (theater_no == null || theater_no.trim().length() == 0) {
                     errorMsgs.add("影廳名稱請勿空白");
                 }
+                TheaterService tSvc = new TheaterService();
+                TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
+                if(theaterVO == null) {
+                    errorMsgs.add("查無影廳資料,請查新操作");
+                    String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+                    String url = requestURL;
+                    RequestDispatcher successView = req.getRequestDispatcher(url); // 查無影廳資料 轉交回送出修改的來源網頁
+                    successView.forward(req, res);
+                    return;
+                }
 
                 String identify = req.getParameter("identify");
                 String identifyReg = "^[(A-Z)]{5,13}$";
@@ -229,8 +240,8 @@ public class TicketTypeServlet extends HttpServlet {
                 }
 
                 /***************************2.開始新增資料***************************************/
-                TypeService tSvc = new TypeService();
-                tSvc.updateType(type_no, theater_no, identify, time, price);
+                TypeService typeSvc = new TypeService();
+                typeSvc.updateType(type_no, theater_no, identify, time, price);
 
                 /***************************3.新增完成,準備轉交(Send the Success view)***********/
                 String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑

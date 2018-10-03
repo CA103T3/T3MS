@@ -1,13 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.theater.model.*"%>
+<%@ page import="com.cinema.model.*"%>
 <%@ page import="java.io.Reader"%>
 <%@ page import="org.json.*"%>
 <%@ page import="java.io.IOException"%>
 <%@ page import="javax.servlet.jsp.SkipPageException"%>
 
 <%
-  TheaterVO theaterVO = (TheaterVO) request.getAttribute("theaterVO");
+    TheaterVO theaterVO = (TheaterVO) request.getAttribute("theaterVO");
+    CinemaService cSvc = new CinemaService();
+    CinemaVO cinemaVO = cSvc.getOneCinema(request.getParameter("cinema_no"));
+    pageContext.setAttribute("cinemaVO",cinemaVO);
 %>
 <!DOCTYPE html>
 <html>
@@ -31,22 +35,23 @@
             <div class="container">
                 <h3 class="page-header">
                     <label>修改影廳&nbsp;&nbsp;</label>
-                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp?cinema_no=${theaterVO.cinema_no}">
+                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp">
                         <button type="submit" id="back-btn" class="btn btn-default fs16 " >
                             <i class="fa fa-undo" aria-hidden="true"></i>&nbsp;返回
                         </button>
                         <!-- <input type="hidden" name="theater_no" value="${theaterVO.theater_no}"> -->
                         <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> -->
+                        <input type="hidden" name="cinema_no" value="${param.cinema_no}">
                         <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
                         <!-- <input type="hidden" name="action" value="view"> -->
                     </form>
                 </h3>
                 <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/theater/theater.do">
                     <div class="form-group">
-                      <label class="col-md-5 control-label">影城</label>
+                      <label class="col-md-5 control-label">影城名稱</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" value="威秀影城" readonly>
-                        <input class="form-control" id="" type="hidden" name="cinema_no" value="C001" readonly>
+                        <input class="form-control" id="" type="text" value="${cinemaVO.cinema_name}" readonly>
+                        <input id="cinema_no" type="hidden" name="cinema_no" value="${param.cinema_no}">
                       </div>
                       <div class="col-md-4">
                       </div>

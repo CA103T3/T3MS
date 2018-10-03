@@ -1,13 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.theater.model.*"%>
+<%@ page import="com.cinema.model.*"%>
 <%@ page import="java.io.Reader"%>
 <%@ page import="org.json.*"%>
 <%@ page import="java.io.IOException"%>
 <%@ page import="javax.servlet.jsp.SkipPageException"%>
 
 <%
-  TheaterVO theaterVO = (TheaterVO) request.getAttribute("theaterVO");
+    TheaterVO theaterVO = (TheaterVO) request.getAttribute("theaterVO");
+    CinemaService cSvc = new CinemaService();
+    CinemaVO cinemaVO = cSvc.getOneCinema(request.getParameter("cinema_no"));
+    pageContext.setAttribute("cinemaVO",cinemaVO);
 %>
 <!DOCTYPE html>
 <html>
@@ -37,16 +41,18 @@
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改
                         </button>
                         <input type="hidden" name="theater_no" value="${theaterVO.theater_no}">
+                        <input type="hidden" name="cinema_no" value="${param.cinema_no}">
                         <!--  <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> -->
                         <input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>">
                         <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
                         <input type="hidden" name="action" value="toUpdatePage">
                     </form>
                     <!-- class="dp-inline" does  not work here, use style -->
-                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp?cinema_no=${theaterVO.cinema_no}">
+                    <form id="fm-back" method="post" style="display:inline" action="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp">
                         <button type="submit" id="back-btn" class="btn btn-default fs16 " >
                             <i class="fa fa-undo" aria-hidden="true"></i>&nbsp;返回
                         </button>
+                        <input type="hidden" name="cinema_no" value="${param.cinema_no}">
                         <!-- <input type="hidden" name="theater_no" value="${theaterVO.theater_no}"> -->
                         <!-- <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>"> -->
                         <input type="hidden" name="whichRecordIndex" value="${param.whichRecordIndex}">
@@ -55,9 +61,9 @@
                 </h3>
 
                 <div class="row form-group">
-                    <label class="col-md-6 control-label text-right">影城</label>
+                    <label class="col-md-6 control-label text-right">影城名稱</label>
                     <div class="col-md-6">
-                      <label>${theaterVO.cinema_no} cinema_name(to be continued)</label>
+                      <label>${cinemaVO.cinema_name}</label>
                     </div>
                 </div>
                 <div class="row form-group">
