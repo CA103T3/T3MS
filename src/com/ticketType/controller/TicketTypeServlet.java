@@ -62,10 +62,9 @@ public class TicketTypeServlet extends HttpServlet {
             // send the ErrorPage view.
             req.setAttribute("errorMsgs", errorMsgs);
 
-            String cinema_no = null;
             try {
                 /***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-                cinema_no = req.getParameter("cinema_no");
+                String cinema_no = req.getParameter("cinema_no");
                 if (cinema_no == null || cinema_no.trim().length() == 0) {
                     errorMsgs.add("無影城編號資料");
                 }
@@ -146,6 +145,108 @@ public class TicketTypeServlet extends HttpServlet {
                 }
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/backstage/ticketType/addTicketType.jsp");
+                        //.getRequestDispatcher("/backstage/ticketType/addTicketType.jsp?cinema_no=" + cinema_no);
+                failureView.forward(req, res);
+                e.printStackTrace();
+            }
+        }
+
+        if ("update".equals(action)) { // from updateTicketType.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+
+            try {
+                /***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+                String cinema_no = req.getParameter("cinema_no");
+                if (cinema_no == null || cinema_no.trim().length() == 0) {
+                    errorMsgs.add("無影城編號資料");
+                }
+
+                String type_no = req.getParameter("type_no");
+                if (type_no == null || type_no.trim().length() == 0) {
+                    errorMsgs.add("無票種票價編號資料");
+                }
+
+                String theater_no = req.getParameter("theater_no");
+                if (theater_no == null || theater_no.trim().length() == 0) {
+                    errorMsgs.add("影廳名稱請勿空白");
+                }
+
+                String identify = req.getParameter("identify");
+                String identifyReg = "^[(A-Z)]{5,13}$";
+                if (identify == null || identify.trim().length() == 0) {
+                    errorMsgs.add("購票身分: 請勿空白");
+                } else if(!identify.trim().matches(identifyReg)) { //以下練習正則(規)表示式(regular-expression)
+                    errorMsgs.add("購票身分: 請選擇正確購票身分");
+                }
+
+                String time = req.getParameter("time");
+                String timeReg = "^[(A-Z)]{6,7}$";
+                if (time == null || time.trim().length() == 0) {
+                    errorMsgs.add("放映時段: 請勿空白");
+                } else if(!time.trim().matches(timeReg)) { //以下練習正則(規)表示式(regular-expression)
+                    errorMsgs.add("放映時段: 請選擇正確放映時段");
+                }
+
+                String priceStr = req.getParameter("price");
+                String priceStrReg = "^[(0-9)]{1,4}$";
+                Integer price = null;
+                if (priceStr == null || priceStr.trim().length() == 0) {
+                    errorMsgs.add("票價: 請勿空白");
+                } else if(!priceStr.trim().matches(priceStrReg)) { //以下練習正則(規)表示式(regular-expression)
+                    errorMsgs.add("票價: 請確認數字及長度");
+                } else {
+                    try {
+                        price = new Integer(priceStr);
+                        if(price.intValue() < 100 || price.intValue() > 1000) {
+                            errorMsgs.add("票價: 請輸入正確金額");
+                        }
+                    } catch(NumberFormatException e) {
+                        errorMsgs.add("票價: 請輸入正確數字格式");
+                    }
+                }
+
+                TypeVO typeVO = new TypeVO();
+                typeVO.setType_no(type_no);
+                typeVO.setTheater_no(theater_no);
+                typeVO.setIdentify(identify);
+                typeVO.setTime(time);
+                typeVO.setPrice(price);
+
+//                System.out.println("before errorMsgs.size() : " + errorMsgs.size());
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+//                    System.out.println("errorMsgs.size() : " + errorMsgs.size());
+                    req.setAttribute("typeVO", typeVO); // 含有輸入格式錯誤的typeVO物件,也存入req
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher("/backstage/ticketType/updateTicketType.jsp");
+                            //.getRequestDispatcher("/backstage/ticketType/addTicketType.jsp?cinema_no=" + cinema_no);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************2.開始新增資料***************************************/
+                TypeService tSvc = new TypeService();
+                tSvc.updateType(type_no, theater_no, identify, time, price);
+
+                /***************************3.新增完成,準備轉交(Send the Success view)***********/
+                String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+                String url = requestURL;
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交回送出修改的來源網頁
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理**********************************/
+            } catch (Exception e) {
+                if(e.getMessage() != null) {
+                    errorMsgs.add("其他錯誤: " + e.getMessage().replaceAll("\r|\n", " "));
+                } else {
+                    errorMsgs.add("其他錯誤");
+                }
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("/backstage/ticketType/updateTicketType.jsp");
                         //.getRequestDispatcher("/backstage/ticketType/addTicketType.jsp?cinema_no=" + cinema_no);
                 failureView.forward(req, res);
                 e.printStackTrace();
