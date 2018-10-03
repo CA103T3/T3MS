@@ -92,7 +92,7 @@
 								<thead>
 									<tr>
 										<th>介紹編號</th>
-										<th>電影編號+名稱</th>
+										<th>電影類型+名稱</th>
 										<th>網址</th>
 										<th>是否上線</th>
 										<th>創建日期</th>
@@ -108,8 +108,8 @@
 										<td>${movie_introduceVO.introd_no}</td>
 										<td>
 											<c:forEach var="movieVO" items="${movieSvc.all}" >
-	                    						<c:if test="${movie_introduceVO.movie_no == movieVO.movie_no}">
-		                    						${movieVO.movie_no}【${movieVO.movie_no} - ${movieVO.movie_name}】
+	                    						<c:if test="${movie_introduceVO.movie_no.equals(movieVO.movie_no)}">
+		                    						${movieVO.movie_no}【${movieVO.movie_type} - ${movieVO.movie_name}】
 	                    						</c:if>
 	                						</c:forEach>
 										</td>

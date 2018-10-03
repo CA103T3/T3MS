@@ -72,9 +72,14 @@ margin-top: 10px;
 										<div>${param.introd_no}</div>
 									</div>
 																		
-									<div class="form-group">
-										<label class="control-label">電影編號:</label> <input
-											class="form-control" type="text" name="movie_no" value="<%=movie_introduceVO.getMovie_no()%>">
+<!-- 									<div class="form-group"> -->
+<!-- 										<label class="control-label">電影編號:</label> <input -->
+<%-- 											class="form-control" type="text" name="movie_no" value="<%=movie_introduceVO.getMovie_no()%>"> --%>
+<!-- 									</div> -->
+									
+									<div class="form-group has-error">
+										<label class="control-label">電影編號:*</label>
+										<div><%=movie_introduceVO.getMovie_no()%></div>
 									</div>
 															
 									<div class="form-group hidden-md hidden-sm has-feedback">

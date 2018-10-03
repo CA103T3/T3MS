@@ -17,7 +17,7 @@ public class MovieVO implements java.io.Serializable{
 	private Integer length;
 	private String language;
 	private String madein;
-	private Integer imdb;
+	private Double imdb;
 	private String tomato;
 	private String rating;
 	private String trailer_url;
@@ -88,10 +88,10 @@ public class MovieVO implements java.io.Serializable{
 	public void setMadein(String madein) {
 		this.madein = madein;
 	}
-	public Integer getImdb() {
+	public Double getImdb() {
 		return imdb;
 	}
-	public void setImdb(Integer imdb) {
+	public void setImdb(Double imdb) {
 		this.imdb = imdb;
 	}
 	public String getTomato() {

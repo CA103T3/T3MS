@@ -228,14 +228,17 @@ public class MovieServlet extends HttpServlet {
 					errorMsgs.add("產地請勿空白");
 				}
 
-				Integer imdb = null;
+				Double imdb = null;
 				try {
-					imdb = new Integer(req.getParameter("imdb").trim());
-					if (imdb < 1) {
-						errorMsgs.add("評分不能小於或等於0");
+					imdb = new Double(req.getParameter("imdb").trim());
+					if (imdb < 0.0 ) {
+						errorMsgs.add("評分不能小於或等於0.0");
+					}else if (imdb > 10.0 ){
+						errorMsgs.add("評分不能大於10.0");
+					
 					}
 				} catch (NumberFormatException e) {
-					imdb = 0;
+					imdb = 0.0;
 					errorMsgs.add("評分請填數字.");
 				}
 
@@ -390,14 +393,16 @@ public class MovieServlet extends HttpServlet {
 					errorMsgs.add("產地請勿空白");
 				}
 
-				Integer imdb = null;
+				Double imdb = null;
 				try {
-					imdb = new Integer(req.getParameter("imdb").trim());
-					if (imdb < 1) {
-						errorMsgs.add("片長不能小於或等於0");
+					imdb = new Double(req.getParameter("imdb").trim());
+					if (imdb < 0.0 ) {
+						errorMsgs.add("片長不能小於或等於0.0");
 					}
+					else if (imdb > 10.0 ){
+					errorMsgs.add("評分不能大於10.0");}
 				} catch (NumberFormatException e) {
-					imdb = 0;
+					imdb = 0.0;
 					errorMsgs.add("評分請填數字.");
 				}
 

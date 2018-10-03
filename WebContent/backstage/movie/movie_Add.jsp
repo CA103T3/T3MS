@@ -129,7 +129,7 @@ resize: none;
 
 								<div class="form-group hidden-md hidden-sm has-feedback">
 									<label class="control-label">IMDB評分:</label>
-									<input type="TEXT" class="form-control" name="imdb" size="45" value="<%=(movieVO == null) ? "60" : movieVO.getImdb()%>" />
+									<input type="TEXT" class="form-control" name="imdb" size="45" value="<%=(movieVO == null) ? "0.1" : movieVO.getImdb()%>" />
 								</div>
 
 								<div class="form-group hidden-md hidden-sm has-feedback">

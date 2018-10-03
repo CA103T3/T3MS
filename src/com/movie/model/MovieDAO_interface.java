@@ -9,4 +9,11 @@ public interface MovieDAO_interface
 	public void delete(String movie_no);
 	public MovieVO findByPrimaryKey(String movie_no);	               
 	public List<MovieVO> getAll();
+	
+	
+	//現正熱映
+	public List<MovieVO> getNow();
+	
+	//即將上映
+	public List<MovieVO> getComingsoon();
 }

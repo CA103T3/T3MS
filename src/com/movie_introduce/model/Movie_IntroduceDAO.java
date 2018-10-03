@@ -19,7 +19,7 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 		}
 	}
 	private static final String INSERT_STMT = "INSERT INTO MOVIE_INTRODUCE(introd_no,movie_no,source,url,author,title,content,created_at,updated_at,active,photo_path,photo_small)"
-			+ "VALUES ('MI'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,3,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?,?)";
+			+ "VALUES ('MI'||LPAD(MOVIE_INTRODUCE_SEQ.NEXTVAL,4,'0'),?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?,?)";
 
 	private static final String UPDATE =
 			"UPDATE MOVIE_INTRODUCE SET MOVIE_NO=? ,SOURCE=? ,URL=? ,AUTHOR=? ,TITLE=? ,CONTENT=? ,UPDATED_AT=CURRENT_TIMESTAMP , ACTIVE=? ,PHOTO_PATH=?, PHOTO_SMALL=? WHERE INTROD_NO =?";
@@ -31,7 +31,7 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 			"SELECT * FROM MOVIE_INTRODUCE WHERE INTROD_NO = ?";
 
 	private static final String GET_ALL_STMT = 
-			"SELECT * FROM MOVIE_INTRODUCE ORDER BY INTROD_NO";
+			"SELECT * FROM MOVIE_INTRODUCE ORDER BY INTROD_NO DESC";
 
 	@Override
 	public void insert(Movie_IntroduceVO movie_introduceVO) {

@@ -727,7 +727,7 @@ CREATE TABLE MOVIE(
     LENGTH        NUMBER,
     LANGUAGE      VARCHAR2(30),
     MADEIN        VARCHAR2(30),
-    IMDB          NUMBER,
+    IMDB          NUMBER(2,1),
     TOMATO        VARCHAR2(20),
     RATING        VARCHAR2(20),
     TRAILER_URL   VARCHAR2(50),

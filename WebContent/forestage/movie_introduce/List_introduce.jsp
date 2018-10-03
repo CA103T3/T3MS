@@ -88,7 +88,7 @@
  							<div class="span6">
 							  <ul class="breadcrumb">
 								<li>
-									<a href="#">MS首頁</a> <span class="divider">></span>
+									<a href="<%=request.getContextPath()%>/index.html">MS首頁</a> <span class="divider">></span>
 								</li>
 								<li class="active" style="color:#ffffff;">電影介紹</li>										
 							 </ul>
@@ -112,7 +112,7 @@
                                 </h1>
                                 <div class="zxx_text_overflow_5"><p>${movie_introduceVO.content}</p></div>
                                 <p class="text-primary">
-                                    <a href="#"><b>READ MORE</b></a>
+                                    <a href="<%=request.getContextPath()%>/forestage/movie_introduce/One_introduce.jsp?${movie_introduceVO.introd_no}"><b>READ MORE</b></a>
                                 </p>
                                     
                             
@@ -125,7 +125,10 @@
             </div>
         </div> 
         
-</div>
+        
+			
+        
+
 <%@ include file="/resources/page_code/pageb.file"%>
         
              
