@@ -1,4 +1,4 @@
-package com.session.controlller;
+package com.session.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,7 +32,7 @@ import com.theater.controller.TheaterServlet;
 /**
  * Servlet implementation class SessionServlet
  */
-@WebServlet("/session/session.do")
+//@WebServlet("/session/session.do")
 public class SessionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
        

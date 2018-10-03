@@ -28,7 +28,7 @@ import com.ticketType.model.TypeVO;
 /**
  * Servlet implementation class ticketType
  */
-@WebServlet("/ticketType/ticketType.do")
+//@WebServlet("/ticketType/ticketType.do")
 public class TicketTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
