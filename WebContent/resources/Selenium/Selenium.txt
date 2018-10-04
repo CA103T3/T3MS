@@ -1,0 +1,16 @@
+
+Selenium
+https://www.seleniumhq.org/
+https://www.seleniumhq.org/download/
+Java	3.14.0	Download  2018-08-02  https://goo.gl/9EV896
+
+Jsoup
+https://jsoup.org/download
+https://jsoup.org/packages/jsoup-1.11.3.jar
+
+Browser
+Mozilla GeckoDriver (Firefox)
+https://github.com/mozilla/geckodriver/releases
+https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-win64.zip
+
+將 geckodriver.exe 放在 環境變數 Path 路徑下
