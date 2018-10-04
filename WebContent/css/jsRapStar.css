@@ -5,7 +5,7 @@ font-size:32px;
 margin:auto;
 position:relative;
 cursor:pointer;	
-text-shadow: 0 0 0.5px pink;
+text-shadow: 0 0 10px pink;
 }	
 .rapStarFront{
 top:0px;

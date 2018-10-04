@@ -44,37 +44,7 @@ body {
 	background-color: lightyellow !important;
 }
 
-.tablink {
-	background-color: #555;
-	color: white;
-	float: left;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	padding: 14px 16px;
-	font-size: 17px;
-	width: 50%;
-}
 
-.tablink:hover {
-	background-color: #777;
-}
-
-/* Style the tab content */
-.tabcontent {
-	color: white;
-	display: none;
-	padding: 50px;
-	text-align: center;
-}
-
-#London {
-	background-color: pink;
-}
-
-#Paris {
-	background-color: powderblue;
-}
 
 .image-container {
 	background-image: url("/T3MS/img/chu.jpg");
@@ -129,7 +99,7 @@ body {
 
 
 <body class="body-template">
-	<%@ include file="/forestage/template/header.jsp"%>
+	<%@ include file="/forestage/template/header_no_bar.jsp"%>
 
 
 
@@ -152,42 +122,6 @@ body {
 
 
 
-
-
-
-
-	<div id="London" class="tabcontent">
-		<h3>London</h3>
-		<p>London is the capital city of England.</p>
-	</div>
-
-	<div id="Paris" class="tabcontent">
-		<h3>Paris</h3>
-		<p>Paris is the capital of France.</p>
-	</div>
-
-
-	<button class="tablink" onclick="openCity('London', this, 'pink')" id="defaultOpen">London</button>
-	<button class="tablink" onclick="openCity('Paris', this, 'powderblue')">Paris</button>
-
-	<script>
-		function openCity(cityName, elmnt, color) {
-			var i, tabcontent, tablinks;
-			tabcontent = document.getElementsByClassName("tabcontent");
-			for (i = 0; i < tabcontent.length; i++) {
-				tabcontent[i].style.display = "none";
-			}
-			tablinks = document.getElementsByClassName("tablink");
-			for (i = 0; i < tablinks.length; i++) {
-				tablinks[i].style.backgroundColor = "";
-			}
-			document.getElementById(cityName).style.display = "block";
-			elmnt.style.backgroundColor = color;
-
-		}
-		// Get the element with id="defaultOpen" and click on it
-		document.getElementById("defaultOpen").click();
-	</script>
 
 
 
@@ -400,12 +334,13 @@ body {
 						<div class="col-md-4 p-3">
 							<div class="card">
 								<img src="https://pingendo.com/assets/photos/wireframe/photo-1.jpg" style="width: 100%">
-								<h1>name</h1>
-								<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-								<p>
-									<button>join</button>
-								</p>
-								<small class="text-muted">9 mins</small>
+								<h1>《電影》標題</h1>
+								<p class="card-text">目前人數：</p>
+								<p class="card-text">集合地點：ＸＸＸＸＸＸＸＸＸＸ</p>
+								<p class="card-text">集合時間：ＸＸＸＸＸＸＸＸＸＸ</p>
+								
+								
+								<small class="text-muted">截止時間</small>
 							</div>
 						</div>
 
@@ -499,8 +434,6 @@ body {
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
 	</div>
 
 
