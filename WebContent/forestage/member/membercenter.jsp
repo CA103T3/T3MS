@@ -154,57 +154,67 @@ a {
 	-ms-flex-align: center !important;
 	align-items: center !important;
 }
-.errorm{
-			font-size:8px;
-			color:red;
-			font-weight:bold;
-		}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<%MemVO memVO = (MemVO)session.getAttribute("memVO"); 
-SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
-SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
-String str =memVO.getBirthday();
-Date date1 = df.parse(str);     
-String str1 = df1.format(date1);
-%>
 
+.errorm {
+	font-size: 8px;
+	color: red;
+	font-weight: bold;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<%
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+	String str = memVO.getBirthday();
+	Date date1 = df.parse(str);
+	String str1 = df1.format(date1);
+%>
+<%@ include file="/forestage/template/link.jsp"%>
 <meta charset="UTF-8">
 <title>MemUpdate</title>
 </head>
 <body>
 	<div class="bgm">
-	<c:forEach var="message" items="${errorMsgs}"></c:forEach>
+		<c:forEach var="message" items="${errorMsgs}"></c:forEach>
 		<div class="container">
-		<form class="form-inline" action="<%=request.getContextPath()%>/member/update.do" method="post" enctype="multipart/form-data">
-			<div class="row">
-				<div class="col-md-12">
-					<img style="display:block; margin: 0 auto; width: 400px;"
-						src='/T3MS/img/memcenter.png'>
-					<hr class="style-seven">
-				</div>
-				<div class="col-md-5">
+			<%@ include file="/forestage/template/header_no_bar.jsp"%>
+			<form class="form-inline"
+				action="<%=request.getContextPath()%>/member/update.do"
+				method="post" enctype="multipart/form-data">
+				<div class="row">
+					<div class="col-md-12">
+						<img style="display: block; margin: 0 auto; width: 400px;"
+							src='/T3MS/img/memcenter.png'>
+						<hr class="style-seven">
+					</div>
+					<div class="col-md-5">
 						<div class="headframe">
-							<img id="blah" src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${memVO.memno}" alt="大頭照"
-								class="img-thumbnail img-responsive headimg">
+							<img id="blah"
+								src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${memVO.memno}"
+								alt="大頭照" class="img-thumbnail img-responsive headimg">
 						</div>
-						<input type="file" style="position: absolute; right: 88px;" id="imgInp"
-							class="custom-file-input" name="memimg">
-				</div>
-						
-				<div class="col-md-7">
-					
+						<input type="file" style="position: absolute; right: 88px;"
+							id="imgInp" class="custom-file-input" name="memimg">
+					</div>
+
+					<div class="col-md-7">
+
 						<table class="table">
 							<tr>
 								<td><span class="memberinfo">帳號:</span><span class="cantch">${memVO.email}</span></td>
 								<td><span class="memberinfo">密碼:</span><span class="cantch">●●●●&nbsp</span>&nbsp&nbsp&nbsp&nbsp<a
-									href="#" onclick="window.open('changpaw.jsp', '更改密碼', config='height=500,width=500');">修改</a></td>
+									href="#"
+									onclick="window.open('changpaw.jsp', '更改密碼', config='height=500,width=500');">修改</a></td>
 							</tr>
 							<tr>
 								<td><label for="lname"><span class="memberinfo">姓氏:</span></label><input
-									id="lname" name="lname" class="form-control" type="text" value="${memVO.lastname}"></td>
+									id="lname" name="lname" class="form-control" type="text"
+									value="${memVO.lastname}"></td>
 								<td><label for="fname"><span class="memberinfo">名字:</span></label><input
-									id="fname" name="fname" class="form-control" type="text" value="${memVO.firstname}"></td>
+									id="fname" name="fname" class="form-control" type="text"
+									value="${memVO.firstname}"></td>
 							</tr>
 							<tr>
 								<td><span class="memberinfo">生日:</span><span class="cantch"><%=str1%></span></td>
@@ -214,69 +224,54 @@ String str1 = df1.format(date1);
 							<tr>
 								<td><span class="memberinfo">性別:</span><span class="cantch">${(memVO.gender==0)?'男':'女'}</span></td>
 								<td><label for="phone"><span class="memberinfo">電話:</span></label><input
-									id="phone" name="phone" class="form-control" type="text" value="${memVO.phone}"><span class="errorm">&nbsp ${errorMsgs.phone}</span></td>
+									id="phone" name="phone" class="form-control" type="text"
+									value="${memVO.phone}"><span class="errorm">&nbsp
+										${errorMsgs.phone}</span></td>
 							</tr>
 							<tr>
 								<td><label for="addr"><span class="memberinfo">地址:</span></label><input
-									id="addr" name="addr" class="form-control" type="text" value="${memVO.addr}"></td>
+									id="addr" name="addr" class="form-control" type="text"
+									value="${memVO.addr}"></td>
 								<td><label for="locno"><span class="memberinfo">郵區:</span></label><input
-									id="locno" name="locno" class="form-control" type="text" value="${memVO.locno}"></td>
+									id="locno" name="locno" class="form-control" type="text"
+									value="${memVO.locno}"></td>
 							</tr>
 						</table>
-						<input type="hidden" name="fname" value="" />
 						<button class="btnp" type="submit">修改</button>
-					
-				</div>
-				<div class="col-md-12">
-					<hr class="style-seven">
-				</div>
 
-				<div class="col-md-1"></div>
-				<div class="col-md-9">
-					<h2 style="color: pink; font-weight: bold;">
-						訂票紀錄
-						</h3>
-						<div class="whitebord">
-							<table class="table">
-								<th>日期</th>
-								<th>張數</th>
-								<th>金額</th>
-								<tr>
-									<td>2018-09-09</td>
-									<td>1</td>
-									<td>110</td>
-								</tr>
-							</table>
-						</div>
-				</div>
-				<div class="col-md-1"></div>
-
-
-			</div>
+					</div>
+					</div>
 			</form>
+<%-- 			<%@ include file="/forestage/member/TicketOrderlist.jsp"%> --%>
+			<div class="col-md-12">
+				<hr class="style-seven">
+			</div>
+			
+
+			<%@ include file="/forestage/template/footer.jsp"%>
 		</div>
 	</div>
 
 
 
-<script>
-	function readURL(input) {
-	
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	
-	    reader.onload = function(e) {
-	      $('#blah').attr('src', e.target.result);
-	    }
-	
-	    reader.readAsDataURL(input.files[0]);
-	  }
-	}
-	
-	$("#imgInp").change(function() {
-	  readURL(this);
-	});
-</script>
+	<script>
+		function readURL(input) {
+
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#blah').attr('src', e.target.result);
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#imgInp").change(function() {
+			readURL(this);
+		});
+	</script>
 </body>
 
 

@@ -1,4 +1,4 @@
-package example;
+package com.member.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

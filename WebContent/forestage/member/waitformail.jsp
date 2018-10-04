@@ -43,15 +43,17 @@
 			</form>
 			<div class="container" style="align-content: right">
 					<div class="align-items-end">
-					<a style="color:deeppink;" href="registerf.jsp">重新寄送</a>
+					<a style="color:deeppink;" href="<%=request.getContextPath()%>/member/mailagain.do">重新寄送</a>
 					</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<h2>Modal Methods</h2>
-  <p>The <strong>show</strong> method shows the modal and the <strong>hide</strong> method hides the modal.</p>
+
+
+<%if(request.getAttribute("vested")==null){ %>
+
   
 
   <!-- Modal -->
@@ -61,10 +63,10 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">註冊成功!!</h4>
+          <h4 class="modal-title">您已完成註冊!</h4>
         </div>
         <div class="modal-body">
-          <p><strong>牛逼 </strong>驗證碼已發送至您的信箱</p>
+          <p><strong></strong>驗證碼已發送至您的信箱</p>
         </div>
       </div>
       
@@ -84,6 +86,6 @@ $(document).ready(function(){
     });
 });
 </script>
-
+<%} %>
 </body>
 </html>

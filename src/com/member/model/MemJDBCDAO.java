@@ -289,6 +289,27 @@ public class MemJDBCDAO implements MemDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public MemVO findBymemno(String memno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void banmember(String memno) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void unbanmember(String memno) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

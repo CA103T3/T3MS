@@ -165,7 +165,10 @@
 
 <div class="bgm">
 	<div class="container shadow p-3 mb-5">
-	<%@ include file="/forestage/template/header.jsp" %>
+	<%@ include file="/forestage/template/header_no_bar.jsp" %>
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
 		<div class="row align-items-center bg-white rounded">
 			<div class="col-12 col-sm-10 offset-sm-1">
 			
@@ -397,6 +400,7 @@ ez訂網站會員為富爾特科技股份有限公司經營管理，為了確保
 
 			</div>
 		</div>
+		<%@ include file="/forestage/template/footer.jsp" %>
 	</div>
 </div>
 

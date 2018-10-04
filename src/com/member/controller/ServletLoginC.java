@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.member.model.MemService;
 import com.member.model.MemVO;
 
-import example.MailService;
+import com.member.controller.MailService;
 
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -69,8 +69,12 @@ public class ServletLoginC extends HttpServlet {
 	            
             }else if(memVO.getStatus()==1) {
                	response.sendRedirect(request.getContextPath()+"/forestage/member/successin.jsp");
-       
-            }     
+            }else if(memVO.getStatus()==2) {
+            	out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+                out.println("<BODY>你已被封鎖，雜魚<BR>");
+                out.println("請按此重新登入 <A HREF="+request.getContextPath()+"/forestage/member/loginf.jsp>重新登入</A>");
+                out.println("</BODY></HTML>");
+            }
         }
         else { 
             result = "fail";
@@ -79,7 +83,7 @@ public class ServletLoginC extends HttpServlet {
             out.println("請按此重新登入 <A HREF="+request.getContextPath()+"/forestage/member/loginf.jsp>重新登入</A>");
             out.println("</BODY></HTML>");
         }
-        out.write(result);
+        
         out.flush();
         out.close();
         System.out.println(result);

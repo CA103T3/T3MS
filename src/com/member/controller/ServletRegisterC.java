@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.member.model.MemService;
 import com.member.model.MemVO;
 
-import example.MailService;
+import com.member.controller.MailService;
 
 
 @WebServlet("/ServletRegisterC")
@@ -34,7 +34,7 @@ public class ServletRegisterC extends HttpServlet {
 		req.setAttribute("errorMsgs", errorMsgs);
 		
 		
-		System.out.println(req.getServletPath());
+	
 		
 		try {
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -117,9 +117,9 @@ public class ServletRegisterC extends HttpServlet {
 			}
 			
 			/***************************2.開始新增資料***************************************/
-			MemService memSvc = new MemService();
-			if(memSvc.checkduplicated(email)) {        //檢查重複註冊
-			memVO = memSvc.addmem(email, paw, lastname, firstname, birthday, phone, IDNUM, gender , addr, locno);
+			MemService memSrc = new MemService();
+			if(memSrc.checkduplicated(email)) {        //檢查重複註冊
+				memVO = memSrc.addmem(email, paw, lastname, firstname, birthday, phone, IDNUM, gender , addr, locno);
 			}else {
 				errorMsgs.put("email","EMAIL已被使用");
 				RequestDispatcher failureView = req
@@ -129,12 +129,8 @@ public class ServletRegisterC extends HttpServlet {
 				return;
 			}
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/
-//			String url ="/forestage/member/loginf.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); 
-//			successView.forward(req, res);
-			res.sendRedirect(req.getContextPath()+"/forestage/member/waitformail.jsp");
+		
 			
-			MemService memSrc= new MemService();
 	        HttpSession session = req.getSession();
 	        memVO = new MemVO();
             
@@ -152,8 +148,13 @@ public class ServletRegisterC extends HttpServlet {
             
             MailService ms = new MailService();
             ms.setmail(memno, name, email);
-            
+            System.out.println("--------------------------------------------------");
+        	String url ="/forestage/member/waitformail.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);
+//			res.sendRedirect(req.getContextPath()+"/forestage/member/waitformail.jsp");
 			
+            return;
 			/***************************其他可能的錯誤處理**********************************/
 		
 		} catch (RuntimeException e) {

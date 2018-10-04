@@ -6,6 +6,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext; 
 import javax.naming.NamingException; 
 import javax.sql.DataSource;
+
+import com.theater.model.TheaterVO;
 public class MemJNDIDAO implements MemDAO_interface {
 	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可 
 	private static DataSource ds = null;
@@ -18,12 +20,15 @@ public class MemJNDIDAO implements MemDAO_interface {
 		}
 	}
 	
-	private static final String INSERT_STMT ="insert into MEMBER(mem_no,email,mem_pw,lname,fname,birthday,phone,IDNUM,gender,addr,locno,status,type,violation) values('M'||LPAD(to_char(member_seq.NEXTVAL), '3', '0'),?,?,?,?,TO_DATE(?,'yyyy/mm/dd'),?,?,?,?,?,0,0,0)";
-	private static final String GET_ALL_STMT = "SELECT memno, lname, fname FROM member";
+	private static final String INSERT_STMT ="insert into MEMBER(mem_no,email,mem_pw,lname,fname,birthday,phone,IDNUM,gender,addr,locno,status,type,violation) values('M'||LPAD(member_seq.NEXTVAL, '3', '0'),?,?,?,?,TO_DATE(?,'yyyy/mm/dd'),?,?,?,?,?,0,0,0)";
+	private static final String GET_ALL_STMT = "SELECT * FROM member";
 	private static final String GET_ONE_STMT = "SELECT * FROM member where email = ?";
+	private static final String GET_ONE_STMT_MEMNO = "SELECT * FROM member where mem_no = ?";
 	private static final String PASS_REGISTERED ="UPDATE MEMBER SET STATUS=? WHERE EMAIL=?";
 	private static final String UPDATE = "UPDATE MEMBER SET lname=?,fname=?,phone=?,addr=?,locno=?,memimg=? WHERE EMAIL=?";
 	private static final String CHANGEPASSWORD = "UPDATE MEMBER SET MEM_PW=? WHERE EMAIL=?";
+	private static final String BAN ="UPDATE MEMBER SET STATUS=? WHERE MEM_NO=?";
+	
 	
 	@Override
 	public void insert(MemVO memVO) {		
@@ -256,10 +261,147 @@ public class MemJNDIDAO implements MemDAO_interface {
 		}
 		return memVO;
 	}
+	
+	
+	@Override
+	public MemVO findBymemno(String memno) {
+		MemVO memVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection(); 
+			pstmt = con.prepareStatement(GET_ONE_STMT_MEMNO);
+
+			pstmt.setString(1, memno);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// deptVO 也稱為 Domain objects
+				memVO = new MemVO();
+				memVO.setFirstname(rs.getString("FNAME"));
+				memVO.setLastname(rs.getString("LNAME"));
+				memVO.setBirthday(rs.getString("BIRTHDAY"));
+				memVO.setIDNUM(rs.getString("IDNUM"));
+				memVO.setGender(rs.getInt("gender"));
+				memVO.setPhone(rs.getString("phone"));
+				memVO.setmemno(rs.getString("MEM_NO"));
+				memVO.setEmail(rs.getString("EMAIL"));
+				memVO.setAddr(rs.getString("ADDR"));
+				memVO.setLocno(rs.getInt("LOCNO"));
+				memVO.setStatus(rs.getInt("STATUS"));
+				memVO.setType(rs.getInt("TYPE"));
+				memVO.setViolation(rs.getInt("VIOLATION"));
+				memVO.setMemimg(rs.getBytes("MEMIMG"));
+				memVO.setExtname(rs.getString("EXTNAME"));
+				memVO.setIntroduction(rs.getString("INTRODUCTION"));
+				
+			}
+
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memVO;
+	}
+	
+	
+	
+	
 	@Override
 	public List<MemVO> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MemVO> list = new ArrayList<MemVO>();
+        MemVO memVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ALL_STMT);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // theaterVO 也稱為 Domain objects
+                memVO = new MemVO();
+                memVO.setMemno(rs.getString("MEM_NO"));
+                memVO.setPaw(rs.getString("MEM_PW"));
+                memVO.setFirstname(rs.getString("FNAME"));
+				memVO.setLastname(rs.getString("LNAME"));
+				memVO.setBirthday(rs.getString("BIRTHDAY"));
+				memVO.setIDNUM(rs.getString("IDNUM"));
+                memVO.setGender(rs.getInt("gender"));
+				memVO.setPhone(rs.getString("phone"));
+				memVO.setEmail(rs.getString("EMAIL"));
+				memVO.setAddr(rs.getString("ADDR"));
+				memVO.setLocno(rs.getInt("LOCNO"));
+				memVO.setStatus(rs.getInt("STATUS"));
+				memVO.setType(rs.getInt("TYPE"));
+				memVO.setViolation(rs.getInt("VIOLATION"));
+				memVO.setMemimg(rs.getBytes("MEMIMG"));
+				memVO.setExtname(rs.getString("EXTNAME"));
+				memVO.setIntroduction(rs.getString("INTRODUCTION"));
+                list.add(memVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
 	}
 	
 	
@@ -366,6 +508,77 @@ public class MemJNDIDAO implements MemDAO_interface {
 				}
 			}
 		}
+	}
+	
+	//後台--封鎖與解封
+	@Override
+	public void banmember(String memno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;	
+		try {
+
+			con = ds.getConnection(); 
+			pstmt = con.prepareStatement(BAN);
+			pstmt.setInt(1, 2);
+			pstmt.setString(2, memno);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
+	
+	@Override
+	public void unbanmember(String memno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;	
+		try {
+
+			con = ds.getConnection(); 
+			pstmt = con.prepareStatement(BAN);
+			pstmt.setInt(1, 1);
+			pstmt.setString(2, memno);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
 	}
 	
 	

@@ -31,13 +31,12 @@ public class TestMemberDAO {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, "新垣");
-			pstmt.setString(2, "結依");
-			pstmt.setString(3, "111111111");
-			pstmt.setString(4, "日本日本日本");
-			pstmt.setInt(5, 123);
+			String BAN ="UPDATE MEMBER SET STATUS=? WHERE MEMNO=?";
+			pstmt = con.prepareStatement(BAN);
+			pstmt.setInt(1, 2);
+			pstmt.setString(2, "M001");
+			pstmt.executeUpdate();
 			              
 			byte[] pic2 = getPictureByteArray("WebContent/img/kagi.jpg");
 			pstmt.setBytes(6, pic2);

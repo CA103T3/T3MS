@@ -20,10 +20,14 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('/T3MS/img/bg-01.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-100">
-<%-- 				<%@ include file="/forestage/template/header.jsp" %> --%>
+<%@ include file="/forestage/template/header_no_bar.jsp" %>
 				<span class="login100-form-title p-b-41">
 					<img style="width:400px;" src='/T3MS/img/login.png'>
 				</span>
+				
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
 				<form class="login100-form validate-form p-b-33 p-t-5" action="<%=request.getContextPath()%>/member/loginC.do"  method="post">
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
@@ -48,6 +52,7 @@
 					<a style="color:deeppink;" href="forgotpaw.jsp">忘記密碼</a></div>
 				</div>
 			</div>
+			 <%@ include file="/forestage/template/footer.jsp" %>
 		</div>
 	</div>
 	

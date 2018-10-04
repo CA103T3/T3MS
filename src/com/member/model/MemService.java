@@ -1,6 +1,6 @@
 package com.member.model;
 
-
+import java.util.List;
 
 public class MemService {
 
@@ -50,6 +50,13 @@ public class MemService {
 	public MemVO getMemVO(String email) {
 		return dao.findByemail(email);
 	}
+	
+	//編號找VO
+	public MemVO getMemVOByNO(String memno) {
+		return dao.findBymemno(memno);
+	}
+	
+	
 	//輸入認證信的認證碼後把狀態由0->1
 	public void passemail(String email) {
 		dao.passregistered(email);
@@ -90,5 +97,18 @@ public class MemService {
 		public void changepaw(String paw, String email) {
 			dao.changepassword(paw, email);
 		}
+		
+	//抓全部
+		public List<MemVO> getall(){
+			return dao.getAll();
+		}
+		
+	//後臺封鎖
+		public void ban(String memno) {
+			dao.banmember(memno);
+		}
 	
+		public void unban(String memno) {
+			dao.unbanmember(memno);
+		}
 }

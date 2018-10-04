@@ -1,4 +1,4 @@
-package example;
+package com.member.controller;
 
 import java.util.Properties;
 import java.util.Scanner;
