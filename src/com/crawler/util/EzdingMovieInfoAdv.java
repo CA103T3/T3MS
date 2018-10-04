@@ -18,6 +18,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,16 +28,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EzdingMovieInfoAdv implements Runnable {
-    private String dir = "movieinfo";
+    private String dir = "WebContent/resources/crawler/movieinfo";
     //private String output = "TheatersInfo.txt";
     private String output = "TheatersInfo";
     private String outputMovie = "Movie";
     private int page;
+    private boolean coming;
     private String targetUrl = "https://www.ezding.com.tw/movieInfoIndex";
-    
-    public EzdingMovieInfoAdv(int page) {
+
+    public EzdingMovieInfoAdv(int page, boolean coming) {
         super();
         this.page = page;
+        this.coming = coming;
     }
 
     @Override
@@ -47,28 +50,30 @@ public class EzdingMovieInfoAdv implements Runnable {
         driver.get(targetUrl);
 //        String pageSource = driver.getPageSource();
 //        System.out.println(pageSource);
-        
+
         WebDriverWait wait = new WebDriverWait(driver, 5);
 //      WebDriverWait wait = new WebDriverWait(driver, 10);
         waitLoadingElement(wait, "div[class='post']");
-        
+
+        clickComingMovie(driver, wait);
+
         WebElement ele = driver.findElement(By.tagName("body"));
         String html = ele.getAttribute("outerHTML");
         //System.out.println(html);
-        
+
         Document doc = Jsoup.parse(html);
-        
+
         clickPageNumber(driver, wait);
-        
+
         List<WebElement> postEle = driver.findElements(By.cssSelector("div[class='post']"));
         System.out.println("postEle.size(): " + postEle.size());
         int postSize = postEle.size();
-        
+
         for(int k = 0; k < postSize; k++) {
             System.out.println("k: " + k);
             List<WebElement> postDiv = driver.findElements(By.cssSelector("div[class='post']"));
             System.out.println("postDiv.size(): " + postDiv.size());
-            
+
             String bgImg = postDiv.get(k).getAttribute("style");
             System.out.println("bgImg: " + bgImg); //bgImg: background-image: url("../../static/common/poster.png");
             //skip poster.png(no data inside)
@@ -76,9 +81,11 @@ public class EzdingMovieInfoAdv implements Runnable {
                 System.out.printf("poster.png - no data inside, skip index %d %n", k);
                 continue;
             }
-            
+
             postDiv.get(k).click();
 
+            waitLoadingElement(wait, "div[class='sessionBox']");
+            /*
             if(!waitLoadingElement(wait, "div[class='sessionBox']")) {
                 System.out.println("TimeoutException after clicking movie post");
                 
@@ -89,19 +96,20 @@ public class EzdingMovieInfoAdv implements Runnable {
                 clickPageNumber(driver, wait);
                 continue;
             }
+            */
 
             WebElement eleTime = driver.findElement(By.tagName("body"));
             String htmlTime = eleTime.getAttribute("outerHTML");
             //System.out.println(htmlTime);
-            
+
             Document docTime = Jsoup.parse(htmlTime);
-    
+
             HashMap<String, String> movieInfo = new HashMap<String, String>();
-            
+
             getPosterMovieInfo(docTime, movieInfo);
-            
+
             mkdirDlImg(movieInfo.get("movieTitle"), movieInfo.get("imgFileName"), movieInfo.get("posterImgUrl"));
-    
+
             //video
             //ezding : <div class="videobox"><div class="video"><iframe width="1980" height="400" src="https://www.youtube.com/embed/hAXu4z0uhKM" frameborder="0" allowfullscreen=""></iframe></div></div>
             //youtube Embed Video : <iframe width="560" height="315" src="https://www.youtube.com/embed/hAXu4z0uhKM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -109,25 +117,52 @@ public class EzdingMovieInfoAdv implements Runnable {
             String videoUrl = iframe.attr("src");
             movieInfo.put("videoUrl", videoUrl);
             System.out.printf("videoUrl: %s%n", videoUrl);
+
+            WebElement introDiv = driver.findElement(By.cssSelector("div.movie-intro-title-wrapper > div:nth-child(2)"));
+            introDiv.click();  //show movie introduction
+
+            waitLoadingElement(wait, ".staffbox");
+            List<WebElement> staffbox = driver.findElements(By.cssSelector(".staffbox"));
+            System.out.println("staffbox.size : " + staffbox.size());
+            WebElement director = staffbox.get(0).findElement(By.cssSelector(".staff"));
+            System.out.println("director : " + director.getText());
+            movieInfo.put("director", director.getText());
+            List<WebElement> staffContent = driver.findElements(By.cssSelector("div.staffContent > span"));
+            String staff = null;
+            for(WebElement we : staffContent) {
+                staff += we.getText();
+                System.out.println("staff : " + we.getText());
+            }
+            System.out.println("staff all : " + staff);
+
+            WebElement intro = driver.findElement(By.cssSelector("div.movie-intro-content"));
+            System.out.println("intro : " + intro.getText());
+            movieInfo.put("intro", intro.getText());
+
             movieInfoList.add(movieInfo);
-            
+
+            WebElement movieTime = driver.findElement(By.cssSelector("div.movie-intro-title-wrapper > div:nth-child(1)"));
+            movieTime.click();  //show movie time
+
+            waitLoadingElement(wait, ".location");
+
             //must click .location then display <div class="locationList">
             WebElement loc = driver.findElement(By.cssSelector(".location"));
             loc.click(); //display <div class="locationList">
-            
+
             List<WebElement> locationList= wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".locationList > .list")));
             System.out.println("locationList size:" + locationList.size());
             for(WebElement locDiv : locationList) {
                 System.out.println(locDiv.getText());
             }
-            
+
             threadSleep(300);
-            
+
             int locationListSize = locationList.size();
             loc.click(); //click again, close <div class="locationList">
-    
+
             for(int j = 0; j < locationListSize; j++) {
-            
+
                 //must click .location then display <div class="locationList">
                 WebElement newloc = driver.findElement(By.cssSelector(".location"));
                 newloc.click(); //display <div class="locationList">
@@ -136,7 +171,7 @@ public class EzdingMovieInfoAdv implements Runnable {
                 
                 String locationArea = newLocationList.get(j).getText();
                 newLocationList.get(j).click();
-                
+
                 if(!waitLoadingElement(wait, "div[class='sessionBox']")) {
                     //System.out.printf("after clicking locationList: %s %s %n", movieInfo.get("movieTitle"), newLocationList.get(j).getText());
 //                    Exception in thread "main" org.openqa.selenium.StaleElementReferenceException: The element reference of <div class="list"> is stale; 
@@ -146,32 +181,32 @@ public class EzdingMovieInfoAdv implements Runnable {
                 }
 
                 List<WebElement> dateboxList = driver.findElements(By.cssSelector(".datebox"));
-                
+
                 for(int i = 0; i < dateboxList.size(); i++) {
                     dateboxList.get(i).click();
                     getSingleDaySessions(driver, movieSessionList, movieInfo);
                 }
 
             }
-        
+
             //driver.navigate().back(); // click() does not work after driver.navigate().back()
             driver.get(targetUrl);
-            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class='post']")));
-            
+            waitLoadingElement(wait, "div[class='post']");
+            clickComingMovie(driver, wait);
             clickPageNumber(driver, wait);
         }
-        
+
         StringBuilder sb = getDataSb(movieSessionList);
         outputFile(output, sb.toString());
         //printAll(movieSessionList);
-        
+
         StringBuilder sbMovie = getDataSb(movieInfoList);
         outputFile(outputMovie, sbMovie.toString());
-        
+
         threadSleep(3000);
         driver.close();
     }
-    
+
     public void threadSleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -180,12 +215,21 @@ public class EzdingMovieInfoAdv implements Runnable {
             e.printStackTrace();
         }
     }
-    
+
     public void clickPageNumber(WebDriver driver, WebDriverWait wait) {
         List<WebElement> numIndex = driver.findElements(By.cssSelector("div[class*='circle numIndex']"));
         numIndex.get(page).click();
         waitLoadingElement(wait, "div[class='post']");
+        threadSleep(300);
         System.out.println("page: " + page);
+    }
+
+    public void clickComingMovie(WebDriver driver, WebDriverWait wait) {
+        if(coming) {
+            WebElement comingDiv = driver.findElement(By.cssSelector("div.btn2"));
+            comingDiv.click();
+            waitLoadingElement(wait, "div[class='post']");
+        }
     }
 
     //maybe not have WebElement, handle org.openqa.selenium.TimeoutException
@@ -197,10 +241,13 @@ public class EzdingMovieInfoAdv implements Runnable {
         } catch(TimeoutException e) {
             System.out.printf("org.openqa.selenium.TimeoutException %s %n", selector);
             return false;
+        } catch(StaleElementReferenceException se) {
+            System.out.printf("org.openqa.selenium.StaleElementReferenceException %s %n", selector);
+            return false;
         }
         return true;
     }
-    
+
     public void getPosterMovieInfo(Document docTime, HashMap<String, String> movieInfo) {
         //about movie info
         Element poster = docTime.selectFirst(".poster");
@@ -220,20 +267,20 @@ public class EzdingMovieInfoAdv implements Runnable {
         String movieTitleEn = poster.selectFirst("[class='movie-title eu']").text();
         movieInfo.put("movieTitleEn", movieTitleEn);
         System.out.printf("movieTitleEn: %s%n", movieTitleEn);
-        
+
         System.out.println(poster.selectFirst(".time span").text());
         String releaseDateSpan = poster.selectFirst(".time span").text();
         String releaseDate = releaseDateSpan.substring(releaseDateSpan.indexOf("：") + 1);
         movieInfo.put("releaseDate", releaseDate);
         System.out.printf("releaseDate: %s%n", releaseDate);
-        
+
         String length = poster.selectFirst(".length").text();
         System.out.printf("length: %s%n", length);
         String lengthMin = length.substring(length.indexOf("：") + 1, length.length() - 2);
         movieInfo.put("lengthMin", lengthMin);
         System.out.printf("lengthMin: %s%n", lengthMin);
         System.out.printf("lengthMin.length(): %d%n", lengthMin.length());
-        
+
         String imdb = poster.selectFirst(".imdb .score").text();
         movieInfo.put("imdb", imdb);
         System.out.printf("imdb: %s%n", imdb);
@@ -241,7 +288,7 @@ public class EzdingMovieInfoAdv implements Runnable {
         movieInfo.put("tomato", tomato);
         System.out.printf("tomato: %s%n", tomato);
     }
-    
+
     public void getSingleDaySessions(WebDriver driver, List<HashMap> movieSessionList, HashMap<String, String> movieInfo) {
         //refresh WebElement
         WebElement newEleTime = driver.findElement(By.tagName("body"));
@@ -249,7 +296,7 @@ public class EzdingMovieInfoAdv implements Runnable {
         //System.out.println(htmlTime);
         
         Document newDocTime = Jsoup.parse(newHtmlTime);
-        
+
         //datebox checked
         Elements dateboxChecked = newDocTime.select("div[class='datebox checked']");
         System.out.println("dateboxChecked : " + dateboxChecked.size());
@@ -260,10 +307,10 @@ public class EzdingMovieInfoAdv implements Runnable {
         String date = newDocTime.selectFirst("div[class='datebox checked']").select(".date").text();
         String sessionDate = String.format("%02d", Integer.parseInt(month)) + "/" + String.format("%02d", Integer.parseInt(date));
         System.out.println("sessionDate: " + sessionDate);
-        
+
         getCinemabox(newDocTime, movieInfo, sessionDate, movieSessionList);
     }
-    
+
     public StringBuilder getDataSb(List<HashMap> sessions) {
         StringBuilder sb = new StringBuilder();
         for(HashMap<String, String> r : sessions) {
@@ -275,10 +322,23 @@ public class EzdingMovieInfoAdv implements Runnable {
         }
         return sb;
     }
-    
+
     public void outputFile(String output, String str) {
         //File out = new File(output);
-        File out = new File(output + page + ".txt");
+        //File out = new File(output + page + ".txt");
+
+        //create dir
+        File targetDir = new File(dir);
+        if (!targetDir.exists()) {
+            targetDir.mkdirs();
+        }
+        //target file
+        String comingStr = "";
+        if(coming) {
+            comingStr = "_coming_";
+        }
+        File out = new File(targetDir, output + comingStr + page + ".txt");
+
         FileWriter fw;
         try {
             fw = new FileWriter(out);
@@ -289,7 +349,7 @@ public class EzdingMovieInfoAdv implements Runnable {
             e.printStackTrace();
         }
     }
-    
+
     public void printAll(List<HashMap> sessions) {
         //StringBuilder sb = new StringBuilder();
         for(HashMap<String, String> r : sessions) {
@@ -303,7 +363,7 @@ public class EzdingMovieInfoAdv implements Runnable {
             System.out.println();
         }
     }    
-    
+
     public void getCinemabox(Document docTime, HashMap<String, String> movieInfo, String sessionDate, List<HashMap> movieSessionList) {
         Elements cinemaboxes = docTime.select(".cinemabox");
         System.out.println("cinemaboxes.size() : " + cinemaboxes.size());
@@ -327,15 +387,18 @@ public class EzdingMovieInfoAdv implements Runnable {
             System.out.println();
         }
     }
-    
+
     public HashMap<String, String> cloneHashMap(HashMap<String, String> origin) {
         HashMap<String, String> clone = new HashMap<>();
         for(Map.Entry<String, String> entry : origin.entrySet()) {
+            if("intro".equals(entry.getKey())) {
+                continue;
+            }
             clone.put(entry.getKey(), entry.getValue());
         }
         return clone;
     }
-    
+
     public void mkdirDlImg(String movieTitle, String imgFileName, String posterImgUrl) {
         //create dir of movieinfo
         File sDir = new File(dir);
