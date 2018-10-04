@@ -77,4 +77,84 @@
     <servlet-name>Filmreview_MsgServlet</servlet-name>
     <url-pattern>/forestage/filmreview_msg/filmreview_msg.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletRegisterC</servlet-name>
+    <servlet-class>com.member.controller.ServletRegisterC</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletRegisterC</servlet-name>
+    <url-pattern>/member/registerC.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletLoginC</servlet-name>
+    <servlet-class>com.member.controller.ServletLoginC</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletLoginC</servlet-name>
+    <url-pattern>/member/loginC.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MemRegistermailCheck</servlet-name>
+    <servlet-class>com.member.controller.MemRegistermailCheck</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemRegistermailCheck</servlet-name>
+    <url-pattern>/member/check.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletMemberUpdate</servlet-name>
+    <servlet-class>com.member.controller.ServletMemberUpdate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMemberUpdate</servlet-name>
+    <url-pattern>/member/update.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletMemberPaw</servlet-name>
+    <servlet-class>com.member.controller.ServletMemberPaw</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMemberPaw</servlet-name>
+    <url-pattern>/member/password.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletLogout</servlet-name>
+    <servlet-class>com.member.controller.ServletLogout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletLogout</servlet-name>
+    <url-pattern>/member/logout.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MailAgain</servlet-name>
+    <servlet-class>com.member.controller.MailAgain</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MailAgain</servlet-name>
+    <url-pattern>/member/mailagain.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>ServletMemberBackstage</servlet-name>
+    <servlet-class>com.member.controller.ServletMemberBackstage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMemberBackstage</servlet-name>
+    <url-pattern>/member/Bmember.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>example.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/forestage/member/successin.jsp</url-pattern>
+    <url-pattern>/forestage/member/membercenter.jsp</url-pattern>
+    <url-pattern>/forestage/member/changpaw.jsp</url-pattern>
+    <url-pattern>/forestage/member/changfin.jsp</url-pattern>
+  </filter-mapping>
+  
 </web-app>
