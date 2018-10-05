@@ -1,17 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.filmreview.model.*"%>
+<%
+	FilmreviewDAO fvSvc = new FilmreviewDAO();
+	List<FilmreviewVO> list = fvSvc.findByMem(request.getParameter("mem_no"));
+	pageContext.setAttribute("list", list);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
-<title>Insert title here</title>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+
+<%@ include file="/forestage/template/link.jsp" %>
+        <title>M&amp;S</title>
 <style>
 
 .center-vertical{
@@ -21,13 +28,24 @@ position: relative;
 top: 50%;
 
 transform: translateY(50%);
-
+}
+.toto {margin-top: 60px;}
+	body {background-color:white !important;}
+	 .ctnr {
+	border-radius: 5px;
+	background-color: rgb(238, 238, 238);
+	padding: 20px;
 }
 
-}
+
+
 </style>
 </head>
-<body>
+<body class="body-template">
+
+
+
+  <%@ include file="/forestage/template/header_no_bar.jsp" %>
 <div class="section">
       <div class="container">
         <div class="row">
@@ -69,21 +87,23 @@ transform: translateY(50%);
         </div>
       </div>
     </div>
+   <%@ include file="/resources/page_code/pagef.file"%>
+	<c:forEach var="FilmreviewVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
     <div class="section">
       <div class="container">
         <div class="row">
           
           <div class="col-md-6">
-            <p>標題<br><br></p>
+            <h3>${FilmreviewVO.title}<br><br></h3>
           </div>
           <div class="col-md-1">
-            <h3 class="text-center">日期</h3>
+            <h4 class="text-center">${FilmreviewVO.created_at}</h4>
           </div>
           <div class="col-md-2">
-            <h3 class="text-center">電影名稱</h3>
+            <h3 class="text-center">${FilmreviewVO.movie_no}</h3>
           </div>
           <div class="col-md-1">
-            <h3 class="text-center">評分</h3>
+            <h3 class="text-center">${FilmreviewVO.evaluation}</h3>
           </div>
           <div class="col-md-1 text-center ">
             <a class="btn btn-primary center-vertical" data-toggle="button">修改</a>
@@ -94,42 +114,19 @@ transform: translateY(50%);
         </div>
       </div>
     </div>
+        </c:forEach>
+	<%@ include file="/resources/page_code/pageb.file"%>
     
     
     
     
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <ul class="pagination pagination-sm">
-              <li>
-                <a href="#">Prev</a>
-              </li>
-              <li>
-                <a href="#">1</a>
-              </li>
-              <li>
-                <a href="#">2</a>
-              </li>
-              <li>
-                <a href="#">3</a>
-              </li>
-              <li>
-                <a href="#">4</a>
-              </li>
-              <li>
-                <a href="#">5</a>
-              </li>
-              <li>
-                <a href="#">Next</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  
+	<%@ include file="/forestage/template/footer.jsp"%>
 
+	<script src="<%=request.getContextPath()%>/js/template.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("li:contains('電影資訊')").addClass("custom-active");
+		});
+	</script>
 </body>
 </html>

@@ -35,27 +35,7 @@
 
 
 <style>
-.containe {
-	border: 2px solid #dedede;
-	background-color: #f1f1f1;
-	border-radius: 5px;
-	padding: 10px;
-	margin: 10px 0;
-}
 
-.containe::after {
-	content: "";
-	clear: both;
-	display: table;
-}
-
-.containe img {
-	float: left;
-	max-width: 60px;
-	width: 100%;
-	margin-right: 20px;
-	border-radius: 50%;
-}
 
 .time-right {
 	float: right;

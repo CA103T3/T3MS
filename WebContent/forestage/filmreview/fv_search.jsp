@@ -15,7 +15,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
@@ -36,19 +36,18 @@
   <%@ include file="/forestage/template/header_no_bar.jsp" %>
 
 
+ <div class="section">
+	      <div class="container">
+	        <div class="row">
+	          <div class="col-md-12 text-right">
 
-	<!-- 	<div class="section"> -->
-	<!-- 		<div class="container"> -->
-	<!-- 			<div class="row"> -->
-	<!-- 				<div class="col-md-12 text-right"> -->
-	<%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/filmreview/filmreview.do" style="margin-bottom: 0px;"> --%>
-	<%-- 						<a href="fv_list.jsp" class="btn btn-primary">我的影評</a> <input type="hidden" name="Fr_no" value="${filmreviewVO.Fr_no}"> <input type="hidden" name="action" value="fv_list"> --%>
-	<!-- 					</FORM> -->
+				    <a href="<%=request.getContextPath()%>/forestage/filmreview/fv_list.jsp?mem_no=<%=request.getParameter("mem_no")%>" class="btn btn-primary">我的影評</a>
 
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
+
+	          </div>
+	        </div>
+	      </div>
+	    </div>
 
 
 

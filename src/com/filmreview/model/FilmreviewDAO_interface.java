@@ -12,6 +12,8 @@ public interface FilmreviewDAO_interface {
 
 	public FilmreviewVO findByPrimaryKey(String fr_no);
 
+	public List<FilmreviewVO> findByMem(String mem_no);
+
 	public List<FilmreviewVO> getAll();
 
 	public Set<FilmreviewVO> getAllByMemNo(String movie_no);

@@ -29,7 +29,11 @@
 <style>
 	.toto {margin-top: 60px;}
 	body {background-color:white !important;}
-	
+	 .ctnr {
+	border-radius: 5px;
+	background-color: rgb(238, 238, 238);
+	padding: 20px;
+}
 </style>
 
 
@@ -41,18 +45,18 @@
 
   <%@ include file="/forestage/template/header_no_bar.jsp" %>
 
-	<!--   <div class="section"> -->
-	<!--       <div class="container"> -->
-	<!--         <div class="row"> -->
-	<!--           <div class="col-md-12 text-right"> -->
+	  <div class="section">
+	      <div class="container">
+	        <div class="row">
+	          <div class="col-md-12 text-right">
 
-	<!-- 			    <a href="fv_list.jsp" class="btn btn-primary">我的影評</a> -->
+				    <a href="<%=request.getContextPath()%>/forestage/filmreview/fv_list.jsp?mem_no=<%=request.getParameter("mem_no")%>" class="btn btn-primary">我的影評</a>
 
 
-	<!--           </div> -->
-	<!--         </div> -->
-	<!--       </div> -->
-	<!--     </div> -->
+	          </div>
+	        </div>
+	      </div>
+	    </div>
 
 
 

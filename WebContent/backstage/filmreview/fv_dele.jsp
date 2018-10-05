@@ -143,6 +143,14 @@
 <script>
     $(document).ready(function() {
 	
+    	
+    	
+    	$('#aaa').DataTable({
+            "language": {
+              "url": "<%=request.getContextPath()%>/resources/Chinese-traditional.json"
+            }
+          });
+    	
     	 $(".zxx_text_overflow_5").each(function()  
     			 { var maxwidth=20;  
     			  if($(this).text().length>maxwidth){  

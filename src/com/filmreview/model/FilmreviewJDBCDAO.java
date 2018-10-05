@@ -25,6 +25,8 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 			"SELECT * FROM Filmreview order by UPDATED_AT DESC";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM Filmreview where FR_NO = ?";
+	private static final String GET_MEM_STMT = 
+			"SELECT * FROM Filmreview where MEM_NO = ?";
 	private static final String DELETE = 
 			"DELETE FROM Filmreview where FR_NO = ?";
 	private static final String UPDATE = 
@@ -483,6 +485,74 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 ////		
 		
 	}
+	@Override
+	public List<FilmreviewVO> findByMem(String mem_no) {
+		List<FilmreviewVO> set = new ArrayList<FilmreviewVO>();
+		FilmreviewVO filmreviewVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_MEM_STMT);
+			pstmt.setString(1, mem_no);;
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				filmreviewVO = new FilmreviewVO();
+				filmreviewVO.setFr_no(rs.getString("fr_no"));
+				filmreviewVO.setMovie_no(rs.getString("movie_no"));
+				filmreviewVO.setCreated_at(rs.getDate("created_at"));
+				filmreviewVO.setUpdated_at(rs.getDate("updated_at"));
+				filmreviewVO.setContent(rs.getString("content"));
+				filmreviewVO.setEvaluation(rs.getDouble("evaluation"));
+				filmreviewVO.setTitle(rs.getString("title"));
+				filmreviewVO.setSource(rs.getString("source"));
+				filmreviewVO.setUrl(rs.getString("url"));
+				filmreviewVO.setMem_no(rs.getString("mem_no"));
+				filmreviewVO.setAuthor(rs.getString("author"));
+				set.add(filmreviewVO);
+				
+			} 
+				
+				
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} catch (ClassNotFoundException e) {
+			//  Auto-generated catch block
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;}
 	
 	
 	

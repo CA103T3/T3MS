@@ -320,27 +320,18 @@ body {
 					<div class="row">
 
 
+						
 						<div class="col-md-4 p-3">
 							<div class="card">
 								<img src="https://pingendo.com/assets/photos/wireframe/photo-1.jpg" style="width: 100%">
-								<h1>name</h1>
-								<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-								<p>
-									<button>join</button>
-								</p>
-								<small class="text-muted">9 mins</small>
-							</div>
-						</div>
-						<div class="col-md-4 p-3">
-							<div class="card">
-								<img src="https://pingendo.com/assets/photos/wireframe/photo-1.jpg" style="width: 100%">
-								<h1>《電影》標題</h1>
+								<h3>《電影》</h3>
 								<p class="card-text">目前人數：</p>
-								<p class="card-text">集合地點：ＸＸＸＸＸＸＸＸＸＸ</p>
-								<p class="card-text">集合時間：ＸＸＸＸＸＸＸＸＸＸ</p>
-								
-								
-								<small class="text-muted">截止時間</small>
+								<p class="card-text">截止時間：ＸＸＸＸＸＸＸＸＸＸ</p>
+								<p class="card-text">影城：ＸＸＸＸＸＸＸＸＸＸ</p>
+								<p class="card-text">日期：ＸＸＸＸＸＸＸＸＸＸ</p>
+								<p class="card-text">場次：ＸＸＸＸＸＸＸＸＸＸ</p>
+												
+								<small class="text-muted">標題</small>
 							</div>
 						</div>
 
