@@ -3,10 +3,9 @@ package com.movie.model;
 import java.sql.Date;
 
 public class MovieVO implements java.io.Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 6775358354620857951L;
+
 	private String movie_no;
 	private String movie_type;
 	private String movie_name;

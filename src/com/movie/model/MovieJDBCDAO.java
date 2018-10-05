@@ -678,4 +678,10 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 		return baos.toByteArray();
 	}
 
+    @Override
+    public MovieVO findByMovieName(String movie_name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

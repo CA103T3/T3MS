@@ -462,4 +462,10 @@ public class MovieJNDIDAO implements MovieDAO_interface {
 		return list;
 	}
 
+    @Override
+    public MovieVO findByMovieName(String movie_name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

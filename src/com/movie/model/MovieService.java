@@ -77,6 +77,10 @@ public class MovieService {
 		           
 	}
 
+    public MovieVO getOneMovieByMovieName(String movie_name) {
+        return dao.findByMovieName(movie_name);
+    }
+
 	public List<MovieVO> getAll() {
 		return dao.getAll();
 	}

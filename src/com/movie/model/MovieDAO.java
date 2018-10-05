@@ -27,6 +27,7 @@ public class MovieDAO implements MovieDAO_interface {
 			+ "tomato=?,rating=?,trailer_url=?,brief_intro=?," + "active=?,director=?,starring=? " + "where movie_no=?";
 	private static final String DELETE = "DELETE FROM movie where movie_no=?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MOVIE WHERE MOVIE_NO=?";
+	private static final String GET_ONE_STMT_BY_MOVIE_NAME = "SELECT * FROM MOVIE WHERE MOVIE_NAME=?";
 	private static final String GET_ALL_STMT = "SELECT * FROM MOVIE ORDER BY MOVIE_NO DESC";
 	private static final String GET_ALL_NOW = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') <= '2018-10-19' ";
 	private static final String GET_ALL_COMING = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') BETWEEN '2018-10-20' AND '2018-11-20'";
@@ -246,6 +247,76 @@ public class MovieDAO implements MovieDAO_interface {
 
 		return movieVO;
 	}
+
+    @Override
+    public MovieVO findByMovieName(String movie_name) {
+
+        MovieVO movieVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ONE_STMT_BY_MOVIE_NAME);
+            pstmt.setString(1, movie_name);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // MovieVo 也稱為 Domain objects
+                movieVO = new MovieVO();
+                movieVO.setMovie_no(rs.getString("movie_no"));
+                movieVO.setMovie_type(rs.getString("movie_type"));
+                movieVO.setMovie_name(rs.getString("movie_name"));
+                movieVO.setEng_name(rs.getString("eng_name"));
+                movieVO.setMovie_pic(rs.getBytes("movie_pic"));
+                movieVO.setRelased(rs.getDate("relased"));
+                movieVO.setDistributed(rs.getString("distributed"));
+                movieVO.setLength(rs.getInt("length"));
+                movieVO.setLanguage(rs.getString("language"));
+                movieVO.setMadein(rs.getString("madein"));
+                movieVO.setImdb(rs.getDouble("imdb"));
+                movieVO.setTomato(rs.getString("tomato"));
+                movieVO.setRating(rs.getString("rating"));
+                movieVO.setTrailer_url(rs.getString("trailer_url"));
+                movieVO.setBrief_intro(rs.getString("brief_intro"));
+                movieVO.setActive(rs.getInt("active"));
+                movieVO.setDirector(rs.getString("director"));
+                movieVO.setStarring(rs.getString("starring"));
+
+            }
+
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+
+        return movieVO;
+    }
 
 	@Override
 	public List<MovieVO> getAll() {
