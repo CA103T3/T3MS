@@ -50,6 +50,8 @@ public class CinemaServiceTest extends HttpServlet {
         testGetAll();
         testDeleteTheater(cinema_no);
         testGetAll();
+        String cinema_name = "台北京站威秀影城";
+        testGetOneCinemaByCinemaName(cinema_name);
     }
 
     public String testAddCinema() {
@@ -90,6 +92,23 @@ public class CinemaServiceTest extends HttpServlet {
 
     public void testGetOneCinema(String cinema_no) {
         CinemaVO cinemaVO = cSvc.getOneCinema(cinema_no);
+        out.println("Cinema_no : " + cinemaVO.getCinema_no());
+        out.println("Cinema_name : " + cinemaVO.getCinema_name());
+        out.println("Cinema_engname : " + cinemaVO.getCinema_engname());
+        out.println("Cinema_address : " + cinemaVO.getCinema_address());
+        out.println("Cinema_tel : " + cinemaVO.getCinema_tel());
+        out.println("Introduction : " + cinemaVO.getIntroduction());
+        out.println("Traffic : " + cinemaVO.getTraffic());
+        out.println("Photo_title : " + cinemaVO.getPhoto_title());
+        out.println("Photo_path : " + cinemaVO.getPhoto_path());
+        out.println("Photo_small : " + cinemaVO.getPhoto_small());
+        out.println("Active : " + cinemaVO.getActive());
+        out.println("State : " + cinemaVO.getState());
+    }
+
+    public void testGetOneCinemaByCinemaName(String cinema_name) {
+        CinemaVO cinemaVO = cSvc.getOneCinemaByCinemaName(cinema_name);
+        out.println("testGetOneCinemaByCinemaName : ");
         out.println("Cinema_no : " + cinemaVO.getCinema_no());
         out.println("Cinema_name : " + cinemaVO.getCinema_name());
         out.println("Cinema_engname : " + cinemaVO.getCinema_engname());

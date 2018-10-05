@@ -34,6 +34,8 @@ public class CinemaDAO implements CinemaDAO_interface {
         "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,PHOTO_SMALL,ACTIVE,STATE FROM cinema order by CINEMA_NO";
     private static final String GET_ONE_STMT =
         "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,PHOTO_SMALL,ACTIVE,STATE FROM cinema where CINEMA_NO = ?";
+    private static final String GET_ONE_STMT_BY_CINEMA_NAME =
+            "SELECT CINEMA_NO,CINEMA_NAME,CINEMA_ENGNAME,CINEMA_ADDRESS,CINEMA_TEL,INTRODUCTION,TRAFFIC,PHOTO_TITLE,PHOTO_PATH,PHOTO_SMALL,ACTIVE,STATE FROM cinema where CINEMA_NAME = ? order by CINEMA_NO";
     private static final String DELETE =
         "DELETE FROM cinema where CINEMA_NO = ?";
     private static final String UPDATE =
@@ -318,6 +320,69 @@ public class CinemaDAO implements CinemaDAO_interface {
             }
         }
         return list;
+    }
+
+    @Override
+    public CinemaVO findByCinemaName(String cinema_name) {
+        CinemaVO cinemaVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ONE_STMT_BY_CINEMA_NAME);
+
+            pstmt.setString(1, cinema_name);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // cinemaVO 也稱為 Domain objects
+                cinemaVO = new CinemaVO();
+                cinemaVO.setCinema_no(rs.getString("CINEMA_NO"));
+                cinemaVO.setCinema_name(rs.getString("CINEMA_NAME"));
+                cinemaVO.setCinema_engname(rs.getString("CINEMA_ENGNAME"));
+                cinemaVO.setCinema_address(rs.getString("CINEMA_ADDRESS"));
+                cinemaVO.setCinema_tel(rs.getString("CINEMA_TEL"));
+                cinemaVO.setIntroduction(rs.getString("INTRODUCTION"));
+                cinemaVO.setTraffic(rs.getString("TRAFFIC"));
+                cinemaVO.setPhoto_title(rs.getString("PHOTO_TITLE"));
+                cinemaVO.setPhoto_path(rs.getString("PHOTO_PATH"));
+                cinemaVO.setPhoto_small(rs.getString("PHOTO_SMALL"));
+                cinemaVO.setActive(rs.getInt("ACTIVE"));
+                cinemaVO.setState(rs.getInt("STATE"));
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return cinemaVO;
     }
 
 }

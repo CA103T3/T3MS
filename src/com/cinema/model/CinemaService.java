@@ -64,6 +64,10 @@ public class CinemaService {
         return dao.findByPrimaryKey(cinema_no);
     }
 
+    public CinemaVO getOneCinemaByCinemaName(String cinema_name) {
+        return dao.findByCinemaName(cinema_name);
+    }
+
     public List<CinemaVO> getAll() {
         return dao.getAll();
     }

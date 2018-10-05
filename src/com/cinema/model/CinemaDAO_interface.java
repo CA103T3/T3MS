@@ -9,5 +9,6 @@ public interface CinemaDAO_interface {
     public void update(CinemaVO cinemaVO);
     public void delete(String cinema_no);
     public CinemaVO findByPrimaryKey(String cinema_no);
+    public CinemaVO findByCinemaName(String cinema_name);
     public List<CinemaVO> getAll();
 }
