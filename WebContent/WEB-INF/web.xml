@@ -31,7 +31,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>Announcement</servlet-name>
-    <servlet-class>com.announcement.controllor.AnnouncementServlet</servlet-class>
+    <servlet-class>com.announcement.controller.AnnouncementServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Announcement</servlet-name>
@@ -156,5 +156,28 @@
     <url-pattern>/forestage/member/changpaw.jsp</url-pattern>
     <url-pattern>/forestage/member/changfin.jsp</url-pattern>
   </filter-mapping>
+  
+   <servlet>
+    <servlet-name>Movie_IntroduceServlet</servlet-name>
+    <servlet-class>com.movie_introduce.controller.Movie_IntroduceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Movie_IntroduceServlet</servlet-name>
+    <url-pattern>/backstage/movie_introduce/movie_introduce.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>MovieServlet</servlet-name>
+    <servlet-class>com.movie.controller.MovieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MovieServlet</servlet-name>
+    <url-pattern>/backstage/movie/movie.do</url-pattern>
+  </servlet-mapping>
+  
+   
+  
+ 
+  
   
 </web-app>
