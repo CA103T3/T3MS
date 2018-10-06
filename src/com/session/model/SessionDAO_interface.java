@@ -1,5 +1,6 @@
 package com.session.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 import com.session.model.SessionVO;
@@ -13,4 +14,6 @@ public interface SessionDAO_interface {
     public List<SessionVO> getAllofTheater(String theater_no);
     public List<SessionVO> getAllofJoinTheaterMovieWhereTheaterNoCinema(String cinema_no);
     public SessionVO getOneofJoinTheaterMovieWhereSessionNo(String session_no);
+    
+    public void updateSessionSeat(String seattable,String movie_session_no,Connection conn);
 }

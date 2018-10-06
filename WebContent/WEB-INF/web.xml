@@ -30,6 +30,14 @@
     <url-pattern>/filmreview/filmreview.do</url-pattern>
   </servlet-mapping>
   <servlet>
+  	<servlet-name>Activity</servlet-name>
+  	<servlet-class>com.activity.controller.ActivityServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Activity</servlet-name>
+  	<url-pattern>/backstage/activity/activity.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Announcement</servlet-name>
     <servlet-class>com.announcement.controller.AnnouncementServlet</servlet-class>
   </servlet>

@@ -5,6 +5,7 @@
 <%@ page import="java.util.*"%>
 
 <%
+	String account_backstage_no="bs0001";
 	ActivityVO actVO = new ActivityVO();
 	ActivityService actSvc = new ActivityService();
 	List<ActivityVO> list = actSvc.getAll();
@@ -45,7 +46,7 @@ img {
 				<!-- 				<div class="container"> -->
 				<h3 class="page-header">
 					<label>活動管理&nbsp;&nbsp;&nbsp;</label>
-					<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">
+					<button type="button" data-toggle="modal" data-target="#hanhan" class="btn btn-primary">
 						<i class="fa fa-plus-circle" aria-hidden="true"></i>
 						<span class="fs16">&nbsp;新增活動</span>
 					</button>
@@ -53,33 +54,33 @@ img {
 				<%-- 				<%@ include file="page1.file"%><br> --%>
 				<br>
 				<!-- 新增視窗 Start -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="hanhan" tabindex="-1" role="dialog" aria-labelledby="hanhan" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title" id="myModalLabel">新增活動</h4>
+								<h4 class="modal-title">新增活動</h4>
 							</div>
-							<form method="post" action="<%=request.getContextPath()%>/backstage/activity/activity.do">
+							<form method="post" action="<%=request.getContextPath()%>/backstage/activity/activity.do" enctype="multipart/form-data">
 								<div class="modal-body">
 
 									<div class="form-group">
-										<input type="text" class="form-control" id="activity_name" placeholder="名稱">
+										<input type="text" class="form-control" name="activity_name" placeholder="名稱">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="8" style="resize: none" id="activity_desc" placeholder="內容描述"></textarea>
+										<textarea class="form-control" rows="8" style="resize: none" name="activity_desc" placeholder="內容描述"></textarea>
 									</div>
 									<div class="form-group">
-										<input type="file" class="form-control" id="img_path" placeholder="圖片上傳">
+										<input type="file" class="form-control" name="img_path" placeholder="圖片上傳">
 									</div>
 									<!--                 <div class="form-group"> -->
 									<!--                     <input type="text" class="form-control" id="updated_at" placeholder="時間" -->
 									<!--                            data-date-format="yyyy/mm/dd"> -->
 									<!--                 </div> -->
 									<div class="form-group">
-										<input type="text" class="form-control" id="activity_url" placeholder="參考連結">
+										<input type="text" class="form-control" name="activity_url" placeholder="參考連結">
 									</div>
 									<div class="form-group">
 										<label>
@@ -93,6 +94,8 @@ img {
 									</div>
 								</div>
 								<div class="modal-footer">
+									<input type="hidden" name="action" value="insert" />
+									<input type="hidden" name="backstage_no" value="<%=account_backstage_no %>" />
 									<button type="button" class="btn btn-info" id="demoTest">DEMO</button>
 									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 									<button type="submit" class="btn btn-primary" id="save">確定</button>
@@ -101,6 +104,15 @@ img {
 						</div>
 					</div>
 				</div>
+				<!--- if erroMsg open lightbox again--->
+				<c:if test="${openupdatereplyform!=null}">
+					<script>
+						$("#hanhan").modal({
+							show : true
+						});
+					</script>
+				</c:if>
+				<!--- if erroMsg --->
 				<!-- 新增視窗 End -->
 
 
@@ -156,6 +168,24 @@ img {
 	<script src="<%=request.getContextPath() + "/js/back_index.js"%>"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 </body>
+<script>
+	$(document).ready(function(){
+		var len = 10; // 超過10個字以"..."取代${end> page1.pageNumber}
+		$("p").each(function(i) {
+			if ($(this).text().length > len) {
+				$(this).attr("title", $(this).text());
+				var text = $(this).text().substring(0, len - 1) + "  ...";
+				$(this).text(text);
+			}
+		});
+		
+		<c:if test="${not empty errorMsgs}">
+		<c:forEach var="message" items="${errorMsgs}">
+		toastr.error("${message}");
+		</c:forEach>
+		</c:if>
+	});
+</script>
 <script>
 	$(document).ready(function() {
 		$('#actTable').DataTable({

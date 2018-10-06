@@ -1,5 +1,6 @@
 package com.session.model;
 
+import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -59,5 +60,10 @@ public class SessionService {
 
     public SessionVO getOneofJoinTheaterMovieWhereSessionNo(String session_no) {
         return dao.getOneofJoinTheaterMovieWhereSessionNo(session_no);
+    }
+    
+    
+    public void updateSessionSeat(String seattable,String movie_session_no,Connection conn) {
+    	dao.updateSessionSeat(seattable, movie_session_no, conn);
     }
 }

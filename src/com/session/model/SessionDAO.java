@@ -50,6 +50,10 @@ public class SessionDAO implements SessionDAO_interface {
         "DELETE FROM MOVIE_SESSION where SESSION_NO = ?";
     private static final String UPDATE =
         "UPDATE MOVIE_SESSION set THEATER_NO=?, MOVIE_NO=?, SESSION_TIME=?, SEAT_TABLE=? where SESSION_NO = ?";
+    
+    
+    
+    private static final String UPDATE_SEAT = "UPDATE MOVIE_SESSION SET SEAT_TABLE=? WHERE SESSION_NO=?";
 
     @Override
     public String insert(SessionVO sessionVO) {
@@ -492,4 +496,38 @@ public class SessionDAO implements SessionDAO_interface {
         }
         return sessionVO;
     }
+    
+    
+    
+    @Override
+	public void updateSessionSeat(String seattable, String session_no, Connection conn) {
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = conn.prepareStatement(UPDATE_SEAT);
+			pstmt.setString(1, seattable);
+			pstmt.setString(2, session_no);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			if (conn != null) {
+				try {
+					conn.rollback();
+					System.err.println("update movieSession filed ... so rollback!");
+				} catch (SQLException e1) {
+					throw new RuntimeException("rollback error!");
+				}
+			}
+			throw new RuntimeException("A database occurred. " + e.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 }
