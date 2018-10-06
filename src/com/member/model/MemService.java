@@ -103,12 +103,20 @@ public class MemService {
 			return dao.getAll();
 		}
 		
-	//後臺封鎖
+	//後臺封解鎖
 		public void ban(String memno) {
 			dao.banmember(memno);
 		}
-	
 		public void unban(String memno) {
 			dao.unbanmember(memno);
 		}
+	//送出影評審核申請&成為影評
+		public void wanttobeFC(String memno) {
+			dao.wanttobeFC(memno);
+		}
+		public void becomeFC(String memno) {
+			dao.betheFC(memno);
+		}
+	
+		
 }

@@ -93,6 +93,14 @@ public class ServletRegisterC extends HttpServlet {
 	        }
 			String addr = ad+dr+address;
 			
+			MemService memSrc = new MemService();
+			if(!memSrc.checkduplicated(email)) {        //檢查重複註冊
+				errorMsgs.put("email","EMAIL已被使用");
+				System.out.println("帳號重複了");
+			}
+			
+			
+			
 			MemVO memVO = new MemVO();
 			memVO.setEmail(email);
 			memVO.setPaw(paw);
@@ -117,17 +125,9 @@ public class ServletRegisterC extends HttpServlet {
 			}
 			
 			/***************************2.開始新增資料***************************************/
-			MemService memSrc = new MemService();
-			if(memSrc.checkduplicated(email)) {        //檢查重複註冊
-				memVO = memSrc.addmem(email, paw, lastname, firstname, birthday, phone, IDNUM, gender , addr, locno);
-			}else {
-				errorMsgs.put("email","EMAIL已被使用");
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/forestage/member/registerf.jsp");
-				failureView.forward(req, res);
-				System.out.println("帳號重複了");
-				return;
-			}
+			memSrc = new MemService();
+			memVO = memSrc.addmem(email, paw, lastname, firstname, birthday, phone, IDNUM, gender , addr, locno);
+			
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/
 		
 			

@@ -28,7 +28,7 @@ public class MemJNDIDAO implements MemDAO_interface {
 	private static final String UPDATE = "UPDATE MEMBER SET lname=?,fname=?,phone=?,addr=?,locno=?,memimg=? WHERE EMAIL=?";
 	private static final String CHANGEPASSWORD = "UPDATE MEMBER SET MEM_PW=? WHERE EMAIL=?";
 	private static final String BAN ="UPDATE MEMBER SET STATUS=? WHERE MEM_NO=?";
-	
+	private static final String FILM_CRITICISM ="UPDATE MEMBER SET TYPE=? WHERE MEM_NO=?";
 	
 	@Override
 	public void insert(MemVO memVO) {		
@@ -53,7 +53,7 @@ public class MemJNDIDAO implements MemDAO_interface {
 			
 			pstmt.executeUpdate();
 			
-
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -555,6 +555,76 @@ public class MemJNDIDAO implements MemDAO_interface {
 			con = ds.getConnection(); 
 			pstmt = con.prepareStatement(BAN);
 			pstmt.setInt(1, 1);
+			pstmt.setString(2, memno);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
+	
+	@Override
+	public void wanttobeFC(String memno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;	
+		try {
+
+			con = ds.getConnection(); 
+			pstmt = con.prepareStatement(FILM_CRITICISM);
+			pstmt.setInt(1, 1);
+			pstmt.setString(2, memno);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
+	
+	@Override
+	public void betheFC(String memno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;	
+		try {
+
+			con = ds.getConnection(); 
+			pstmt = con.prepareStatement(FILM_CRITICISM);
+			pstmt.setInt(1, 2);
 			pstmt.setString(2, memno);
 			pstmt.executeUpdate();
 		

@@ -22,7 +22,7 @@
                       </ul>
                     </li>
                     <li><a href="#">社群平台</a></li>
-                    <li><a href="#">會員專區</a></li>
+<!--                     <li><a href="#">會員專區</a></li> -->
                     <li><a href="#">揪團看電影</a></li>
                     <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">客服中心<span class="caret"></span></a>
@@ -33,10 +33,19 @@
                       </ul>
                     </li>
                   </ul>
-                  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;註冊</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登入</a></li>
+                  <c:if test="${memVO==null}">
+                  <ul class="nav navbar-nav navbar-right">               
+	                  <li><a href="registerf.jsp"><span class="glyphicon glyphicon-user"></span>&nbsp;註冊</a></li>
+	                  <li><a href="loginf.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登入</a></li>
                   </ul>
+                  </c:if>
+                 
+ 					<c:if test="${memVO!=null}">
+ 					<ul class="nav navbar-nav navbar-right">
+ 						<li><img style="border: 1px solid black;width:44px;height:42px;border-radius:50%;padding-top:5px;" src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${memVO.memno}">
+                    	<li><a href="membercenter.jsp">${memVO.lastname}${memVO.firstname}</a></li>
+                    </ul>
+                    </c:if>
                 </div>
             </div>
         </nav>

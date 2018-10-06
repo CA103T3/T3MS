@@ -310,6 +310,20 @@ public class MemJDBCDAO implements MemDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void wanttobeFC(String memno) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void betheFC(String memno) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

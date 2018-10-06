@@ -16,6 +16,8 @@ public interface MemDAO_interface {
      public void changepassword(String paw, String email);
      public void banmember(String memno);
      public void unbanmember(String memno);
+     public void wanttobeFC(String memno);
+     public void betheFC(String memno);
 	
 	
 }

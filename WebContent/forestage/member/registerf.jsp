@@ -185,7 +185,7 @@
 			</c:if>
 			<hr>
 			
-				<form action="<%=request.getContextPath()%>/member/registerC.do" method="post">
+				<form action="<%=request.getContextPath()%>/member/registerC.do" method="post" id="messageForm">
 					<div class="form-row">
 						<div class="col-md-6 mb-3">
 							<label for="validationDefault03">電子信箱</label><span class="errorm">&nbsp ${errorMsgs.email}</span>
@@ -394,7 +394,7 @@ ez訂網站會員為富爾特科技股份有限公司經營管理，為了確保
 							</label>
 						</div>
 					</div>
-					<button class="btnp" type="submit">註冊</button>
+					<button id="submit" class="btnp" type="submit">註冊</button>
 				</form>
 				<hr>
 
@@ -409,6 +409,12 @@ ez訂網站會員為富爾特科技股份有限公司經營管理，為了確保
 <script>
 	new TwCitySelector();
 </script>
+<script type="text/javascript">
+$("#submit").click(function(){     $(this).attr("disabled","true"); //设置变灰按钮    
+$("#messageForm").submit();//提交表单    
+setTimeout("$('#submit').removeAttr('disabled')",3000); //设置三秒后提交按钮 显示     })
+</script>
+
 
 
 <!-- Optional JavaScript -->

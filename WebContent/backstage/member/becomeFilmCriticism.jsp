@@ -44,65 +44,49 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>會員列表&nbsp;&nbsp;&nbsp;</label></h3>
+                <h3 class="page-header"><label>待審核列表&nbsp;&nbsp;&nbsp;</label></h3>
                 <table id="theaters" class="display" style="width:100%">
                     <thead>
                         <tr>
                             <th>會員編號</th>
                             <th>會員名</th>
                             <th>信箱</th>
-                            <th>狀態</th>
-                            <th>影評</th>
-                            <th>違規次</th>
                             <th>執行動作</th>
                         </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="memVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
+                    <c:if test="${memVO.type!=0}">
                         <tr>
                             <td>${memVO.memno}</td>
                             <td>${memVO.lastname}${memVO.firstname}</td>
                             <td>${memVO.email}</td>
-                            <td>${(memVO.status==2)?'<span style="color:red;">封鎖</span>':(memVO.status==0)?'<span style="color:orange;">未認證</span>':'<span style="color:green;">認證</span>'}</td>
-                            <td>${(memVO.type==2)?'是':'否'}</td>
-                            <td>${memVO.violation}</td>
                             <td>
+                            <c:if test="${memVO.type==1}">
                                 <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/member/Bmember.do">
                                     <button type="submit" id="view-btn-${s.index}" class="btn btn-success fs16 " >
-                                        <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;檢視
+                                        <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;准許
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="memno" value="${memVO.memno}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
-                                    <input type="hidden" name="action" value="view">
+                                    <input type="hidden" name="action" value="becomeFC">
                                 </form>
-                                <c:if test="${memVO.status!=2}">
-                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/member/Bmember.do">
-                                    <button type="submit" id="mod-btn-${s.index}" class="btn btn-danger fs16 " >
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;封鎖
-                                    </button>&nbsp;&nbsp;
-                                    <input type="hidden" name="memno" value="${memVO.memno}">
-                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
-                                    <input type="hidden" name="whichRecordIndex" value="${s.index}">
-                                    <input type="hidden" name="action" value="ban">
-                                </form>
-                                                               
                                 </c:if>
-                                 <c:if test="${memVO.status==2}">
-                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/member/Bmember.do">
-                                    <button type="submit" id="mod-btn-${s.index}" class="btn btn-warning fs16 " >
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;解鎖
+                                <c:if test="${memVO.type==2}">
+                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="">
+                                    <button type="submit" id="mod-btn-${s.index}" class="btn fs16 " >
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;降級
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="memno" value="${memVO.memno}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
-                                    <input type="hidden" name="action" value="unban">
+                                    <input type="hidden" name="action" value="">
                                 </form>
-                                                               
                                 </c:if>
-                                
                             </td>
                         </tr>
+                        </c:if>
                     </c:forEach>
                     </tbody>
                 </table>
