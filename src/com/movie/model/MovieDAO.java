@@ -533,4 +533,76 @@ public class MovieDAO implements MovieDAO_interface {
 		return list;
 	}
 
+    @Override
+    public String insertReturnMovieNo(MovieVO movieVO) {
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        String movie_no = null;
+        try {
+
+            con = ds.getConnection();
+            String[] cols = { "MOVIE_NO" }; // 或 int cols[] = {1};
+            pstmt = con.prepareStatement(INSERT_STMT, cols);
+
+            pstmt.setString(1, movieVO.getMovie_type());
+            pstmt.setString(2, movieVO.getMovie_name());
+            pstmt.setString(3, movieVO.getEng_name());
+            pstmt.setBytes(4, movieVO.getMovie_pic());
+            pstmt.setDate(5, movieVO.getRelased());
+            pstmt.setString(6, movieVO.getDistributed());
+            pstmt.setInt(7, movieVO.getLength());
+            pstmt.setString(8, movieVO.getLanguage());
+            pstmt.setString(9, movieVO.getMadein());
+            pstmt.setDouble(10, movieVO.getImdb());
+            pstmt.setString(11, movieVO.getTomato());
+            pstmt.setString(12, movieVO.getRating());
+            pstmt.setString(13, movieVO.getTrailer_url());
+            pstmt.setString(14, movieVO.getBrief_intro());
+            pstmt.setInt(15, movieVO.getActive());
+            pstmt.setString(16, movieVO.getDirector());
+            pstmt.setString(17, movieVO.getStarring());
+
+            pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            if (rs.next()) {
+                do {
+                    for (int i = 1; i <= columnCount; i++) {
+                        movie_no = rs.getString(i);
+                        //System.out.println("自增主鍵值 = " + theater_no);
+                    }
+                } while (rs.next());
+            } else {
+                System.out.println("NO KEYS WERE GENERATED.");
+            }
+
+            rs.close();
+
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+
+        return movie_no;
+    }
+
 }

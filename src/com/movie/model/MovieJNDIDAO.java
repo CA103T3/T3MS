@@ -468,4 +468,10 @@ public class MovieJNDIDAO implements MovieDAO_interface {
         return null;
     }
 
+    @Override
+    public String insertReturnMovieNo(MovieVO movieVO) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
