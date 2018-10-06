@@ -10,6 +10,7 @@ public interface SessionDAO_interface {
     public void update(SessionVO sessionVO);
     public void delete(String session_no);
     public SessionVO findByPrimaryKey(String session_no);
+    public List<SessionVO> findBySessionTimeMovieNo(String sessionTime, String movie_no);
     public List<SessionVO> getAll();
     public List<SessionVO> getAllofTheater(String theater_no);
     public List<SessionVO> getAllofJoinTheaterMovieWhereTheaterNoCinema(String cinema_no);

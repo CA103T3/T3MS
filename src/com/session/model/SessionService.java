@@ -46,6 +46,10 @@ public class SessionService {
         return dao.findByPrimaryKey(session_no);
     }
 
+    public List<SessionVO> getAllBySessionTimeMovieNo(String sessionTime, String movie_no) {
+        return dao.findBySessionTimeMovieNo(sessionTime, movie_no);
+    }
+
     public List<SessionVO> getAll() {
         return dao.getAll();
     }

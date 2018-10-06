@@ -65,7 +65,7 @@ public class SessionServiceTest extends HttpServlet {
         testGetAllofTheater(theater_no);
         String cinema_no = "C001";
         testGetAllofJoinTheaterMovieWhereTheaterNoCinema(cinema_no);
-
+        testGetAllBySessionTimeMovieNo();
 
     }
 
@@ -177,6 +177,25 @@ public class SessionServiceTest extends HttpServlet {
         out.println(list.size());
         for(SessionVO vo : list) {
             out.println(vo.getSession_no());
+        }
+    }
+
+    public void testGetAllBySessionTimeMovieNo() {
+        String movie_no = "MV0001";
+        String sessionTime = "2018-9-30 14:30:05";
+        List<SessionVO> list = sSvc.getAllBySessionTimeMovieNo(sessionTime, movie_no);
+        out.println("testGetAllBySessionTimeMovieNo - size : " + list.size());
+        for(SessionVO vo : list) {
+            out.println("Session_no : " + vo.getSession_no());
+            out.println("Theater_no : " + vo.getTheater_no());
+            out.println("Movie_no : " + vo.getMovie_no());
+            out.println("Session_time : " + vo.getSession_time());
+            Timestamp session_time = vo.getSession_time();
+            Date date = new Date(session_time.getTime());
+            out.println("Timestamp convert to java.util.Date : " + date);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String strDate = dateFormat.format(date);
+            out.println("converted java.util.Date to String : " + strDate);
         }
     }
 
