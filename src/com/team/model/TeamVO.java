@@ -7,7 +7,7 @@ public class TeamVO {
 
 	String team_no;
 	String mem_no;
-	String movie_session_no;
+	String session_no;
 	Date team_time;
 	String team_name;
 	String team_des;
@@ -29,11 +29,11 @@ public class TeamVO {
 	public void setMem_no(String mem_no) {
 		this.mem_no = mem_no;
 	}
-	public String getMovie_session_no() {
-		return movie_session_no;
+	public String getSession_no() {
+		return session_no;
 	}
-	public void setMovie_session_no(String movie_session_no) {
-		this.movie_session_no = movie_session_no;
+	public void setSession_no(String session_no) {
+		this.session_no = session_no;
 	}
 	public Date getTeam_time() {
 		return team_time;
