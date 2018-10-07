@@ -28,13 +28,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EzdingCrawler implements Runnable {
-    private String dir = "WebContent/resources/crawler/movieinfo";
+//    private String dir = "WebContent/resources/crawler/movieinfo";
+    private String dir = "/resources/crawler/movieinfo"; //for Java EE Environment
     //private String output = "TheatersInfo.txt";
     private String output = "TheatersInfo";
     private String outputMovie = "Movie";
     private int page;
     private boolean coming;
     private String targetUrl = "https://www.ezding.com.tw/movieInfoIndex";
+    private String servletContextRealPath;
+
+    public void setServletContextRealPath(String servletContextRealPath) {
+        this.servletContextRealPath = servletContextRealPath;
+    }
 
     public EzdingCrawler(int page, boolean coming) {
         super();
@@ -128,12 +134,13 @@ public class EzdingCrawler implements Runnable {
             System.out.println("director : " + director.getText());
             movieInfo.put("director", director.getText());
             List<WebElement> staffContent = driver.findElements(By.cssSelector("div.staffContent > span"));
-            String staff = null;
+            String staff = "";
             for(WebElement we : staffContent) {
                 staff += we.getText();
                 System.out.println("staff : " + we.getText());
             }
             System.out.println("staff all : " + staff);
+            movieInfo.put("staff", staff);
 
             WebElement intro = driver.findElement(By.cssSelector("div.movie-intro-content"));
             System.out.println("intro : " + intro.getText());
@@ -203,8 +210,20 @@ public class EzdingCrawler implements Runnable {
         StringBuilder sbMovie = getDataSb(movieInfoList);
         outputFile(outputMovie, sbMovie.toString());
 
+        handleMovie(movieInfoList);
+
         threadSleep(3000);
         driver.close();
+    }
+
+    // Java SE application can not run JNDI of model
+    // javax.naming.NoInitialContextException: Need to specify class name in environment or system property, or as an applet parameter, or in an application resource file:  java.naming.factory.initial
+    public void handleMovie(List<HashMap> movieInfoList) {
+        System.out.println("handleMovie");
+        MovieHandler mhdr = new MovieHandler(movieInfoList);
+        mhdr.setServletContextRealPath(servletContextRealPath);
+        List<String> list = mhdr.importDB(); //return list of movie_no
+        mhdr.exportSer(list);
     }
 
     public void threadSleep(long millis) {
@@ -328,7 +347,8 @@ public class EzdingCrawler implements Runnable {
         //File out = new File(output + page + ".txt");
 
         //create dir
-        File targetDir = new File(dir);
+        //File targetDir = new File(dir);
+        File targetDir = new File(servletContextRealPath + dir);
         if (!targetDir.exists()) {
             targetDir.mkdirs();
         }
@@ -401,12 +421,15 @@ public class EzdingCrawler implements Runnable {
 
     public void mkdirDlImg(String movieTitle, String imgFileName, String posterImgUrl) {
         //create dir of movieinfo
-        File sDir = new File(dir);
+        //File sDir = new File(dir);
+        File sDir = new File(servletContextRealPath, dir);
         if (!sDir.exists()) {
             sDir.mkdirs();
         }
+        System.out.println("sDir: " + sDir);
         //create dir of movieTitle
-        File movieDir = new File(dir, movieTitle);
+        //File movieDir = new File(dir, movieTitle);
+        File movieDir = new File(sDir, movieTitle);
         if (!movieDir.exists()) {
             movieDir.mkdirs();
         }

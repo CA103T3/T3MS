@@ -128,12 +128,13 @@ public class EzdingMovieInfoAdv implements Runnable {
             System.out.println("director : " + director.getText());
             movieInfo.put("director", director.getText());
             List<WebElement> staffContent = driver.findElements(By.cssSelector("div.staffContent > span"));
-            String staff = null;
+            String staff = "";
             for(WebElement we : staffContent) {
                 staff += we.getText();
                 System.out.println("staff : " + we.getText());
             }
             System.out.println("staff all : " + staff);
+            movieInfo.put("staff", staff);
 
             WebElement intro = driver.findElement(By.cssSelector("div.movie-intro-content"));
             System.out.println("intro : " + intro.getText());

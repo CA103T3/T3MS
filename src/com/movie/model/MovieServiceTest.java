@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cinema.model.CinemaService;
+import com.common.util.ImageUtil;
 
 /**
  * Servlet implementation class MovieServiceTest
@@ -58,7 +59,7 @@ public class MovieServiceTest extends HttpServlet {
         // ----------------INSERT------------------
         try {
             String realPath = getServletContext().getRealPath("/img/Test_UP_IMG/04.jpeg");
-            byte[] movie_pic = getPictureByteArray(realPath);
+            byte[] movie_pic = ImageUtil.getPictureByteArray(realPath);
             String movie_type = "恐怖片";
             String movie_name = "鬼修女";
             String eng_name = "ShowGirl";
@@ -87,20 +88,4 @@ public class MovieServiceTest extends HttpServlet {
         }
     }
 
-    // 使用byte[]方式
-    public static byte[] getPictureByteArray(String path) throws IOException {
-        File file = new File(path);
-        System.out.println(path);
-        FileInputStream fis = new FileInputStream(file);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[8192];
-        int i;
-        while ((i = fis.read(buffer)) != -1) {
-            baos.write(buffer, 0, i);
-        }
-        baos.close();
-        fis.close();
-
-        return baos.toByteArray();
-    }
 }

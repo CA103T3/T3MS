@@ -30,12 +30,12 @@
     <url-pattern>/filmreview/filmreview.do</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>Activity</servlet-name>
-  	<servlet-class>com.activity.controller.ActivityServlet</servlet-class>
+    <servlet-name>Activity</servlet-name>
+    <servlet-class>com.activity.controller.ActivityServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>Activity</servlet-name>
-  	<url-pattern>/backstage/activity/activity.do</url-pattern>
+    <servlet-name>Activity</servlet-name>
+    <url-pattern>/backstage/activity/activity.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Announcement</servlet-name>
@@ -141,8 +141,7 @@
     <servlet-name>MailAgain</servlet-name>
     <url-pattern>/member/mailagain.do</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <servlet-name>ServletMemberBackstage</servlet-name>
     <servlet-class>com.member.controller.ServletMemberBackstage</servlet-class>
   </servlet>
@@ -150,9 +149,6 @@
     <servlet-name>ServletMemberBackstage</servlet-name>
     <url-pattern>/member/Bmember.do</url-pattern>
   </servlet-mapping>
-  
-  
-  
   <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>example.LoginFilter</filter-class>
@@ -164,8 +160,7 @@
     <url-pattern>/forestage/member/changpaw.jsp</url-pattern>
     <url-pattern>/forestage/member/changfin.jsp</url-pattern>
   </filter-mapping>
-  
-   <servlet>
+  <servlet>
     <servlet-name>Movie_IntroduceServlet</servlet-name>
     <servlet-class>com.movie_introduce.controller.Movie_IntroduceServlet</servlet-class>
   </servlet>
@@ -173,8 +168,7 @@
     <servlet-name>Movie_IntroduceServlet</servlet-name>
     <url-pattern>/backstage/movie_introduce/movie_introduce.do</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <servlet-name>MovieServlet</servlet-name>
     <servlet-class>com.movie.controller.MovieServlet</servlet-class>
   </servlet>
@@ -182,10 +176,4 @@
     <servlet-name>MovieServlet</servlet-name>
     <url-pattern>/backstage/movie/movie.do</url-pattern>
   </servlet-mapping>
-  
-   
-  
- 
-  
-  
 </web-app>

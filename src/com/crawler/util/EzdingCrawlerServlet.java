@@ -1,6 +1,14 @@
 package com.crawler.util;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,16 +22,33 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class EzdingCrawlerMain {
+/**
+ * Servlet implementation class EzdingCrawlerServlet
+ */
+@WebServlet("/EzdingCrawlerServlet")
+public class EzdingCrawlerServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public EzdingCrawlerServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-    public static void main(String[] args) {
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String targetUrl = "https://www.ezding.com.tw/movieInfoIndex";
         WebDriver driver = new FirefoxDriver();
+        String realPath = getServletContext().getRealPath("/");
 
         driver.get(targetUrl);
         WebDriverWait wait = new WebDriverWait(driver, 5);
-        EzdingMovieInfoAdv.waitLoadingElement(wait, "div[class='post']");
-        /*
+        EzdingCrawler.waitLoadingElement(wait, "div[class='post']");
+        
         WebElement ele = driver.findElement(By.tagName("body"));
         String html = ele.getAttribute("outerHTML");
         //System.out.println(html);
@@ -34,11 +59,11 @@ public class EzdingCrawlerMain {
         Elements numIndexes = doc.select("div[class*='circle numIndex']");
         int pages = numIndexes.size();
         List<Thread> threads = new ArrayList<Thread>();
-        */
+
 
         /*
         for (int i = 0; i < pages; i++) {
-            Thread t = new Thread(new EzdingMovieInfoAdv(i));
+            Thread t = new Thread(new EzdingCrawler(i));
             threads.add(t);
             t.start();
             
@@ -61,10 +86,12 @@ public class EzdingCrawlerMain {
             }
         }
         */
-        /*
-        //Thread t = new Thread(new EzdingMovieInfoAdv(1));
-//        Thread t = new Thread(new EzdingMovieInfoAdv(0));
-        Thread t = new Thread(new EzdingMovieInfoAdv(0, false)); //for showing movie
+        
+        //Thread t = new Thread(new EzdingCrawler(1));
+//        Thread t = new Thread(new EzdingCrawler(0));
+        EzdingCrawler crawler = new EzdingCrawler(0, false);
+        crawler.setServletContextRealPath(realPath);
+        Thread t = new Thread(crawler); //for showing movie
         t.start();
         try {
             t.join();
@@ -72,20 +99,20 @@ public class EzdingCrawlerMain {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        */
+
         /*
         for (int i = 0; i < pages; i++) {
-            EzdingMovieInfoAdv app = new EzdingMovieInfoAdv(i);
+            EzdingCrawler app = new EzdingCrawler(i);
             app.run();
         }
         */
-
+        /*
         //for comming movie
         driver.get(targetUrl);
-        EzdingMovieInfoAdv.waitLoadingElement(wait, "div[class='post']");
+        EzdingCrawler.waitLoadingElement(wait, "div[class='post']");
         WebElement comingDiv = driver.findElement(By.cssSelector("div.btn2"));
         comingDiv.click(); //click coming movie
-        EzdingMovieInfoAdv.waitLoadingElement(wait, "div[class='post']");
+        EzdingCrawler.waitLoadingElement(wait, "div[class='post']");
         WebElement eleForComing = driver.findElement(By.tagName("body"));
         String htmlForComing = eleForComing.getAttribute("outerHTML");
         Document docForComing = Jsoup.parse(htmlForComing);
@@ -94,9 +121,11 @@ public class EzdingCrawlerMain {
         List<WebElement> numIndexesForComing = eleForComing.findElements(By.cssSelector("div[class*='circle numIndex']"));
         int pagesForComing = numIndexesForComing.size();
         List<Thread> threadsForComing = new ArrayList<Thread>();
+        */
+
         /*
         for (int i = 0; i < pagesForComing; i++) {
-            Thread tForComing = new Thread(new EzdingMovieInfoAdv(i, true));
+            Thread tForComing = new Thread(new EzdingCrawler(i, true));
             threadsForComing.add(tForComing);
             tForComing.start();
 
@@ -120,7 +149,8 @@ public class EzdingCrawlerMain {
         }
         */
 
-        Thread tForComing = new Thread(new EzdingMovieInfoAdv(0, true)); //for coming movie
+        /*
+        Thread tForComing = new Thread(new EzdingCrawler(0, true)); //for coming movie
         tForComing.start();
         try {
             tForComing.join();
@@ -128,10 +158,11 @@ public class EzdingCrawlerMain {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        */
 
         /*
         for (int i = 0; i < pagesForComing; i++) {
-            EzdingMovieInfoAdv app = new EzdingMovieInfoAdv(i, true);
+            EzdingCrawler app = new EzdingCrawler(i, true);
             app.run();
         }
         */
@@ -139,6 +170,6 @@ public class EzdingCrawlerMain {
         System.out.println("main thread close");
 
         driver.close();
-    }
-    
+	}
+
 }
