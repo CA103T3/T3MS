@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import com.movie.model.MovieVO;
+
 public class SerUtil {
     private SerStrategy_interface si;
     public SerUtil() {
@@ -14,38 +16,39 @@ public class SerUtil {
         this.si = si;
     }
 
-    public void importOne(String filename) {
-        // TODO Auto-generated method stub
-
+    public void importOne(String action, String no) throws Exception {
+        si.importOne(action, no);
     }
 
-    public void importAll() {
-        // TODO Auto-generated method stub
-
+    public void importAll() throws Exception {
+        si.importAll();
     }
 
     public Object findVOByNo(String no) {
-        Object obj = null;
-        if(si != null) {
-            obj = si.findVOByNo(no);
-        }
-        return obj;
+        return si.findVOByNo(no);
+    }
+
+    public Object findVOByName(String name) {
+        return si.findVOByName(name);
     }
 
     public List<Object> getAllVO() {
-        // TODO Auto-generated method stub
-        return null;
+        return si.getAllVO();
     }
 
     public void export(Object vo) throws IOException {
-        if(si != null) {
-            si.export(vo);
-        }
+        si.export(vo);
     }
 
-    public void export(List<Object> list) {
-        // TODO Auto-generated method stub
-
+    public void export(List<Object> list) throws IOException {
+        si.export(list);
     }
     
+    public void setServletContextRealPath(String servletContextRealPath) {
+        si.setServletContextRealPath(servletContextRealPath);
+    }
+
+    public void importUpdateAll() throws Exception {
+        si.importUpdateAll();
+    }
 }
