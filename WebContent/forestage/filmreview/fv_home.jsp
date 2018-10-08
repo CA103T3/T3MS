@@ -9,7 +9,7 @@
 	List<FilmreviewVO> list = fvSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
-
+<jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
 <!DOCTYPE html>
 
 
@@ -156,7 +156,7 @@
 						</a>
 					</div>
 
-					<div class="col-md-7">
+					<div class="col-md-6">
 						<a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?fr_no=${FilmreviewVO.fr_no}"><h2>${FilmreviewVO.title}</h2></a>
 					</div>
 
@@ -170,8 +170,12 @@
 						</a>
 					</div>
 
-					<div class="col-md-1">
-						<h3 class="text-center">${FilmreviewVO.movie_no}</h3>
+					<div class="col-md-2">
+						<h3 class="text-center"><c:forEach var="mvVO" items="${mvSvc.all}">
+									<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
+	                   					 ${mvVO.movie_name}
+                    				</c:if>
+								</c:forEach></h3>
 					</div>
 
 					<div class="col-md-1">

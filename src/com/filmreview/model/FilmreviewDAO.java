@@ -42,7 +42,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 	private static final String DELETE = 
 			"DELETE FROM Filmreview where FR_NO = ?";
 	private static final String UPDATE = 
-			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=?, ACTIVE=? where FR_NO = ?";
+			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=? where FR_NO = ?";
 	private static final String GET_ALL_MEM = 
 			"SELECT * FROM Filmreview where MOVIE_NO LiKE ?";
 	@Override

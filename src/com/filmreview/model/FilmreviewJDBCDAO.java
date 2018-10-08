@@ -385,44 +385,44 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 	public static void main(String[] args) {
 	
 		FilmreviewJDBCDAO dao = new FilmreviewJDBCDAO();
-		// 新增
-		
-		FilmreviewVO filmreview1 = new FilmreviewVO();
-		
-		filmreview1.setMovie_no("666");
-		
-		
-		filmreview1.setContent("好 看 !!");
-		filmreview1.setEvaluation(new Double(5.0));
-		filmreview1.setTitle("movie1");
-		filmreview1.setSource("我自己");
-		filmreview1.setUrl("www.yahoo.com.tw");
-		filmreview1.setMem_no("M001");
-		filmreview1.setAuthor("610");
-	
-	
-		dao.insert(filmreview1);
-		
-		System.out.println("OK");
+//		// 新增
+//		
+//		FilmreviewVO filmreview1 = new FilmreviewVO();
+//		
+//		filmreview1.setMovie_no("666");
+//		
+//		
+//		filmreview1.setContent("好 看 !!");
+//		filmreview1.setEvaluation(new Double(5.0));
+//		filmreview1.setTitle("movie1");
+//		filmreview1.setSource("我自己");
+//		filmreview1.setUrl("www.yahoo.com.tw");
+//		filmreview1.setMem_no("M001");
+//		filmreview1.setAuthor("610");
+//	
+//	
+//		dao.insert(filmreview1);
+//		
+//		System.out.println("OK");
 	
 //		 修改
 		
-//		FilmreviewVO filmreview2 = new FilmreviewVO();
-//		
-//		filmreview2.setFr_no("F00002");
-//		filmreview2.setMovie_no("45");
-//		
-//		
-//		filmreview2.setContent("步步步");
-//		filmreview2.setEvaluation(new Double(5.0));
-//		filmreview2.setTitle("movie1");
-//		filmreview2.setSource("ez");
-//		filmreview2.setUrl("www.");
-//		filmreview2.setMem_no("M001");
-//		filmreview2.setAuthor("610");
-//		dao.update(filmreview2);
-//		
-//		System.out.println("OK");
+		FilmreviewVO filmreview2 = new FilmreviewVO();
+		
+		filmreview2.setFr_no("F00013");
+		filmreview2.setMovie_no("45");
+		
+		
+		filmreview2.setContent("步步步");
+		filmreview2.setEvaluation(new Double(5.0));
+		filmreview2.setTitle("movie1");
+		filmreview2.setSource("ez");
+		filmreview2.setUrl("www.");
+		filmreview2.setMem_no("M001");
+		filmreview2.setAuthor("610");
+		dao.update(filmreview2);
+		
+		System.out.println("OK");
 	
 //      刪除		
 //		

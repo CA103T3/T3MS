@@ -32,10 +32,9 @@ public class FilmreviewService {
 		return filmreviewVO;
 	}; 
 	
-	public FilmreviewVO updateFilmrevew(String fr_no, String movie_no ,String content, Double evaluation ,String title ,String source ,String url ,String mem_no ,String author  ) {
+	public FilmreviewVO updateFilmrevew( String movie_no ,String content, Double evaluation ,String title ,String source ,String url ,String mem_no ,String author , String fr_no) {
 		FilmreviewVO filmreviewVO = new FilmreviewVO();
 		
-		filmreviewVO.setFr_no(fr_no);
 		filmreviewVO.setMovie_no(movie_no);
 		
 		filmreviewVO.setContent(content);
@@ -45,6 +44,7 @@ public class FilmreviewService {
 		filmreviewVO.setUrl(url);
 		filmreviewVO.setMem_no(mem_no);
 		filmreviewVO.setAuthor(author);
+		filmreviewVO.setFr_no(fr_no);
 		
 		dao.update(filmreviewVO);
 		

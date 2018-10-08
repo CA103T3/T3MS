@@ -2,11 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.filmreview.model.*"%>
+<%@ page import="com.movie.model.*"%>
 
 <jsp:useBean id="fv_search" scope="request" type="java.util.Set<FilmreviewVO>" />
 
 
-
+<jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
 
 <!DOCTYPE html>
 
@@ -139,7 +140,7 @@
 						</a>
 					</div>
 
-					<div class="col-md-7">
+					<div class="col-md-6">
 						<a href="/T3MS//forestage/filmreview/fv.jsp?fr_no=${fv.fr_no}"><h2>${fv.title}</h2></a>
 					</div>
 
@@ -153,8 +154,12 @@
 						</a>
 					</div>
 
-					<div class="col-md-1">
-						<h3 class="text-center">${fv.movie_no}</h3>
+					<div class="col-md-2">
+						<h3 class="text-center"><c:forEach var="mvVO" items="${mvSvc.all}">
+									<c:if test="${fv.movie_no==mvVO.movie_no}">
+	                   					 ${mvVO.movie_name}
+                    				</c:if>
+								</c:forEach></h3>
 					</div>
 
 					<div class="col-md-1">

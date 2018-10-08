@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.filmreview.model.*"%>
+<%@ page import="com.movie.model.*"%>
 <%@ page import="com.filmreview_msg.model.*"%>
 
 
@@ -16,6 +17,8 @@
 	Set<Filmreview_MsgVO> fvm = fvmSvc.getAllByFrNo(request.getParameter("fr_no").trim());
 	pageContext.setAttribute("fvm", fvm);
 %>
+<jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +102,11 @@ input[type=submit]:hover {
 		<div class="container ctnr">
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="text-primary">&nbsp;[${fv.movie_no}]-${fv.title}</h1>
+					<h1 class="text-primary">&nbsp;<c:forEach var="mvVO" items="${mvSvc.all}">
+									<c:if test="${fv.movie_no==mvVO.movie_no}">
+	                   					 【${mvVO.movie_name}】
+                    				</c:if>
+								</c:forEach>${fv.title}</h1>
 					<h3 class="text-left">${fv.mem_no}</h3>
 					<h3 class="text-right">${fv.updated_at}</h3>
 
@@ -189,15 +196,15 @@ input[type=submit]:hover {
 	<div class="section">
 		<div class="container ctnr">
 	<c:forEach var="fvm" items="${fvm}" >
-			<div class="row">
-				<div class="containe" style="height: 84px; background-color: white;">
-					<div class="col-md-1 text-center">
+			<div class="row" >
+				<div class="containe" style="height: 90px; background-color: white;padding-top: 20px;">
+					<div class="col-sm-1 text-center">
 
 						<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 80%;">
 
 					</div>
 
-					<a>${fvm.mem_no}:</a>
+					<a>${fvm.mem_no}:<a class="time-right">ˇ</a></a>
 					<p>${fvm.content}</p>
 					<span class="time-right">${fvm.updated_at}</span>
 				</div>
