@@ -1,3 +1,6 @@
+<%@page import="com.ticketType.model.TypeService"%>
+<%@page import="com.ticketType.model.TypeVO"%>
+<%@page import="java.sql.Timestamp"%>
 <%@page import="com.theater.model.TheaterVO"%>
 <%@page import="jdk.nashorn.internal.parser.JSONParser"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
@@ -6,34 +9,60 @@
 <%@ page import="com.theater.model.*"%>
 <%@ page import="com.session.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.movie.model.*" %>
 <%@ page import="org.json.*"%>
 <%@ page import="java.io.Reader"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 
 <%
-	String memno="M0001";
+	//會員編號
+	String mem_no="M0001";
+//  session.getAttribute("mem_no");
 	
-	MemService memSvc = new MemService();
+	//場次編號
+	String session_no = "SES0000002";
+// 	session.getAttribute("session_no");
 
-	SessionService sessionSvc = new SessionService();
-	SessionVO sessionVO = sessionSvc.getOneSession("SES0000002");
-	String theater_no = sessionVO.getTheater_no();
+	//票種編號
+	String type_no = "TT00001";
+// 	session.getAttribute("type_no");
 	
+	SessionService sessionSvc = new SessionService();
+	MovieService movieSvc = new MovieService();
+	SessionVO sessionVO = sessionSvc.getOneSession(session_no);
+	
+	//取得電影資訊  movieVO.getMovie_name();
+	String movie_no = sessionVO.getMovie_no();
+	MovieVO movieVO = movieSvc.getOneMovie(movie_no);
+// 	String movieName = movieVO.getMovie_name(); //電影名稱
+	String movieName = "=== M O V I E N A M E ===";
+	
+	//取得場次時間
+	Timestamp sessionVOtime = sessionVO.getSession_time();
+	String strDateFormat = "HH:mm";
+    SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+    String session_time= sdf.format(sessionVOtime); //播放時間
+	System.out.println("========"+session_time);
+	
+	//取得票種資訊
+	TypeService typeSvc = new TypeService();
+	TypeVO typeVO = typeSvc.getOneType(type_no);
+	Integer price = typeVO.getPrice(); //票價
+	String identity = typeVO.getIdentify(); //成人票
+	
+	//取得影廳資訊 
+	String theater_no = sessionVO.getTheater_no();
 	TheaterService tSvc = new TheaterService();
 	TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
-	
-	
-	
-// 	MemVO memVO = memSvc.getMemVO();
-	
-	
+	String theater_name = theaterVO.getTheater_name(); //影廳名稱
 	
 	
 	
 	
 	String sid = request.getSession().getId();
-	System.out.println("111:" + sid);
+	System.out.println("====servletSession:" + sid);
 %>
-<c:set var="session_NO" value="${sessionVO.session_no}" />
+<%-- <c:set var="session_NO" value="${sessionVO.session_no}" /> --%>
 <!doctype html>
 <html>
     <head>
@@ -52,27 +81,33 @@
     <div class="container" style="color: #ffffff;font-size: 20px;">
         
         
-<!--        	 <div id="myID" class="WebSocket"></div> -->
+<!--        <div id="myID" class="WebSocket"></div> -->
 			<span id="output" class="WebSocket"></span>
 		<br>
 		<!------------------------------------------------------------------------------------------------->
 		<form method="post" action="BookingBuySeat.jsp" name="form1">
-		<table class="wwFormTable">
+		<table class="wwFormTable" style="width:40%">
 			<tr>
-			<td><b>廳院:</b><%=theaterVO.getTheater_name()%></td>
+				<td><b>影廳:<%=theater_name%></b></td>
+				<td><b>播放時間：<%= session_time %></b></td>
+				
+				<!-- <td id="amount" style="color:#fff; font-weight:bold">金額：0</td> -->
 <%-- 				<td><b>廳院名稱:</b> <input type="text" name="hall_name" value="<%=theaterVO.getTheater_name()%>" class="text-field"></td> --%>
-		</tr>
+			</tr>
+			<tr>
+				<td colspan="2"><b>電影名稱：<%= movieName %></b></td>
+				
+			</tr>
 		</table>
-
+		<br>
 		<table class="wwFormTable">
 			<tr>
-				<td class="screen">螢幕</td>
-		</tr>
+				<td><b>螢幕</b></td>
+			</tr>
 		</table>
 		<br>
 		<table class="wwFormTable">
 			<c:forEach var="row" begin="1" end="<%=theaterVO.getT_rows()%>" varStatus="s1">
-				
 				<tr>
 					<c:if test="${row==1}">
 						<td>&nbsp;</td>
@@ -91,22 +126,22 @@
 					<c:forEach var="col" begin="1" end="<%=theaterVO.getT_columns()%>" varStatus="s2">
 						<c:set scope="page" var="isBooked" value="${bookingMap.keySet().contains(s1.count.toString().concat('_').concat(s2.count.toString()))}" />
 						<td class="left1">
-							<input type="checkbox" id="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-checkbox2-red '":"class='css-checkbox1-blue'"} name="seats" value="${s1.count}_${s2.count}" onclick="sendMessage('${s1.count}_${s2.count}');" ${isBooked? "checked disabled":""}> 
+							<input type="checkbox" id="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-checkbox2-red '":"class='css-checkbox1-blue'"} name="seats" value="${s1.count}_${s2.count}" onclick="sendMessage('${s1.count}_${s2.count}'); isChecked();" ${isBooked? "checked disabled":""}> 
 							<label id="${s1.count}_${s2.count}" for="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-label2-red'":"class='css-label1-blue'"}></label> <!-- ${s1.count}_${s2.count} -->
 						</td>
 					</c:forEach>
-							
 				</tr>
 			</c:forEach>		
 		</table>
 	
 		<hr>
-		<input class="myButton" type="button" value="送出新增" onClick="checkup()">
+		<input type="hidden" name="movie_name" value="<%=movieName%>">
+		<input type="hidden" name="theater_name" value="<%=theater_name%>">
+		<input type="hidden" name="type_no" value="<%=type_no %>" />
+		<input type="hidden" name="session_no" value="<%=session_no %>" />
+		<input type="hidden" name="price" value="<%=price %>" />
+		<input class="myButton" type="button" value="下一步" onClick="checkup()">
 	</form>
-
-
-
-	
 	
   </div>
         <script type="text/javascript">
@@ -137,7 +172,29 @@
 		
 			<%}%>
 	</script>
-        
+	
+	<script type="text/javascript">
+	
+	function isChecked(){
+		
+		var count = 0;
+		for(var i=1 ; i <= <%=theaterVO.getT_rows()%>; i++){		
+			
+			for(var j=1 ; j <= <%=theaterVO.getT_columns()%>; j++){
+				if($("#checkboxG"+i+"_"+j).is(":checked")) {
+					$("#amount").html("金額："+(200*count));
+					console.log('=============count:'+count);
+				}
+				
+				if(!($(":checkbox").is(":checked"))){
+					$("#amount").html("金額：0");
+				}
+			}
+		}
+	}
+	
+		
+	</script>
         
         <script type="text/javascript">
 		var MyPoint = "/MyBookingServer2/SES0000004/M0004";
@@ -157,7 +214,6 @@
 
 			webSocket.onmessage = function(event) {
 	console.log("SSSSS");
-	console.log("myid=" + myID);
 // 				var data = event.data;
 // 				console.log("data"+data);
 				if (event.data.indexOf('myID=') == 0) {
@@ -246,7 +302,7 @@ console.log('seat='+seat);
 					num++;
 			}
 			if (num == 0) {
-				window.alert("請至少選擇一個座位");
+				window.alert("請選擇一個座位");
 				return;
 			}
 
@@ -264,6 +320,8 @@ console.log('seat='+seat);
         <script>
         $(document).ready(function(){
             $("li:contains('合作影城')").addClass("custom-active");
+            
+            
         });
         </script>
     </body>

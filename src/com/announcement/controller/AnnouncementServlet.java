@@ -1,4 +1,4 @@
-package com.announcement.controllor;
+package com.announcement.controller;
 
 import java.io.IOException;
 import java.util.LinkedList;

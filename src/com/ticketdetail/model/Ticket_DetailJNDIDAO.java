@@ -29,7 +29,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO TICKET_DETAIL (TICKET_DETAIL_NO,ORDER_NO,SESSION_NO,TICKETTYPE_NO,SEAT,CREATED_AT,UPDATED_AT) VALUES(TICKET_DETAIL_SEQ.NEXTVAL,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
+	private static final String INSERT_STMT = "INSERT INTO TICKET_DETAIL (TICKET_DETAIL_NO,ORDER_NO,SESSION_NO,TICKETTYPE_NO,SEAT,CREATED_AT,UPDATED_AT) VALUES('TDA'||LPAD(TO_CHAR(TICKET_DETAIL_SEQ.NEXTVAL),6,'0'),?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
 	private static final String DELETE_ONE_TICKETDETAIL_STMT = "DELETE FROM TICKET_DETAIL WHERE TICKET_DETAIL_NO=?";
 	private static final String DELETE_ONE_TICKETORDER_STMT = "DELETE FROM TICKET_ORDER WHERE ORDER_NO=?";
 	private static final String GET_ONE_TICKETDETAIL_STMT = "SELECT * FROM TICKET_DETAIL WHERE TICKET_DETAIL_NO=?";
@@ -51,8 +51,6 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			pstmt.setString(2, ticket_DetailVO.getSession_no());
 			pstmt.setString(3, ticket_DetailVO.getTicketType_no());
 			pstmt.setString(4, ticket_DetailVO.getSeat());
-			pstmt.setTimestamp(5, ticket_DetailVO.getCreated_at());
-			pstmt.setTimestamp(6, ticket_DetailVO.getUpdated_at());
 			pstmt.executeUpdate();
 
 			ResultSet rs = pstmt.getGeneratedKeys();

@@ -30,6 +30,14 @@
     <url-pattern>/filmreview/filmreview.do</url-pattern>
   </servlet-mapping>
   <servlet>
+  	<servlet-name>TicketOrder</servlet-name>
+  	<servlet-class>com.ticketorder.controller.Ticket_OrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>TicketOrder</servlet-name>
+  	<url-pattern>/ticketOrder/ticketOrder.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Activity</servlet-name>
     <servlet-class>com.activity.controller.ActivityServlet</servlet-class>
   </servlet>
