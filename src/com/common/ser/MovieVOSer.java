@@ -96,14 +96,14 @@ public class MovieVOSer implements SerStrategy_interface {
 
     @Override
     public Object findVOByNo(String movie_no) {
-        MovieVO movievo = mSvc.getOneMovie(movie_no);
-        return movievo;
+        MovieVO movieVO = mSvc.getOneMovie(movie_no);
+        return movieVO;
     }
 
     @Override
     public Object findVOByName(String movie_name) {
-        MovieVO movievo = mSvc.getOneMovieByMovieName(movie_name);
-        return movievo;
+        MovieVO movieVO = mSvc.getOneMovieByMovieName(movie_name);
+        return movieVO;
     }
 
     @Override
