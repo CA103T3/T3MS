@@ -54,15 +54,18 @@ public class TheaterServiceTest extends HttpServlet {
         testGetAll();
         String cinema_no = "C001";
         testGetAllofCinema(cinema_no);
+        String equipment = "數位";
+        testGetAllByCinemaNOEquipment(cinema_no, equipment);
     }
 
 //  insert into CINEMA (CINEMA_NO, CINEMA_NAME) values ('C001', '威秀影城');
     public String testAddTheater() throws IOException {
         String cinema_no = "C001";
         String theater_name = "影廳";
-        Integer t_rows = 20;
-        Integer t_columns = 15;
-        String clobContent = "This is a very very long string\n abc \n";
+        Integer t_rows = 5;
+        Integer t_columns = 5;
+        String clobContent = "{\"1_1\":[\"A_1\",\"2\"],\"1_2\":[\"A_2\",\"2\"],\"2_1\":[\"B_1\",\"2\"],\"1_3\":[\"A_3\",\"2\"],\"2_2\":[\"B_2\",\"2\"],\"3_1\":[\"C_1\",\"2\"],\"1_4\":[\"A_4\",\"2\"],\"2_3\":[\"B_3\",\"2\"],\"3_2\":[\"C_2\",\"2\"],\"4_1\":[\"D_1\",\"2\"],\"1_5\":[\"A_5\",\"2\"],\"2_4\":[\"B_4\",\"2\"],\"3_3\":[\"C_3\",\"2\"],\"4_2\":[\"D_2\",\"2\"],\"5_1\":[\"E_1\",\"2\"],\"2_5\":[\"B_5\",\"2\"],\"3_4\":[\"C_4\",\"2\"],\"4_3\":[\"D_3\",\"2\"],\"5_2\":[\"E_2\",\"2\"],\"3_5\":[\"C_5\",\"2\"],\"4_4\":[\"D_4\",\"2\"],\"5_3\":[\"E_3\",\"2\"],\"4_5\":[\"D_5\",\"2\"],\"5_4\":[\"E_4\",\"2\"],\"5_5\":[\"E_5\",\"2\"]}";
+
         StringReader seat_model = new StringReader(clobContent); 
         Integer seats = 250;
         String equipment = "數位";
@@ -106,9 +109,10 @@ public class TheaterServiceTest extends HttpServlet {
         //String theater_no = "T00033";
         String cinema_no = "C002";
         String theater_name = "影廳2";
-        Integer t_rows = 15;
-        Integer t_columns = 30;
-        String clobContent = "update This is a very very long string\n abc \n";
+        Integer t_rows = 5;
+        Integer t_columns = 5;
+        String clobContent = "{\"1_1\":[\"A_1\",\"3\"],\"1_2\":[\"A_2\",\"3\"],\"2_1\":[\"B_1\",\"3\"],\"1_3\":[\"A_3\",\"3\"],\"2_2\":[\"B_2\",\"2\"],\"3_1\":[\"C_1\",\"2\"],\"1_4\":[\"A_4\",\"2\"],\"2_3\":[\"B_3\",\"2\"],\"3_2\":[\"C_2\",\"2\"],\"4_1\":[\"D_1\",\"2\"],\"1_5\":[\"A_5\",\"2\"],\"2_4\":[\"B_4\",\"2\"],\"3_3\":[\"C_3\",\"2\"],\"4_2\":[\"D_2\",\"2\"],\"5_1\":[\"E_1\",\"2\"],\"2_5\":[\"B_5\",\"2\"],\"3_4\":[\"C_4\",\"2\"],\"4_3\":[\"D_3\",\"2\"],\"5_2\":[\"E_2\",\"2\"],\"3_5\":[\"C_5\",\"2\"],\"4_4\":[\"D_4\",\"2\"],\"5_3\":[\"E_3\",\"2\"],\"4_5\":[\"D_5\",\"2\"],\"5_4\":[\"E_4\",\"2\"],\"5_5\":[\"E_5\",\"2\"]}";
+
         StringReader seat_model = new StringReader(clobContent); 
         Integer seats = 400;
         String equipment = "GC 3D DIG";
@@ -140,9 +144,20 @@ public class TheaterServiceTest extends HttpServlet {
 
     public void testGetAllofCinema(String cinema_no) {
         List<TheaterVO> list = tSvc.getAllofCinema(cinema_no);
+        out.println("testGetAllofCinema : ");
         out.println(cinema_no + " list size() : " + list.size());
         for(TheaterVO vo : list) {
             out.println(vo.getTheater_no());
+        }
+    }
+
+    public void testGetAllByCinemaNOEquipment(String cinema_no, String equipment) {
+        List<TheaterVO> list = tSvc.getAllByCinemaNOEquipment(cinema_no, equipment);
+        out.println("testGetAllByCinemaNOEquipment : ");
+        out.println(cinema_no + " list size() : " + list.size());
+        for(TheaterVO vo : list) {
+            out.println(vo.getTheater_no());
+            out.println(vo.getEquipment());
         }
     }
 

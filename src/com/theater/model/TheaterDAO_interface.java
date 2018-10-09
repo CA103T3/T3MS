@@ -8,6 +8,7 @@ public interface TheaterDAO_interface {
     public void update(TheaterVO theaterVO);
     public void delete(String theater_no);
     public TheaterVO findByPrimaryKey(String theater_no);
+    public List<TheaterVO> getAllByCinemaNOEquipment(String cinema_no, String equipment);
     public List<TheaterVO> getAll();
     public List<TheaterVO> getAllofCinema(String cinema_no);
 }
