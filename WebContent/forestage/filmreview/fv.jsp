@@ -12,7 +12,7 @@
 	FilmreviewDAO fvSvc = new FilmreviewDAO();
 	FilmreviewVO fv = fvSvc.findByPrimaryKey(request.getParameter("fr_no").trim());
 	pageContext.setAttribute("fv", fv);
-	
+
 	Filmreview_MsgDAO fvmSvc = new Filmreview_MsgDAO();
 	Set<Filmreview_MsgVO> fvm = fvmSvc.getAllByFrNo(request.getParameter("fr_no").trim());
 	pageContext.setAttribute("fvm", fvm);
@@ -27,7 +27,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-
+<link rel="stylesheet" href="/T3MS/css/fv_tooltips.css">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <%@ include file="/forestage/template/link.jsp"%>
 
@@ -38,8 +38,6 @@
 
 
 <style>
-
-
 .time-right {
 	float: right;
 	color: #aaa;
@@ -102,22 +100,19 @@ input[type=submit]:hover {
 		<div class="container ctnr">
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="text-primary">&nbsp;<c:forEach var="mvVO" items="${mvSvc.all}">
-									<c:if test="${fv.movie_no==mvVO.movie_no}">
+					<h1 class="text-primary">
+						&nbsp;
+						<c:forEach var="mvVO" items="${mvSvc.all}">
+							<c:if test="${fv.movie_no==mvVO.movie_no}">
 	                   					 【${mvVO.movie_name}】
-                    				</c:if>
-								</c:forEach>${fv.title}</h1>
+                    		</c:if>
+						</c:forEach>${fv.title}</h1>
 					<h3 class="text-left">${fv.mem_no}</h3>
 					<h3 class="text-right">${fv.updated_at}</h3>
 
 
 				</div>
 
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<hr>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -171,20 +166,18 @@ input[type=submit]:hover {
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
-	<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/filmreview_msg/filmreview_msg.do" class="form-horizontal" >
+	<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/filmreview_msg/filmreview_msg.do" class="form-horizontal">
 		<input type="hidden" name="fr_no" value="${fv.fr_no}"> <input type="hidden" name="mem_no" value="${fv.mem_no}">
 		<div class="container ctnr">
 
 			<div class="row">
-				
+
 				<textarea id="subject" name="content" placeholder="Write something.." style="height: 200px"></textarea>
 			</div>
 			<div class="text-right">
-				<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> 
-				<input type="hidden" name="action" value="insert"> 	
-				<input type="submit" value="送出">
+				<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> <input type="hidden" name="action" value="insert"> <input type="submit" value="送出">
 			</div>
 		</div>
 	</form>
@@ -195,21 +188,30 @@ input[type=submit]:hover {
 
 	<div class="section">
 		<div class="container ctnr">
-	<c:forEach var="fvm" items="${fvm}" >
-			<div class="row" >
-				<div class="containe" style="height: 90px; background-color: white;padding-top: 20px;">
-					<div class="col-sm-1 text-center">
+			<c:forEach var="fvm" items="${fvm}">
+				<div class="row">
+					<div class="containe" style="height: 90px; background-color: white; padding-top: 20px;">
+						<div class="col-sm-1 text-center">
 
-						<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 80%;">
+							<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 80%;">
 
+						</div>
+
+						<a>${fvm.mem_no}:
+
+							<div class="tool-tip time-right">
+								<i class="tool-tip__icon">檢</i>
+								<p class="tool-tip__info">
+									<a href="#" style="color: aaa"><span class="info__title">檢舉此6言</span></a>
+								</p>
+							</div>
+
+						</a>
+						<p>${fvm.content}</p>
+						<span class="time-right">${fvm.updated_at}</span>
 					</div>
-
-					<a>${fvm.mem_no}:<a class="time-right">ˇ</a></a>
-					<p>${fvm.content}</p>
-					<span class="time-right">${fvm.updated_at}</span>
 				</div>
-			</div>
-	</c:forEach>
+			</c:forEach>
 		</div>
 	</div>
 

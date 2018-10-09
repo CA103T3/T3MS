@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.filmreview.model.*"%>
+<%@ page import="com.movie.model.*"%>
+<%@ page import="com.member.model.*"%>
 
 
 <%
@@ -40,7 +42,7 @@
 
 </head>
 <body class="body-template">
-
+<%session.getAttribute("memVO"); %>
 
 
   <%@ include file="/forestage/template/header_no_bar.jsp" %>
@@ -50,7 +52,7 @@
 	        <div class="row">
 	          <div class="col-md-12 text-right">
 
-				    <a href="<%=request.getContextPath()%>/forestage/filmreview/fv_list.jsp?mem_no=<%=request.getParameter("mem_no")%>" class="btn btn-primary">我的影評</a>
+				    <a href="<%=request.getContextPath()%>/forestage/filmreview/fv_list.jsp?mem_no=${memVO.memno}" class="btn btn-primary">我的影評</a>
 
 
 	          </div>
@@ -129,7 +131,7 @@
 				<div class="col-md-6">
 					<div class="page-header">
 						<h1>
-							最近影評 <small>熱門影評</small>
+							最新影評 <small></small>
 						</h1>
 					</div>
 				</div>
