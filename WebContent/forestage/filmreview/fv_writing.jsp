@@ -87,10 +87,14 @@
 
 					<div class="form-group ">
 						<div class="col-sm-2">
-							<label for="inputPassword3" class="control-label">電影編號</label>
+							<label for="inputPassword3" class="control-label">選擇電影</label>
 						</div>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputEmail3" name="movie_no" value="<%=(filmreviewVO == null) ? "編號" : filmreviewVO.getMovie_no()%>" placeholder="電影編號">
+						 <select class="form-control" name="movie_no">
+                        <c:forEach var="mVO" items="${mvSvc.all}" >
+                           <option value="${mVO.movie_no}">${mVO.movie_name}</option>
+                        </c:forEach>>
+                        </select>
 						</div>
 					</div>
 

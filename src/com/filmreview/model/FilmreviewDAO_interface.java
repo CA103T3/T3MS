@@ -6,6 +6,8 @@ public interface FilmreviewDAO_interface {
 
 	public void insert(FilmreviewVO filmreviewVO);
 
+	public String insertReturnFilmreviewNo(FilmreviewVO filmreviewVO);
+
 	public void update(FilmreviewVO filmreviewVO);
 
 	public void delete(String fr_no);
