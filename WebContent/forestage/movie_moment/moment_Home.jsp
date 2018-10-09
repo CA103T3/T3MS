@@ -23,6 +23,7 @@
         
         <style>
 			.text-warning {color:#ffe661;}
+
 		 
         </style>
         
@@ -70,8 +71,8 @@
           <div class="card_img_box">
            <div> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${movieVO.movie_no}"> </div>
             <div class="img_hover">
-              <a href="#" class="card-img-a">立即訂票</a>
-              <a href="#" class="card-img-a2">電影介紹</a>
+              <a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_One2.jsp?${movieVO.movie_no}" class="card-img-a">電影簡介</a>
+              <a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_One.jsp?${movieVO.movie_no}" class="card-img-a2">電影時刻</a>
             </div>
           </div>
           <span class="fa fa-star ${(movieVO.imdb >=2.0)? 'text-warning':''}"></span>

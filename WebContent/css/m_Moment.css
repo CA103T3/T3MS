@@ -1,0 +1,141 @@
+.navbar{
+    margin-bottom: 0;
+}
+/* movie move*/   
+
+.section{
+top: -470px;}
+
+/*movie youtube*/
+.youtudem iframe{
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+
+.youtudem{
+position: relative;
+padding-bottom: 35%;  
+overflow: hidden;
+ -webkit-filter: blur(10px); filter: blur(10px);
+}
+
+.youtudem iframe{
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 60%;
+background-color: #ccc;
+
+}
+
+/*movie text*/
+.text-left{
+font-size:18px ;
+color: #fff;
+}
+.time2{
+font-size:15px ;
+margin-top: 2%;
+color: #fff;
+}
+
+#tittle{
+font-size:28px ; 
+}
+
+.sor{
+font-size: 18px;
+color: rgba(231, 79, 117, 0.781);
+margin-top: 8%;
+}
+.sor1{
+margin-top: 3%;
+}
+
+/*Star*/
+
+.checked {
+color: orange;
+margin-top: 5%;
+}
+/*movie pic*/ 
+#imgm{
+border-bottom: 5px solid #e7008c;
+}
+
+/*tads*/
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+
+/*sisson css*/
+.panel {
+margin-top: 20px;
+}
+
+#ctype{
+width:160px;height:55px;background-color:rgba(29, 26, 26, 0.829);box-shadow:10px 10px 10px #888;padding:10px;margin:40px;
+text-align: center;
+color: #fff;
+border-radius: 3px;
+font-weight: 300;
+}
+
+.sisson{    
+width: 100%;
+float: left;
+
+}
+
+#time{
+margin-top: 12%;
+width: 90px;
+padding: 5px;
+}
+
+/*select*/
+.panel-primary{margin-top: 6%;}
+
+.ui-tabs{height: auto;}
+
+#Introd{font-size:18px}
