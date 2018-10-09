@@ -38,6 +38,9 @@ public class ServletRegisterC extends HttpServlet {
 		
 		try {
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+		
+		
+			//帳號(信箱)
 			String email = req.getParameter("email");
 			
 			if(email == null || email.trim().length() == 0) {
@@ -46,7 +49,13 @@ public class ServletRegisterC extends HttpServlet {
 				errorMsgs.put("email","請輸入有效的Email格式");
 			}
 			
+			MemService memSrc = new MemService();
+			if(!memSrc.checkduplicated(email)) {        //檢查重複註冊
+				errorMsgs.put("email","EMAIL已被使用");
+				System.out.println("帳號重複了");
+			}
 			
+			//密碼
 			String pawReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			String paw=req.getParameter("paw");
 			if (paw == null || paw.trim().length() == 0) {
@@ -54,15 +63,19 @@ public class ServletRegisterC extends HttpServlet {
 			} else if(!paw.trim().matches(pawReg)) { 
 				errorMsgs.put("paw","只能是英文、數字和_,長度2~10");
             }
-			
+			//密碼確認
 			String paw2=req.getParameter("paw2");
 			if(!paw.equals(paw2)) {
 				errorMsgs.put("paw2","請確認密碼");
 			}
 			System.out.println(paw + paw2);
+			//姓
 			String lastname=req.getParameter("Lastname");
+			//名
 	        String firstname=req.getParameter("Firstname");
+	        //生日
 	        String birthday =req.getParameter("birthday");
+	        //電話
 	        String phone = req.getParameter("phone");
 	        String phonereg = "^[(0-9_)]{10}$";
 	        System.out.println(phone);
@@ -71,8 +84,18 @@ public class ServletRegisterC extends HttpServlet {
 			} else if(!phone.trim().matches(phonereg)) { 
 				errorMsgs.put("phone","請輸入正確手機號碼");
             }
+	        //身分證字號
 	        String IDNUM = req.getParameter("IDNUM");
+	        if (IDNUM == null || IDNUM.trim().length() == 0) {
+				errorMsgs.put("IDNUM","密碼請勿空白");
+			}
+	        if(!memSrc.checkdupID(IDNUM)) {        //檢查重複註冊
+				errorMsgs.put("IDNUM","身分證已被使用");
+				System.out.println("身分證重複了");
+			}
+	        //性別
 	        Integer gender = Integer.parseInt(req.getParameter("gender"));
+	        //住址
 	        String ad = req.getParameter("county");
 	        System.out.println("ad="+ad);
 	        if("".equals(ad.trim())) {
@@ -86,37 +109,34 @@ public class ServletRegisterC extends HttpServlet {
 	        }else {
 	        	locno = Integer.parseInt(req.getParameter("zipcode"));
 	        }
-	        System.out.println(locno);
+	        System.out.println("郵區="+locno);
 			String address = req.getParameter("address");
 	        if (address == null || address.trim().length() == 0) {
 				errorMsgs.put("address","請輸入通訊地址");
 	        }
 			String addr = ad+dr+address;
 			
-			MemService memSrc = new MemService();
-			if(!memSrc.checkduplicated(email)) {        //檢查重複註冊
-				errorMsgs.put("email","EMAIL已被使用");
-				System.out.println("帳號重複了");
-			}
 			
 			
 			
-			MemVO memVO = new MemVO();
-			memVO.setEmail(email);
-			memVO.setPaw(paw);
-			memVO.setLastname(lastname);
-			memVO.setFirstname(firstname);
-			memVO.setBirthday(birthday);
-			memVO.setPhone(phone);
-			memVO.setIDNUM(IDNUM);
-			memVO.setGender(gender);
 			
+			MemVO memVOreg = new MemVO();
+			memVOreg.setEmail(email);
+			memVOreg.setPaw(paw);
+			memVOreg.setLastname(lastname);
+			memVOreg.setFirstname(firstname);
+			memVOreg.setBirthday(birthday);
+			memVOreg.setPhone(phone);
+			memVOreg.setIDNUM(IDNUM);
+			memVOreg.setGender(gender);
+			memVOreg.setAddr(addr);
+			memVOreg.setLocno(locno);
 			
 			System.out.println(errorMsgs);
 			
 			
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("memVO", memVO); 
+				req.setAttribute("memVO", memVOreg); 
 				
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/forestage/member/registerf.jsp");
@@ -125,14 +145,14 @@ public class ServletRegisterC extends HttpServlet {
 			}
 			
 			/***************************2.開始新增資料***************************************/
-			memSrc = new MemService();
-			memVO = memSrc.addmem(email, paw, lastname, firstname, birthday, phone, IDNUM, gender , addr, locno);
+			MemVO memVO = new MemVO();
+			memVO=memSrc.addmem(email, paw, lastname, firstname, birthday, phone, IDNUM, gender, addr, locno);
 			
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/
 		
 			
 	        HttpSession session = req.getSession();
-	        memVO = new MemVO();
+	        
             
             memVO = memSrc.getMemVO(email);
             session.setAttribute("memVO",memVO);
@@ -154,7 +174,7 @@ public class ServletRegisterC extends HttpServlet {
 			successView.forward(req, res);
 //			res.sendRedirect(req.getContextPath()+"/forestage/member/waitformail.jsp");
 			
-            return;
+            
 			/***************************其他可能的錯誤處理**********************************/
 		
 		} catch (RuntimeException e) {

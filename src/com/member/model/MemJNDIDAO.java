@@ -20,7 +20,7 @@ public class MemJNDIDAO implements MemDAO_interface {
 		}
 	}
 	
-	private static final String INSERT_STMT ="insert into MEMBER(mem_no,email,mem_pw,lname,fname,birthday,phone,IDNUM,gender,addr,locno,status,type,violation) values('M'||LPAD(member_seq.NEXTVAL, '3', '0'),?,?,?,?,TO_DATE(?,'yyyy/mm/dd'),?,?,?,?,?,0,0,0)";
+	private static final String INSERT_STMT ="insert into MEMBER(mem_no,email,mem_pw,lname,fname,birthday,phone,IDNUM,gender,addr,locno,status,type,violation) values('M'||LPAD(to_char(member_seq.NEXTVAL), 3, '0'),?,?,?,?,TO_DATE(?,'yyyy/mm/dd'),?,?,?,?,?,0,0,0)";
 	private static final String GET_ALL_STMT = "SELECT * FROM member";
 	private static final String GET_ONE_STMT = "SELECT * FROM member where email = ?";
 	private static final String GET_ONE_STMT_MEMNO = "SELECT * FROM member where mem_no = ?";
@@ -29,6 +29,7 @@ public class MemJNDIDAO implements MemDAO_interface {
 	private static final String CHANGEPASSWORD = "UPDATE MEMBER SET MEM_PW=? WHERE EMAIL=?";
 	private static final String BAN ="UPDATE MEMBER SET STATUS=? WHERE MEM_NO=?";
 	private static final String FILM_CRITICISM ="UPDATE MEMBER SET TYPE=? WHERE MEM_NO=?";
+	private static final String CHECK = "select * from MEMBER where IDNUM=?";
 	
 	@Override
 	public void insert(MemVO memVO) {		
@@ -78,20 +79,52 @@ public class MemJNDIDAO implements MemDAO_interface {
 	
 	
 	@Override
-	public boolean check(MemVO memVO) {		
+	public boolean check(String email) {		
 		Connection con = null;		
-		String CHECK = "select * from MEMBER where EMAIL='"+memVO.getEmail()+"'";
-		
-		try {
-			
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;			
+		try {		
 			con = ds.getConnection(); 		
-			Statement stm = con.createStatement();
-	        ResultSet rs = stm.executeQuery(CHECK);
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
 	        
 	        if(!rs.next()){
 	        	return true;
 			}else {
 		    	System.out.println("帳號重複");
+		    	return false;
+		    }   
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+	}
+	
+	@Override
+	public boolean checkID(String IDNUM) {		
+		Connection con = null;		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;			
+		try {		
+			con = ds.getConnection(); 		
+			pstmt = con.prepareStatement(CHECK);
+
+			pstmt.setString(1, IDNUM);
+			rs = pstmt.executeQuery();
+	        
+	        if(!rs.next()){
+	        	return true;
+			}else {
+		    	System.out.println("身分證重複");
 		    	return false;
 		    }   
 		

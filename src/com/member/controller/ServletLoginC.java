@@ -78,10 +78,14 @@ public class ServletLoginC extends HttpServlet {
         }
         else { 
             result = "fail";
+            
             out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
             out.println("<BODY>你的帳號 , 密碼無效!<BR>");
             out.println("請按此重新登入 <A HREF="+request.getContextPath()+"/forestage/member/loginf.jsp>重新登入</A>");
             out.println("</BODY></HTML>");
+//            request.setAttribute("fail", 1);
+//            RequestDispatcher rpt = request.getRequestDispatcher("/forestage/member/loginf.jsp");
+//            rpt.forward(request, response);
         }
         
         out.flush();

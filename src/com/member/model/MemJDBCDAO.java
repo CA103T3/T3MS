@@ -19,7 +19,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT memno, lname, fname FROM member";
 	private static final String GET_ONE_STMT = "SELECT * FROM member where email = ?";
 	private static final String PASS_REGISTERED ="UPDATE MEMBER SET STATUS=? WHERE EMAIL=?";
-	
+	private static final String CHECK = "select * from MEMBER where EMAIL=?";
 	
 	
 	@Override
@@ -76,15 +76,19 @@ public class MemJDBCDAO implements MemDAO_interface {
 	
 	
 	@Override
-	public boolean check(MemVO memVO) {		
+	public boolean check(String email) {		
 		Connection con = null;		
-		String CHECK = "select * from MEMBER where EMAIL='"+memVO.getEmail()+"'";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			Statement stm = con.createStatement();
-	        ResultSet rs = stm.executeQuery(CHECK);
+			pstmt = con.prepareStatement(CHECK);
+
+			pstmt.setString(1, email);
+
+			rs = pstmt.executeQuery();
 	        
 	        if(!rs.next()){
 	        	return true;
@@ -323,6 +327,13 @@ public class MemJDBCDAO implements MemDAO_interface {
 	public void betheFC(String memno) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public boolean checkID(String IDNUM) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

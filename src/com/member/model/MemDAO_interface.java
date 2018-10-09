@@ -9,7 +9,8 @@ public interface MemDAO_interface {
      public MemVO findByemail(String email);
      public MemVO findBymemno(String memno);
      public List<MemVO> getAll();
-     public boolean check(MemVO memVO);
+     public boolean check(String email);
+     public boolean checkID(String IDNUM);
      public boolean isuserlogin(String email,String paw);
      public void passregistered(String email);
      public boolean forgotcheck(String email, String idnum);

@@ -24,20 +24,17 @@ public class MemService {
 		memVO.setGender(gender);
 		memVO.setAddr(addr);
 		memVO.setLocno(locno);
-		
-		
+	
         dao.insert(memVO);
         
 		return memVO;	
 	}
 	//檢查重複註冊
 	public boolean checkduplicated(String email) {
-		MemVO memVO=new MemVO();
-		        
-		memVO.setEmail(email);
-		
-		return dao.check(memVO);
-		
+		return dao.check(email);	
+	}
+	public boolean checkdupID(String IDNUM) {
+		return dao.checkID(IDNUM);	
 	}
 	//登入檢查
 	public boolean allowuser(String email,String paw) {

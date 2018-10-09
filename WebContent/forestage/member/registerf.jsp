@@ -16,144 +16,154 @@
 	<script src="/T3MS/js/tw-city-selector.min.js"></script>
 	
 	<style type="text/css">
-	.shadow {
-		box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-	}
-	.container {
-		min-width: 992px !important;
-	}
+.shadow {
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
 
-	.bg-white {
-		background-color: #fff !important;
-	}
+.container {
+	min-width: 992px !important;
+}
 
-	.rounded {
-		border-radius: 0.5rem !important;
-	}
+.bg-white {
+	background-color: #fff !important;
+}
 
-	.align-items-center {
-		-ms-flex-align: center !important;
-		align-items: center !important;
-	}
+.rounded {
+	border-radius: 0.5rem !important;
+}
 
-	.offset-sm-1 {
-		margin-left: 8.333333%;
-	}
+.align-items-center {
+	-ms-flex-align: center !important;
+	align-items: center !important;
+}
 
-	.form-row {
-		display: -ms-flexbox;
-		display: flex;
-		-ms-flex-wrap: wrap;
-		flex-wrap: wrap;
-		margin-right: -5px;
-		margin-left: -5px;
-	}
+.offset-sm-1 {
+	margin-left: 8.333333%;
+}
 
-	.form-row > .col,
-	.form-row > [class*="col-"] {
-		padding-right: 5px;
-		padding-left: 5px;
-	}
+.form-row {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-right: -5px;
+	margin-left: -5px;
+}
 
-	.hrno{
-		visibility: hidden;
-		margin-top: 0px;
-	}
+.form-row>.col, .form-row>[class*="col-"] {
+	padding-right: 5px;
+	padding-left: 5px;
+}
 
-	.bgm{
-		background-image: url('/T3MS/img/bg-01.jpg');
-		width: 100%;  
-		min-height: 100vh;
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -moz-box;
-		display: -ms-flexbox;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-		padding: 15px;
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size: cover;
-		position: relative;
-		z-index: 1;
-	}
-	.bgm::before {
-		content: "";
-		display: block;
-		position: absolute;
-		z-index: -1;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		background-color: rgba(0,0,0,0.65);
-	}
-	.btnp{
-		font-family: Ubuntu-Bold;
-		font-size: 18px;
-		color: #fff;
-		line-height: 1.2;
-		text-transform: uppercase;
+.hrno {
+	visibility: hidden;
+	margin-top: 0px;
+}
 
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -moz-box;
-		display: -ms-flexbox;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 0 20px;
-		min-width: 160px;
-		height: 42px;
-		border-radius: 21px;
+.bgm {
+	background-image: url('/T3MS/img/bg-01.jpg');
+	width: 100%;
+	min-height: 100vh;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding: 15px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: relative;
+	z-index: 1;
+}
 
-		background: #d41872;
-		background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
-		background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
-		background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
-		background: linear-gradient(left, #a445b2, #d41872, #fa4299);
-		position: relative;
-		z-index: 1;
+.bgm::before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.65);
+}
 
-		-webkit-transition: all 0.4s;
-		-o-transition: all 0.4s;
-		-moz-transition: all 0.4s;
-		transition: all 0.4s;
-		}
+.container-btnp {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
 
-		/*   RADIO bootstrap原始碼
-		.custom-control-input {
-			position: absolute;
-			z-index: -1;
-			opacity: 0;
-		}
-		.custom-control-input:checked ~ .custom-control-label::before {
-			color: #fff;
-			background-color: #d41872;
-		}
-		.custom-control-input:focus ~ .custom-control-label::before {
-			box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 255, 0, 0.25);
-		}
-		.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-			background-color: #d41872;
-		}
+.btnp {
+	font-family: Ubuntu-Bold;
+	font-size: 18px;
+	color: #fff;
+	line-height: 1.2;
+	text-transform: uppercase;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 20px;
+	min-width: 160px;
+	height: 42px;
+	border-radius: 21px;
+	background: #d41872;
+	background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
+	background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
+	background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
+	background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+	position: relative;
+	z-index: 1;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+}
 
-		.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
-			background-color: #d41872;
-		}
-		*/
+.btnp::before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	border-radius: 21px;
+	background-color: #555555;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+}
 
+.btnp:hover {
+	background-color: transparent;
+}
 
-		/*.form-group{
-			display:inline;
-		}*/
-		.errorm{
-			font-size:8px;
-			color:red;
-			font-weight:bold;
-		}
+.btnp:hover:before {
+	opacity: 1;
+}
+
+.errorm {
+	font-size: 8px;
+	color: red;
+	font-weight: bold;
+}
 </style>
 	<%@ include file="/forestage/template/link.jsp" %>
 <title>register</title>
@@ -408,11 +418,6 @@ ez訂網站會員為富爾特科技股份有限公司經營管理，為了確保
 </body>
 <script>
 	new TwCitySelector();
-</script>
-<script type="text/javascript">
-$("#submit").click(function(){     $(this).attr("disabled","true"); //设置变灰按钮    
-$("#messageForm").submit();//提交表单    
-setTimeout("$('#submit').removeAttr('disabled')",3000); //设置三秒后提交按钮 显示     })
 </script>
 
 
