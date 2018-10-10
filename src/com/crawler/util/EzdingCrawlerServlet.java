@@ -27,7 +27,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 @WebServlet("/EzdingCrawlerServlet")
 public class EzdingCrawlerServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,17 +37,19 @@ public class EzdingCrawlerServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String targetUrl = "https://www.ezding.com.tw/movieInfoIndex";
         WebDriver driver = new FirefoxDriver();
         String realPath = getServletContext().getRealPath("/");
         
+        /*
         driver.get(targetUrl);
         WebDriverWait wait = new WebDriverWait(driver, 5);
         EzdingCrawler.waitLoadingElement(wait, "div[class='post']");
+        */
         /*
         WebElement ele = driver.findElement(By.tagName("body"));
         String html = ele.getAttribute("outerHTML");
@@ -62,7 +64,12 @@ public class EzdingCrawlerServlet extends HttpServlet {
         /*
         List<Thread> threads = new ArrayList<Thread>();
         for (int i = 0; i < pages; i++) {
-            Thread t = new Thread(new EzdingCrawler(i, false));
+            //Thread t = new Thread(new EzdingCrawler(i, false));
+            
+            EzdingCrawler crawler = new EzdingCrawler(i, false);
+            crawler.setServletContextRealPath(realPath);
+            Thread t = new Thread(crawler); //for showing movie
+            
             threads.add(t);
             t.start();
             
@@ -102,12 +109,14 @@ public class EzdingCrawlerServlet extends HttpServlet {
         /*
         for (int i = 0; i < pages; i++) {
             EzdingCrawler app = new EzdingCrawler(i, false);
+            crawler.setServletContextRealPath(realPath);
             app.run();
         }
         */
         
         //for comming movie
         driver.get(targetUrl);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
         EzdingCrawler.waitLoadingElement(wait, "div[class='post']");
         WebElement comingDiv = driver.findElement(By.cssSelector("div.btn2"));
         comingDiv.click(); //click coming movie
@@ -123,7 +132,12 @@ public class EzdingCrawlerServlet extends HttpServlet {
         
         List<Thread> threadsForComing = new ArrayList<Thread>();
         for (int i = 0; i < pagesForComing; i++) {
-            Thread tForComing = new Thread(new EzdingCrawler(i, true));
+            //Thread tForComing = new Thread(new EzdingCrawler(i, true));
+            //threadsForComing.add(tForComing);
+            
+            EzdingCrawler crawlerForComing = new EzdingCrawler(i, true);
+            crawlerForComing.setServletContextRealPath(realPath);
+            Thread tForComing = new Thread(crawlerForComing); //for coming movie
             threadsForComing.add(tForComing);
             tForComing.start();
 
@@ -147,7 +161,11 @@ public class EzdingCrawlerServlet extends HttpServlet {
         }
         
         /*
-        Thread tForComing = new Thread(new EzdingCrawler(0, true)); //for coming movie
+        //Thread tForComing = new Thread(new EzdingCrawler(0, true)); //for coming movie
+        EzdingCrawler crawlerForComing = new EzdingCrawler(0, true);
+        crawlerForComing.setServletContextRealPath(realPath);
+        Thread tForComing = new Thread(crawlerForComing); //for coming movie
+
         tForComing.start();
         try {
             tForComing.join();
@@ -160,6 +178,7 @@ public class EzdingCrawlerServlet extends HttpServlet {
         /*
         for (int i = 0; i < pagesForComing; i++) {
             EzdingCrawler app = new EzdingCrawler(i, true);
+            app.setServletContextRealPath(realPath);
             app.run();
         }
         */
@@ -167,6 +186,6 @@ public class EzdingCrawlerServlet extends HttpServlet {
         System.out.println("main thread close");
 
         driver.close();
-	}
+    }
 
 }
