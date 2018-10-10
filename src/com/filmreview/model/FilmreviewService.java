@@ -63,8 +63,8 @@ public class FilmreviewService {
     	return dao.getAll();
     }
     
-    public Set<FilmreviewVO> getAllByMemNo(String movie_no){
-    	return dao.getAllByMemNo(movie_no);
+    public Set<FilmreviewVO> getAllByMemNo(String movie_name){
+    	return dao.getAllByMemNo(movie_name);
     }
 	
 	

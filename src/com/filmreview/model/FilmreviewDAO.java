@@ -45,7 +45,9 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 	private static final String UPDATE = 
 			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=? where FR_NO = ?";
 	private static final String GET_ALL_MEM = 
-			"SELECT * FROM Filmreview where MOVIE_NO LiKE ?";
+			"SELECT  Filmreview.FR_NO,Filmreview.MOVIE_NO,filmreview.created_at,Filmreview.updated_at,Filmreview.content,Filmreview.evaluation,"
+			+ "Filmreview.title,Filmreview.source,Filmreview.url,Filmreview.mem_no,Filmreview.author  FROM Filmreview LEFT JOIN MOVIE ON Filmreview.MOVIE_NO = "
+			+ "MOVIE.MOVIE_NO where MOVIE_NAME LiKE ?";
 	@Override
 	public void insert(FilmreviewVO filmreviewVO) {
 		
@@ -302,7 +304,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 		return list;
 	}
 	@Override
-	public Set<FilmreviewVO> getAllByMemNo(String movie_no) {
+	public Set<FilmreviewVO> getAllByMemNo(String movie_name) {
 		Set<FilmreviewVO> set = new LinkedHashSet<FilmreviewVO>();
 		FilmreviewVO filmreviewVO = null;
 		
@@ -314,7 +316,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_MEM);
-			pstmt.setString(1, "%"+movie_no+"%");;
+			pstmt.setString(1, "%"+movie_name+"%");;
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {

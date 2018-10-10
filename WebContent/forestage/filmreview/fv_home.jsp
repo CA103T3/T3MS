@@ -22,7 +22,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="/T3MS/css/circle1440.css" rel="stylesheet" type="text/css">
@@ -93,7 +92,7 @@
 							<div class="input-group">
 
 
-								<input type="text" class="form-control" name="movie_no" placeholder="請輸入電影名稱">
+								<input type="text" class="form-control" name="movie_name" placeholder="請輸入電影名稱">
 								<div class="input-group-btn">
 									<input class="btn btn-primary" type="submit" value="送出"> 
 									<input type="hidden" name="action" value="getOne_For_Display">
@@ -169,13 +168,13 @@
 			<div class="container" style="">
 				<div class="row">
 
-	                   					
-                    			
+
+
 					<div class="col-md-1">
-					<c:forEach var="mvVO" items="${mvSvc.all}">
-								<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
-						<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
-						</a>
+						<c:forEach var="mvVO" items="${mvSvc.all}">
+							<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
+								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
+								</a>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -188,16 +187,14 @@
 						<h3 class="text-center">${FilmreviewVO.created_at}</h3>
 					</div>
 
-										
+
 					<div class="col-md-1">
 						<c:forEach var="mVO" items="${mSvc.all}">
 							<c:if test="${FilmreviewVO.mem_no==mVO.memno}">
-						 		
-						 		<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${mVO.memno}" class="center-block img-circle img-responsive">
-								<p class="text-center">
-	                   					 ${mVO.firstname}${mVO.lastname}
-								</p>
-                    		</c:if>
+
+								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${mVO.memno}" class="center-block img-circle img-responsive">
+								<p class="text-center">${mVO.firstname}${mVO.lastname}</p>
+							</c:if>
 						</c:forEach>
 					</div>
 

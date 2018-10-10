@@ -14,6 +14,7 @@ import com.filmreview.model.FilmreviewDAO;
 import com.filmreview.model.FilmreviewDAO_interface;
 import com.filmreview.model.FilmreviewService;
 import com.filmreview.model.FilmreviewVO;
+import com.session.model.SessionVO;
 
 public class FilmreviewVOSer implements SerStrategy_interface {
 //    private String dir = "WebContent/resources/ser/FilmreviewVO";
@@ -96,14 +97,14 @@ public class FilmreviewVOSer implements SerStrategy_interface {
 
     @Override
     public Object findVOByNo(String fr_no) {
-       
-        return fr_no ;
+    	FilmreviewVO filmreviewVO = frSvc.findByPrimaryKey(fr_no);
+        return filmreviewVO ;
     }
 
     @Override
-    public Object findVOByName(String fr_name) {
+    public Object findVOByName(String fr_no) {
       
-        return fr_name ;
+        return null ;
     }
 
     @Override

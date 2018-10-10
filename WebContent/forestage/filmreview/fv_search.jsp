@@ -4,9 +4,8 @@
 <%@ page import="com.filmreview.model.*"%>
 <%@ page import="com.movie.model.*"%>
 <%@ page import="com.member.model.*"%>
+
 <jsp:useBean id="fv_search" scope="request" type="java.util.Set<FilmreviewVO>" />
-
-
 <jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
 <jsp:useBean id="mSvc" scope="page" class="com.member.model.MemService" />
 <!DOCTYPE html>
@@ -17,7 +16,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
 
@@ -137,9 +136,9 @@
 
 					<div class="col-md-1">
 						<c:forEach var="mvVO" items="${mvSvc.all}">
-								<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
-						<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
-						</a>
+							<c:if test="${fv.movie_no==mvVO.movie_no}">
+								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
+								</a>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -154,13 +153,11 @@
 
 					<div class="col-md-1">
 						<c:forEach var="mVO" items="${mSvc.all}">
-							<c:if test="${FilmreviewVO.mem_no==mVO.memno}">
-						 		
-						 		<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${mVO.memno}" class="center-block img-circle img-responsive">
-								<p class="text-center">
-	                   					 ${mVO.firstname}${mVO.lastname}
-								</p>
-                    		</c:if>
+							<c:if test="${fv.mem_no==mVO.memno}">
+
+								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${mVO.memno}" class="center-block img-circle img-responsive">
+								<p class="text-center">${mVO.firstname}${mVO.lastname}</p>
+							</c:if>
 						</c:forEach>
 					</div>
 
