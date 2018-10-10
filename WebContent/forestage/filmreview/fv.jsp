@@ -31,7 +31,8 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <%@ include file="/forestage/template/link.jsp"%>
 
-
+                                      <link rel="stylesheet" href="/T3MS/css/amodal.css">
+ 
 <link rel="stylesheet" href="/T3MS/css/jsRapStar.css" />
 <script src="/T3MS/js/jsRapStar.js"></script>
 <title>M&amp;S</title>
@@ -89,6 +90,8 @@ input[type=submit]:hover {
 		margin-top: 0;
 	}
 }
+
+
 </style>
 
 
@@ -114,21 +117,11 @@ input[type=submit]:hover {
 				</div>
 
 			</div>
-		</div>
-	</div>
-
-	<div class="section">
-		<div class="container ctnr">
+		
 			<div class="row">
 				<p>${fv.content}</p>
 			</div>
-		</div>
-	</div>
-
-
-
-	<div class="section">
-		<div class="container ctnr">
+		
 			<div class="row">
 
 
@@ -179,15 +172,13 @@ input[type=submit]:hover {
 			<div class="text-right">
 				<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> <input type="hidden" name="action" value="insert"> <input type="submit" value="送出">
 			</div>
-		</div>
 	</form>
 
 
 
 
 
-	<div class="section">
-		<div class="container ctnr">
+	
 			<c:forEach var="fvm" items="${fvm}">
 				<div class="row">
 					<div class="containe" style="height: 90px; background-color: white; padding-top: 20px;">
@@ -197,24 +188,31 @@ input[type=submit]:hover {
 
 						</div>
 
-						<a>${fvm.mem_no}:
+						<a>${fvm.mem_no}
 
 							<div class="tool-tip time-right">
 								<i class="tool-tip__icon">檢</i>
 								<p class="tool-tip__info">
-									<a href="#" style="color: aaa"><span class="info__title">檢舉此6言</span></a>
+									<span class="info__title"><a href="#lightbox" data-toggle="modal">確認檢舉此留言？</a></span>
 								</p>
 							</div>
 
 						</a>
-						<p>${fvm.content}</p>
+						<p>${fvm.content}
+						
+								
+
+  
+  
+  
+						
+							</p>
 						<span class="time-right">${fvm.updated_at}</span>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
-
 
 
 	<!-- 	<div class="section"> -->
@@ -236,7 +234,30 @@ input[type=submit]:hover {
 	<!-- 	</div> -->
 
 
+<!--－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ modal內容↓ －－－－－－－－－－－－－－－－－－－－－－－－－－-->
 
+  <div class="modal fade and carousel slide" id="lightbox">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+         
+            <div class="item">
+             <textarea rows="20" cols="50">
+At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
+</textarea>
+            </div>
+
+
+        </div><!-- /.modal-body -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+</div><!-- /.container -->
+
+  
+
+<!--－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ modal內容↑ －－－－－－－－－－－－－－－－－－－－－－－－－－-->
 
 
 	<%@ include file="/forestage/template/footer.jsp"%>

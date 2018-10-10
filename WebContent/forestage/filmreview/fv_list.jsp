@@ -2,10 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.filmreview.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%
 	FilmreviewDAO fvSvc = new FilmreviewDAO();
 	List<FilmreviewVO> list = fvSvc.findByMem(request.getParameter("mem_no"));
 	pageContext.setAttribute("list", list);
+	out.println(request.getParameter("mem_no"));
 %>
 <!DOCTYPE html>
 <html>
