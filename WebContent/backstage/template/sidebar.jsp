@@ -143,7 +143,7 @@
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;票房排行榜管理</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/filmreview/fv_b.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;電影影評管理</a>
                         </li>
                         <li>

@@ -18,7 +18,7 @@
                       <ul class="dropdown-menu font-custom">
                         <li><a href="#">電影時刻</a></li>
                         <li><a href="#">電影介紹</a></li>
-                        <li><a href="#">電影影評</a></li>
+                        <li><a href="<%=request.getContextPath()%>/forestage/filmreview/fv_home.jsp">電影影評</a></li>
                       </ul>
                     </li>
                     <li><a href="#">社群平台</a></li>
