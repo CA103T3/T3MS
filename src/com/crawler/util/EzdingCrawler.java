@@ -134,9 +134,16 @@ public class EzdingCrawler implements Runnable {
             waitLoadingElement(wait, ".staffbox");
             List<WebElement> staffbox = driver.findElements(By.cssSelector(".staffbox"));
             System.out.println("staffbox.size : " + staffbox.size());
-            WebElement director = staffbox.get(0).findElement(By.cssSelector(".staff"));
-            System.out.println("director : " + director.getText());
-            movieInfo.put("director", director.getText());
+//            WebElement director = staffbox.get(0).findElement(By.cssSelector(".staff"));
+            if(!staffbox.get(0).findElements(By.cssSelector(".staff")).isEmpty()) {
+                WebElement director = staffbox.get(0).findElement(By.cssSelector(".staff"));
+                System.out.println("director : " + director.getText());
+                movieInfo.put("director", director.getText());
+            } else {
+                System.out.println(movieInfo.get("movieTitle") + " no director data");
+            }
+//            System.out.println("director : " + director.getText());
+//            movieInfo.put("director", director.getText());
             List<WebElement> staffContent = driver.findElements(By.cssSelector("div.staffContent > span"));
             String staff = "";
             for(WebElement we : staffContent) {
@@ -264,11 +271,13 @@ public class EzdingCrawler implements Runnable {
     }
 
     public void clickPageNumber(WebDriver driver, WebDriverWait wait) {
-        List<WebElement> numIndex = driver.findElements(By.cssSelector("div[class*='circle numIndex']"));
-        numIndex.get(page).click();
-        waitLoadingElement(wait, "div[class='post']");
-        threadSleep(300);
-        System.out.println("page: " + page);
+        if(waitLoadingElement(wait, "div[class*='circle numIndex']")) {
+            List<WebElement> numIndex = driver.findElements(By.cssSelector("div[class*='circle numIndex']"));
+            numIndex.get(page).click();
+            waitLoadingElement(wait, "div[class='post']");
+            threadSleep(300);
+            System.out.println("page: " + page);
+        }
     }
 
     public void clickComingMovie(WebDriver driver, WebDriverWait wait) {
