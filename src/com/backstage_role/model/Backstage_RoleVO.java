@@ -3,7 +3,7 @@ package com.backstage_role.model;
 
 
 public class Backstage_RoleVO implements java.io.Serializable{
-	
+	private static final long serialVersionUID = 1677349311558107695L;
 	private String br_no;
 	private String br_name;
 	

@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.account_backstage.model.*;
+import com.role_permission_bs.model.Role_Permission_BsVO;
 
 public class Account_BackstageServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -41,9 +42,9 @@ public class Account_BackstageServlet extends HttpServlet{
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/account_backstage/select_page.jsp");
+							.getRequestDispatcher("/backstage/account_backstage/select_page.jsp");
 					failureView.forward(req, res);
-					return;//程式中斷
+					return;//程式中斷
 				}
 				
 				String bs_acc_no = null;
@@ -55,9 +56,9 @@ public class Account_BackstageServlet extends HttpServlet{
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/account_backstage/select_page.jsp");
+							.getRequestDispatcher("/backstage/account_backstage/select_page.jsp");
 					failureView.forward(req, res);
-					return;//程式中斷
+					return;//程式中斷
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
@@ -67,19 +68,19 @@ public class Account_BackstageServlet extends HttpServlet{
 					errorMsgs.add("查無資料");
 				}
 //				if (account_BackstageVO == null) {
-//					errorMsgs.add("查無資料");
+//					errorMsgs.add("��鞈��");
 //				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/account_backstage/select_page.jsp");
+							.getRequestDispatcher("/backstage/account_backstage/select_page.jsp");
 					failureView.forward(req, res);
-					return;//程式中斷
+					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("account_BackstageVO", account_BackstageVO); // 資料庫取出的empVO物件,存入req
-				String url = "/account_backstage/listOneAccount_Backstage.jsp";
+				String url = "/backstage/account_backstage/listOneAccount_Backstage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 				
@@ -87,7 +88,7 @@ public class Account_BackstageServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/account_backstage/select_page.jsp");
+						.getRequestDispatcher("/backstage/account_backstage/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -107,18 +108,21 @@ public class Account_BackstageServlet extends HttpServlet{
 				/***************************2.開始查詢資料****************************************/
 				Account_BackstageService account_BackstageService = new Account_BackstageService();
 				Account_BackstageVO account_BackstageVO = account_BackstageService.getOneAccount_Backstage(bs_acc_no);
-								
+					
+			
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("account_BackstageVO", account_BackstageVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/account_backstage/update_account_backstage_input.jsp";
+				req.setAttribute("account_BackstageVO", account_BackstageVO);         // 資料庫取出的empVO物件,存入req
+				System.out.println("getLast_online_time=" + account_BackstageVO.getLast_online_time());
+				String url = "/backstage/account_backstage/update_account_backstage_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/account_backstage/listAllAccount_Backstage.jsp");
+						.getRequestDispatcher("/backstage/account_backstage/listAllAccount_Backstage.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -139,7 +143,7 @@ public class Account_BackstageServlet extends HttpServlet{
 				String bs_acc_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (bs_acc_name == null || bs_acc_name.trim().length() == 0) {
 					errorMsgs.add("員工姓名: 請勿空白");
-				} else if(!bs_acc_name.trim().matches(bs_acc_nameReg)) { //以下練習正則(規)表示式(regular-expression)
+				} else if(!bs_acc_name.trim().matches(bs_acc_nameReg)) {//以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
 				
@@ -204,9 +208,9 @@ public class Account_BackstageServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("account_BackstageVO", account_BackstageVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/account_backstage/update_account_backstage_input.jsp");
+							.getRequestDispatcher("/backstage/account_backstage/update_account_backstage_input.jsp");
 					failureView.forward(req, res);
-					return; //程式中斷
+					return; //程式中斷
 				}
 				
 				/***************************2.開始修改資料*****************************************/
@@ -214,17 +218,21 @@ public class Account_BackstageServlet extends HttpServlet{
 			
 				account_BackstageVO = account_BackstageService.updateaccount_Backstage(bs_acc_no,bs_acc_name,role_no
 						,cinema_no,bs_acc_psw,email,tel,last_online_time,state);
+				
+				
+				
+				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("account_BackstageVO", account_BackstageVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/account_backstage/listAllAccount_Backstage.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				String url = "/backstage/account_backstage/listAllAccount_Backstage.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/account_backstage/update_account_backstage_input.jsp");
+						.getRequestDispatcher("/backstage/account_backstage/update_account_backstage_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -270,7 +278,7 @@ public class Account_BackstageServlet extends HttpServlet{
 				String bs_acc_pswReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (bs_acc_psw == null || bs_acc_psw.trim().length() == 0) {
 					errorMsgs.add("帳號密碼: 請勿空白");
-				} else if(!bs_acc_psw.trim().matches(bs_acc_pswReg)) { //以下練習正則(規)表示式(regular-expression)
+				} else if(!bs_acc_psw.trim().matches(bs_acc_pswReg)) {//以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("帳號密碼: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
 				
@@ -301,7 +309,7 @@ public class Account_BackstageServlet extends HttpServlet{
 					last_online_time=new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("上次在線時間請輸入日期!");
 				}
-				
+								
 				Integer state = new Integer(req.getParameter("state").trim());
 				System.out.println(req.getParameter("state"));
 				Account_BackstageVO account_BackstageVO = new Account_BackstageVO();
@@ -313,23 +321,35 @@ public class Account_BackstageServlet extends HttpServlet{
 				account_BackstageVO.setTel(tel);
 				account_BackstageVO.setLast_online_time(last_online_time);
 				account_BackstageVO.setState(state);
-
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("account_BackstageVO", account_BackstageVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/account_backstage/addaccount_backstage.jsp");
+							.getRequestDispatcher("/backstage/account_backstage/addaccount_backstage.jsp");
 					failureView.forward(req, res);
 					return;
 				}
+//				
+//				/***************************2.開始新增資料***************************************/
+//				Account_BackstageService account_BackstageService = new Account_BackstageService();
+//				account_BackstageVO = account_BackstageService.addAccount_Backstage(bs_acc_name,role_no
+//						,cinema_no,bs_acc_psw,email,tel,last_online_time,state);
+				//取出勾選幾個權限就要用集合裝起來
+				account_BackstageVO.setBs_acc_name(bs_acc_name);
+				System.out.println(bs_acc_name);
+				List<Role_Permission_BsVO> list = new ArrayList<Role_Permission_BsVO>();
+				Account_BackstageJDBCDAO dao = new Account_BackstageJDBCDAO();
+				String[] strs = req.getParameterValues("PERMISSION_NO");
+				for(String str: strs) {
+					Role_Permission_BsVO vo = new Role_Permission_BsVO();
+					vo.setPermission_no(str);
+					list.add(vo);
+				}
+				dao.insertWithRole_Permission_Bs(account_BackstageVO, list);
 				
-				/***************************2.開始新增資料***************************************/
-				Account_BackstageService account_BackstageService = new Account_BackstageService();
-				account_BackstageVO = account_BackstageService.addAccount_Backstage(bs_acc_name,role_no
-						,cinema_no,bs_acc_psw,email,tel,last_online_time,state);
-				
-				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/account_backstage/listAllAccount_Backstage.jsp";
+//				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				String url = "/backstage/account_backstage/listAllAccount_Backstage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -337,7 +357,7 @@ public class Account_BackstageServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/account_backstage/addaccount_backstage.jsp");
+						.getRequestDispatcher("/backstage/account_backstage/addaccount_backstage.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -359,7 +379,7 @@ public class Account_BackstageServlet extends HttpServlet{
 				account_BackstageService.deleteAccount_Backstage(bs_acc_no);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/account_backstage/listAllAccount_Backstage.jsp";
+				String url = "/backstage/account_backstage/listAllAccount_Backstage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				
@@ -367,7 +387,7 @@ public class Account_BackstageServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/account_backstage/listAllAccount_Backstage.jsp");
+						.getRequestDispatcher("/backstage/account_backstage/listAllAccount_Backstage.jsp");
 				failureView.forward(req, res);
 			}
 		}

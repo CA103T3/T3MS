@@ -61,5 +61,9 @@ public class Role_Permission_BsService {
 		System.out.println("OK");
 		return dao.getAll();
 	}
+	public List<Role_Permission_BsVO> getAll2() {
+		System.out.println("OK2");
+		return dao.getAll2();
+	}
 
 }

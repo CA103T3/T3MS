@@ -15,12 +15,12 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class Backstage_RoleDAO implements Backstage_RoleDAO_interface{
-	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	// 銝���蝔�葉,�������澈 ,��銝��ataSource��
 		private static DataSource ds = null;
 		static {
 			try {
 				Context ctx = new InitialContext();
-				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+				ds = (DataSource) ctx.lookup("java:comp/env/jdbc/T3MS");
 			} catch (NamingException e) {
 				e.printStackTrace();
 			}
@@ -189,7 +189,7 @@ public class Backstage_RoleDAO implements Backstage_RoleDAO_interface{
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
-					// actVo 也稱為 Domain objects
+					// actVo 銋迂� Domain objects
 					backstage_RoleVO = new Backstage_RoleVO();
 					backstage_RoleVO.setBr_no(rs.getString("br_no"));
 					backstage_RoleVO.setBr_name(rs.getString("br_name"));
@@ -251,7 +251,7 @@ public class Backstage_RoleDAO implements Backstage_RoleDAO_interface{
 				rs = pstmt.executeQuery();
 	System.out.println("OK");
 				while (rs.next()) {
-					// actVO 也稱為 Domain objects
+					// actVO 銋迂� Domain objects
 					backstage_RoleVO = new Backstage_RoleVO();
 					backstage_RoleVO.setBr_no(rs.getString("br_no"));
 					System.out.println("OK");

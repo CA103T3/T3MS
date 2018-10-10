@@ -15,12 +15,12 @@ import javax.sql.DataSource;
 
 
 public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
-	// 一個應用程式中,針對一個資料庫 ,共用一個DataSource即可
+	// 銝���蝔�葉,�������澈 ,��銝��ataSource��
 	private static DataSource ds = null;
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/T3MS");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -29,6 +29,8 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO ROLE_PERMISSION_BACKSTAGE(PERMISSION_NO,ROLE_NO) VALUES (role_permission_seq.NEXTVAL,?)";
+	private static final String INSERT_STMT2 = 
+			"INSERT INTO ROLE_PERMISSION_BACKSTAGE(PERMISSION_NO,ROLE_NO) VALUES (?,?)";
 	private static final String GET_ALL_STMT = 
 			"SELECT PERMISSION_NO,ROLE_NO FROM ROLE_PERMISSION_BACKSTAGE order by PERMISSION_NO";
 	private static final String GET_ONE_STMT = 
@@ -37,6 +39,9 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 			"DELETE FROM ROLE_PERMISSION_BACKSTAGE where PERMISSION_NO = ?";
 	private static final String UPDATE = 
 			"UPDATE ROLE_PERMISSION_BACKSTAGE set ROLE_NO=? where PERMISSION_NO = ?";
+	
+	private static final String GET_ALL_STMT2 = 
+			"SELECT PERMISSION_NO,ROLE_NO FROM ROLE_PERMISSION_BACKSTAGE order by ROLE_NO";
 	
 	@Override
 	public void insert(Role_Permission_BsVO role_Permission_BsVO) {
@@ -49,7 +54,8 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 //			pstmt.setString(1, role_Permission_BsVO.getBs_acc_name());
-			pstmt.setString(2, role_Permission_BsVO.getRole_no());
+//			pstmt.setString(2, role_Permission_BsVO.getRole_no());
+			pstmt.setString(1, role_Permission_BsVO.getRole_no());
 //			pstmt.setString(3, account_BackstageVO.getCinema_no());
 //			pstmt.setString(4, account_BackstageVO.getBs_acc_psw());
 //			pstmt.setString(5, account_BackstageVO.getEmail());
@@ -189,7 +195,7 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// actVo 也稱為 Domain objects
+				// actVo 銋迂� Domain objects
 				role_Permission_BsVO = new Role_Permission_BsVO();
 				role_Permission_BsVO.setPermission_no(rs.getString("permission_no"));
 				role_Permission_BsVO.setRole_no(rs.getString("role_no"));
@@ -249,7 +255,7 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// actVO 也稱為 Domain objects
+				// actVO 銋迂� Domain objects
 				role_Permission_BsVO = new Role_Permission_BsVO();
 				role_Permission_BsVO.setPermission_no(rs.getString("permission_no"));
 				role_Permission_BsVO.setRole_no(rs.getString("role_no"));
@@ -293,6 +299,104 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 		}
 		return list;
 	}
+
+	@Override
+	public void insert2(Role_Permission_BsVO role_Permission_bsVO, Connection con) {
+		PreparedStatement pstmt = null;
+
+		try {
+
+     		pstmt = con.prepareStatement(INSERT_STMT2);
+     		pstmt.setString(1, role_Permission_bsVO.getPermission_no());
+     		pstmt.setString(2, role_Permission_bsVO.getRole_no());
+			
+
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-emp");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public List<Role_Permission_BsVO> getAll2() {
+		List<Role_Permission_BsVO> list = new ArrayList<Role_Permission_BsVO>();
+		Role_Permission_BsVO role_Permission_BsVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STMT2);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// actVO 銋迂� Domain objects
+				role_Permission_BsVO = new Role_Permission_BsVO();
+				role_Permission_BsVO.setPermission_no(rs.getString("permission_no"));
+				role_Permission_BsVO.setRole_no(rs.getString("role_no"));
+
+				list.add(role_Permission_BsVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+		
+	
 		
 
 	
@@ -300,10 +404,10 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 //
 //	Account_BackstageJDBCDAO dao = new Account_BackstageJDBCDAO();
 //
-//	// 新增
+//	// �憓�
 //	Account_BackstageVO account_BackstageVO1 = new Account_BackstageVO();
-//	account_BackstageVO1.setBs_acc_name("周星星");
-//	account_BackstageVO1.setRole_no("後台系統管理BOSS");
+//	account_BackstageVO1.setBs_acc_name("�����");
+//	account_BackstageVO1.setRole_no("敺蝟餌絞蝞∠�OSS");
 //	account_BackstageVO1.setCinema_no("12");
 //	account_BackstageVO1.setBs_acc_psw("123456");
 //	account_BackstageVO1.setEmail("JOJO@gmail.com");
@@ -312,11 +416,11 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 //	account_BackstageVO1.setState(1);
 //	dao.insert(account_BackstageVO1);
 
-	// 修改
+	// 靽格
 //	Account_BackstageVO account_BackstageVO2 = new Account_BackstageVO();
 //	account_BackstageVO2.setBs_acc_no("1");
-//	account_BackstageVO2.setBs_acc_name("鐘天佑");
-//	account_BackstageVO2.setRole_no("後台系統管理BOSS");
+//	account_BackstageVO2.setBs_acc_name("��予雿�");
+//	account_BackstageVO2.setRole_no("敺蝟餌絞蝞∠�OSS");
 //	account_BackstageVO2.setCinema_no("12");
 //	account_BackstageVO2.setBs_acc_psw("123456");
 //	account_BackstageVO2.setEmail("JOJO@gmail.com");
@@ -325,10 +429,10 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 //	account_BackstageVO2.setState(0);
 //	dao.update(account_BackstageVO2);
 //
-	// 刪除
+	// ��
 //	dao.delete("7");
 
-//	// 查詢
+//	// �閰�
 //	Account_BackstageVO account_BackstageVO3 = dao.findByPrimaryKey("8");
 //	System.out.print(account_BackstageVO3.getBs_acc_no() + ",");
 //	System.out.print(account_BackstageVO3.getBs_acc_name() + ",");
@@ -342,7 +446,7 @@ public class Role_Permission_BsDAO implements Role_Permission_BsDAO_interface{
 //	
 //	System.out.println("---------------------");
 //
-//	// 查詢
+//	// �閰�
 //	List<Account_BackstageVO> list = dao.getAll();
 //	for (Account_BackstageVO account_BackstageVO : list) {
 //		System.out.print(account_BackstageVO.getBs_acc_no() + ",");

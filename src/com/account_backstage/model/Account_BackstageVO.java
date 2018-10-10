@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Account_BackstageVO implements java.io.Serializable{
+	private static final long serialVersionUID = 1677349311558107695L;
 	private String bs_acc_no;
 	private String bs_acc_name;
 	private String role_no;

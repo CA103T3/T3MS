@@ -19,8 +19,8 @@ import com.account_backstage.model.Account_BackstageVO;
 public class Backstage_RoleJDBCDAO implements Backstage_RoleDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA103G3";
-	String passwd = "123";
+	String userid = "T3MS";
+	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO Backstage_Role(br_NO,BR_NAME) VALUES (backstage_role_seq.NEXTVAL,?)";
 	private static final String GET_ALL_STMT = "SELECT BR_NO,BR_NAME FROM Backstage_Role order by BR_NO";
@@ -180,7 +180,7 @@ System.out.println("ok");
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// actVo 也稱為 Domain objects
+				// actVo 銋迂� Domain objects
 				backstage_RoleVO = new Backstage_RoleVO();
 				backstage_RoleVO.setBr_no(rs.getString("br_no"));
 				backstage_RoleVO.setBr_name(rs.getString("br_name"));
@@ -241,7 +241,7 @@ System.out.println("ok");
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// actVO 也稱為 Domain objects
+				// actVO 銋迂� Domain objects
 				backstage_RoleVO = new Backstage_RoleVO();
 				backstage_RoleVO.setBr_no(rs.getString("br_no"));
 				System.out.println("OK");
@@ -298,23 +298,23 @@ System.out.println("ok");
 
 		Backstage_RoleJDBCDAO dao = new Backstage_RoleJDBCDAO();
 
-	// 新增
+	// �憓�
 //		Backstage_RoleVO backstage_RoleVO1 = new Backstage_RoleVO();
-//		backstage_RoleVO1.setBr_name("凱特琳");
+//		backstage_RoleVO1.setBr_name("���");
 //
 //		dao.insert(backstage_RoleVO1);
 
-	// 修改
+	// 靽格
 //		Backstage_RoleVO backstage_RoleVO2 = new Backstage_RoleVO();
 //		backstage_RoleVO2.setRole_no("1");
-//		backstage_RoleVO2.setBr_name("德瑪西亞");
+//		backstage_RoleVO2.setBr_name("敺瑞镼蹂��");
 //			
 //		dao.update(backstage_RoleVO2);
 
-	// 刪除
+	// ��
 //		dao.delete("2");
 
-	// 查詢
+	// �閰�
 //		Backstage_RoleVO backstage_RoleVO3 = dao.findByPrimaryKey("1");
 //		System.out.print(backstage_RoleVO3.getRole_no() + ",");
 //		System.out.println(backstage_RoleVO3.getBr_name());
@@ -322,7 +322,7 @@ System.out.println("ok");
 //
 //		System.out.println("---------------------");
 		
-	// 查詢
+	// �閰�
 		List<Backstage_RoleVO> list = dao.getAll();
 		for (Backstage_RoleVO backstage_RoleVO : list) {
 		System.out.print(backstage_RoleVO.getBr_no() + ",");
