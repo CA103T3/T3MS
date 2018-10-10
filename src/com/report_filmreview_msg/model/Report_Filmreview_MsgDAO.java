@@ -29,15 +29,15 @@ public class Report_Filmreview_MsgDAO implements Report_Filmreview_MsgDAO_interf
 	
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO Report_FILMREVIEW_MSG (RFM_NO, FRM_NO, MEM_NO, STATE, CONTENT) VALUES ('RFM'||LPAD(to_char(Report_FILMREVIEW_MSG_SEQ.NEXTVAL), 6, '0'), ?, ?, '1', ?)";
+			"INSERT INTO Report_FILMREVIEW_MSG (RFM_NO, FRM_NO, MEM_NO, STATE, CONTENT) VALUES ('RFM'||LPAD(to_char(Report_FILMREVIEW_MSG_SEQ.NEXTVAL), 6, '0'), ?, ?, 1, ?)";
 	private static final String GET_ALL_STMT = 
 			"SELECT * FROM Report_FILMREVIEW_MSG order by RFM_NO DESC";
 	private static final String DELETE = 
 			"DELETE FROM Report_FILMREVIEW_MSG where RFM_NO = ?";
-	private static final String GET_ALL_RFM = 
+	private static final String GET_ONE = 
 			"SELECT * FROM Report_FILMREVIEW_MSG where RFM_NO = ? ";
 	private static final String GET_ALL_FRM = 
-			"SELECT * FROM Report_FILMREVIEW_MSG where FRM_NO = ? ";
+			"SELECT * FROM Report_FILMREVIEW_MSG where RFM_NO = ? ";
 	private static final String UPDATE =
 	        "UPDATE Report_FILMREVIEW_MSG set STATE=? where RFM_NO = ?";
 	
@@ -239,7 +239,7 @@ public class Report_Filmreview_MsgDAO implements Report_Filmreview_MsgDAO_interf
 
 	@Override
 	public Report_Filmreview_MsgVO getAllByRfmNo(String rfm_no) {
-Report_Filmreview_MsgVO report_filmreview_msgVO = null;
+		Report_Filmreview_MsgVO report_filmreview_msgVO = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -334,5 +334,6 @@ Report_Filmreview_MsgVO report_filmreview_msgVO = null;
 	}
 
 	
+
 
 }

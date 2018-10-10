@@ -196,7 +196,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>Report_Filmreview_MsgServlet</servlet-name>
-    <servlet-class>com.report_filmreview_msgServlet.controller.Report_Filmreview_MsgServlet</servlet-class>
+    <servlet-class>com.report_filmreview_msg.controller.Report_Filmreview_MsgServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Report_Filmreview_MsgServlet</servlet-name>

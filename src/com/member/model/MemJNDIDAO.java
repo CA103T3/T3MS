@@ -30,6 +30,7 @@ public class MemJNDIDAO implements MemDAO_interface {
 	private static final String BAN ="UPDATE MEMBER SET STATUS=? WHERE MEM_NO=?";
 	private static final String FILM_CRITICISM ="UPDATE MEMBER SET TYPE=? WHERE MEM_NO=?";
 	private static final String CHECK = "select * from MEMBER where IDNUM=?";
+	private static final String INSERT_RETURN ="insert into MEMBER(mem_no,email,mem_pw,lname,fname,birthday,phone,IDNUM,gender,addr,locno,memimg,status,type,violation) values('M'||LPAD(to_char(member_seq.NEXTVAL), 3, '0'),?,?,?,?,TO_DATE(substr(?,0,19),'YYYY-MM-DD   HH24:MI:SS'),?,?,?,?,?,?,?,?,?)";
 	
 	@Override
 	public void insert(MemVO memVO) {		
@@ -682,6 +683,73 @@ public class MemJNDIDAO implements MemDAO_interface {
 				}
 			}
 		}		
+	}
+	
+	@Override
+	public String InsertReturnNO(MemVO memVO) {		
+		Connection con = null;
+		PreparedStatement pstmt = null;		
+		String[] cols = { "MEM_NO" }; // 或 int cols[] = {1};
+		String memno=null;
+		try {
+
+			con = ds.getConnection(); 
+			pstmt = con.prepareStatement(INSERT_RETURN,cols);
+			
+			
+			pstmt.setString(1,memVO.getEmail());
+			pstmt.setString(2,memVO.getPaw());
+			pstmt.setString(3,memVO.getLastname());
+			pstmt.setString(4,memVO.getFirstname());
+			pstmt.setString(5,memVO.getBirthday());
+			pstmt.setString(6,memVO.getPhone());
+			pstmt.setString(7,memVO.getIDNUM());
+			pstmt.setInt(8,memVO.getGender());
+			pstmt.setString(9, memVO.getAddr());
+			pstmt.setInt(10, memVO.getLocno());
+			pstmt.setBytes(11, memVO.getMemimg());
+			pstmt.setInt(12, memVO.getStatus());
+			pstmt.setInt(13, memVO.getType());
+			pstmt.setInt(14, memVO.getViolation());
+			
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            if (rs.next()) {
+                do {
+                    for (int i = 1; i <= columnCount; i++) {
+                        memno = rs.getString(i);
+                        //System.out.println("自增主鍵值 = " + memno);
+                    }
+                } while (rs.next());
+            } else {
+                System.out.println("NO KEYS WERE GENERATED.");
+            }
+
+            rs.close();
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memno;
 	}
 	
 	

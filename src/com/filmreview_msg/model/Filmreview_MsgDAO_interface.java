@@ -10,4 +10,5 @@ public interface Filmreview_MsgDAO_interface {
 	public List<Filmreview_MsgVO> getAll();
 	public void delete(String frm_no);
 	public Set<Filmreview_MsgVO> getAllByFrNo(String fr_no);
+	public Filmreview_MsgVO getVO(String fr_no);
 }

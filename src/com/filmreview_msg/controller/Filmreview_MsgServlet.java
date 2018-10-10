@@ -9,9 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.filmreview_msg.model.Filmreview_MsgService;
 import com.filmreview_msg.model.Filmreview_MsgVO;
+import com.member.model.MemVO;
 
 public class Filmreview_MsgServlet extends HttpServlet {
 
@@ -40,7 +42,8 @@ public class Filmreview_MsgServlet extends HttpServlet {
 			
 				
 				
-				
+				HttpSession session = req.getSession();
+				MemVO memVO = (MemVO)session.getAttribute("memVO");
 				String content = req.getParameter("content");
 				System.out.println(content);
 				if (content == null || content.trim().length() == 0) {
@@ -49,12 +52,12 @@ public class Filmreview_MsgServlet extends HttpServlet {
 				
 				String fr_no = req.getParameter("fr_no").trim();
 				System.out.println(fr_no);
-				String mem_no = req.getParameter("mem_no").trim();
-				System.out.println(mem_no);
+				String memno = memVO.getMemno();
+				System.out.println(memno);
 				Filmreview_MsgVO filmreview_msgVO = new Filmreview_MsgVO();
 				
 				filmreview_msgVO.setFr_no(fr_no);
-				filmreview_msgVO.setMem_no(mem_no);	
+				filmreview_msgVO.setMem_no(memno);	
 				filmreview_msgVO.setContent(content);
 
 
@@ -69,7 +72,7 @@ public class Filmreview_MsgServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				Filmreview_MsgService fvmSvc = new Filmreview_MsgService();
-				filmreview_msgVO = fvmSvc.insertFilmrevew_Msg(fr_no, mem_no, content);
+				filmreview_msgVO = fvmSvc.insertFilmrevew_Msg(fr_no, memno, content);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				

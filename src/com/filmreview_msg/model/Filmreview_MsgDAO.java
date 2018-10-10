@@ -36,7 +36,8 @@ public class Filmreview_MsgDAO implements Filmreview_MsgDAO_interface{
 			"DELETE FROM FILMREVIEW_MSG where FRM_NO = ?";
 	private static final String GET_ALL_FRM = 
 			"SELECT * FROM FILMREVIEW_MSG where FR_NO = ? order by UPDATED_AT DESC";
-	
+	private static final String GET_ONE_STMT = 
+			"SELECT * FROM FILMREVIEW_MSG where FRM_NO = ?";
 	
 	
 	@Override
@@ -234,5 +235,64 @@ public class Filmreview_MsgDAO implements Filmreview_MsgDAO_interface{
 		}
 		return set;
 	}
+	
+	
+	public Filmreview_MsgVO getVO(String fr_no) {
+		Filmreview_MsgVO filmreview_msgVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				filmreview_msgVO = new Filmreview_MsgVO();
+				filmreview_msgVO.setFrm_no(rs.getString("frm_no"));
+				filmreview_msgVO.setFr_no(rs.getString("fr_no"));
+				filmreview_msgVO.setMem_no(rs.getString("mem_no"));
+				filmreview_msgVO.setCreated_at(rs.getDate("created_at"));
+				filmreview_msgVO.setUpdated_at(rs.getDate("updated_at"));
+				filmreview_msgVO.setContent(rs.getString("content"));
+				
+				
+			} 
+				
+				
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return filmreview_msgVO;
+	}
+	
 
 }

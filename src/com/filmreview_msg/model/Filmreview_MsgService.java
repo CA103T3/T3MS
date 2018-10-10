@@ -37,4 +37,7 @@ private Filmreview_MsgDAO_interface dao;
 	public Set<Filmreview_MsgVO> getAllByFrNo(String fr_no){
     	return dao.getAllByFrNo(fr_no);
     }
+	public Filmreview_MsgVO getVO(String fr_no) {
+		return dao.getVO(fr_no);
+	}
 }

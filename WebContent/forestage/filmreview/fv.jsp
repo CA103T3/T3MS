@@ -198,18 +198,33 @@ input[type=submit]:hover {
 							</div>
 
 						</a>
-						<p>${fvm.content}
-						
-								
-
-  
-  
-  
-						
-							</p>
+						<p>${fvm.content}</p>				
 						<span class="time-right">${fvm.updated_at}</span>
 					</div>
 				</div>
+						<!--－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ modal內容↓ －－－－－－－－－－－－－－－－－－－－－－－－－－-->
+
+  <div class="modal fade and carousel slide" id="lightbox"> 
+        <div class="modal-body">        
+            <div class="item">
+            			<form method="post" action="<%=request.getContextPath()%>/report_filmreview_msgServlet/report_filmreview_msgServlet.do">
+							<input type="hidden" name="frm_no" value="FM0001">
+							<input type="hidden" name="mem_no" value="M002">
+							<input type="text" name="content" value="">
+							<input type="hidden" name="action" value="insert">
+							<input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
+							<button type="submit">檢舉</button>
+						</form>
+            </div>
+        </div><!-- /.modal-body -->
+      </div><!-- /.modal-content -->
+  
+  
+
+
+
+<!--－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ modal內容↑ －－－－－－－－－－－－－－－－－－－－－－－－－－-->				
+				
 			</c:forEach>
 		</div>
 	</div>
@@ -234,30 +249,7 @@ input[type=submit]:hover {
 	<!-- 	</div> -->
 
 
-<!--－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ modal內容↓ －－－－－－－－－－－－－－－－－－－－－－－－－－-->
 
-  <div class="modal fade and carousel slide" id="lightbox">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-         
-            <div class="item">
-             <textarea rows="20" cols="50">
-At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
-</textarea>
-            </div>
-
-
-        </div><!-- /.modal-body -->
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
-</div><!-- /.container -->
-
-  
-
-<!--－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ modal內容↑ －－－－－－－－－－－－－－－－－－－－－－－－－－-->
 
 
 	<%@ include file="/forestage/template/footer.jsp"%>

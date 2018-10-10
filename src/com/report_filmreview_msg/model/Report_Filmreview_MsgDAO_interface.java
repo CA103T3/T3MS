@@ -12,4 +12,5 @@ public interface Report_Filmreview_MsgDAO_interface {
 	public List<Report_Filmreview_MsgVO> getAll();
 	public Report_Filmreview_MsgVO getAllByFrmNo(String frm_no);
 	public Report_Filmreview_MsgVO getAllByRfmNo(String rfm_no);
+	
 }

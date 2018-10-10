@@ -19,6 +19,6 @@ public interface MemDAO_interface {
      public void unbanmember(String memno);
      public void wanttobeFC(String memno);
      public void betheFC(String memno);
-	
+     public String InsertReturnNO(MemVO memVO);
 	
 }

@@ -335,6 +335,13 @@ public class MemJDBCDAO implements MemDAO_interface {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	@Override
+	public String InsertReturnNO(MemVO memVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
