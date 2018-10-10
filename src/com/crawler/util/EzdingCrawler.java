@@ -9,8 +9,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -37,6 +39,7 @@ public class EzdingCrawler implements Runnable {
     private boolean coming;
     private String targetUrl = "https://www.ezding.com.tw/movieInfoIndex";
     private String servletContextRealPath;
+    private Set<String> cinemaSet;
 
     public void setServletContextRealPath(String servletContextRealPath) {
         this.servletContextRealPath = servletContextRealPath;
@@ -53,6 +56,7 @@ public class EzdingCrawler implements Runnable {
         WebDriver driver = new FirefoxDriver();
         List<HashMap> movieInfoList = new ArrayList<HashMap>();
         List<HashMap> movieSessionList = new ArrayList<HashMap>();
+        cinemaSet = new LinkedHashSet<String>();
         driver.get(targetUrl);
 //        String pageSource = driver.getPageSource();
 //        System.out.println(pageSource);
@@ -212,6 +216,7 @@ public class EzdingCrawler implements Runnable {
 
         handleMovie(movieInfoList);
         handleMovieSessionList(movieSessionList);
+        handleTheater();
 
         threadSleep(3000);
         driver.close();
@@ -229,6 +234,7 @@ public class EzdingCrawler implements Runnable {
 
     public void handleMovieSessionList(List<HashMap> movieSessionList) {
         handleCinema(movieSessionList);
+        //handleTheater(movieSessionList);
     }
 
     public void handleCinema(List<HashMap> movieSessionList) {
@@ -237,6 +243,15 @@ public class EzdingCrawler implements Runnable {
         chdr.setServletContextRealPath(servletContextRealPath);
         List<String> list = chdr.importDB(); //return list of cinema_no
         chdr.exportSer(list);
+    }
+
+    // public void handleTheater(List<HashMap> movieSessionList) {
+    public void handleTheater() {
+        System.out.println("handleTheater");
+        TheaterHandler thdr = new TheaterHandler(cinemaSet);
+        thdr.setServletContextRealPath(servletContextRealPath);
+        List<String> list = thdr.importDB(); //return list of theater_no
+        //thdr.exportSer(list);
     }
 
     public void threadSleep(long millis) {
@@ -403,6 +418,7 @@ public class EzdingCrawler implements Runnable {
         for(Element cinemabox : cinemaboxes) {
             String cinemaName = cinemabox.selectFirst(".cinemaName").text();
             System.out.println(cinemaName);
+            cinemaSet.add(cinemaName);
             String version = cinemabox.selectFirst(".version").text();
             System.out.println(version);
             Elements times = cinemabox.select(".session .time");

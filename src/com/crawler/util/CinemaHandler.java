@@ -13,7 +13,7 @@ import com.movie.model.MovieService;
 import com.movie.model.MovieVO;
 
 public class CinemaHandler {
-    private List<HashMap> movieSessionList = new ArrayList<HashMap>();
+    private List<HashMap> movieSessionList;
     //private String dir = "WebContent/resources/crawler/movieinfo"; //workable ?!
     private String dir = "resources/crawler/movieinfo"; //for Java EE Environment
     private String servletContextRealPath;
@@ -31,11 +31,11 @@ public class CinemaHandler {
     }
 
     public List<String> importDB() {
-        System.out.println("importDB");
+        //System.out.println("importDB");
         List<String> list = new ArrayList<String>();
         for(int i = 0; i < movieSessionList.size(); i++) {
             String cinema_name = (String) movieSessionList.get(i).get("cinemaName");
-            System.out.println("importDB cinemaName :" + movieSessionList.get(i).get("cinemaName"));
+            //System.out.println("importDB cinemaName :" + movieSessionList.get(i).get("cinemaName"));
             CinemaService cSvc = new CinemaService();
             CinemaVO cinemaVO = cSvc.getOneCinemaByCinemaName(cinema_name);
             if(cinemaVO == null) {

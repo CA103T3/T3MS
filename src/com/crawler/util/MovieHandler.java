@@ -14,7 +14,7 @@ import com.common.util.ImageUtil;
 import com.movie.model.*;
 
 public class MovieHandler {
-    private List<HashMap> movieInfoList = new ArrayList<HashMap>();
+    private List<HashMap> movieInfoList;
     //private String dir = "WebContent/resources/crawler/movieinfo"; //workable ?!
     private String dir = "resources/crawler/movieinfo"; //for Java EE Environment
     private String servletContextRealPath;
