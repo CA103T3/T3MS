@@ -12,6 +12,8 @@
 	pageContext.setAttribute("list", list);
 %>
 <jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
+<jsp:useBean id="mSvc" scope="page" class="com.member.model.MemService" />
+
 <!DOCTYPE html>
 
 
@@ -23,6 +25,7 @@
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="/T3MS/css/circle1440.css" rel="stylesheet" type="text/css">
 
 <%@ include file="/forestage/template/link.jsp" %>
         <title>M&amp;S</title>
@@ -37,6 +40,9 @@
 	padding: 20px;
 }
 
+
+
+  
 </style>
 
 
@@ -47,6 +53,14 @@
 
 
   <%@ include file="/forestage/template/header_no_bar.jsp" %>
+  <div id="loader-wrapper">
+
+                <div id="loader"></div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+        
+            </div>
+
 
 	  <div class="section">
 	      <div class="container">
@@ -90,7 +104,8 @@
 												<li style="color: red">${message}</li>
 											</c:forEach>
 										</ul>
-									</c:if></div>
+									</c:if>
+									</div>
 								</div>
 
 							</div>
@@ -151,12 +166,18 @@
 	<c:forEach var="FilmreviewVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
 		<div class="section">
-			<div class="container">
+			<div class="container" style="">
 				<div class="row">
 
+	                   					
+                    			
 					<div class="col-md-1">
-						<a href="#"> <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
+					<c:forEach var="mvVO" items="${mvSvc.all}">
+								<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
+						<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
 						</a>
+							</c:if>
+						</c:forEach>
 					</div>
 
 					<div class="col-md-6">
@@ -167,18 +188,27 @@
 						<h3 class="text-center">${FilmreviewVO.created_at}</h3>
 					</div>
 
+										
 					<div class="col-md-1">
-						<a href="#"> <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="center-block img-circle img-responsive">
-							<p class="text-center">${FilmreviewVO.mem_no}</p>
-						</a>
+						<c:forEach var="mVO" items="${mSvc.all}">
+							<c:if test="${FilmreviewVO.mem_no==mVO.memno}">
+						 		
+						 		<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${mVO.memno}" class="center-block img-circle img-responsive">
+								<p class="text-center">
+	                   					 ${mVO.firstname}${mVO.lastname}
+								</p>
+                    		</c:if>
+						</c:forEach>
 					</div>
 
 					<div class="col-md-2">
-						<h3 class="text-center"><c:forEach var="mvVO" items="${mvSvc.all}">
-									<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
+						<h3 class="text-center">
+							<c:forEach var="mvVO" items="${mvSvc.all}">
+								<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
 	                   					 ${mvVO.movie_name}
-                    				</c:if>
-								</c:forEach></h3>
+                    			</c:if>
+							</c:forEach>
+						</h3>
 					</div>
 
 					<div class="col-md-1">
@@ -201,7 +231,9 @@
 	<script>
 		$(document).ready(function() {
 			$("li:contains('電影資訊')").addClass("custom-active");
+		    $('body').addClass('loaded');
 		});
+	
 	</script>
 
 </body>
