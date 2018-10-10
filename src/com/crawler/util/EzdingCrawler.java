@@ -251,7 +251,7 @@ public class EzdingCrawler implements Runnable {
         TheaterHandler thdr = new TheaterHandler(cinemaSet);
         thdr.setServletContextRealPath(servletContextRealPath);
         List<String> list = thdr.importDB(); //return list of theater_no
-        //thdr.exportSer(list);
+        thdr.exportSer(list);
     }
 
     public void threadSleep(long millis) {

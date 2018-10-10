@@ -9,67 +9,67 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.theater.model.*;
+import com.session.model.*;
 
 
-public class TheaterVOSer implements SerStrategy_interface {
+public class SessionVOSer implements SerStrategy_interface {
 
-//  private String dir = "WebContent/resources/ser/TheaterVO";
-  private String dir = "resources/ser/TheaterVO"; //for Java EE Servlet
-  private TheaterService tSvc;
-  private TheaterDAO_interface dao;
+//  private String dir = "WebContent/resources/ser/SessionVO";
+  private String dir = "resources/ser/SessionVO"; //for Java EE Servlet
+  private SessionService sSvc;
+  private SessionDAO_interface dao;
   private String servletContextRealPath;
 
   public void setServletContextRealPath(String servletContextRealPath) {
       this.servletContextRealPath = servletContextRealPath;
   }
 
-  public TheaterVOSer() {
-      tSvc = new TheaterService();
-      dao = new TheaterDAO();
+  public SessionVOSer() {
+      sSvc = new SessionService();
+      dao = new SessionDAO();
   }
 
   @Override
   public void importOne(String action, String no) throws Exception {
       File fsaveDir = checkSaveDir();
       File target = new File(fsaveDir, no + ".ser");
-      TheaterVO theaterVO = readTheaterVOSer(target);
+      SessionVO sessionVO = readSessionVOSer(target);
       if("add".equals(action)) {
-          TheaterVO tmpVO = tSvc.getOneTheater(no);
+          SessionVO tmpVO = sSvc.getOneSession(no);
           if(tmpVO != null) {
               System.out.println(no + " already existed !");
           } else {
-              String theater_no = dao.insert(theaterVO);
-              System.out.println("TheaterVOSer insert " + theater_no);
+              String session_no = dao.insert(sessionVO);
+              System.out.println("SessionVOSer insert " + session_no);
           }
       } else if("update".equals(action)) {
-          dao.update(theaterVO);
-          System.out.println("TheaterVOSer update " + theaterVO.getTheater_no());
+          dao.update(sessionVO);
+          System.out.println("SessionVOSer update " + sessionVO.getSession_no());
       } else {
-          System.out.println("TheaterVOSer no corresponding action");
+          System.out.println("SessionVOSer no corresponding action");
       }
   }
 
-  public TheaterVO readTheaterVOSer(File f) throws Exception {
+  public SessionVO readSessionVOSer(File f) throws Exception {
       FileInputStream fis = new FileInputStream(f);
       ObjectInputStream ois = new ObjectInputStream(fis);
-      TheaterVO theaterVO = (TheaterVO) ois.readObject();
+      SessionVO sessionVO = (SessionVO) ois.readObject();
       ois.close();
       fis.close();
-      return theaterVO;
+      return sessionVO;
   }
 
   @Override
   public void importAll() throws Exception {
-      System.out.println("TheaterVOSer importAll");
+      System.out.println("SessionVOSer importAll");
       File fsaveDir = checkSaveDir();
       for(File f : fsaveDir.listFiles()){
           System.out.println(f.getName());
           String filename = f.getName();
-          String theater_no = filename.substring(0, filename.lastIndexOf("."));
-          //System.out.println("theater_no : " + theater_no);
+          String session_no = filename.substring(0, filename.lastIndexOf("."));
+          //System.out.println("session_no : " + session_no);
           String action = "add";
-          importOne(action, theater_no);
+          importOne(action, session_no);
       }
   }
 
@@ -82,62 +82,60 @@ public class TheaterVOSer implements SerStrategy_interface {
   }
 
   @Override
-  public Object findVOByNo(String theater_no) {
-      TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
-      return theaterVO;
+  public Object findVOByNo(String session_no) {
+      SessionVO sessionVO = sSvc.getOneSession(session_no);
+      return sessionVO;
   }
 
   @Override
-  public Object findVOByName(String theater_name) {
-	  System.out.println("TheaterVOSer findVOByName not implement");
+  public Object findVOByName(String session_name) {
       return null;
   }
 
   @Override
   public List<Object> getAllVO() {
       // TODO Auto-generated method stub
-      List<TheaterVO> list = tSvc.getAll();
+      List<SessionVO> list = sSvc.getAll();
       List<Object> listObj = new ArrayList<Object>();
-      for(TheaterVO theaterVO : list) {
-          listObj.add((Object)theaterVO);
+      for(SessionVO sessionVO : list) {
+          listObj.add((Object)sessionVO);
       }
       return listObj;
   }
 
   @Override
   public void export(Object vo) throws IOException {
-      TheaterVO theaterVO = (TheaterVO) vo;
+      SessionVO sessionVO = (SessionVO) vo;
 //      String realPath = getServletContext().getRealPath(dir);
       File fsaveDir = checkSaveDir();
-      File file = new File(fsaveDir, theaterVO.getTheater_no() + ".ser");
+      File file = new File(fsaveDir, sessionVO.getSession_no() + ".ser");
       FileOutputStream fos = new FileOutputStream(file);
       ObjectOutputStream oos = new ObjectOutputStream(fos);
-      oos.writeObject(theaterVO);
-      System.out.println("TheaterVOSer export : " + file.toString());
+      oos.writeObject(sessionVO);
+      System.out.println("SessionVOSer export : " + file.toString());
       oos.close();
       fos.close();
   }
 
   @Override
   public void export(List<Object> list) throws IOException {
-      System.out.println("TheaterVOSer export(List<Object> list)");
+      System.out.println("SessionVOSer export(List<Object> list)");
       for(Object vo : list) {
           export(vo);
       }
-//      System.out.println("TheaterVOSer export(List<Object> list) size " + list.size());
   }
 
   @Override
   public void importUpdateAll() throws Exception {
-      System.out.println("TheaterVOSer importUpdateAll");
+      System.out.println("SessionVOSer importUpdateAll");
       File fsaveDir = checkSaveDir();
       for(File f : fsaveDir.listFiles()){
           System.out.println(f.getName());
           String filename = f.getName();
-          String theater_no = filename.substring(0, filename.lastIndexOf("."));
-          //System.out.println("theater_no : " + theater_no);
+          String session_no = filename.substring(0, filename.lastIndexOf("."));
+          //System.out.println("session_no : " + session_no);
           String action = "update";
-          importOne(action, theater_no);
+          importOne(action, session_no);
       }
   }
 

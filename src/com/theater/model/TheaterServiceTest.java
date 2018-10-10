@@ -66,7 +66,8 @@ public class TheaterServiceTest extends HttpServlet {
         Integer t_columns = 5;
         String clobContent = "{\"1_1\":[\"A_1\",\"2\"],\"1_2\":[\"A_2\",\"2\"],\"2_1\":[\"B_1\",\"2\"],\"1_3\":[\"A_3\",\"2\"],\"2_2\":[\"B_2\",\"2\"],\"3_1\":[\"C_1\",\"2\"],\"1_4\":[\"A_4\",\"2\"],\"2_3\":[\"B_3\",\"2\"],\"3_2\":[\"C_2\",\"2\"],\"4_1\":[\"D_1\",\"2\"],\"1_5\":[\"A_5\",\"2\"],\"2_4\":[\"B_4\",\"2\"],\"3_3\":[\"C_3\",\"2\"],\"4_2\":[\"D_2\",\"2\"],\"5_1\":[\"E_1\",\"2\"],\"2_5\":[\"B_5\",\"2\"],\"3_4\":[\"C_4\",\"2\"],\"4_3\":[\"D_3\",\"2\"],\"5_2\":[\"E_2\",\"2\"],\"3_5\":[\"C_5\",\"2\"],\"4_4\":[\"D_4\",\"2\"],\"5_3\":[\"E_3\",\"2\"],\"4_5\":[\"D_5\",\"2\"],\"5_4\":[\"E_4\",\"2\"],\"5_5\":[\"E_5\",\"2\"]}";
 
-        StringReader seat_model = new StringReader(clobContent); 
+        //StringReader seat_model = new StringReader(clobContent);
+        String seat_model = clobContent;
         Integer seats = 250;
         String equipment = "數位";
 
@@ -113,7 +114,8 @@ public class TheaterServiceTest extends HttpServlet {
         Integer t_columns = 5;
         String clobContent = "{\"1_1\":[\"A_1\",\"3\"],\"1_2\":[\"A_2\",\"3\"],\"2_1\":[\"B_1\",\"3\"],\"1_3\":[\"A_3\",\"3\"],\"2_2\":[\"B_2\",\"2\"],\"3_1\":[\"C_1\",\"2\"],\"1_4\":[\"A_4\",\"2\"],\"2_3\":[\"B_3\",\"2\"],\"3_2\":[\"C_2\",\"2\"],\"4_1\":[\"D_1\",\"2\"],\"1_5\":[\"A_5\",\"2\"],\"2_4\":[\"B_4\",\"2\"],\"3_3\":[\"C_3\",\"2\"],\"4_2\":[\"D_2\",\"2\"],\"5_1\":[\"E_1\",\"2\"],\"2_5\":[\"B_5\",\"2\"],\"3_4\":[\"C_4\",\"2\"],\"4_3\":[\"D_3\",\"2\"],\"5_2\":[\"E_2\",\"2\"],\"3_5\":[\"C_5\",\"2\"],\"4_4\":[\"D_4\",\"2\"],\"5_3\":[\"E_3\",\"2\"],\"4_5\":[\"D_5\",\"2\"],\"5_4\":[\"E_4\",\"2\"],\"5_5\":[\"E_5\",\"2\"]}";
 
-        StringReader seat_model = new StringReader(clobContent); 
+        //StringReader seat_model = new StringReader(clobContent);
+        String seat_model = clobContent;
         Integer seats = 400;
         String equipment = "GC 3D DIG";
 
@@ -128,7 +130,8 @@ public class TheaterServiceTest extends HttpServlet {
         out.println("Theater_name : " + theaterVO.getTheater_name());
         out.println("T_rows : " + theaterVO.getT_rows());
         out.println("T_columns : " + theaterVO.getT_columns());
-        String seatModel = readString(theaterVO.getSeat_model());
+        //String seatModel = readString(theaterVO.getSeat_model());
+        String seatModel = theaterVO.getSeat_model();
         out.println("Seat_model : " + seatModel);
         out.println("Seats : " + theaterVO.getSeats());
         out.println("Equipment : " + theaterVO.getEquipment());

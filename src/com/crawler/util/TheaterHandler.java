@@ -187,7 +187,8 @@ public class TheaterHandler {
                              "\"9_13\":[\"H_12\",\"2\"],\"9_19\":[\"H_17\",\"2\"],\"19_9\":[\"Q_8\",\"2\"],\"9_18\":[\"H_16\",\"2\"],\"19_8\":[\"Q_7\",\"2\"],\"9_17\":[\"H_15\",\"2\"],\r\n" + 
                              "\"19_7\":[\"Q_6\",\"2\"],\"9_12\":[\"H_11\",\"2\"],\"9_11\":[\"H_10\",\"2\"],\"9_10\":[\"H_9\",\"2\"]}";
 
-        StringReader seat_model = new StringReader(clobContent); 
+        //StringReader seat_model = new StringReader(clobContent);
+        String seat_model = clobContent;
         Integer seats = 324;
         String equipment = "數位";
 

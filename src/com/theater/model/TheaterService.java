@@ -12,7 +12,7 @@ public class TheaterService {
     }
 
     public String addTheater(String cinema_no, String theater_name,
-            Integer t_rows, Integer t_columns, Reader seat_model, Integer seats, String equipment) {
+            Integer t_rows, Integer t_columns, String seat_model, Integer seats, String equipment) {
 
         TheaterVO theaterVO = new TheaterVO();
 
@@ -32,7 +32,7 @@ public class TheaterService {
     }
 
     public void updateTheater(String theater_no, String cinema_no, String theater_name,
-            Integer t_rows, Integer t_columns, Reader seat_model, Integer seats, String equipment) {
+            Integer t_rows, Integer t_columns, String seat_model, Integer seats, String equipment) {
 
         TheaterVO theaterVO = new TheaterVO();
 

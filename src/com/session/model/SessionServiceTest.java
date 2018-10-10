@@ -90,16 +90,17 @@ public class SessionServiceTest extends HttpServlet {
         TheaterVO tVO = tSvc.getOneTheater(theater_no);
         String seat_table = null;
         if(tVO != null) {
-            Reader model = tVO.getSeat_model();
-            char[] arr = new char[8 * 1024];
-            StringBuilder buffer = new StringBuilder();
-            int numCharsRead;
-            while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
-                buffer.append(arr, 0, numCharsRead);
-            }
-
-            model.close();
-            seat_table = buffer.toString();
+//            Reader model = tVO.getSeat_model();
+//            char[] arr = new char[8 * 1024];
+//            StringBuilder buffer = new StringBuilder();
+//            int numCharsRead;
+//            while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+//                buffer.append(arr, 0, numCharsRead);
+//            }
+//
+//            model.close();
+//            seat_table = buffer.toString();
+            seat_table = tVO.getSeat_model();
         }
 
         String session_no = sSvc.addSession(theater_no, movie_no, session_time, seat_table);
@@ -149,16 +150,17 @@ public class SessionServiceTest extends HttpServlet {
         TheaterVO tVO = tSvc.getOneTheater(theater_no);
         String seat_table = null;
         if(tVO != null) {
-            Reader model = tVO.getSeat_model();
-            char[] arr = new char[8 * 1024];
-            StringBuilder buffer = new StringBuilder();
-            int numCharsRead;
-            while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
-                buffer.append(arr, 0, numCharsRead);
-            }
-
-            model.close();
-            seat_table = buffer.toString();
+//            Reader model = tVO.getSeat_model();
+//            char[] arr = new char[8 * 1024];
+//            StringBuilder buffer = new StringBuilder();
+//            int numCharsRead;
+//            while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+//                buffer.append(arr, 0, numCharsRead);
+//            }
+//
+//            model.close();
+//            seat_table = buffer.toString();
+            seat_table = tVO.getSeat_model();
         }
 
         sSvc.updateSession(session_no, theater_no, movie_no, session_time, seat_table);

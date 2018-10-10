@@ -12,7 +12,7 @@ public class TheaterVO implements java.io.Serializable {
     private String theater_name;
     private Integer t_rows;
     private Integer t_columns;
-    private Reader seat_model;
+    private String seat_model;
     private Integer seats;
     private String equipment;
     
@@ -46,10 +46,10 @@ public class TheaterVO implements java.io.Serializable {
     public void setT_columns(Integer t_columns) {
         this.t_columns = t_columns;
     }
-    public Reader getSeat_model() {
+    public String getSeat_model() {
         return seat_model;
     }
-    public void setSeat_model(Reader seat_model) {
+    public void setSeat_model(String seat_model) {
         this.seat_model = seat_model;
     }
     public Integer getSeats() {

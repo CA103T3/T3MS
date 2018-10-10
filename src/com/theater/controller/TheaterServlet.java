@@ -290,7 +290,8 @@ public class TheaterServlet extends HttpServlet {
                     errorMsgs.add("排數, 行數與產生的座位數不相符");
                 }
 
-                StringReader seat_model = new StringReader(json.toString());
+                //StringReader seat_model = new StringReader(json.toString());
+                String seat_model = json.toString();
 
                 TheaterVO theaterVO = new TheaterVO();
                 theaterVO.setTheater_name(theater_name);
@@ -424,7 +425,8 @@ public class TheaterServlet extends HttpServlet {
                     errorMsgs.add("排數, 行數與產生的座位數不相符");
                 }
 
-                StringReader seat_model = new StringReader(json.toString());
+                //StringReader seat_model = new StringReader(json.toString());
+                String seat_model = json.toString();
 
                 TheaterVO theaterVO = new TheaterVO();
                 theaterVO.setTheater_name(theater_name);

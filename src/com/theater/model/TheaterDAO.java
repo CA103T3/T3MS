@@ -53,7 +53,8 @@ public class TheaterDAO implements TheaterDAO_interface {
             pstmt.setInt(3, theaterVO.getT_rows());
             pstmt.setInt(4, theaterVO.getT_columns());
             
-            pstmt.setCharacterStream(5, theaterVO.getSeat_model());
+            //pstmt.setCharacterStream(5, theaterVO.getSeat_model());
+            pstmt.setString(5, theaterVO.getSeat_model());
             pstmt.setInt(6, theaterVO.getSeats());
             pstmt.setString(7, theaterVO.getEquipment());
 
@@ -114,7 +115,8 @@ public class TheaterDAO implements TheaterDAO_interface {
             pstmt.setString(2, theaterVO.getTheater_name());
             pstmt.setInt(3, theaterVO.getT_rows());
             pstmt.setInt(4, theaterVO.getT_columns());
-            pstmt.setCharacterStream(5, theaterVO.getSeat_model());
+            //pstmt.setCharacterStream(5, theaterVO.getSeat_model());
+            pstmt.setString(5, theaterVO.getSeat_model());
             pstmt.setInt(6, theaterVO.getSeats());
             pstmt.setString(7, theaterVO.getEquipment());
             pstmt.setString(8, theaterVO.getTheater_no());
@@ -206,7 +208,8 @@ public class TheaterDAO implements TheaterDAO_interface {
                 theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
                 theaterVO.setT_rows(rs.getInt("T_ROWS"));
                 theaterVO.setT_columns(rs.getInt("T_COLUMNS"));
-                theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                //theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                theaterVO.setSeat_model(rs.getString("SEAT_MODEL"));
                 theaterVO.setSeats(rs.getInt("SEATS"));
                 theaterVO.setEquipment(rs.getString("EQUIPMENT"));
             }
@@ -265,7 +268,8 @@ public class TheaterDAO implements TheaterDAO_interface {
                 theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
                 theaterVO.setT_rows(rs.getInt("T_ROWS"));
                 theaterVO.setT_columns(rs.getInt("T_COLUMNS"));
-                theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                //theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                theaterVO.setSeat_model(rs.getString("SEAT_MODEL"));
                 theaterVO.setSeats(rs.getInt("SEATS"));
                 theaterVO.setEquipment(rs.getString("EQUIPMENT"));
                 list.add(theaterVO); // Store the row in the list
@@ -326,7 +330,8 @@ public class TheaterDAO implements TheaterDAO_interface {
                 theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
                 theaterVO.setT_rows(rs.getInt("T_ROWS"));
                 theaterVO.setT_columns(rs.getInt("T_COLUMNS"));
-                theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                //theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                theaterVO.setSeat_model(rs.getString("SEAT_MODEL"));
                 theaterVO.setSeats(rs.getInt("SEATS"));
                 theaterVO.setEquipment(rs.getString("EQUIPMENT"));
                 list.add(theaterVO); // Store the row in the list
@@ -388,7 +393,8 @@ public class TheaterDAO implements TheaterDAO_interface {
                 theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
                 theaterVO.setT_rows(rs.getInt("T_ROWS"));
                 theaterVO.setT_columns(rs.getInt("T_COLUMNS"));
-                theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                //theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                theaterVO.setSeat_model(rs.getString("SEAT_MODEL"));
                 theaterVO.setSeats(rs.getInt("SEATS"));
                 theaterVO.setEquipment(rs.getString("EQUIPMENT"));
                 list.add(theaterVO); // Store the row in the list

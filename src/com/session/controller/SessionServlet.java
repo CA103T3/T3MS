@@ -511,15 +511,16 @@ public class SessionServlet extends HttpServlet {
                    Integer t_columns = theaterVO.getT_columns();
                    json.put("t_columns", t_columns);
 
-                   Reader model = theaterVO.getSeat_model();
-                   char[] arr = new char[8 * 1024];
-                   StringBuilder buffer = new StringBuilder();
-                   int numCharsRead;
-                   while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
-                       buffer.append(arr, 0, numCharsRead);
-                   }
-                   model.close();
-                   String str = buffer.toString();
+//                   Reader model = theaterVO.getSeat_model();
+//                   char[] arr = new char[8 * 1024];
+//                   StringBuilder buffer = new StringBuilder();
+//                   int numCharsRead;
+//                   while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+//                       buffer.append(arr, 0, numCharsRead);
+//                   }
+//                   model.close();
+//                   String str = buffer.toString();
+                   String str = theaterVO.getSeat_model();
                    //System.out.println("buffer.toString() : " + str);
                    //json.put("seat_model", str); //{"t_rows":9,"seat_model":"{\"4_11\":[\"D_11\",\"2\"],\"4_10\":[\"D_10\",\"2\"]...
                    json.put("seat_model", new JSONObject(str)); //{"t_rows":5,"seat_model":{"1_1":["x","0"],"1_2":["A_1","2"],"2_1":["B_1","2"],"1_3":["A_2","2"]...

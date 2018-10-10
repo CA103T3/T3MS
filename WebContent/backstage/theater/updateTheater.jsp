@@ -251,16 +251,17 @@
 
             <%
             if(theaterVO != null) {
-                Reader model = theaterVO.getSeat_model();
-                char[] arr = new char[8 * 1024];
-                StringBuilder buffer = new StringBuilder();
-                int numCharsRead;
-                while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
-                    buffer.append(arr, 0, numCharsRead);
-                }
+                // Reader model = theaterVO.getSeat_model();
+                // char[] arr = new char[8 * 1024];
+                // StringBuilder buffer = new StringBuilder();
+                // int numCharsRead;
+                // while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+                    // buffer.append(arr, 0, numCharsRead);
+                // }
 
-                model.close();
-                String strModel = buffer.toString();
+                // model.close();
+                // String strModel = buffer.toString();
+                String strModel = theaterVO.getSeat_model();
                 pageContext.setAttribute("strModel", strModel);
             }
             %>

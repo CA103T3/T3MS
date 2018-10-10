@@ -222,16 +222,17 @@
             <%
             if(tList.size() != 0) {
                 if(tList.get(0) != null && sessionVO == null) {
-                    Reader model = tList.get(0).getSeat_model();
-                    char[] arr = new char[8 * 1024];
-                    StringBuilder buffer = new StringBuilder();
-                    int numCharsRead;
-                    while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
-                        buffer.append(arr, 0, numCharsRead);
-                    }
+                    // Reader model = tList.get(0).getSeat_model();
+                    // char[] arr = new char[8 * 1024];
+                    // StringBuilder buffer = new StringBuilder();
+                    // int numCharsRead;
+                    // while ((numCharsRead = model.read(arr, 0, arr.length)) != -1) {
+                        // buffer.append(arr, 0, numCharsRead);
+                    // }
 
-                    model.close();
-                    String strModel = buffer.toString();
+                    // model.close();
+                    // String strModel = buffer.toString();
+                    String strModel = tList.get(0).getSeat_model();
                     pageContext.setAttribute("strModel", strModel);
                 }
             }
