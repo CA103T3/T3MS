@@ -9,8 +9,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -35,6 +37,7 @@ public class EzdingMovieInfoAdv implements Runnable {
     private int page;
     private boolean coming;
     private String targetUrl = "https://www.ezding.com.tw/movieInfoIndex";
+    private Set<String> cinemaSet;
 
     public EzdingMovieInfoAdv(int page, boolean coming) {
         super();
@@ -47,6 +50,7 @@ public class EzdingMovieInfoAdv implements Runnable {
         WebDriver driver = new FirefoxDriver();
         List<HashMap> movieInfoList = new ArrayList<HashMap>();
         List<HashMap> movieSessionList = new ArrayList<HashMap>();
+        cinemaSet = new LinkedHashSet<String>();
         driver.get(targetUrl);
 //        String pageSource = driver.getPageSource();
 //        System.out.println(pageSource);
@@ -79,6 +83,9 @@ public class EzdingMovieInfoAdv implements Runnable {
             //skip poster.png(no data inside)
             if(bgImg.matches(".*poster.png.*")) {
                 System.out.printf("poster.png - no data inside, skip index %d %n", k);
+
+                backToMovieInfoIndex(driver, wait);
+
                 continue;
             }
 
@@ -106,6 +113,12 @@ public class EzdingMovieInfoAdv implements Runnable {
 
             HashMap<String, String> movieInfo = new HashMap<String, String>();
 
+            //empty page
+            if(driver.findElements(By.cssSelector("div.wrapper-title-contain > .poster")).isEmpty()) {
+                backToMovieInfoIndex(driver, wait);
+                continue;
+            }
+
             getPosterMovieInfo(docTime, movieInfo);
 
             mkdirDlImg(movieInfo.get("movieTitle"), movieInfo.get("imgFileName"), movieInfo.get("posterImgUrl"));
@@ -124,21 +137,37 @@ public class EzdingMovieInfoAdv implements Runnable {
             waitLoadingElement(wait, ".staffbox");
             List<WebElement> staffbox = driver.findElements(By.cssSelector(".staffbox"));
             System.out.println("staffbox.size : " + staffbox.size());
-            WebElement director = staffbox.get(0).findElement(By.cssSelector(".staff"));
-            System.out.println("director : " + director.getText());
-            movieInfo.put("director", director.getText());
-            List<WebElement> staffContent = driver.findElements(By.cssSelector("div.staffContent > span"));
-            String staff = "";
-            for(WebElement we : staffContent) {
-                staff += we.getText();
-                System.out.println("staff : " + we.getText());
+//            WebElement director = staffbox.get(0).findElement(By.cssSelector(".staff"));
+            if(!staffbox.get(0).findElements(By.cssSelector(".staff")).isEmpty()) {
+                WebElement director = staffbox.get(0).findElement(By.cssSelector(".staff"));
+                System.out.println("director : " + director.getText());
+                movieInfo.put("director", director.getText());
+            } else {
+                System.out.println(movieInfo.get("movieTitle") + " no director data");
             }
-            System.out.println("staff all : " + staff);
-            movieInfo.put("staff", staff);
+//            System.out.println("director : " + director.getText());
+//            movieInfo.put("director", director.getText());
 
-            WebElement intro = driver.findElement(By.cssSelector("div.movie-intro-content"));
-            System.out.println("intro : " + intro.getText());
-            movieInfo.put("intro", intro.getText());
+            if(!driver.findElements(By.cssSelector("div.staffContent > span")).isEmpty()) {
+                List<WebElement> staffContent = driver.findElements(By.cssSelector("div.staffContent > span"));
+                String staff = "";
+                for (WebElement we : staffContent) {
+                    staff += we.getText();
+                    System.out.println("staff : " + we.getText());
+                }
+                System.out.println("staff all : " + staff);
+                movieInfo.put("staff", staff);
+            } else {
+                System.out.println(movieInfo.get("movieTitle") + " no staff");
+            }
+
+            if(!driver.findElements(By.cssSelector("div.movie-intro-content")).isEmpty()) {
+                WebElement intro = driver.findElement(By.cssSelector("div.movie-intro-content"));
+                System.out.println("intro : " + intro.getText());
+                movieInfo.put("intro", intro.getText());
+            } else {
+                System.out.println(movieInfo.get("movieTitle") + " no intro");
+            }
 
             movieInfoList.add(movieInfo);
 
@@ -191,10 +220,8 @@ public class EzdingMovieInfoAdv implements Runnable {
             }
 
             //driver.navigate().back(); // click() does not work after driver.navigate().back()
-            driver.get(targetUrl);
-            waitLoadingElement(wait, "div[class='post']");
-            clickComingMovie(driver, wait);
-            clickPageNumber(driver, wait);
+
+            backToMovieInfoIndex(driver, wait);
         }
 
         StringBuilder sb = getDataSb(movieSessionList);
@@ -208,6 +235,13 @@ public class EzdingMovieInfoAdv implements Runnable {
         driver.close();
     }
 
+    public void backToMovieInfoIndex(WebDriver driver, WebDriverWait wait) {
+        driver.get(targetUrl);
+        waitLoadingElement(wait, "div[class='post']");
+        clickComingMovie(driver, wait);
+        clickPageNumber(driver, wait);
+    }
+    
     public void threadSleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -218,11 +252,13 @@ public class EzdingMovieInfoAdv implements Runnable {
     }
 
     public void clickPageNumber(WebDriver driver, WebDriverWait wait) {
-        List<WebElement> numIndex = driver.findElements(By.cssSelector("div[class*='circle numIndex']"));
-        numIndex.get(page).click();
-        waitLoadingElement(wait, "div[class='post']");
-        threadSleep(300);
-        System.out.println("page: " + page);
+        if(waitLoadingElement(wait, "div[class*='circle numIndex']")) {
+            List<WebElement> numIndex = driver.findElements(By.cssSelector("div[class*='circle numIndex']"));
+            numIndex.get(page).click();
+            waitLoadingElement(wait, "div[class='post']");
+            threadSleep(300);
+            System.out.println("page: " + page);
+        }
     }
 
     public void clickComingMovie(WebDriver driver, WebDriverWait wait) {
@@ -371,6 +407,7 @@ public class EzdingMovieInfoAdv implements Runnable {
         for(Element cinemabox : cinemaboxes) {
             String cinemaName = cinemabox.selectFirst(".cinemaName").text();
             System.out.println(cinemaName);
+            cinemaSet.add(cinemaName);
             String version = cinemabox.selectFirst(".version").text();
             System.out.println(version);
             Elements times = cinemabox.select(".session .time");

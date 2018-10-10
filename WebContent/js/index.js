@@ -25,7 +25,11 @@ function close_div(div, xitem)
 */
 
 $(document).ready(function(){
-    //for scroller
+
+    $("nav").addClass("slide");
+    $("footer").addClass("slide");
+    
+	//for scroller
     $(window).on("resize", function () {
         $("body").css("padding-top", $("nav").height());
     });

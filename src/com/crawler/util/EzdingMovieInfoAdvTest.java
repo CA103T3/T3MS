@@ -119,7 +119,7 @@ public class EzdingMovieInfoAdvTest {
             }
         }
         */
-
+        
         Thread tForComing = new Thread(new EzdingMovieInfoAdv(0, true)); //for coming movie
         tForComing.start();
         try {
@@ -128,7 +128,7 @@ public class EzdingMovieInfoAdvTest {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        
         /*
         for (int i = 0; i < pagesForComing; i++) {
             EzdingMovieInfoAdv app = new EzdingMovieInfoAdv(i, true);

@@ -89,6 +89,7 @@ public class EzdingCrawler implements Runnable {
             //skip poster.png(no data inside)
             if(bgImg.matches(".*poster.png.*")) {
                 System.out.printf("poster.png - no data inside, skip index %d %n", k);
+                backToMovieInfoIndex(driver, wait);
                 continue;
             }
 
@@ -115,6 +116,12 @@ public class EzdingCrawler implements Runnable {
             Document docTime = Jsoup.parse(htmlTime);
 
             HashMap<String, String> movieInfo = new HashMap<String, String>();
+
+            //empty page
+            if(driver.findElements(By.cssSelector("div.wrapper-title-contain > .poster")).isEmpty()) {
+                backToMovieInfoIndex(driver, wait);
+                continue;
+            }
 
             getPosterMovieInfo(docTime, movieInfo);
 
@@ -144,18 +151,27 @@ public class EzdingCrawler implements Runnable {
             }
 //            System.out.println("director : " + director.getText());
 //            movieInfo.put("director", director.getText());
-            List<WebElement> staffContent = driver.findElements(By.cssSelector("div.staffContent > span"));
-            String staff = "";
-            for(WebElement we : staffContent) {
-                staff += we.getText();
-                System.out.println("staff : " + we.getText());
-            }
-            System.out.println("staff all : " + staff);
-            movieInfo.put("staff", staff);
 
-            WebElement intro = driver.findElement(By.cssSelector("div.movie-intro-content"));
-            System.out.println("intro : " + intro.getText());
-            movieInfo.put("intro", intro.getText());
+            if(!driver.findElements(By.cssSelector("div.staffContent > span")).isEmpty()) {
+                List<WebElement> staffContent = driver.findElements(By.cssSelector("div.staffContent > span"));
+                String staff = "";
+                for (WebElement we : staffContent) {
+                    staff += we.getText();
+                    System.out.println("staff : " + we.getText());
+                }
+                System.out.println("staff all : " + staff);
+                movieInfo.put("staff", staff);
+            } else {
+                System.out.println(movieInfo.get("movieTitle") + " no staff");
+            }
+
+            if(!driver.findElements(By.cssSelector("div.movie-intro-content")).isEmpty()) {
+                WebElement intro = driver.findElement(By.cssSelector("div.movie-intro-content"));
+                System.out.println("intro : " + intro.getText());
+                movieInfo.put("intro", intro.getText());
+            } else {
+                System.out.println(movieInfo.get("movieTitle") + " no intro");
+            }
 
             movieInfoList.add(movieInfo);
 
@@ -208,10 +224,8 @@ public class EzdingCrawler implements Runnable {
             }
 
             //driver.navigate().back(); // click() does not work after driver.navigate().back()
-            driver.get(targetUrl);
-            waitLoadingElement(wait, "div[class='post']");
-            clickComingMovie(driver, wait);
-            clickPageNumber(driver, wait);
+
+            backToMovieInfoIndex(driver, wait);
         }
 
         StringBuilder sb = getDataSb(movieSessionList);
@@ -259,6 +273,13 @@ public class EzdingCrawler implements Runnable {
         thdr.setServletContextRealPath(servletContextRealPath);
         List<String> list = thdr.importDB(); //return list of theater_no
         thdr.exportSer(list);
+    }
+
+    public void backToMovieInfoIndex(WebDriver driver, WebDriverWait wait) {
+        driver.get(targetUrl);
+        waitLoadingElement(wait, "div[class='post']");
+        clickComingMovie(driver, wait);
+        clickPageNumber(driver, wait);
     }
 
     public void threadSleep(long millis) {
