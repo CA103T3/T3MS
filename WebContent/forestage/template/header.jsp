@@ -44,9 +44,17 @@
  					<ul class="nav navbar-nav navbar-right">
  						<li><img style="border: 1px solid black;width:44px;height:42px;border-radius:50%;padding-top:5px;" src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${memVO.memno}">
                     	<li><a style="font-size:16px;" href="/T3MS/forestage/member/membercenter.jsp">${memVO.lastname}${memVO.firstname}</a></li>
-                    	<li><a style="font-size:14px;" href="<%=request.getContextPath()%>/member/logout.do" method="post">登出</a></li>
+                    	<li><a style="font-size:14px;" href="<%=request.getContextPath()%>/member/logout.do" method="post" onclick="logout()">登出</a></li>
                     </ul>
                     </c:if>
                 </div>
             </div>
         </nav>
+        
+        
+<script>
+function logout() {
+　alert("已登出");
+}
+
+</script>

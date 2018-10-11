@@ -237,6 +237,7 @@ a {
 									value="${memVO.locno}"></td>
 							</tr>
 						</table>
+
 						<button class="btnp" type="submit">修改</button>
 
 					</div>

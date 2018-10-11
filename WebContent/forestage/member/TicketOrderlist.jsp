@@ -83,10 +83,12 @@ String str1 = df1.format(date1);
 			<div class="whitebord">
 				<table class="table">
 					<tr>
-						<th>日期</th>
-						<th>金額</th>
-						<th>座位</th>
-						<th>票種</th>
+						<th>電影</th>
+						<th>電影名稱</th>
+						<th>訂票序號</th>
+						<th>開演日期</th>
+						<th>開演時間</th>
+						<th>詳細內容</th>
 					</tr>
 					<c:forEach var="tVO" items="${list}">			
 								<tr>

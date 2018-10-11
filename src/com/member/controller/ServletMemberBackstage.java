@@ -202,7 +202,7 @@ public class ServletMemberBackstage extends HttpServlet {
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {
                     RequestDispatcher failureView = req
-                            .getRequestDispatcher("/forestage/member/successin.jsp");
+                            .getRequestDispatcher("/forestage/filmreview/fv_home.jsp");
                     failureView.forward(req, res);
                     return;//程式中斷
                 }
@@ -216,15 +216,15 @@ public class ServletMemberBackstage extends HttpServlet {
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {
                     RequestDispatcher failureView = req
-                            .getRequestDispatcher("/forestage/member/successin.jsp");
+                            .getRequestDispatcher("/forestage/filmreview/fv_home.jsp");
                     failureView.forward(req, res);
                     return;//程式中斷
                 }
 
                 /***************************3.查詢完成,準備轉交(Send the Success view)*************/
-                req.setAttribute("memVO", memVO); // 資料庫取出的theaterVO物件,存入req
-                String url = "/forestage/member/successin.jsp";
-                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listALLmember.jsp
+                req.setAttribute("memVO", memVO); 
+                String url = "/forestage/filmreview/fv_home.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); 
                 successView.forward(req, res);
 
                 /***************************其他可能的錯誤處理*************************************/
@@ -232,7 +232,7 @@ public class ServletMemberBackstage extends HttpServlet {
             	e.printStackTrace();
 //                errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/forestage/member/successin.jsp");
+                        .getRequestDispatcher("/forestage/filmreview/fv_home.jsp");
                 failureView.forward(req, res);
             }
         }

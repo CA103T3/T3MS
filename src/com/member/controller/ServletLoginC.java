@@ -69,10 +69,10 @@ public class ServletLoginC extends HttpServlet {
 	            ms.setmail(memno, name, email);
 	            
             }else if(memVO.getStatus()==1) {
-               	response.sendRedirect(request.getContextPath()+"/forestage/member/successin.jsp");
+               	response.sendRedirect(request.getContextPath()+"/index.jsp");
             }else if(memVO.getStatus()==2) {
             	out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-                out.println("<BODY>你已被封鎖，雜魚<BR>");
+                out.println("<BODY>你已被封鎖<BR>");
                 out.println("請按此重新登入 <A HREF="+request.getContextPath()+"/forestage/member/loginf.jsp>重新登入</A>");
                 out.println("</BODY></HTML>");
             }

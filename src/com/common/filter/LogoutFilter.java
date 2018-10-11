@@ -35,7 +35,7 @@ public class LogoutFilter implements  Filter{
 		HttpSession session = req.getSession();
 		MemVO memVO = (MemVO)session.getAttribute("memVO"); 
 		if( memVO != null ){
-			res.sendRedirect(req.getContextPath()+"/forestage/member/successin.jsp");
+			res.sendRedirect(req.getContextPath()+"/forestage/member/membercenter.jsp");
 			return;
 		}else{
 			chain.doFilter(request, response);
