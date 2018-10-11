@@ -217,8 +217,8 @@ public class CinemaServlet extends HttpServlet {
                 String traffic = req.getParameter("traffic");
                 if (traffic == null || traffic.trim().length() == 0) {
                     errorMsgs.add("交通資訊: 請勿空白");
-                } else if(traffic.length() > 250) {
-                    errorMsgs.add("交通資訊: 請勿超過250個字");
+                } else if(traffic.length() > 1300) {
+                    errorMsgs.add("交通資訊: 請勿超過1300個字");
                     System.out.println("交通資訊: 長度 " + traffic.length());
                 }
 
@@ -463,8 +463,8 @@ public class CinemaServlet extends HttpServlet {
                 String traffic = req.getParameter("traffic");
                 if (traffic == null || traffic.trim().length() == 0) {
                     errorMsgs.add("交通資訊: 請勿空白");
-                } else if (traffic.length() > 250) {
-                    errorMsgs.add("交通資訊: 請勿超過250個字");
+                } else if (traffic.length() > 1300) {
+                    errorMsgs.add("交通資訊: 請勿超過1300個字");
                     System.out.println("交通資訊: 長度 " + traffic.length());
                 }
 
