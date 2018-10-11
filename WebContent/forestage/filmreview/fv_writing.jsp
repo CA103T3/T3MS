@@ -18,7 +18,7 @@
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
 <%@ include file="/forestage/template/link.jsp"%>
 <title>M&amp;S</title>
 
@@ -139,7 +139,7 @@
 					<div class="col-md-12">
 
 						<input type="hidden" name="action" value="insert">
-						<textarea id="summernote" name="content">
+						<textarea id="summernote" name="content" >
 							
 						</textarea>
 

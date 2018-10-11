@@ -28,7 +28,7 @@
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet" href="/T3MS/css/fv_tooltips.css">
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
 <%@ include file="/forestage/template/link.jsp"%>
 
                                       <link rel="stylesheet" href="/T3MS/css/amodal.css">
