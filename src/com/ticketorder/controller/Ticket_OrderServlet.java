@@ -37,10 +37,10 @@ public class Ticket_OrderServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String action = request.getParameter("action");
+		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
+		String action = request.getParameter("action");
 
 		if ("selectMovie".equals(action)) {
 			String movie_no = request.getParameter("movie_no").trim();
@@ -61,6 +61,7 @@ public class Ticket_OrderServlet extends HttpServlet {
 			String tickettype_no = request.getParameter("tickettype_no").trim(); // 票種編號
 			String mem_email = request.getParameter("mem_email").trim(); // 會員信箱
 			String mem_FullName = request.getParameter("mem_FullName").trim(); // 會員姓名
+			System.out.println("name " + mem_FullName);
 			String bookingSeats = request.getParameter("seatTD").trim();
 			System.out.println(bookingSeats);
 			String[] bookingSeatArr = bookingSeats.split("@");

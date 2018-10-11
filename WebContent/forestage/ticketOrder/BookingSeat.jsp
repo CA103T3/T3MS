@@ -6,7 +6,7 @@
 <%@page import="java.sql.Timestamp"%>
 <%@page import="com.theater.model.TheaterVO"%>
 <%@page import="jdk.nashorn.internal.parser.JSONParser"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.theater.model.*"%>
@@ -18,53 +18,53 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
-	//·|­û½s¸¹
+	//æœƒå“¡ç·¨è™Ÿ
 	String mem_no="M00002";
 // 	MemVO memVO = (MemVO) session.getAttribute("memVO");	
 // 	String mem_no = memVO.getmemno();
 //  session.getAttribute("mem_no");
 	
-	//³õ¦¸½s¸¹
+	//å ´æ¬¡ç·¨è™Ÿ
 	String session_no = "SES0000003";
 // 	String session_no = request.getParameter("session_no").trim();
 
-	//²¼ºØ½s¸¹
+	//ç¥¨ç¨®ç·¨è™Ÿ
 	String type_no = "TT00001";
 	
 	SessionService sessionSvc = new SessionService();
 	MovieService movieSvc = new MovieService();
 	SessionVO sessionVO = sessionSvc.getOneSession(session_no);
 	
-	//¨ú±o¹q¼v¸ê°T  movieVO.getMovie_name();
+	//å–å¾—é›»å½±è³‡è¨Š  movieVO.getMovie_name();
 	String movie_no = sessionVO.getMovie_no();
 	MovieVO movieVO = movieSvc.getOneMovie(movie_no);
-	String movieName = movieVO.getMovie_name(); //¹q¼v¦WºÙ
-	Date date = movieVO.getRelased(); // ¤W¬M¤é´Á
-	String rating = movieVO.getRating(); // ¹q¼v¯Å§O
+	String movieName = movieVO.getMovie_name(); //é›»å½±åç¨±
+	Date date = movieVO.getRelased(); // ä¸Šæ˜ æ—¥æœŸ
+	String rating = movieVO.getRating(); // é›»å½±ç´šåˆ¥
 	 
-	//¨ú±o³õ¦¸®É¶¡
+	//å–å¾—å ´æ¬¡æ™‚é–“
 	Timestamp sessionVOtime = sessionVO.getSession_time();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    String session_time= sdf.format(sessionVOtime); //¼½©ñ®É¶¡
+    String session_time= sdf.format(sessionVOtime); //æ’­æ”¾æ™‚é–“
     
 	
-	//¨ú±o²¼ºØ¸ê°T
+	//å–å¾—ç¥¨ç¨®è³‡è¨Š
 	TypeService typeSvc = new TypeService();
 	TypeVO typeVO = typeSvc.getOneType(type_no);
-	Integer price = typeVO.getPrice(); //²¼»ù
-	String identity = typeVO.getIdentify(); //¦¨¤H²¼
+	Integer price = typeVO.getPrice(); //ç¥¨åƒ¹
+	String identity = typeVO.getIdentify(); //æˆäººç¥¨
 	
-	//¨ú±o¼vÆU¸ê°T 
+	//å–å¾—å½±å»³è³‡è¨Š 
 	String theater_no = sessionVO.getTheater_no();
 	TheaterService tSvc = new TheaterService();
 	TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
-	String theater_name = theaterVO.getTheater_name(); //¼vÆU¦WºÙ
-	String cinema_no = theaterVO.getCinema_no(); //¼v«°½s¸¹
+	String theater_name = theaterVO.getTheater_name(); //å½±å»³åç¨±
+	String cinema_no = theaterVO.getCinema_no(); //å½±åŸç·¨è™Ÿ
 	
-	//¼v«°¸ê°T
+	//å½±åŸè³‡è¨Š
 	CinemaService cinemaSvc = new CinemaService();
 	CinemaVO cinemaVO = cinemaSvc.getOneCinema(cinema_no);
-	String cinemaName = cinemaVO.getCinema_name(); //¼v«°¦WºÙ
+	String cinemaName = cinemaVO.getCinema_name(); //å½±åŸåç¨±
 	
 	
 	String sid = request.getSession().getId();
@@ -93,7 +93,7 @@
 	       		<div class="col-sm-6 col-md-6">
 	       		<table class="wwFormTable" style="width:60%;">
 					<tr>
-						<td ><b>¿Ã¹õ</b></td>
+						<td ><b>è¢å¹•</b></td>
 					</tr>
 				</table>
        		
@@ -129,22 +129,22 @@
        		<div class="col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-1">
 				<table class="wwFormTable" style="width:100%; font-size:25px;">
 					<tr>
-						<td><b>¼vÆU¡G<%=theater_name%></b></td>
-						<td><b>¯Å§O¡G<%=rating %></b></td>
+						<td><b>å½±å»³ï¼š<%=theater_name%></b></td>
+						<td><b>ç´šåˆ¥ï¼š<%=rating %></b></td>
 					</tr>
 					<tr>
-						<td colspan="2"><b>¼v«°¡G<%=cinemaName %></b></td>
+						<td colspan="2"><b>å½±åŸï¼š<%=cinemaName %></b></td>
 					</tr>
 				</table>
 				
 				<table class="wwFormTable" style="width:100%; font-size:25px;">
 					<tr>
-						<td colspan="2"><b>³õ¦¸®É¶¡¡G<%=session_time %></b></td>
+						<td colspan="2"><b>å ´æ¬¡æ™‚é–“ï¼š<%=session_time %></b></td>
 					</tr>
 				</table>
 				
 				<table class="wwFormTable" style="width:100%;">
-					<tr><td colspan="2"><b>¹q¼v¦WºÙ¡G<%= movieName %></b></td></tr>
+					<tr><td colspan="2"><b>é›»å½±åç¨±ï¼š<%= movieName %></b></td></tr>
 				</table>
 				
 				<table class="wwFormTable">
@@ -164,8 +164,8 @@
 		<input type="hidden" name="type_no" value="<%=type_no %>" />
 		<input type="hidden" name="session_no" value="<%=session_no %>" />
 		<input type="hidden" name="price" value="<%=price %>" />
-		<button type="button" class="btn btn-lg btn-primary btn-block" onClick="checkup()" id="save">¤U¤@¨B</button>
-<!-- 		<input class="myButton" type="button" value="¤U¤@¨B" onClick="checkup()"> -->
+		<button type="button" class="btn btn-lg btn-primary btn-block" onClick="checkup()" id="save">ä¸‹ä¸€æ­¥</button>
+<!-- 		<input class="myButton" type="button" value="ä¸‹ä¸€æ­¥" onClick="checkup()"> -->
 	</form>
 
   </div>
@@ -208,16 +208,16 @@
         <script type="text/javascript">
 		var MyPoint = "/MyBookingServer2/<%=session_no%>/<%=mem_no%>";
 		var host = window.location.host;
-		//¨ú±oweb¥D¾÷ªººô°ì¦W host:localhost:8081
+		//å–å¾—webä¸»æ©Ÿçš„ç¶²åŸŸå host:localhost:8081
 		var path = window.location.pathname;
-		//¨ú±o¥Ø«e­¶­±ªº¸ô®|©MÀÉ®×¦W path:/0927-T3MS/forestage/template/Booking.jsp
+		//å–å¾—ç›®å‰é é¢çš„è·¯å¾‘å’Œæª”æ¡ˆå path:/0927-T3MS/forestage/template/Booking.jsp
 		var webCtx = path.substring(0, path.indexOf('/', 1)); 
 		var endPointURL = "ws://" + host + webCtx + MyPoint;
 		var webSocket;
 		var myID;
 
 		function connect() {
-			// «Ø¥ß websocket ª«¥ó
+			// å»ºç«‹ websocket ç‰©ä»¶
 			webSocket = new WebSocket(endPointURL);
 			
 			webSocket.onopen = function(event){
@@ -238,7 +238,7 @@
 					check_WebSocket(event.data);
 					console.log("event...data=" + event.data);
 				} else {
-					//«ùÄò§ó·s®É¶¡
+					//æŒçºŒæ›´æ–°æ™‚é–“
 					var mySpan = document.getElementById("output");
 					mySpan.innerHTML = event.data;
 				}
@@ -250,7 +250,7 @@
 
 			webSocket.onclose = function(event) {
 				var mySpan = document.getElementById("output");
-				mySpan.innerHTML = "WebSocket³s½u¤wÃö³¬";
+				mySpan.innerHTML = "WebSocketé€£ç·šå·²é—œé–‰";
 			};
 		}
 
@@ -297,12 +297,12 @@ console.log('seat='+seat);
 				document.getElementById(seat).className = 'css-label1-blue';
 			}
 		}
-		//********************************** ³]©w¸s²ÕÅv­­ **********************************
+		//********************************** è¨­å®šç¾¤çµ„æ¬Šé™ **********************************
 
-		// °e¥X«eªºÀË¬d
+		// é€å‡ºå‰çš„æª¢æŸ¥
 		function checkup() {
 // 			if (form1.hall_name.value == "") {
-// 				window.alert("½Ğ¿é¤JÆU°|¦WºÙ");
+// 				window.alert("è«‹è¼¸å…¥å»³é™¢åç¨±");
 // 				document.form1.elements(0).focus();
 // 				return;
 // 			}
@@ -314,11 +314,11 @@ console.log('seat='+seat);
 					num++;
 			}
 			if (num == 0) {
-				window.alert("½Ğ¿ï¾Ü¤@­Ó®y¦ì");
+				window.alert("è«‹é¸æ“‡ä¸€å€‹åº§ä½");
 				return;
 			}
 
-			form1.submit(); //°e¥Xªí³æ¤¤ªº¸ê®Æ
+			form1.submit(); //é€å‡ºè¡¨å–®ä¸­çš„è³‡æ–™
 		}
 	</script>
         
@@ -329,7 +329,7 @@ console.log('seat='+seat);
        
         <script>
         $(document).ready(function(){
-            $("li:contains('¦X§@¼v«°')").addClass("custom-active");
+            $("li:contains('åˆä½œå½±åŸ')").addClass("custom-active");
         });
         </script>
         
@@ -341,12 +341,12 @@ console.log('seat='+seat);
 			
 			for(var j=1 ; j <= <%=theaterVO.getT_columns()%>; j++){
 				if($("#checkboxG"+i+"_"+j).is(":checked")) {
-					$("#amount").html("ª÷ÃB¡G"+(200*count));
+					$("#amount").html("é‡‘é¡ï¼š"+(200*count));
 					console.log('=============count:'+count);
 				}
 				
 				if(!($(":checkbox").is(":checked"))){
-					$("#amount").html("ª÷ÃB¡G0");
+					$("#amount").html("é‡‘é¡ï¼š0");
 				}
 			}
 		}

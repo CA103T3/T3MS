@@ -4,7 +4,7 @@
 <%@page import="com.movie.model.MovieService"%>
 <%@page import="com.member.model.MemService"%>
 <%@page import="com.member.model.MemVO"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="BIG5" import="java.util.*"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*"%>
 <!doctype html>
 <html>
 <head>
@@ -28,21 +28,24 @@
 			<%
 				request.setCharacterEncoding("utf-8");
 				response.setContentType("text/html;charset=utf-8");
-				
-				String movie_no = request.getParameter("movie_no").trim(); //¹q¼v½s¸¹
-				String movie_name =request.getParameter("movie_name").trim(); //¹q¼v¦WºÙ
-				String theater_name = request.getParameter("theater_name").trim(); //¼vÆU¦WºÙ
-				String tickettype_no = request.getParameter("type_no").trim(); //²¼ºØ½s¸¹
-				String session_no = request.getParameter("session_no").trim(); //³õ¦¸½s¸¹
-				String mem_no = request.getParameter("mem_no").trim(); //·|­û½s¸¹
-				
+
+				String movie_no = request.getParameter("movie_no").trim(); //é›»å½±ç·¨è™Ÿ
+				String movie_name = request.getParameter("movie_name").trim(); //é›»å½±åç¨±
+				String theater_name = request.getParameter("theater_name").trim(); //å½±å»³åç¨±
+				String tickettype_no = request.getParameter("type_no").trim(); //ç¥¨ç¨®ç·¨è™Ÿ
+				String session_no = request.getParameter("session_no").trim(); //å ´æ¬¡ç·¨è™Ÿ
+				String mem_no = request.getParameter("mem_no").trim(); //æœƒå“¡ç·¨è™Ÿ
+
 				MemVO memVO = new MemService().getMemVOByNO(mem_no);
-				String mem_email = memVO.getEmail();  //·|­û«H½c
+				String mem_email = memVO.getEmail(); //æœƒå“¡ä¿¡ç®±
 				String mem_LastName = memVO.getLastname();
 				String mem_FirstName = memVO.getFirstname();
-				StringBuffer mem_FullName = new StringBuffer();
-				mem_FullName.append(mem_FirstName).append(mem_LastName); //·|­û¦WºÙ
+// 				StringBuffer mem_FullName = new StringBuffer();
+// 				mem_FullName.append(mem_FirstName).append(mem_LastName); //æœƒå“¡åç¨±
 				
+				String mem_FullName = mem_FirstName.concat(mem_LastName);
+				System.out.println("Full NAME = " + mem_FullName);
+
 				Integer price = Integer.valueOf(request.getParameter("price"));
 				String[] seats = request.getParameterValues("seats");
 				int ticket = seats.length;
@@ -54,14 +57,14 @@
 			<form method="POST" action="<%=request.getContextPath()%>/ticketOrder/ticketOrder.do">
 			
 			<div class="panel panel-default">
-				  <div class="panel-heading text-center">ÁÊ²¼¸ê°T</div>
+				  <div class="panel-heading text-center">è³¼ç¥¨è³‡è¨Š</div>
 				  <table class="table">
 				    <tr>
-				    	<td>¤ù¦W¡G<%=movie_name %></td>
-				    	<td>¼vÆU</td>
-				    	<td>²¼¼Æ</td>
-				    	<td>³æ»ù</td>
-				    	<td>ª÷ÃB</td>
+				    	<td>ç‰‡åï¼š<%=movie_name %></td>
+				    	<td>å½±å»³</td>
+				    	<td>ç¥¨æ•¸</td>
+				    	<td>å–®åƒ¹</td>
+				    	<td>é‡‘é¡</td>
 				    </tr>
 				    <tr>
 					    <td>
@@ -69,14 +72,14 @@
 					    </td>
 					    <td><%=theater_name %></td>
 				    	<td><%=ticket %></td>
-				    	<td>¢C<%=price%></td>
-				    	<td>¢C<%=ticket*price%></td>
+				    	<td>ï¼„<%=price%></td>
+				    	<td>ï¼„<%=ticket*price%></td>
 				    </tr>
 				  </table>
 			</div>
 			
 			<div class="panel panel-default">
-				  <div class="panel-heading text-center">®y¦ì¸ê°T</div>
+				  <div class="panel-heading text-center">åº§ä½è³‡è¨Š</div>
 				  <table class="table">
 				    <tr>
 					    <td>
@@ -87,12 +90,12 @@
 								for(int i=0; i < ticket; i++ ){
 									seat = seats[i];
 									String[] seatArr = seat.split("_");
-									String temp = (char)(Integer.parseInt(seatArr[0]) + 64) +"±Æ"+ seatArr[1] + "¸¹";
+									String temp = (char)(Integer.parseInt(seatArr[0]) + 64) +"æ’"+ seatArr[1] + "è™Ÿ";
 									out.print(temp);
-									seatChinese.append(temp+"@");  //Àx¦sÅã¥Üªº¤¤¤å®y¦ì
+									seatChinese.append(temp+"@");  //å„²å­˜é¡¯ç¤ºçš„ä¸­æ–‡åº§ä½
 									seatAll.append(seat+"@");
 									if(!(i==ticket-1)){
-										out.print("¡B");
+										out.print("ã€");
 									}
 								}
 		    				%>
@@ -104,7 +107,7 @@
                 
                 <div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title text-center title-bold" style="font-size:25px">½Ğ¿é¤J«H¥Î¥d¸ê°T</h3>
+				    <h3 class="panel-title text-center title-bold" style="font-size:25px">è«‹è¼¸å…¥ä¿¡ç”¨å¡è³‡è¨Š</h3>
 				  </div>
 				  <div class="panel-body">
 				    
@@ -112,7 +115,7 @@
 					<div class="row">
 						<div class="card form-group">						
 							<div class="form-inline">
-								<label for="card">¥d¸¹¡G</label>
+								<label for="card">å¡è™Ÿï¼š</label>
 								<input type="text" id="card1" name="card1" size="4" maxlength="4" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">-
 								<input type="text" id="card2" name="card2" size="4" maxlength="4" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">-
 								<input type="text" id="card3" name="card3" size="4" maxlength="4" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">-
@@ -120,12 +123,12 @@
 							</div>
 							<br>
 							<div class="form-inline">
-								<label for="card">¥d¤ùÀË®Ö½X¡G</label>
+								<label for="card">å¡ç‰‡æª¢æ ¸ç¢¼ï¼š</label>
 								<input type="text" name="auth_key" size="2" maxlength="3" name="card" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">
 								<br><br>
-								<label for="card">¨ì´Á¤é¡G</label>
-								<input type="text" name="mm"  size="2" maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">¤ë
-								<input type="text" name="yy" size="2"  maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">¦~
+								<label for="card">åˆ°æœŸæ—¥ï¼š</label>
+								<input type="text" name="mm"  size="2" maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">æœˆ
+								<input type="text" name="yy" size="2"  maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">å¹´
 
 						</div>
 						</div>
@@ -141,8 +144,8 @@
                	<input type="hidden" name="mem_FullName" value="<%=mem_FullName %>" />
                	<input type="hidden" name="mem_email" value="<%=mem_email %>" />
                	<div class="panel panel-default">
-				  <div class="panel-heading text-center">¥I´Úª÷ÃB¡G¢C<%=ticket*price%></div>
-                	<button type="submit" class="btn btn-lg btn-primary btn-block" id="save">½T©w</button>
+				  <div class="panel-heading text-center">ä»˜æ¬¾é‡‘é¡ï¼šï¼„<%=ticket*price%></div>
+                	<button type="submit" class="btn btn-lg btn-primary btn-block" id="save">ç¢ºå®š</button>
                 </div>
 			</form>
 		</div>
@@ -169,7 +172,7 @@
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
 <script>
 		$(document).ready(function() {
-			$("li:contains('¦X§@¼v«°')").addClass("custom-active");
+			$("li:contains('åˆä½œå½±åŸ')").addClass("custom-active");
 		});
 </script>
 </body>
