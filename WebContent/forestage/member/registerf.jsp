@@ -181,7 +181,7 @@
 				<hr style="visibility:hidden">
 		<div class="row align-items-center bg-white rounded">
 			<div class="col-12 col-sm-10 offset-sm-1">
-			
+			<hr style="visibility:hidden">
 			<c:if test="${not empty errorMsgs}">
 				<div class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -204,12 +204,12 @@
 						</div>
 						<div class="col-md-3 mb-3">
 							<label for="validationDefault04">密碼</label><span class="errorm">&nbsp ${errorMsgs.paw}</span>
-							<input type="text" class="form-control" id="validationDefault04" name="paw"
+							<input type="password" class="form-control" id="validationDefault04" name="paw"
 							value="${param.paw}" required>
 						</div>
 						<div class="col-md-3 mb-3">
 							<label for="validationDefault05">確認密碼</label><span class="errorm">&nbsp ${errorMsgs.paw2}</span>
-							<input type="text" class="form-control" id="validationDefault05" name="paw2"
+							<input type="password" class="form-control" id="validationDefault05" name="paw2"
 							value="${param.paw2}" required>
 						</div>
 					</div>
@@ -219,16 +219,16 @@
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault01">姓氏</label>
-							<input type="text" class="form-control" id="validationDefault01" name="Lastname" value="陳" required>
+							<input type="text" class="form-control" id="validationDefault01" name="Lastname" value="${param.Lastname}" required>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault02">名字</label>
-							<input type="text" class="form-control" id="validationDefault02" name="Firstname" value="平偉" required>
+							<input type="text" class="form-control" id="validationDefault02" name="Firstname" value="${param.Firstname}" required>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="validationDefaultUsername">生日</label>
 							<div class="input-group">
-								<input type="date" class="form-control" name="birthday" aria-describedby="inputGroupPrepend2" required>
+								<input type="date" class="form-control" name="birthday" value="${param.birthday}" aria-describedby="inputGroupPrepend2" required>
 							</div>
 						</div>
 					</div>
@@ -240,12 +240,12 @@
 						
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault02">手機號碼</label><span class="errorm">&nbsp ${errorMsgs.phone}</span>
-							<input type="text" class="form-control" id="" name="phone" value="" required>
+							<input type="text" class="form-control" id="" name="phone" value="${param.phone}" required>
 						</div>
 
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault02">身分證字號</label>
-							<input type="text" class="form-control" id="" name="IDNUM" value="A81000" required>
+							<input type="text" class="form-control" id="" name="IDNUM" value="${param.IDNUM}" required>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault02">性別</label><br>
@@ -279,7 +279,7 @@
 
 					<div class="form-row">
 						<div class="col-md-6 mb-3">
-							<input type="text" class="form-control" id="validationDefault03" name="address" value="富堡街富堡路8號7段" required><span class="errorm">&nbsp ${errorMsgs.address}</span>
+							<input type="text" class="form-control" id="validationDefault03" name="address" value="${param.address}" required><span class="errorm">&nbsp ${errorMsgs.address}</span>
 						</div>
 					</div>
 
@@ -289,11 +289,11 @@
 					<div class="policy">
 						<textarea class="form-control" rows="10" readonly="">
 歡迎您加入成為MS訂的會員：
-MS訂（以下稱本服務）係由富爾特股份有限公司（以下稱本公司）依據本會員服務使用條款（以下稱本條款）所提供的服務，本條款訂定之目的，即在於盡可能保護會員的權益，同時確認本網站及商品供應商與會員之間的契約關係。 當您完成會員加入後，表示您已經閱讀、瞭解且同意接受本條款所有的內容與約定，並完全接受本服務現有與未來衍生之服務項目。 本網站有權於任何時間基於需要而修改或變更本條款內容，修改後的條款內容將公佈在本服務『會員中心』的網站上，本網站將不會個別通知會員，建議您隨時注意相關修改與變更。您於任何修改或變更之後繼續使用本服務，將視為您已經閱讀、瞭解且同意已完成之相關修改與變更。如果您不同意本條款的內容，您應立即停止使用本服務。
+MS訂（以下稱本服務）係由阿喇定股份有限公司（以下稱本公司）依據本會員服務使用條款（以下稱本條款）所提供的服務，本條款訂定之目的，即在於盡可能保護會員的權益，同時確認本網站及商品供應商與會員之間的契約關係。 當您完成會員加入後，表示您已經閱讀、瞭解且同意接受本條款所有的內容與約定，並完全接受本服務現有與未來衍生之服務項目。 本網站有權於任何時間基於需要而修改或變更本條款內容，修改後的條款內容將公佈在本服務『會員中心』的網站上，本網站將不會個別通知會員，建議您隨時注意相關修改與變更。您於任何修改或變更之後繼續使用本服務，將視為您已經閱讀、瞭解且同意已完成之相關修改與變更。如果您不同意本條款的內容，您應立即停止使用本服務。
 
 
 網站個資蒐集告知
-本會員、網站的服務是由『富爾特科技股份有限公司』（下稱本公司）所建置提供。當您進行下列服務時，即表示您願意以電子文件之方式接受告知並行使法律所賦予同意之權利。 
+本會員、網站的服務是由『阿喇定科技股份有限公司』（下稱本公司）所建置提供。當您進行下列服務時，即表示您願意以電子文件之方式接受告知並行使法律所賦予同意之權利。 
 ez訂網站會員為富爾特科技股份有限公司經營管理，為了確保消您的個人資料、隱私及消費者權益之保護，謹依個人資料保護法第8條規定告知以下事項： 
 一、 蒐集目的及方式
 (一) 為您提供服務：
@@ -306,8 +306,7 @@ ez訂網站會員為富爾特科技股份有限公司經營管理，為了確保
 2.C002辨識財務者： 如信用卡或轉帳帳戶資訊。
 3.C003政府資料中之辨識者： 如身分證字號或護照號碼(外國人)。
 4.C011個人描述：如年齡、性別、出生年月日、出生地、國籍等。
-5.C021家庭情形： 如婚姻狀況、有無子女等。
-6.C036生活格調： 如使用消費品之種類及服務之細節、個人或家庭之消費模式等。
+5.C036生活格調： 如使用消費品之種類及服務之細節、個人或家庭之消費模式等。
 三、 利用期間、地區、對象及方式
 (一) 期間：本公司將於蒐集目的之存續期間內合理利用您的個人資料。惟因依法律規定、執行業務所必須或經您書面同意者不在此限。
 (二) 地區：中華民國境內。
@@ -325,11 +324,11 @@ ez訂網站會員為富爾特科技股份有限公司經營管理，為了確保
 
 
 會員服務範圍
-本公司所提供的服務範圍，包括 www.ezding.com 與 www.ezding.com 網域下所有網站，以及未來所有可能衍生，屬於本網站並包括使用本網站所提供金流、物流與資訊流平台之所有網站、實體等服務。其服務內容包括但不限於商品買賣、內容瀏覽與利用電子郵件或其他方式進行商品行銷資訊之提供。本網站得依實際情形，增加、修改或是終止相關服務。 本網站將提供的會員服務內容包括但不限於：訂票、集購、會員電子報或任何其他將來新增之會員服務功能。若您欲修改任何會員資料或功能服務時，請至『會員中心』修改。您可透過『會員中心』查詢調閱或修改您的個人資料、查詢訂票紀錄、或查詢歸戶之票券紀錄。
+本公司所提供的服務範圍，包括 www.msding.com 與 www.msding.com 網域下所有網站，以及未來所有可能衍生，屬於本網站並包括使用本網站所提供金流、物流與資訊流平台之所有網站、實體等服務。其服務內容包括但不限於商品買賣、內容瀏覽與利用電子郵件或其他方式進行商品行銷資訊之提供。本網站得依實際情形，增加、修改或是終止相關服務。 本網站將提供的會員服務內容包括但不限於：訂票、集購、會員電子報或任何其他將來新增之會員服務功能。若您欲修改任何會員資料或功能服務時，請至『會員中心』修改。您可透過『會員中心』查詢調閱或修改您的個人資料、查詢訂票紀錄、或查詢歸戶之票券紀錄。
 
 
 會員帳號、密碼與安全
-一、ez訂會員帳號即手機門號，必須詳實填寫，手機門號及密碼，不能重複登錄。除非經他人合法授權使用其個人資料以外，您如果提供任何錯誤或是不實的資料進行登錄，本網站有權暫停或是終止您的帳號，並拒絕您使用本服務。
+一、MS訂會員帳號即手機門號，必須詳實填寫，手機門號及密碼，不能重複登錄。除非經他人合法授權使用其個人資料以外，您如果提供任何錯誤或是不實的資料進行登錄，本網站有權暫停或是終止您的帳號，並拒絕您使用本服務。
 二、您如選擇以信用卡方式購物時，必須填寫確實之信用卡資料；若發現有不實登錄或任何未經持卡人許可而盜刷其信用卡的情形時，本網站得以暫停或終止其會員資格，若違反中華民國相關法律，亦將依法追究。本網站不會留存會員在網站上登錄之信用卡號等相關資料，以保護會員之隱私及權益。
 
 

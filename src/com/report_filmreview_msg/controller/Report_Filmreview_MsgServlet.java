@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.filmreview_msg.model.Filmreview_MsgService;
+import com.filmreview_msg.model.Filmreview_MsgVO;
+import com.member.model.MemService;
 import com.report_filmreview_msg.model.Report_Filmreview_MsgService;
 import com.report_filmreview_msg.model.Report_Filmreview_MsgVO;
 
@@ -122,8 +124,12 @@ public class Report_Filmreview_MsgServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				Filmreview_MsgService fvmSvc = new Filmreview_MsgService();
-				fvmSvc.delete(rmsgVO.getFrm_no());
+				Filmreview_MsgVO fmVO =fvmSvc.getVO(rmsgVO.getFrm_no());
 				
+				MemService memSrc = new MemService();
+				System.out.println(fmVO.getMem_no());
+				memSrc.foul(fmVO.getMem_no());
+				fvmSvc.delete(rmsgVO.getFrm_no());
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				
 				String url = "/backstage/reportMsg/reportMsg_list.jsp";

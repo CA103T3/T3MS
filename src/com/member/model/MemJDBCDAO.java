@@ -342,6 +342,13 @@ public class MemJDBCDAO implements MemDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void foul(String memno) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

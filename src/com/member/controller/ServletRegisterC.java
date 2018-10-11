@@ -136,7 +136,7 @@ public class ServletRegisterC extends HttpServlet {
 			
 			
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("memVO", memVOreg); 
+				req.setAttribute("memVOreg", memVOreg); 
 				
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/forestage/member/registerf.jsp");

@@ -26,22 +26,29 @@ public class TestMemberDAO {
 		System.out.println("再跑啦幹");
 		Connection con = null;
 		PreparedStatement pstmt = null;	
+		
+		PreparedStatement pstmt0 = null;
+		ResultSet rs = null;
+		int vio;
 			
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			
-			String BAN ="UPDATE MEMBER SET STATUS=? WHERE MEMNO=?";
-			pstmt = con.prepareStatement(BAN);
-			pstmt.setInt(1, 2);
-			pstmt.setString(2, "M001");
-			pstmt.executeUpdate();
-			              
-			byte[] pic2 = getPictureByteArray("WebContent/img/kagi.jpg");
-			pstmt.setBytes(6, pic2);
-			pstmt.setString(7, "aaa@gmail.com");
+			String FOULCHECK ="SELECT violation FROM MEMBER WHERE MEM_NO=?";
+			 String FOUL ="UPDATE MEMBER SET violation=? WHERE MEM_NO=?";
 			
+			pstmt0 = con.prepareStatement(FOULCHECK);
+			pstmt0.setString(1, "M012");
+			rs = pstmt0.executeQuery();
+			rs.next();
+            vio =rs.getInt("violation");
+            
+            vio++;
+			pstmt = con.prepareStatement(FOUL);
+			pstmt.setInt(1, vio);
+			pstmt.setString(2, "M012");
 			pstmt.executeUpdate();
 			
 		}catch(ClassNotFoundException e){

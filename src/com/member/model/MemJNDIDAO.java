@@ -31,6 +31,8 @@ public class MemJNDIDAO implements MemDAO_interface {
 	private static final String FILM_CRITICISM ="UPDATE MEMBER SET TYPE=? WHERE MEM_NO=?";
 	private static final String CHECK = "select * from MEMBER where IDNUM=?";
 	private static final String INSERT_RETURN ="insert into MEMBER(mem_no,email,mem_pw,lname,fname,birthday,phone,IDNUM,gender,addr,locno,memimg,status,type,violation) values('M'||LPAD(to_char(member_seq.NEXTVAL), 3, '0'),?,?,?,?,TO_DATE(substr(?,0,19),'YYYY-MM-DD   HH24:MI:SS'),?,?,?,?,?,?,?,?,?)";
+	private static final String FOULCHECK ="SELECT violation FROM MEMBER WHERE MEM_NO=?";
+	private static final String FOUL ="UPDATE MEMBER SET violation=? WHERE MEM_NO=?";
 	
 	@Override
 	public void insert(MemVO memVO) {		
@@ -752,6 +754,58 @@ public class MemJNDIDAO implements MemDAO_interface {
 		return memno;
 	}
 	
+	@Override
+	public void foul(String memno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt0 = null;
+		ResultSet rs = null;
+		int vio;
+		try {
+
+			con = ds.getConnection(); 
+			pstmt0 = con.prepareStatement(FOULCHECK);
+			pstmt0.setString(1, memno);
+			rs = pstmt0.executeQuery();
+			rs.next();
+            vio =rs.getInt("violation");
+            
+            vio++;
+			pstmt = con.prepareStatement(FOUL);
+			pstmt.setInt(1, vio);
+			pstmt.setString(2, memno);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+					pstmt0.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (rs != null) { 
+				try {
+					rs.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
 	
 
 }

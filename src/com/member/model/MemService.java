@@ -114,6 +114,9 @@ public class MemService {
 		public void becomeFC(String memno) {
 			dao.betheFC(memno);
 		}
-	
+	//違規次數+1
+		public void foul(String memno) {
+			dao.foul(memno);
+		}
 		
 }

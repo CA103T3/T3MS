@@ -20,5 +20,6 @@ public interface MemDAO_interface {
      public void wanttobeFC(String memno);
      public void betheFC(String memno);
      public String InsertReturnNO(MemVO memVO);
+     public void foul(String memno);
 	
 }

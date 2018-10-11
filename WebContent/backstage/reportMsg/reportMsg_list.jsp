@@ -92,7 +92,7 @@
                             <td>
                                 <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/report_filmreview_msgServlet/report_filmreview_msgServlet.do">
                                     <button type="submit" id="view-btn-${s.index}" class="btn btn-success fs16 " >
-                                        <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;取消
+                                        <i class="" aria-hidden="true"></i>&nbsp;取消
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="rfm_no" value="${rmVO.rfm_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
@@ -102,7 +102,7 @@
                                 <c:if test="${memVO.status!=2}">
                                 <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/report_filmreview_msgServlet/report_filmreview_msgServlet.do">
                                     <button type="submit" id="mod-btn-${s.index}" class="btn btn-danger fs16 " >
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;刪除
+                                        <i class="" aria-hidden="true"></i>&nbsp;刪除
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="rfm_no" value="${rmVO.rfm_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">

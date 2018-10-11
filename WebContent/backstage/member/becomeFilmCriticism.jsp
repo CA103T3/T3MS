@@ -65,7 +65,7 @@
                             <c:if test="${memVO.type==1}">
                                 <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/member/Bmember.do">
                                     <button type="submit" id="view-btn-${s.index}" class="btn btn-success fs16 " >
-                                        <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;准許
+                                        <i class="" aria-hidden="true"></i>&nbsp;准許
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="memno" value="${memVO.memno}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
@@ -76,7 +76,7 @@
                                 <c:if test="${memVO.type==2}">
                                 <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="">
                                     <button type="submit" id="mod-btn-${s.index}" class="btn fs16 " >
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;降級
+                                        <i class="" aria-hidden="true"></i>&nbsp;降級
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="memno" value="${memVO.memno}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
