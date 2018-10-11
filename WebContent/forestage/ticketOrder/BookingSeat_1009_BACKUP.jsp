@@ -1,5 +1,3 @@
-<%@page import="com.cinema.model.CinemaVO"%>
-<%@page import="com.cinema.model.CinemaService"%>
 <%@page import="com.sun.xml.internal.txw2.Document"%>
 <%@page import="com.ticketType.model.TypeService"%>
 <%@page import="com.ticketType.model.TypeVO"%>
@@ -19,17 +17,16 @@
 
 <%
 	//會員編號
-	String mem_no="M00002";
-// 	MemVO memVO = (MemVO) session.getAttribute("memVO");	
-// 	String mem_no = memVO.getmemno();
+	String mem_no="M0001";
 //  session.getAttribute("mem_no");
 	
 	//場次編號
-	String session_no = "SES0000003";
-// 	String session_no = request.getParameter("session_no").trim();
+	String session_no = "SES0000004";
+// 	session.getAttribute("session_no");
 
 	//票種編號
 	String type_no = "TT00001";
+// 	session.getAttribute("type_no");3333
 	
 	SessionService sessionSvc = new SessionService();
 	MovieService movieSvc = new MovieService();
@@ -39,14 +36,14 @@
 	String movie_no = sessionVO.getMovie_no();
 	MovieVO movieVO = movieSvc.getOneMovie(movie_no);
 	String movieName = movieVO.getMovie_name(); //電影名稱
-	Date date = movieVO.getRelased(); // 上映日期
-	String rating = movieVO.getRating(); // 電影級別
+// 	String movieName = "=== M O V I E N A M E ===";
 	 
 	//取得場次時間
 	Timestamp sessionVOtime = sessionVO.getSession_time();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String strDateFormat = "HH:mm";
+    SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
     String session_time= sdf.format(sessionVOtime); //播放時間
-    
+	System.out.println("========"+session_time);
 	
 	//取得票種資訊
 	TypeService typeSvc = new TypeService();
@@ -59,12 +56,8 @@
 	TheaterService tSvc = new TheaterService();
 	TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
 	String theater_name = theaterVO.getTheater_name(); //影廳名稱
-	String cinema_no = theaterVO.getCinema_no(); //影城編號
 	
-	//影城資訊
-	CinemaService cinemaSvc = new CinemaService();
-	CinemaVO cinemaVO = cinemaSvc.getOneCinema(cinema_no);
-	String cinemaName = cinemaVO.getCinema_name(); //影城名稱
+	
 	
 	
 	String sid = request.getSession().getId();
@@ -83,21 +76,42 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/css/Booking.css" />
         
     </head>
- <body onLoad="connect();" onunload="disconnect();" class="body-template">
+    <body onLoad="connect();" onunload="disconnect();" class="body-template">
         <%@ include file="/forestage/template/header.jsp" %>
         
-        <br><br><br>
     <div class="container" style="color: #ffffff;font-size: 20px;">
- 	   <form method="post" action="BookingBuySeat.jsp" name="form1">
-	       <div class="row">
-	       		<div class="col-sm-6 col-md-6">
-	       		<table class="wwFormTable" style="width:60%;">
-					<tr>
-						<td ><b>螢幕</b></td>
-					</tr>
-				</table>
-       		
-       	<table class="wwFormTable">
+       
+        
+<!--        <div id="myID" class="WebSocket"></div> -->
+			<span id="output" class="WebSocket"></span>
+		<br>
+		<!------------------------------------------------------------------------------------------------->
+		<form method="post" action="BookingBuySeat.jsp" name="form1">
+		<table class="table">
+			<tr>
+				<td><img style="width:250px; height:320px" id="movie_pic" src="<%=request.getContextPath() %>/DBGifReader?movie_no=<%=movie_no%>"></td>
+			</tr>
+		</table>
+		<table class="wwFormTable" style="width:40%; ">
+			<tr>
+				<td><b>影廳:<%=theater_name%></b></td>
+				<td><b>播放時間：<%= session_time %></b></td>
+				
+				<!-- <td id="amount" style="color:#fff; font-weight:bold">金額：0</td> -->
+<%-- 				<td><b>廳院名稱:</b> <input type="text" name="hall_name" value="<%=theaterVO.getTheater_name()%>" class="text-field"></td> --%>
+			</tr>
+			<tr>
+				<td colspan="2" style="border-radius: 10px;"><b>電影名稱：<%= movieName %></b></td>
+			</tr>
+		</table>
+		<br>
+		<table class="wwFormTable">
+			<tr>
+				<td><b>螢幕</b></td>
+			</tr>
+		</table>
+		<br>
+		<table class="wwFormTable">
 			<c:forEach var="row" begin="1" end="<%=theaterVO.getT_rows()%>" varStatus="s1">
 				<tr>
 					<c:if test="${row==1}">
@@ -116,56 +130,22 @@
 					</td>
 					<c:forEach var="col" begin="1" end="<%=theaterVO.getT_columns()%>" varStatus="s2">
 						<c:set scope="page" var="isBooked" value="${bookingMap.keySet().contains(s1.count.toString().concat('_').concat(s2.count.toString()))}" />
-							<td class="left1">
-								<input type="checkbox" id="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-checkbox2-red '":"class='css-checkbox1-blue'"} name="seats" value="${s1.count}_${s2.count}" onclick="sendMessage('${s1.count}_${s2.count}'); isChecked();" ${isBooked? "checked disabled":""}> 	
-								<label id="${s1.count}_${s2.count}" for="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-label2-red'":"class='css-label1-blue'"}></label> <!-- ${s1.count}_${s2.count} -->
-							</td>
-								</c:forEach>
+						<td class="left1">
+							<input type="checkbox" id="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-checkbox2-red '":"class='css-checkbox1-blue'"} name="seats" value="${s1.count}_${s2.count}" onclick="sendMessage('${s1.count}_${s2.count}'); isChecked();" ${isBooked? "checked disabled":""}> 
+							<label id="${s1.count}_${s2.count}" for="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-label2-red'":"class='css-label1-blue'"}></label> <!-- ${s1.count}_${s2.count} -->
+						</td>
+					</c:forEach>
 				</tr>
-					</c:forEach>		
-			</table>
-       			
-       	</div>
-       		<div class="col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-1">
-				<table class="wwFormTable" style="width:100%; font-size:25px;">
-					<tr>
-						<td><b>影廳：<%=theater_name%></b></td>
-						<td><b>級別：<%=rating %></b></td>
-					</tr>
-					<tr>
-						<td colspan="2"><b>影城：<%=cinemaName %></b></td>
-					</tr>
-				</table>
-				
-				<table class="wwFormTable" style="width:100%; font-size:25px;">
-					<tr>
-						<td colspan="2"><b>場次時間：<%=session_time %></b></td>
-					</tr>
-				</table>
-				
-				<table class="wwFormTable" style="width:100%;">
-					<tr><td colspan="2"><b>電影名稱：<%= movieName %></b></td></tr>
-				</table>
-				
-				<table class="wwFormTable">
-					<tr>
-						<td><img style="width:250px; height:320px" id="movie_pic" src="<%=request.getContextPath() %>/DBGifReader?movie_no=<%=movie_no%>"></td>
-					</tr>
-				</table>
-       		</div>
-       </div>
-        
-		<!------------------------------------------------------------------------------------------------->
+			</c:forEach>		
+		</table>
+
 		<hr>
-		<input type="hidden" name="mem_no" value="<%=mem_no %>" />
-		<input type="hidden" name="movie_no" value="<%=movie_no %>" />
-		<input type="hidden" name="movie_name" value="<%=movieName%>" />
-		<input type="hidden" name="theater_name" value="<%=theater_name%>" />
+		<input type="hidden" name="movie_name" value="<%=movieName%>">
+		<input type="hidden" name="theater_name" value="<%=theater_name%>">
 		<input type="hidden" name="type_no" value="<%=type_no %>" />
 		<input type="hidden" name="session_no" value="<%=session_no %>" />
 		<input type="hidden" name="price" value="<%=price %>" />
-		<button type="button" class="btn btn-lg btn-primary btn-block" onClick="checkup()" id="save">下一步</button>
-<!-- 		<input class="myButton" type="button" value="下一步" onClick="checkup()"> -->
+		<input class="myButton" type="button" value="下一步" onClick="checkup()">
 	</form>
 
   </div>

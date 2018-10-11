@@ -1,9 +1,6 @@
 package com.ticketorder.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,7 +15,6 @@ import javax.websocket.Session;
 
 import com.movie.model.MovieService;
 import com.session.model.SessionVO;
-import com.sun.javafx.collections.MappingChange.Map;
 import com.ticketdetail.model.Ticket_DetailService;
 import com.ticketdetail.model.Ticket_DetailVO;
 import com.ticketorder.model.Ticket_OrderService;
@@ -27,7 +23,7 @@ import com.ticketorder.model.Ticket_OrderVO;
 import oracle.net.aso.a;
 import oracle.net.aso.b;
 
-public class Ticket_OrderServlet extends HttpServlet {
+public class OLD_BACKUP_Ticket_OrderServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +33,7 @@ public class Ticket_OrderServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		String action = request.getParameter("action");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
@@ -64,12 +60,6 @@ public class Ticket_OrderServlet extends HttpServlet {
 			String bookingSeats = request.getParameter("seatTD").trim();
 			System.out.println(bookingSeats);
 			String[] bookingSeatArr = bookingSeats.split("@");
-
-			HashMap<String, String> seat_ticketType = new HashMap<String, String>();
-			for (int i = 0; i < bookingSeatArr.length; i++) {
-				seat_ticketType.put(bookingSeatArr[i], tickettype_no);
-			}
-
 			Integer order_state = 1; // 訂單狀態成立
 			Integer payment_state = 1; // 付款狀態成立
 			Integer exchange_state = 0; // 餐點未兌換
@@ -115,7 +105,6 @@ public class Ticket_OrderServlet extends HttpServlet {
 				}
 				String amount = request.getParameter("amount").trim();
 
-				// 一張訂單會多張明細
 				Ticket_OrderService ticketSvc = new Ticket_OrderService();
 				Ticket_OrderVO orderVO = new Ticket_OrderVO();
 				orderVO.setMem_no(mem_no);
@@ -128,14 +117,29 @@ public class Ticket_OrderServlet extends HttpServlet {
 				orderVO.setDeadline(deadline.toString());
 				orderVO.setAuth_key(auth_key);
 
-				String order_no = ticketSvc.insert_con(orderVO, seat_ticketType, session_no);
+				String order_no = ticketSvc.insert(orderVO);
 				System.out.println(order_no);
 				System.out.println(session_no);
 				System.out.println(tickettype_no);
 
+				// 一張訂單會多張明細
+				Ticket_DetailService detailSvc = new Ticket_DetailService();
+				Ticket_DetailVO detailVO = null;
+				String ticket_detail_no = null;    //退票用
+				for (int i = 0; i < bookingSeatArr.length; i++) {
+					System.out.println("===bookingSeatArr==="+bookingSeatArr[i]);
+					detailVO = new Ticket_DetailVO();
+					detailVO.setOrder_no(order_no);
+					detailVO.setSession_no(session_no);
+					detailVO.setTicketType_no(tickettype_no);
+					detailVO.setSeat(bookingSeatArr[i]);
+					ticket_detail_no = detailSvc.insert(detailVO); // 訂單明細編號
+				}
+
 				// 新增完後一筆訂單取出訂單編號，再取出uuid產生QRcode
 				Ticket_OrderVO orderVO2 = ticketSvc.findByPrimaryKey(order_no);
 				String uuidOK = orderVO2.getUuid();
+
 				String successView = "/forestage/ticketOrder/BookingSuccess.jsp?uuid=" + uuidOK + "&bookingSeats="
 						+ bookingSeats + "&session_no=" + session_no;
 				mailService.setmail(mem_no, mem_FullName, mem_email);
@@ -146,30 +150,11 @@ public class Ticket_OrderServlet extends HttpServlet {
 				e.printStackTrace(System.err);
 			}
 		}
-
-		if ("search_ticketDetail_seats".equals(action)) {
-			String uuid = request.getParameter("uuid").trim();
-
-			Ticket_OrderService orderSvc = new Ticket_OrderService();
-			List<String> seats = orderSvc.search_TicketDetail(uuid);
-			System.out.println(seats);
-			Iterator<String> is = seats.iterator();
-			StringBuffer sb = new StringBuffer();
-			while (is.hasNext()) {
-				sb.append("seat=" + is.next() + "&");
-			}
-			System.out.println(sb);
-			String refundView = "/forestage/ticketOrder/BookingRefund.jsp?" + sb;
-			request.getRequestDispatcher(refundView).forward(request, response);
+	
+		if ("update_session_seatTable".equals(action)) {
+			
 		}
 		
-		if ("del_ticket_open_seat".equals(action)) {
-			System.out.println("=========Delete_Start===========");
-			String uuid = request.getParameter("uuid").trim();
-			String delSeats = request.getParameter("delSeats").trim();
-			String[] seatArr = delSeats.split("@");
-			
-			
-		}
+		
 	}
 }

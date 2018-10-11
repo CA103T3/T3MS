@@ -167,6 +167,7 @@
     <url-pattern>/forestage/member/membercenter.jsp</url-pattern>
     <url-pattern>/forestage/member/changpaw.jsp</url-pattern>
     <url-pattern>/forestage/member/changfin.jsp</url-pattern>
+<!--     <url-pattern>/forestage/ticketOrder/BookingSeat.jsp</url-pattern> -->
   </filter-mapping>
   <filter>
     <filter-name>LogoutFilter</filter-name>
@@ -177,6 +178,7 @@
     <url-pattern>/forestage/member/loginf.jsp</url-pattern>
     <url-pattern>/forestage/member/registerf.jsp</url-pattern>
     <url-pattern>/forestage/member/forgotpaw.jsp</url-pattern>
+    
   </filter-mapping>
   <servlet>
     <servlet-name>Movie_IntroduceServlet</servlet-name>

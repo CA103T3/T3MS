@@ -1,3 +1,9 @@
+<%@page import="com.ticketType.model.TypeVO"%>
+<%@page import="com.ticketType.model.TypeService"%>
+<%@page import="com.movie.model.MovieVO"%>
+<%@page import="com.movie.model.MovieService"%>
+<%@page import="com.member.model.MemService"%>
+<%@page import="com.member.model.MemVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="BIG5" import="java.util.*"%>
 <!doctype html>
 <html>
@@ -14,23 +20,35 @@
 		text-align: center;
 	}
 </style>
+
 </head>
 <body class="body-template">
+
 	<%@ include file="/forestage/template/header.jsp"%>
 			<%
-				request.setCharacterEncoding("UTF-8");
+				request.setCharacterEncoding("utf-8");
 				response.setContentType("text/html;charset=utf-8");
-				String movie_name =request.getParameter("movie_name").trim();
-				String theater_name = request.getParameter("theater_name").trim(); 
-				String tickettype_no = request.getParameter("type_no").trim();
-				String session_no = request.getParameter("session_no").trim();
-				String mem_no = "M0001";
-// 				String mem_no = session.getAttribute("mem_no").toString();
+				
+				String movie_no = request.getParameter("movie_no").trim(); //電影編號
+				String movie_name =request.getParameter("movie_name").trim(); //電影名稱
+				String theater_name = request.getParameter("theater_name").trim(); //影廳名稱
+				String tickettype_no = request.getParameter("type_no").trim(); //票種編號
+				String session_no = request.getParameter("session_no").trim(); //場次編號
+				String mem_no = request.getParameter("mem_no").trim(); //會員編號
+				
+				MemVO memVO = new MemService().getMemVOByNO(mem_no);
+				String mem_email = memVO.getEmail();  //會員信箱
+				String mem_LastName = memVO.getLastname();
+				String mem_FirstName = memVO.getFirstname();
+				StringBuffer mem_FullName = new StringBuffer();
+				mem_FullName.append(mem_FirstName).append(mem_LastName); //會員名稱
+				
 				Integer price = Integer.valueOf(request.getParameter("price"));
 				String[] seats = request.getParameterValues("seats");
 				int ticket = seats.length;
 			%>
-	<div class="container" style="color: #000; font-size: 20px;">
+		
+	<div class="container" style="color: #000; font-size: 25px;">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12">
 			<form method="POST" action="<%=request.getContextPath()%>/ticketOrder/ticketOrder.do">
@@ -39,15 +57,19 @@
 				  <div class="panel-heading text-center">購票資訊</div>
 				  <table class="table">
 				    <tr>
-				    	<td>電影名稱</td>
+				    	<td>片名：<%=movie_name %></td>
 				    	<td>影廳</td>
 				    	<td>票數</td>
+				    	<td>單價</td>
 				    	<td>金額</td>
 				    </tr>
 				    <tr>
-					    <td><%=movie_name %></td>
+					    <td>
+					    <img style="width:250px; height:320px" id="movie_pic" src="<%=request.getContextPath() %>/DBGifReader?movie_no=<%=movie_no%>">
+					    </td>
 					    <td><%=theater_name %></td>
 				    	<td><%=ticket %></td>
+				    	<td>＄<%=price%></td>
 				    	<td>＄<%=ticket*price%></td>
 				    </tr>
 				  </table>
@@ -58,18 +80,23 @@
 				  <table class="table">
 				    <tr>
 					    <td>
-							<%  
+					   	    <%  
 								String seat = null;
+					   	    	StringBuffer seatAll = new StringBuffer();
+					   	    	StringBuffer seatChinese = new StringBuffer();
 								for(int i=0; i < ticket; i++ ){
 									seat = seats[i];
-									out.print(seat);
+									String[] seatArr = seat.split("_");
+									String temp = (char)(Integer.parseInt(seatArr[0]) + 64) +"排"+ seatArr[1] + "號";
+									out.print(temp);
+									seatChinese.append(temp+"@");  //儲存顯示的中文座位
+									seatAll.append(seat+"@");
 									if(!(i==ticket-1)){
 										out.print("、");
 									}
 								}
-// 								for (String seat : seats)
-// 		    					out.println(seat+"、"); 		
 		    				%>
+						<input type="hidden" name="seatTD" value="<%=seatAll %>" />	
 						</td>
 				    </tr>
 				  </table>
@@ -77,7 +104,7 @@
                 
                 <div class="panel panel-default">
 				  <div class="panel-heading">
-				    <h3 class="panel-title text-center title-bold" style="font-size:20px">請輸入信用卡資訊</h3>
+				    <h3 class="panel-title text-center title-bold" style="font-size:25px">請輸入信用卡資訊</h3>
 				  </div>
 				  <div class="panel-body">
 				    
@@ -111,11 +138,17 @@
                 <input type="hidden" name="tickettype_no" value="<%=tickettype_no %>" />
                 <input type="hidden" name="mem_no" value="<%=mem_no %>" />
                 <input type="hidden" name="session_no" value="<%=session_no %>" />
-                <button type="submit" class="btn btn-primary" id="save">確定</button>
+               	<input type="hidden" name="mem_FullName" value="<%=mem_FullName %>" />
+               	<input type="hidden" name="mem_email" value="<%=mem_email %>" />
+               	<div class="panel panel-default">
+				  <div class="panel-heading text-center">付款金額：＄<%=ticket*price%></div>
+                	<button type="submit" class="btn btn-lg btn-primary btn-block" id="save">確定</button>
+                </div>
 			</form>
 		</div>
 	</div>
 </div>
+	
 	<%@ include file="/forestage/template/footer.jsp"%>
 <script type="text/javascript">
 	$(function(){

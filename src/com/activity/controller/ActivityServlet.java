@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.activity.model.ActivityService;
 import com.activity.model.ActivityVO;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
+@MultipartConfig
 public class ActivityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -86,10 +86,13 @@ public class ActivityServlet extends HttpServlet {
 					errorView.forward(request, response);
 					return;
 				}
-
+				
+				System.out.println("=========");
 				activityVO = activitySvc.addAct(activity_name, activity_desc, backstage_no, active, img_path,
 						activity_url);
-
+				System.out.println("======@@@@@@@@@@===");
+//				String openupdatereplyform =null;
+//				request.setAttribute("openupdatereplyform", openupdatereplyform);
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				successView.forward(request, response);
 

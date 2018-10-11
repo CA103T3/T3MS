@@ -8,14 +8,16 @@ body {
 }
 
 table.wwFormTable {
-	font: 14px verdana, arial, helvetica, sans-serif;
+	border-collapse: separate;
+  	border-spacing: 0;
+	font: 20px verdana, arial, helvetica, sans-serif;
 	border-width: 1px;
 	border-color: #2e3338;
 	border-style: solid;
 	color: #242;
 	background-color: #2e3338;
 	opacity :90.0% !important;
-	width: 25%; 
+	width: 50%; 
 	margin: 15px auto;
 	margin-top: 0%;
 	float: none;
@@ -51,38 +53,38 @@ table.wwFormTable td {
 }
 
 /*Normal*/
-.myButton {
-	background-color: #3B4052;
-	border: 1px solid #f2f2f2;
-	/* 	border: 1px solid #272930; */
-	-moz-box-shadow: inset 0px 0px 1px rgba(52, 55, 63, 1);
-	-webkit-box-shadow: inset 0px 0px 1px rgba(52, 55, 63, 1);
-	box-shadow: inset 0px 0px 1px rgba(52, 55, 63, 1);
-	background-image: -o-linear-gradient(90deg, rgb(58, 66, 82) 0%,
-		rgb(98, 105, 125) 100%);
-	background-image: -moz-linear-gradient(90deg, rgb(58, 66, 82) 0%,
-		rgb(98, 105, 125) 100%);
-	background-image: -webkit-linear-gradient(90deg, rgb(58, 66, 82) 0%,
-		rgb(98, 105, 125) 100%);
-	background-image: -ms-linear-gradient(90deg, rgb(58, 66, 82) 0%,
-		rgb(98, 105, 125) 100%);
-	background-image: linear-gradient(90deg, rgb(58, 66, 82) 0%,
-		rgb(98, 105, 125) 100%);
-	color: #FFFFFF;
-	text-shadow: rgba(0, 0, 0, 0.5) 0px 1px 0px;
-	width: 120px;
-	height: 35px;
-	border-radius: 2px;
-	/* 	border-radius: 4px; */
-	text-align: center;
-	line-height: 17px;
-	text-decoration: none;
-	font-family: 'Helvetica';
-	font-weight: bold;
-	font-size: 13px;
-	float: inherit;
-	margin: 10px 20px;
-}
+/* .myButton { */
+/* 	background-color: #3B4052; */
+/* 	border: 1px solid #f2f2f2; */
+/* 	/* 	border: 1px solid #272930; */ */
+/* 	-moz-box-shadow: inset 0px 0px 1px rgba(52, 55, 63, 1); */
+/* 	-webkit-box-shadow: inset 0px 0px 1px rgba(52, 55, 63, 1); */
+/* 	box-shadow: inset 0px 0px 1px rgba(52, 55, 63, 1); */
+/* 	background-image: -o-linear-gradient(90deg, rgb(58, 66, 82) 0%, */
+/* 		rgb(98, 105, 125) 100%); */
+/* 	background-image: -moz-linear-gradient(90deg, rgb(58, 66, 82) 0%, */
+/* 		rgb(98, 105, 125) 100%); */
+/* 	background-image: -webkit-linear-gradient(90deg, rgb(58, 66, 82) 0%, */
+/* 		rgb(98, 105, 125) 100%); */
+/* 	background-image: -ms-linear-gradient(90deg, rgb(58, 66, 82) 0%, */
+/* 		rgb(98, 105, 125) 100%); */
+/* 	background-image: linear-gradient(90deg, rgb(58, 66, 82) 0%, */
+/* 		rgb(98, 105, 125) 100%); */
+/* 	color: #FFFFFF; */
+/* 	text-shadow: rgba(0, 0, 0, 0.5) 0px 1px 0px; */
+/* 	width: 120px; */
+/* 	height: 35px; */
+/* 	border-radius: 2px; */
+/* 	/* 	border-radius: 4px; */ */
+/* 	text-align: center; */
+/* 	line-height: 17px; */
+/* 	text-decoration: none; */
+/* 	font-family: 'Helvetica'; */
+/* 	font-weight: bold; */
+/* 	font-size: 13px; */
+/* 	float: inherit; */
+/* 	margin: 10px 20px; */
+/* } */
 
 /*Hover*/
 .myButton:hover {
@@ -122,37 +124,37 @@ table.wwFormTable td {
 	color: red;
 }
 
-.text-field {
-	border: 3px solid grey;
-	padding: 0.2em;
-	box-shadow: 0 0 5px #ffd478;
-}
+/* .text-field { */
+/* 	border: 3px solid grey; */
+/* 	padding: 0.2em; */
+/* 	box-shadow: 0 0 5px #ffd478; */
+/* } */
 
-a {
-	font-weight: bold;
-	font-size: 12pt;
-}
+/* a { */
+/* 	font-weight: bold; */
+/* 	font-size: 12pt; */
+/* } */
 
-h2 {
-	color: black;
-	text-align: center;
-	font-size: 16pt;
-}
+/* h2 { */
+/* 	color: black; */
+/* 	text-align: center; */
+/* 	font-size: 16pt; */
+/* } */
 
-h3 {
-	color: black;
-	text-align: center;
-	font-size: 15pt;
-	background-color: #eee;
-}
+/* h3 { */
+/* 	color: black; */
+/* 	text-align: center; */
+/* 	font-size: 15pt; */
+/* 	background-color: #eee; */
+/* } */
 
 .left1 {
 	text-align: bottom;
 }
 
-.WebSocket {
-	color: #005392;
-}
+/* .WebSocket { */
+/* 	color: #005392; */
+/* } */
 
 b {
 	color: #feffff;
@@ -203,6 +205,27 @@ label.css-label1-blue {
 	user-select: none;
 }
 
+label.css-purple {
+	/* 	checkbox_chair1_blue.png */
+	background-image: url(../img/sofa-purple.png);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 
+	padding-left: 28px;
+	height: 20px;
+	display: inline-block;
+	line-height: 30px;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	font-size: 16px;
+	vertical-align: middle;
+	cursor: pointer;
+	color: #000000;
+}
+
 label.css-label1-yellow {
 	/* 	checkbox_chair1_blue.png */
 	background-image: url(../img/sofa-yellow.png);
@@ -223,6 +246,17 @@ label.css-label1-yellow {
 	cursor: pointer;
 	color: #000000;
 }
+
+/* label.css-label1-red { */
+/* 	/* 	checkbox_chair1_blue.png */ */
+/* 	background-image: url(../img/sofa-red2.png); */
+/* 	-webkit-touch-callout: none; */
+/* 	-webkit-user-select: none; */
+/* 	-khtml-user-select: none; */
+/* 	-moz-user-select: none; */
+/* 	-ms-user-select: none; */
+/* 	user-select: none; */
+/* } */
 
 label {
 	-webkit-touch-callout: none;
@@ -263,10 +297,8 @@ input[type=checkbox].css-checkbox2-red:checked+label.css-label2-red {
 	/* 	background-position: 0 -32px; */
 	background-image: url(../img/sofa-red2.png);
 }
-
 label.css-label2-red {
-	/* 	checkbox_chair2_red.png */
-	background-image: url(../img/sofa-skyblue.png);
+	background-image: url(../img/sofa-red2.png);
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -274,7 +306,6 @@ label.css-label2-red {
 	-ms-user-select: none;
 	user-select: none;
 }
-
 /* 
         �H�U����: \src\template\xhtml\styles.css 
         �쬰 :

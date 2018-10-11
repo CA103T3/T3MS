@@ -45,6 +45,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 
 		try {
 			conn = ds.getConnection();
+			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(INSERT_STMT, cols);
 
 			pstmt.setString(1, ticket_DetailVO.getOrder_no());
@@ -65,9 +66,17 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			} else {
 				System.err.println("no pkey from ticket_detail");
 			}
+			conn.commit();
+
 			rs.close();
 		} catch (SQLException e) {
-			throw new RuntimeException("A database error occurred. " + e.getMessage());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				throw new RuntimeException("A database error occurred. " + e.getMessage());
+			}
+
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -270,13 +279,11 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 		try {
 			pstmt = conn.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, ticket_DetailVO.getTicket_detail_no());
-			pstmt.setString(2, ticket_DetailVO.getOrder_no());
-			pstmt.setString(3, ticket_DetailVO.getSession_no());
-			pstmt.setString(4, ticket_DetailVO.getTicketType_no());
-			pstmt.setString(5, ticket_DetailVO.getSeat());
-			pstmt.setTimestamp(6, ticket_DetailVO.getCreated_at());
-			pstmt.setTimestamp(7, ticket_DetailVO.getUpdated_at());
+			pstmt.setString(1, ticket_DetailVO.getOrder_no());
+			pstmt.setString(2, ticket_DetailVO.getSession_no());
+			pstmt.setString(3, ticket_DetailVO.getTicketType_no());
+			pstmt.setString(4, ticket_DetailVO.getSeat());
+		
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			if (conn != null) {

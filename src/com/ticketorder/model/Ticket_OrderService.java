@@ -1,7 +1,11 @@
 package com.ticketorder.model;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+
+import com.sun.javafx.collections.MappingChange.Map;
+import com.ticketdetail.model.Ticket_DetailVO;
 
 public class Ticket_OrderService {
 	private Ticket_OrderDAO_Interface dao;
@@ -12,6 +16,14 @@ public class Ticket_OrderService {
 
 	public String insert(Ticket_OrderVO ticket_OrderVO) {
 		return dao.insert(ticket_OrderVO);
+	}
+	
+	public String insert_con(Ticket_OrderVO ticket_OrderVO, HashMap<String,String> seat_ticketType,String session_no) {
+		return dao.insert_con(ticket_OrderVO, seat_ticketType, session_no);
+	}
+	
+	public List<String> search_TicketDetail(String uuid) {
+		return dao.search_TicketDetail(uuid);
 	}
 
 	public void update(String order_no, Integer amount, Integer order_state, Integer payment_state,
