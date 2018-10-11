@@ -9,7 +9,7 @@
                     </a>
                     <ul id="sub1" class="nav collapse">
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/reportMsg/reportMsg_list.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影評留言管理</a>
                         </li>
                         <li>
@@ -39,11 +39,11 @@
                     </a>
                     <ul id="sub2" class="nav collapse">
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/member/becomeFilmCriticism.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影評資格審核</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/member/listAllMember.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;查詢會員資料</a>
                         </li>
                     </ul>

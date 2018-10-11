@@ -21,7 +21,7 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('/T3MS/img/bg-01.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-100">
-<%@ include file="/forestage/template/header_no_bar.jsp" %>
+<%@ include file="/forestage/template/header.jsp" %>
 				<span class="login100-form-title p-b-41">
 					<img style="width:400px;" src='/T3MS/img/login.png'>
 				</span>

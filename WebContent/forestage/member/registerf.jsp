@@ -175,7 +175,7 @@
 
 <div class="bgm">
 	<div class="container shadow p-3 mb-5">
-	<%@ include file="/forestage/template/header_no_bar.jsp" %>
+	<%@ include file="/forestage/template/header.jsp" %>
 				<hr style="visibility:hidden">
 				<hr style="visibility:hidden">
 				<hr style="visibility:hidden">

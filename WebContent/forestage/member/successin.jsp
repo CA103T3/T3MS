@@ -5,12 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/forestage/template/link.jsp"%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body bgcolor="#3cb371">
-<% MemVO memVO=(MemVO)session.getAttribute("memVO"); %>
+<body style="background-color:#3cb371;">
 
+<%@ include file="/forestage/template/header.jsp"%>
+<% MemVO memVO=(MemVO)session.getAttribute("memVO"); %>
+<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
 <h1 align="center">~成功~</h1>
 <h2 align="center">${memVO.lastname} ${memVO.firstname}你好!<br></h2>
 <h4 align="center"><a href="/T3MS/forestage/member/membercenter.jsp">修改會員資料</a></h4><br>
@@ -24,6 +35,10 @@
 <c:if test="${memVO.type==1}">
 <h4 align="center"><a href="">已送出審核..</a></h4><br>
 </c:if>
+<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				<hr style="visibility:hidden">
+				
 <form action="<%=request.getContextPath()%>/member/logout.do" method="post">
 <div align="center"><input type="submit" value="登出" onclick="logout()"></div>
 </form>

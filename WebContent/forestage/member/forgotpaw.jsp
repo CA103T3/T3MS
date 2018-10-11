@@ -25,14 +25,16 @@
       z-index: 9999;
   }
 </style>
+<%@ include file="/forestage/template/link.jsp"%>
 <title>forgotpaw</title>
 </head>
 <body>
 
 <div class="limiter">
 	<div class="container-login100" style="background-image: url('/T3MS/img/bg-01.jpg');">
-		<div class="wrap-login100 p-t-30 p-b-50">
-		
+	<%@ include file="/forestage/template/header.jsp"%>
+		<div class="wrap-login100 p-t-30 p-b-50">	
+		<hr style="visibility:hidden">					
 		<c:if test="${not empty errorMsgs}">
 				<div class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -44,7 +46,17 @@
 							</ul>
 				</div>
 			</c:if>
-		
+			
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
+			<hr style="visibility:hidden">
 			<form class="login100-form validate-form p-b-10 p-t-5" action="<%=request.getContextPath()%>/member/password.do" method="post">
 				<div class="wrap-input100 validate-input">
 						<input type="hidden" name="action" value="forgot">
@@ -65,8 +77,12 @@
 					<a style="color:deeppink;" href="loginf.jsp">返回登入</a>
 					</div>
 			</div>
+			
+			
 		</div>
+		<%@ include file="/forestage/template/footer.jsp"%>
 	</div>
+	
 </div>
 
 </body>

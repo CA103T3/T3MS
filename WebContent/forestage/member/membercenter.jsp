@@ -179,7 +179,7 @@ a {
 	<div class="bgm">
 		<c:forEach var="message" items="${errorMsgs}"></c:forEach>
 		<div class="container">
-			<%@ include file="/forestage/template/header_no_bar.jsp"%>
+			<%@ include file="/forestage/template/header.jsp"%>
 			<form class="form-inline"
 				action="<%=request.getContextPath()%>/member/update.do"
 				method="post" enctype="multipart/form-data">
