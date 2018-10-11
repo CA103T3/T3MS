@@ -12,7 +12,7 @@ border-top-color: #f9c922; /* Chrome, Opera 15+, Safari 5+ */ animation: spin 1.
 		transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
 	}
 	100% {  /* Chrome, Opera 15+, Safari 3.1+ */  /* IE 9 */
-		transform: rotate(1440deg);  
+		transform: rotate(540deg);  
 	}
 }
 

@@ -1,6 +1,6 @@
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
-<%  int rowsPerPage = 6;   
+<%  int rowsPerPage = 10;   
     int rowNumber=0;      
     int pageNumber=0;          
     int whichPage=1;      

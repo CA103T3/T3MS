@@ -46,7 +46,11 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('#summernote').summernote();
+		       $('#summernote').summernote({        	  
+		        	  tabsize: 2,
+		              height: 600,
+		              focus: true                  // set focus to editable area after initializing summe		          
+		    });
 			$('#dem5').jsRapStar({
 				colorFront : 'yellow',
 				length : 5,

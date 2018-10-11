@@ -27,7 +27,7 @@
 
 <style>
 
-	body {background-color:white !important;}
+	body {background-color:#aaa !important;}
 	
 </style>
 </head>
@@ -51,8 +51,8 @@
 
 
 
-	<div class="section">
-		<div class="container">
+	<div class="section" style=" padding-top: 2px;">
+		<div class="container" >
 			<div class="row">
 				<div class="col-md-12">
 					<h1 class="text-center">影評搜尋</h1>
@@ -94,11 +94,27 @@
 			</div>
 		</div>
 	</div>
-	<div class="section">
-		<div class="container">
+	<div class="section" style=" padding-bottom: 2px; padding-top: 2px;">
+		<div class="container" >
 			<div class="row">
 				<div class="col-md-12">
-					<a href="<%=request.getContextPath()%>/forestage/filmreview/fv_writing.jsp" class="btn btn-block btn-lg btn-primary">寫影評</a>
+					<c:if test="${memVO.type==0}">
+						<form action="<%=request.getContextPath()%>/member/Bmember.do" method="post">
+							<input type="hidden" name="action" value="wnatbeFC"> <input type="hidden" name="memno" value="${memVO.memno}">
+							<div align="center">
+								<input type="submit" value="成為影評" class="btn btn-block btn-lg btn-primary">
+							</div>
+						</form>
+					</c:if>
+					<c:if test="${memVO.type==1}">
+						<h4 align="center">
+							<a href="">已送出審核..</a>
+						</h4>
+						<br>
+					</c:if>
+<c:if test="${memVO.type==2}">
+					<a href="<%=request.getContextPath()%>/forestage/filmreview/fv_writing.jsp" class="btn btn-block btn-lg btn-primary" >寫影評</a>
+				</c:if>
 				</div>
 			</div>
 		</div>
@@ -129,15 +145,15 @@
 
 	<c:forEach var="fv" items="${fv_search}" >
 
-		<div class="section">
-			<div class="container">
+		<div class="section" style=" padding-bottom: 2px; padding-top: 2px;">
+			<div class="container" style="background-color:white;">
 				<div class="row">
 
 
 					<div class="col-md-1">
 						<c:forEach var="mvVO" items="${mvSvc.all}">
 							<c:if test="${fv.movie_no==mvVO.movie_no}">
-								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
+								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
 								</a>
 							</c:if>
 						</c:forEach>

@@ -32,7 +32,7 @@
 
 <style>
 	.toto {margin-top: 60px;}
-	body {background-color:white !important;}
+	body {background-color:#aaa !important;}
 	 .ctnr {
 	border-radius: 5px;
 	background-color: rgb(238, 238, 238);
@@ -77,7 +77,7 @@
 
 
 
-	<div class="section">
+	<div class="section" style=" padding-top: 2px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -131,11 +131,27 @@
 
 		</div>
 	</div>
-	<div class="section">
+	<div class="section" style=" padding-bottom: 2px; padding-top: 2px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<a href="<%=request.getContextPath()%>/forestage/filmreview/fv_writing.jsp" class="btn btn-block btn-lg btn-primary">寫影評</a>
+					<c:if test="${memVO.type==0}">
+						<form action="<%=request.getContextPath()%>/member/Bmember.do" method="post">
+							<input type="hidden" name="action" value="wnatbeFC"> <input type="hidden" name="memno" value="${memVO.memno}">
+							<div align="center">
+								<input type="submit" value="成為影評" class="btn btn-block btn-lg btn-primary">
+							</div>
+						</form>
+					</c:if>
+					<c:if test="${memVO.type==1}">
+						<h4 align="center">
+							<a href="">已送出審核..</a>
+						</h4>
+						<br>
+					</c:if>
+<c:if test="${memVO.type==2}">
+					<a href="<%=request.getContextPath()%>/forestage/filmreview/fv_writing.jsp" class="btn btn-block btn-lg btn-primary" >寫影評</a>
+				</c:if>
 				</div>
 			</div>
 		</div>
@@ -164,8 +180,8 @@
 	<%@ include file="/resources/page_code/pagef.file"%>
 	<c:forEach var="FilmreviewVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
-		<div class="section">
-			<div class="container" style="">
+		<div class="section" style=" padding-bottom: 2px; padding-top: 2px;">
+			<div class="container" style="background-color:white;">
 				<div class="row">
 
 
@@ -173,7 +189,7 @@
 					<div class="col-md-1">
 						<c:forEach var="mvVO" items="${mvSvc.all}">
 							<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
-								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
+								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
 								</a>
 							</c:if>
 						</c:forEach>
@@ -207,7 +223,6 @@
 							</c:forEach>
 						</h3>
 					</div>
-
 					<div class="col-md-1">
 						<h3 class="text-center">${FilmreviewVO.evaluation}</h3>
 					</div>

@@ -35,7 +35,7 @@
                   </ul>
                   <c:if test="${memVO==null}">
                   <ul class="nav navbar-nav navbar-right">               
-	                  <li><a href="registerf.jsp"><span class="glyphicon glyphicon-user"></span>&nbsp;註冊</a></li>
+	                  <li><a href="/T3MS/forestage/member/registerf.jsp"><span class="glyphicon glyphicon-user"></span>&nbsp;註冊</a></li>
 	                  <li><a href="/T3MS/forestage/member/loginf.jsp"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登入</a></li>
                   </ul>
                   </c:if>

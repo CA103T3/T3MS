@@ -33,7 +33,7 @@ top: 50%;
 transform: translateY(50%);
 }
 .toto {margin-top: 60px;}
-	body {background-color:white !important;}
+	body {background-color:#aaa !important;}
 	 .ctnr {
 	border-radius: 5px;
 	background-color: rgb(238, 238, 238);
@@ -58,31 +58,62 @@ transform: translateY(50%);
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="text-center">搜尋</h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
-            <form role="form">
-              <div class="form-group">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="請輸入電影名稱">
-                  <span class="input-group-btn">
-                    <a class="btn btn-primary" type="submit">搜尋</a>
-                  </span>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
+    <div class="section" style=" padding-top: 2px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="text-center">影評搜尋</h1>
+				</div>
+			</div>
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/filmreview/filmreview.do">
+				<div class="row">
+					<div class="col-md-offset-3 col-md-6">
+
+						<div class="form-group">
+							<div class="input-group">
+
+
+								<input type="text" class="form-control" name="movie_name" placeholder="請輸入電影名稱">
+								<div class="input-group-btn">
+									<input class="btn btn-primary" type="submit" value="送出"> 
+									<input type="hidden" name="action" value="getOne_For_Display">
+									<div>
+									<c:if test="${not empty errorMsgs}">
+										<ul>
+											<c:forEach var="message" items="${errorMsgs}">
+												<li style="color: red">${message}</li>
+											</c:forEach>
+										</ul>
+									</c:if>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</FORM>
+			<div class="row">
+				<div class="col-md-12 ">
+				<div class="text-center">
+					<c:if test="${not empty errorMsgs}">
+<!-- 						<font style="color: red">請修正以下錯誤:</font> -->
+						
+							<c:forEach var="message" items="${errorMsgs}">
+								<div style="color: red">${message}</div>
+							</c:forEach>
+						
+					</c:if>
+				</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+    <div class="section" style=" padding-bottom: 2px; padding-top: 2px;">
+      <div class="container" >
         <div class="row">
           <div class="col-md-12">
             <a href="fv_writing.jsp" class="btn btn-block btn-lg btn-primary">寫影評</a>
@@ -90,15 +121,31 @@ transform: translateY(50%);
         </div>
       </div>
     </div>
+    <div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="page-header">
+						<h3>
+									您的所有影評如下:					
+							<small></small>
+							
+								
+						</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
    <%@ include file="/resources/page_code/pagef.file"%>
 	<c:forEach var="FilmreviewVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-    <div class="section">
-      <div class="container">
+    <div class="section" style=" padding-bottom: 2px; padding-top: 2px;">
+      <div class="container" style="background-color:white;">
         <div class="row">
           <div class="col-md-1">
 						<c:forEach var="mvVO" items="${mvSvc.all}">
 							<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
-								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
+								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
 								</a>
 							</c:if>
 						</c:forEach>
