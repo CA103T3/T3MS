@@ -431,6 +431,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 		}
 		return set;
 	}
+	//------------------------ser物件使用------------------------------------------------
 	@Override
 	public String insertReturnFilmreviewNo(FilmreviewVO filmreviewVO) {
 		  Connection con = null;

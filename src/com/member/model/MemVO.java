@@ -8,6 +8,10 @@ import javax.servlet.http.HttpSessionBindingListener;
 
 public class MemVO implements java.io.Serializable,HttpSessionBindingListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -626082207712694224L;
 	private String memno;
 	private String email;
 	private String paw;

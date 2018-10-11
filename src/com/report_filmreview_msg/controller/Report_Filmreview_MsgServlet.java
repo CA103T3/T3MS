@@ -36,6 +36,8 @@ public class Report_Filmreview_MsgServlet extends HttpServlet {
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 							
+				String fr_no = req.getParameter("fr_no");
+				System.out.println(fr_no);
 				String frm_no = req.getParameter("frm_no");
 				System.out.println(frm_no);
 				String content = req.getParameter("content");
@@ -55,7 +57,7 @@ public class Report_Filmreview_MsgServlet extends HttpServlet {
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				
-				String url = "/forestage/filmreview/fv.jsp?fr_no=F00001";
+				String url = "/forestage/filmreview/fv.jsp?fr_no="+fr_no;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				

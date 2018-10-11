@@ -4,11 +4,14 @@
 <%@ page import="com.filmreview.model.*"%>
 <%@ page import="com.movie.model.*"%>
 <%@ page import="com.filmreview_msg.model.*"%>
+<%@ page import="com.member.model.*"%>
 
 
 
 
 <%
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
+
 	FilmreviewDAO fvSvc = new FilmreviewDAO();
 	FilmreviewVO fv = fvSvc.findByPrimaryKey(request.getParameter("fr_no").trim());
 	pageContext.setAttribute("fv", fv);
@@ -16,8 +19,11 @@
 	Filmreview_MsgDAO fvmSvc = new Filmreview_MsgDAO();
 	Set<Filmreview_MsgVO> fvm = fvmSvc.getAllByFrNo(request.getParameter("fr_no").trim());
 	pageContext.setAttribute("fvm", fvm);
+	
+	
 %>
 <jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
+<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemService" />
 
 <!DOCTYPE html>
 <html>
@@ -39,6 +45,16 @@
 
 
 <style>
+.button1 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    
+   background-color:white; color: #aaa;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
 .time-right {
 	float: right;
 	color: #aaa;
@@ -110,7 +126,14 @@ input[type=submit]:hover {
 	                   					 【${mvVO.movie_name}】
                     		</c:if>
 						</c:forEach>${fv.title}</h1>
-					<h3 class="text-left">${fv.mem_no}</h3>
+					<h3 class="text-left">
+					<c:forEach var="memVO" items="${memSvc.all}">
+							<c:if test="${fv.mem_no==memVO.memno}">
+	                   			${memVO.lastname}${memVO.firstname} 
+                    		</c:if>
+					</c:forEach>
+				
+					</h3>
 					<h3 class="text-right">${fv.updated_at}</h3>
 
 
@@ -161,9 +184,9 @@ input[type=submit]:hover {
 		</div>
 
 	</div>
+		<div class="container ctnr">
 	<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/filmreview_msg/filmreview_msg.do" class="form-horizontal">
 		<input type="hidden" name="fr_no" value="${fv.fr_no}"> <input type="hidden" name="mem_no" value="${fv.mem_no}">
-		<div class="container ctnr">
 
 			<div class="row">
 
@@ -179,75 +202,92 @@ input[type=submit]:hover {
 
 
 	
-			<c:forEach var="fvm" items="${fvm}">
 				<div class="row">
+			<c:forEach var="fvm" items="${fvm}" varStatus="reportfilm">
 					<div class="containe" style="height: 90px; background-color: white; padding-top: 20px;">
 						<div class="col-sm-1 text-center">
 
-							<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 80%;">
+							<c:forEach var="memVO" items="${memSvc.all}">
+							<c:if test="${fvm.mem_no==memVO.memno}">
+
+								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${memVO.memno}" class="center-block img-circle img-responsive">
+								<p class="text-center">${memVO.firstname}${memVO.lastname}</p>
+							</c:if>
+						</c:forEach>
 
 						</div>
 
-						<a>${fvm.mem_no}
+					
 
-							<div class="tool-tip time-right">
-								<i class="tool-tip__icon">檢</i>
-								<p class="tool-tip__info">
-									<span class="info__title"><a href="#lightbox" data-toggle="modal">確認檢舉此留言？</a></span>
+            				<div class="tool-tip " style="float: right;">
+								<i class="tool-tip__icon" style="color: white important;">檢</i>
+								<p class="tool-tip__info">						
+									<span class="info__title"><button type="button" class = "button1"  data-toggle="modal" data-target="#hanhan${reportfilm.index}">
+										確認檢舉此留言？
+									</button></span>									
 								</p>
 							</div>
-
-						</a>
+						
+				
 						<p>${fvm.content}</p>				
 						<span class="time-right">${fvm.updated_at}</span>
 					</div>
-				</div>
-						<!--－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ modal內容↓ －－－－－－－－－－－－－－－－－－－－－－－－－－-->
-
-  <div class="modal fade and carousel slide" id="lightbox"> 
-        <div class="modal-body">        
-            <div class="item">
-            			<form method="post" action="<%=request.getContextPath()%>/report_filmreview_msgServlet/report_filmreview_msgServlet.do">
-							<input type="hidden" name="frm_no" value="FM0001">
-							<input type="hidden" name="mem_no" value="M002">
-							<input type="text" name="content" value="">
-							<input type="hidden" name="action" value="insert">
-							<input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
-							<button type="submit">檢舉</button>
-						</form>
-            </div>
-        </div><!-- /.modal-body -->
-      </div><!-- /.modal-content -->
-  
-  
+			
 
 
 
-<!--－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ modal內容↑ －－－－－－－－－－－－－－－－－－－－－－－－－－-->				
+		
+					
+<!-- ==============================================新增跳出的燈箱============================================== -->
+						<div class="container">
+							<div>
+								<form action="<%=request.getContextPath()%>/report_filmreview_msgServlet/report_filmreview_msgServlet.do" method="POST">
+									<div class="modal fade" id="hanhan${reportfilm.index}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+										<div class="modal-dialog modal-md">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h3 class="modal-title" id="myModalLabel">檢舉內容</h3>
+												</div>
+												<div class="modal-body">
+													<textarea class="form-control" name="content" rows="6"></textarea>
+												</div>
+												<div class="modal-footer">
+													<div class="input-group">
+														<div class="input-group-btn"></div>
+														
+														<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>">
+														<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+														<input type="hidden" name="fr_no" value="${fv.fr_no}">
+														<input type="hidden" name="mem_no" value="${memVO.memno}">
+														<input type="hidden" name="frm_no" value="${fvm.frm_no}">
+														<!--只用於:istAllEmp.jsp-->
+														<input type="hidden" class="form-control" name="action" value="insert">
+														<input type="submit" class="btn btn-success" value="確認">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!--- if erroMsg open lightbox again--->
+						<c:if test="${openupdatereplyform!=null}">
+							<script>
+								$("#hanhan").modal({
+									show : true
+								});
+							</script>
+						</c:if>
+						<!--- if erroMsg --->
+<!-- ==============================================新增跳出的燈箱============================================== -->
+
+
 				
 			</c:forEach>
 		</div>
 	</div>
-
-
-	<!-- 	<div class="section"> -->
-	<!-- 		<div class="container ctnr" style="background-color: rgb(238, 238, 238) !important;"> -->
-	<!-- 			<div class="row"> -->
-	<!-- 				<div class="col-md-12"> -->
-	<!-- 					<div class="containe"> -->
-	<!-- 						<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 100%;"> -->
-	<!-- 						<p style="margin-bottom: 35px;">Hello. How are you today?<span class="time-right">11:00</span></p> -->
-	<!-- 							<div class="containe" style="margin-left: 80px;"> -->
-	<!-- 								<img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" alt="Avatar" style="width: 100%;"> -->
-	<!-- 								<p>Hello. How are you today?</p> -->
-	<!-- 								<span class="time-right">11:00</span> -->
-	<!-- 						</div>						 -->
-	<!-- 					</div> -->
-	<!-- 				</div> -->
-	<!-- 			</div>		 -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
-
 
 
 

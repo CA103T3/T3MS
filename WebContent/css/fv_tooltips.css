@@ -46,7 +46,7 @@
   display: block;
 }
 .tool-tip .tool-tip__info .info__title {
-  color: #aaaaaa;
+  color: #fff;
 }
 .tool-tip:hover .tool-tip__info, .tool-tip:focus .tool-tip__info {
   display: inline-block;
