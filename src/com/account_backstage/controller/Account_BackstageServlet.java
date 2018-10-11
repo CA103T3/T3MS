@@ -101,7 +101,7 @@ public class Account_BackstageServlet extends HttpServlet{
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			try {
+//			try {
 				/***************************1.接收請求參數****************************************/
 				String bs_acc_no = new String(req.getParameter("bs_acc_no"));
 				
@@ -119,12 +119,12 @@ public class Account_BackstageServlet extends HttpServlet{
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backstage/account_backstage/listAllAccount_Backstage.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/backstage/account_backstage/listAllAccount_Backstage.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		
 		

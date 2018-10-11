@@ -11,12 +11,12 @@
 // 	pageContext.setAttribute("Role_Permission_BsVO", role_Permission_bsVO);
 
 	Role_Permission_BsService role_Permission_bsService = new Role_Permission_BsService();
-	List<Role_Permission_BsVO> list=role_Permission_bsService.getAll2();
+	List<String> list=role_Permission_bsService.getAll2(account_BackstageVO.getBs_acc_no());
 	pageContext.setAttribute("list",list);
 	
 	
 
-	List list2 = (List)request.getAttribute("list");
+// 	List list2 = (List)request.getAttribute("list");
 	 
 	 
 
@@ -27,6 +27,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/backstage/template/link.jsp" %>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
@@ -54,13 +55,15 @@ body {
 
 </head>
 <body bgcolor='white'>
-
+<%@ include file="/backstage/template/header.jsp" %>
+ <div id="wrapper" class="mt50">
+        <%@ include file="/backstage/template/sidebar.jsp" %>
 <center>
-		 <h3>員工資料修改 - update_account_backstage_input.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		 <h3 style="margin-left:400px;">員工資料修改 - update_account_backstage_input.jsp</h3></td><td>
+		 <h4 style="margin-left:400px;"><a href="select_page.jsp">回首頁</a></h4>
 	
-<div class="w3-container">
-	<div class="w3-card-4" style="width:40%;">
+<div class="w3-container" style="margin-left:400px;">
+<!-- 	<div class="w3-card-4" style="width:40%;"> -->
 	 	<header class="w3-container w3-blue">
 			<h4>資料修改</h4>
 		</header>
@@ -129,37 +132,37 @@ body {
 	
 	<tr><!--多出來  -->
 		<td>角色權限:</td>
-		<td><input type="checkbox" name="PERMISSION_NO" size="45" class="1" />檢舉管理
-
-<%-- 			 value="<c:if test="(list.get(0).getPermission_no()==1)">  --%>
-<!-- 			 		checked -->
-<%-- 			 		</c:if>" --%>
-<!-- 			 		/>檢舉管理 -->
+		<td>
+		<input type="checkbox" name="PERMISSION_NO" size="45"
+		     value="1" <%= (list.contains("1"))? "checked":"" %> />檢舉管理
 			 
 		<input type="checkbox" name="PERMISSION_NO" size="45"
-<%-- 			 value="<%= (role_Permission_BsVO.getPermission_no()==null)? "2" : "checked"%>" />會員帳號管理 --%>
-			 value="${role_Permission_BsVO.permission_no}" ${(role_Permission_BsVO.permission_no==2)?'checked':'' } />會員帳號管理
+			 value="2" <%= (list.contains("2"))? "checked":"" %> />會員帳號管理
 			 
 		<input type="checkbox" name="PERMISSION_NO" size="45"
-			 value="<%= (role_Permission_BsVO==null)? "3" : role_Permission_BsVO.getPermission_no()%>" />後台帳號管理
+			 value="3" <%= (list.contains("3"))? "checked":"" %> />後台帳號管理
 			 
 		<input type="checkbox" name="PERMISSION_NO" size="45"
-			 value="<%= (role_Permission_BsVO==null)? "4" : role_Permission_BsVO.getPermission_no()%>" />後台角色管理
+			 value="4" <%= (list.contains("4"))? "checked":"" %> />後台角色管理
+		
 		<br>	 
+		
 		<input type="checkbox" name="PERMISSION_NO" size="45"
-			 value="<%= (role_Permission_BsVO==null)? "5" : role_Permission_BsVO.getPermission_no()%>" />電影院管理
+			 value="5" <%= (list.contains("5"))? "checked":"" %> />電影院管理
 			 
 		<input type="checkbox" name="PERMISSION_NO" size="45"
-			 value="<%= (role_Permission_BsVO==null)? "6" : role_Permission_BsVO.getPermission_no()%>" />電影資訊管理
+			 value="6" <%= (list.contains("6"))? "checked":"" %> />電影資訊管理
 			 
 		<input type="checkbox" name="PERMISSION_NO" size="45"
-			 value="<%= (role_Permission_BsVO==null)? "7" : role_Permission_BsVO.getPermission_no()%>" />訂票系統管理
+			 value="7" <%= (list.contains("7"))? "checked":"" %> />訂票系統管理
 			 
 		<input type="checkbox" name="PERMISSION_NO" size="45"
-			 value="<%= (role_Permission_BsVO==null)? "8" : role_Permission_BsVO.getPermission_no()%>" />活動公告管理
+			 value="8" <%= (list.contains("8"))? "checked":"" %> />活動公告管理
+		
 		<br>	 
+		
 		<input type="checkbox" name="PERMISSION_NO" size="45"
-			 value="<%= (role_Permission_BsVO==null)? "9" : role_Permission_BsVO.getPermission_no()%>" />客服系統管理</td>
+			 value="9" <%= (list.contains("9"))? "checked":"" %> />客服系統管理</td>
 	</tr>
 
 <%-- 	<jsp:useBean id="backstage_RoleService" scope="page" class="com.backstage_role.model.Backstage_RoleService" /> --%>
@@ -180,17 +183,31 @@ var checkboxs= document.getElementsByName("PERMISSION_NO");
 
 
 
+<%
+
+
+for(int i=0;i<list.size();i++){
+	String permission_no =list.get(i);
+	System.out.println("permission_no="+permission_no);
+}
+%>
+
+<%-- <% --%>
 
 
 // for(int i=0;i<list.size();i++){
-// var num=(list.get(i));
-// 		if(num-1==checkboxs){
-// 			checked=true;
-// 		}
-// }
-
-
+// 	Role_Permission_BsVO num=list.get(i);
+// 	System.out.println("num="+num);
+<%-- 		if(num.getPermission_no()==%>checkboxs[i])<%{%> --%>
+			
+<%-- 			checkboxs[<%= i %>].checked=true; --%>
+// 			checkboxs[3].checked=true;
+					
+<%-- 		<%}%> --%>
+<%-- <%}%> --%>
 	
+
+
 
 
 </script>
@@ -204,7 +221,7 @@ var checkboxs= document.getElementsByName("PERMISSION_NO");
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="hidden" name="bs_acc_no" value="<%=account_BackstageVO.getBs_acc_no()%>">
-<input type="submit" value="送出修改" class="btn btn-success">
+<input type="submit" value="送出修改" class="btn btn-success" style="margin-left:845px;">
 <input type="hidden" name="role_no" value="R01" />
 </center>
 </FORM>
@@ -223,7 +240,7 @@ var checkboxs= document.getElementsByName("PERMISSION_NO");
 	   last_online_time = new java.sql.Timestamp(System.currentTimeMillis());
    }
 %>
-<%=last_online_time%>
+<%-- <%=last_online_time%> --%>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/js/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.full.js"></script>

@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/backstage/template/link.jsp" %>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
@@ -43,12 +44,14 @@ body {
 
 </head>
 <body bgcolor='white'>
-
+<%@ include file="/backstage/template/header.jsp" %>
+ <div id="wrapper" class="mt50">
+        <%@ include file="/backstage/template/sidebar.jsp" %>
 
 <center>
 	
-		 <h3>所有員工資料 - listAllAccount_Backstage.jsp</h3>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		 <h3 style="margin-left:100px;">所有員工資料 - listAllAccount_Backstage.jsp</h3>
+		 <h4 style="margin-left:100px;"><a href="select_page.jsp">回首頁</a></h4>
 	
 
 
@@ -61,7 +64,7 @@ body {
 		</c:forEach>
 	</ul>
 </c:if>
-<div class="container">
+<div class="container" style="margin-left:100px;">
 <table class="table table-hover">
 <thead>
 	<tr class="info">

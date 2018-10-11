@@ -40,7 +40,7 @@ public class Role_Permission_BsJNDIDAO implements Role_Permission_BsDAO_interfac
 			"UPDATE ROLE_PERMISSION_BACKSTAGE set ROLE_NO=? where PERMISSION_NO = ?";
 	
 	private static final String GET_ALL_STMT2 = 
-			"SELECT PERMISSION_NO,ROLE_NO FROM ROLE_PERMISSION_BACKSTAGE order by ROLE_NO";
+			"SELECT PERMISSION_NO,ROLE_NO FROM ROLE_PERMISSION_BACKSTAGE where ROLE_NO=? order by PERMISSION_NO";
 	
 	@Override
 	public void insert(Role_Permission_BsVO role_Permission_BsVO) {
@@ -327,29 +327,25 @@ public class Role_Permission_BsJNDIDAO implements Role_Permission_BsDAO_interfac
 	}
 
 	@Override
-	public List<Role_Permission_BsVO> getAll2() {
+	public List<String> getAll2(String role_no) {//GET_ONE_STMT2才會是比較好的名字!!
 		
-			List<Role_Permission_BsVO> list = new ArrayList<Role_Permission_BsVO>();
-			Role_Permission_BsVO role_Permission_BsVO = null;
+		List<String> list = new ArrayList<String>();
 
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
-			try {
+		try {
 
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(GET_ALL_STMT2);
-				rs = pstmt.executeQuery();
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STMT2);
+			pstmt.setString(1, role_no);
+			rs = pstmt.executeQuery();
 
-				while (rs.next()) {
-					// actVO 銋迂� Domain objects
-					role_Permission_BsVO = new Role_Permission_BsVO();
-					role_Permission_BsVO.setPermission_no(rs.getString("permission_no"));
-					role_Permission_BsVO.setRole_no(rs.getString("role_no"));
+			while (rs.next()) {
+				list.add(rs.getString("permission_no")); // Store the row in the list
+			}
 
-					list.add(role_Permission_BsVO); // Store the row in the list
-				}
 
 				// Handle any driver errors
 			} catch (SQLException se) {
@@ -381,6 +377,62 @@ public class Role_Permission_BsJNDIDAO implements Role_Permission_BsDAO_interfac
 			}
 			return list;
 		}
+//	@Override
+//	public List<Role_Permission_BsVO> getAll2(String role_no) {
+//		
+//		List<Role_Permission_BsVO> list = new ArrayList<Role_Permission_BsVO>();
+//		Role_Permission_BsVO role_Permission_BsVO = null;
+//		
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			
+//			con = ds.getConnection();
+//			pstmt = con.prepareStatement(GET_ALL_STMT2);
+//			pstmt.setString(1, role_no);
+//			rs = pstmt.executeQuery();
+//			
+//			while (rs.next()) {
+//				// actVO 銋迂� Domain objects
+//				role_Permission_BsVO = new Role_Permission_BsVO();
+//				role_Permission_BsVO.setPermission_no(rs.getString("permission_no"));
+//				role_Permission_BsVO.setRole_no(rs.getString("role_no"));
+//				
+//				list.add(role_Permission_BsVO); // Store the row in the list
+//			}
+//			
+//			// Handle any driver errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return list;
+//	}
 	
 		
 

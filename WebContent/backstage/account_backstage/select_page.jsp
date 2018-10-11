@@ -3,7 +3,7 @@
 
 <html>
 <head>
-
+<%@ include file="/backstage/template/link.jsp" %>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <title>MOVIES : Home</title>
@@ -35,7 +35,10 @@
 
 </head>
 <body bgcolor='white'>
-<center>
+<%@ include file="/backstage/template/header.jsp" %>
+ <div id="wrapper" class="mt50">
+        <%@ include file="/backstage/template/sidebar.jsp" %>
+<center style="margin-left:500px;">
 <!-- <table id="table-1"> -->
 <!--    <tr><td><h3>IBM Account_Backstage: Home</h3><h4>( MVC )</h4></td></tr> -->
 <!-- </table> -->

@@ -138,7 +138,7 @@
                     </a>
                     <ul id="sub3" class="nav collapse">
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/account_backstage/addaccount_backstage.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;新增帳號</a>
                         </li>
                         <li>

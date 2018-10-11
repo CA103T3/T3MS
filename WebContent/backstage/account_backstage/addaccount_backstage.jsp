@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/backstage/template/link.jsp" %>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	
@@ -37,13 +38,16 @@ body {
 
 </head>
 <body bgcolor='white'>
-
+<%@ include file="/backstage/template/header.jsp" %>
+ <div id="wrapper" class="mt50">
+        <%@ include file="/backstage/template/sidebar.jsp" %>
 <center>
-		 <h3>員工資料新增 - addaccount_Backstage.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		 <h3 style="margin-left:400px;">員工資料新增 - addaccount_Backstage.jsp</h3></td><td>
+		 <h4 style="margin-left:400px;"><a href="select_page.jsp">回首頁</a></h4>
 
-<div class="w3-container">
-	<div class="w3-card-4" style="width:40%;">
+<div class="w3-container" style="margin-left:400px;">
+<!-- 	<div class="w3-card-4" style="width:40%;"> -->
+	<div class="w3-card-4" >
 	 	<header class="w3-container w3-blue">
 	      <h4>資料新增</h4>
 	    </header>
@@ -173,7 +177,7 @@ body {
 
 <br>
 <input type="hidden" name="action" value="insert" >
-<input type="submit" value="送出新增" class="btn btn-primary">
+<input type="submit" value="送出新增" class="btn btn-primary" style="margin-left:830px;">
 <input type="hidden" name="role_no" value="R01" />
 </center>
 </FORM>
