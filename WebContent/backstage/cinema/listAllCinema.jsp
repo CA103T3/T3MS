@@ -48,7 +48,7 @@
                         <tr>
                             <th>影城編號</th>
                             <th>影城名稱</th>
-                            <th>影城英文名稱</th>
+                            <!-- <th>影城英文名稱</th> -->
                             <th>影城地址</th>
                             <th>執行動作</th>
                         </tr>
@@ -58,7 +58,7 @@
                         <tr>
                             <td>${cinemaVO.cinema_no}</td>
                             <td>${cinemaVO.cinema_name}</td>
-                            <td>${cinemaVO.cinema_engname}</td>
+                            <!-- <td>${cinemaVO.cinema_engname}</td> -->
                             <td>${cinemaVO.cinema_address}</td>
                             <td>
                                 <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/cinema/cinema.do">
