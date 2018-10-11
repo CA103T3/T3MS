@@ -69,34 +69,34 @@ public class CinemaServlet extends HttpServlet {
             try {
                 /***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
                 String cinema_name = req.getParameter("cinema_name").trim();
-                String cinema_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{1,12}$";
+                String cinema_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9\\s)]{1,50}$";
                 System.out.println("cinema_name : " + cinema_name);
                 System.out.println("cinema_name length: " + cinema_name.trim().length());
                 if (cinema_name == null || cinema_name.trim().length() == 0) {
                     errorMsgs.add("影城名稱: 請勿空白");
 //                    System.out.println("影城名稱: 請勿空白");
                 } else if(!cinema_name.trim().matches(cinema_nameReg)) { //以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("影城名稱: 只能是中、英文字母和數字, 且長度必需在1到12之間");
+                    errorMsgs.add("影城名稱: 只能是中、英文字母、空白和數字, 且長度必需在1到50之間");
                 }
 
                 String cinema_engname = req.getParameter("cinema_engname").trim();
-                String cinema_engnameReg = "^[(a-zA-Z0-9\\s)]{1,50}$";
+                String cinema_engnameReg = "^[(a-zA-Z0-9\\s\\.)]{1,50}$";
                 System.out.println("cinema_engname : " + cinema_engname);
                 System.out.println("cinema_engname length: " + cinema_engname.trim().length());
                 if (cinema_engname == null || cinema_engname.trim().length() == 0) {
                     errorMsgs.add("影城英文名稱: 請勿空白");
                 } else if(!cinema_engname.trim().matches(cinema_engnameReg)) { //以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("影城英文名稱: 只能是英文字母、數字和空白字元, 且長度必需在1到50之間");
+                    errorMsgs.add("影城英文名稱: 只能是英文字母、數字、點和空白字元, 且長度必需在1到50之間");
                 }
 
                 String cinema_address = req.getParameter("cinema_address").trim();
-                String cinema_addressReg = "^[(\u4e00-\u9fa5)(0-9)]{3,30}$";
+                String cinema_addressReg = "^[(\\(\u4e00-\u9fa5\\)\\s)(a-zA-Z0-9-)]{3,50}$";
                 System.out.println("cinema_address : " + cinema_address);
                 System.out.println("cinema_address length: " + cinema_address.trim().length());
                 if (cinema_address == null || cinema_address.trim().length() == 0) {
                     errorMsgs.add("影城地址: 請勿空白");
-                } else if(!cinema_address.trim().matches(cinema_addressReg)) { //以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("影城地址: 只能是中文和數字, 且長度必需在3到30之間");
+                } else if (!cinema_address.trim().matches(cinema_addressReg)) { // 以下練習正則(規)表示式(regular-expression)
+                    errorMsgs.add("影城地址: 只能是中文,括號,空白字元,-,英文字母和數字, 且長度必需在3到50之間");
                 }
 
                 String cinema_tel = req.getParameter("cinema_tel").trim();
@@ -110,13 +110,13 @@ public class CinemaServlet extends HttpServlet {
                 }
 
                 String photo_title = req.getParameter("photo_title").trim();
-                String photo_titleReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-_)]{1,15}$";
+                String photo_titleReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-_\\s)]{1,30}$";
                 System.out.println("photo_title : " + photo_title);
                 System.out.println("photo_title length: " + photo_title.trim().length());
                 if (photo_title == null || photo_title.trim().length() == 0) {
                     errorMsgs.add("圖片名稱: 請勿空白");
                 } else if(!photo_title.trim().matches(photo_titleReg)) { //以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("圖片名稱: 只能是中、英文字母、數字和-_, 且長度必需在1到15之間");
+                    errorMsgs.add("圖片名稱: 只能是中、英文字母、數字和-_, 且長度必需在1到30之間");
                 }
 
                 Integer active = null;
@@ -293,14 +293,14 @@ public class CinemaServlet extends HttpServlet {
             try {
                 /*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
                 String cinema_name = req.getParameter("cinema_name").trim();
-                String cinema_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{1,12}$";
+                String cinema_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9\\s)]{1,50}$";
                 System.out.println("cinema_name : " + cinema_name);
                 System.out.println("cinema_name length: " + cinema_name.trim().length());
                 if (cinema_name == null || cinema_name.trim().length() == 0) {
                     errorMsgs.add("影城名稱: 請勿空白");
 //                    System.out.println("影城名稱: 請勿空白");
                 } else if (!cinema_name.trim().matches(cinema_nameReg)) { // 以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("影城名稱: 只能是中、英文字母和數字, 且長度必需在1到12之間");
+                    errorMsgs.add("影城名稱: 只能是中、英文字母、空白和數字, 且長度必需在1到50之間");
                 }
 
                 String cinema_no = req.getParameter("cinema_no").trim();
@@ -309,23 +309,23 @@ public class CinemaServlet extends HttpServlet {
                 }
 
                 String cinema_engname = req.getParameter("cinema_engname").trim();
-                String cinema_engnameReg = "^[(a-zA-Z0-9\\s)]{1,50}$";
+                String cinema_engnameReg = "^[(a-zA-Z0-9\\s\\.)]{1,50}$";
                 System.out.println("cinema_engname : " + cinema_engname);
                 System.out.println("cinema_engname length: " + cinema_engname.trim().length());
                 if (cinema_engname == null || cinema_engname.trim().length() == 0) {
                     errorMsgs.add("影城英文名稱: 請勿空白");
-                } else if (!cinema_engname.trim().matches(cinema_engnameReg)) { // 以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("影城英文名稱: 只能是英文字母、數字和空白字元, 且長度必需在1到50之間");
+                } else if(!cinema_engname.trim().matches(cinema_engnameReg)) { //以下練習正則(規)表示式(regular-expression)
+                    errorMsgs.add("影城英文名稱: 只能是英文字母、數字、點和空白字元, 且長度必需在1到50之間");
                 }
 
                 String cinema_address = req.getParameter("cinema_address").trim();
-                String cinema_addressReg = "^[(\u4e00-\u9fa5)(0-9)]{3,30}$";
+                String cinema_addressReg = "^[(\\(\u4e00-\u9fa5\\)\\s)(a-zA-Z0-9-)]{3,50}$";
                 System.out.println("cinema_address : " + cinema_address);
                 System.out.println("cinema_address length: " + cinema_address.trim().length());
                 if (cinema_address == null || cinema_address.trim().length() == 0) {
                     errorMsgs.add("影城地址: 請勿空白");
                 } else if (!cinema_address.trim().matches(cinema_addressReg)) { // 以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("影城地址: 只能是中文和數字, 且長度必需在3到30之間");
+                    errorMsgs.add("影城地址: 只能是中文,括號,空白字元,-,英文字母和數字, 且長度必需在3到50之間");
                 }
 
                 String cinema_tel = req.getParameter("cinema_tel").trim();
@@ -339,13 +339,13 @@ public class CinemaServlet extends HttpServlet {
                 }
 
                 String photo_title = req.getParameter("photo_title").trim();
-                String photo_titleReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-_)]{1,15}$";
+                String photo_titleReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9-_\\s)]{1,30}$";
                 System.out.println("photo_title : " + photo_title);
                 System.out.println("photo_title length: " + photo_title.trim().length());
                 if (photo_title == null || photo_title.trim().length() == 0) {
                     errorMsgs.add("圖片名稱: 請勿空白");
-                } else if (!photo_title.trim().matches(photo_titleReg)) { // 以下練習正則(規)表示式(regular-expression)
-                    errorMsgs.add("圖片名稱: 只能是中、英文字母、數字和-_, 且長度必需在1到15之間");
+                } else if(!photo_title.trim().matches(photo_titleReg)) { //以下練習正則(規)表示式(regular-expression)
+                    errorMsgs.add("圖片名稱: 只能是中、英文字母、數字和-_, 且長度必需在1到30之間");
                 }
 
                 Integer active = null;
