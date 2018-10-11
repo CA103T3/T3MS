@@ -17,4 +17,7 @@ public interface SessionDAO_interface {
     public SessionVO getOneofJoinTheaterMovieWhereSessionNo(String session_no);
     
     public void updateSessionSeat(String seattable,String movie_session_no,Connection conn);
+    
+    //電影時刻 現正熱映 場次
+    public List<SessionVO> getNowMoment(); 
 }

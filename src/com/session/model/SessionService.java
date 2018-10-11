@@ -70,4 +70,8 @@ public class SessionService {
     public void updateSessionSeat(String seattable,String movie_session_no,Connection conn) {
     	dao.updateSessionSeat(seattable, movie_session_no, conn);
     }
+    
+    public List<SessionVO> getNowMoment() {
+        return dao.getNowMoment();
+    }
 }

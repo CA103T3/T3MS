@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.TimeZone;
 import com.movie.model.MovieVO;
 import com.theater.model.TheaterVO;
+import com.cinema.model.CinemaVO;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -51,11 +52,16 @@ public class SessionDAO implements SessionDAO_interface {
     private static final String DELETE =
         "DELETE FROM MOVIE_SESSION where SESSION_NO = ?";
     private static final String UPDATE =
-        "UPDATE MOVIE_SESSION set THEATER_NO=?, MOVIE_NO=?, SESSION_TIME=?, SEAT_TABLE=? where SESSION_NO = ?";
-    
-    
-    
+        "UPDATE MOVIE_SESSION set THEATER_NO=?, MOVIE_NO=?, SESSION_TIME=?, SEAT_TABLE=? where SESSION_NO = ?";     
     private static final String UPDATE_SEAT = "UPDATE MOVIE_SESSION SET SEAT_TABLE=? WHERE SESSION_NO=?";
+    private static final String GET_NOW_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
+    		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
+    		+ "LEFT JOIN CINEMA ON THEATER.CINEMA_NO = CINEMA.CINEMA_NO "
+    		+ "WHERE MOVIE_SESSION.MOVIE_NO in (select MOVIE.MOVIE_NO from MOVIE where to_char(relased,'yyyy-mm-dd') < to_char(sysdate,'YYYY/MM/DD')) "
+    		+ "AND SESSION_TIME BETWEEN "
+    		+ "to_date(to_char(sysdate,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
+    		+ "to_date(to_char(sysdate,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
+    		+ "order by SESSION_TIME ";
 
     @Override
     public String insert(SessionVO sessionVO) {
@@ -591,4 +597,74 @@ public class SessionDAO implements SessionDAO_interface {
 		}
 
 	}
+
+	@Override
+	public List<SessionVO> getNowMoment() {
+		List<SessionVO> list = new ArrayList<SessionVO>();
+        SessionVO sessionVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_NOW_MOMENT);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // sessionVO 也稱為 Domain objects
+                sessionVO = new SessionVO();
+                
+                sessionVO.setSession_no(rs.getString("SESSION_NO"));
+                sessionVO.setTheater_no(rs.getString("THEATER_NO"));
+
+                CinemaVO cinemaVO = new CinemaVO();
+                cinemaVO.setCinema_no(rs.getString("CINEMA_NO")); 
+                sessionVO.setCinemaVO(cinemaVO);
+                
+                sessionVO.setMovie_no(rs.getString("MOVIE_NO"));
+                
+                cinemaVO.setCinema_name(rs.getString("CINEMA_NAME"));
+                sessionVO.setCinemaVO(cinemaVO);
+                
+                TheaterVO theaterVO = new TheaterVO();
+                theaterVO.setEquipment(rs.getString("EQUIPMENT")); 
+                sessionVO.setTheaterVO(theaterVO);
+                
+                sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));                
+                list.add(sessionVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
 }

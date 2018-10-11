@@ -66,8 +66,10 @@ public class SessionServiceTest extends HttpServlet {
         String cinema_no = "C001";
         testGetAllofJoinTheaterMovieWhereTheaterNoCinema(cinema_no);
         testGetAllBySessionTimeMovieNo();
-
+        testGetNowMoment();
     }
+    
+    
 
     //INSERT INTO MOVIE (movie_no) values ('MV0001');
     public String testAddSession() throws IOException {
@@ -232,4 +234,22 @@ public class SessionServiceTest extends HttpServlet {
         sSvc.deleteSession(session_no);
         out.println("delete session_no : " + session_no);
     }
-}
+    
+    public void testGetNowMoment() {
+      	 List<SessionVO> list = sSvc.getNowMoment();
+           out.println("list="+list.size());
+           for(SessionVO vo : list) {
+               out.println(vo.getSession_no()+ ",");
+               out.println(vo.getTheater_no() + ",");
+   			   out.println(vo.getCinemaVO().getCinema_no() + ",");
+	   		   out.println(vo.getMovie_no() + ",");
+	   		   out.println(vo.getCinemaVO().getCinema_name() + ",");
+	   		   out.println(vo.getTheaterVO().getEquipment() + ",");
+	   		   out.println(vo.getSession_time() + ",");
+	   		   out.println("---------------------");
+           }
+      }
+ 
+    
+   }
+
