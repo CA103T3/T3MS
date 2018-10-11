@@ -287,4 +287,67 @@ public class Movie_IntroduceDAO implements Movie_IntroduceDAO_interface {
 		return list;
 	}
 
+	@Override
+	public String insertReturnMovie_IntroduceNo(Movie_IntroduceVO movie_introduceVO) {
+		  Connection con = null;
+	        PreparedStatement pstmt = null;
+	        String introd_no = null;
+	        try {
+	        	
+	            con = ds.getConnection();
+	            String[] cols = { "INTROD_NO" }; // 或 int cols[] = {1};
+	            pstmt = con.prepareStatement(INSERT_STMT, cols);
+
+	            pstmt.setString(1, movie_introduceVO.getMovie_no());
+				pstmt.setString(2, movie_introduceVO.getSource());
+				pstmt.setString(3, movie_introduceVO.getUrl());
+				pstmt.setString(4, movie_introduceVO.getAuthor());
+				pstmt.setString(5, movie_introduceVO.getTitle());
+				pstmt.setString(6, movie_introduceVO.getContent());
+				pstmt.setInt(7, movie_introduceVO.getActive());
+				pstmt.setString(8, movie_introduceVO.getPhoto_path());
+				pstmt.setString(9, movie_introduceVO.getPhoto_small());
+				pstmt.executeUpdate();
+
+	            ResultSet rs = pstmt.getGeneratedKeys();
+	            ResultSetMetaData rsmd = rs.getMetaData();
+	            int columnCount = rsmd.getColumnCount();
+	            if (rs.next()) {
+	                do {
+	                    for (int i = 1; i <= columnCount; i++) {
+	                    	introd_no = rs.getString(i);
+	                        //System.out.println("自增主鍵值 = " + introd_no);
+	                    }
+	                } while (rs.next());
+	            } else {
+	                System.out.println("NO KEYS WERE GENERATED.");
+	            }
+
+	            rs.close();
+
+	            // Handle any SQL errors
+	        } catch (SQLException se) {
+	            throw new RuntimeException("A database error occured. " + se.getMessage());
+	            // Clean up JDBC resources
+	        } finally {
+	            if (pstmt != null) {
+	                try {
+	                    pstmt.close();
+	                } catch (SQLException se) {
+	                    se.printStackTrace(System.err);
+	                }
+	            }
+	            if (con != null) {
+	                try {
+	                    con.close();
+	                } catch (Exception e) {
+	                    e.printStackTrace(System.err);
+	                }
+	            }
+	        }
+
+	        return introd_no;
+		
+	}
+
 }

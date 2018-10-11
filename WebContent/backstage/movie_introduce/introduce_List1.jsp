@@ -59,13 +59,13 @@
 						<div class=" col-md-8 text-left">
 							<div class="page-header">
 								<h1>
-									電影介紹管理 <font color="#777777"> 
+									電影情報管理 <font color="#777777"> 
 										
  						<span style="font-size: 23.4px; line-height: 23.4px;"> Movie Introduction &nbsp; </span> 
 											
 																						
 										<a href="introduce_Add.jsp" target="_blank">
-											<button id="btn6">新增電影介紹</button>
+											<button id="btn6">新增電影情報</button>
 									    </a>
 										
 									</font>
@@ -91,7 +91,7 @@
 							<table class="blueTable">
 								<thead>
 									<tr>
-										<th>介紹編號</th>
+										<th>電影情報編號</th>
 										<th>電影類型+名稱</th>
 										<th>網址</th>
 										<th>是否上線</th>

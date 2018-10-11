@@ -19,8 +19,8 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 	private static final String DELETE = "DELETE FROM movie where movie_no=?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MOVIE WHERE MOVIE_NO=?";
 	private static final String GET_ALL_STMT = "SELECT * FROM MOVIE ORDER BY MOVIE_NO DESC";
-	private static final String GET_ALL_NOW = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') <= '2018-10-19' ";
-	private static final String GET_ALL_COMING = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') BETWEEN '2018-10-20' AND '2018-11-20'";
+	private static final String GET_ALL_NOW = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') <= to_char(sysdate,'yyyy-mm-dd') ";
+	private static final String GET_ALL_COMING = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') > to_char(sysdate,'yyyy-mm-dd') ";
 	
 	@Override
 	public void insert(MovieVO movieVO) {

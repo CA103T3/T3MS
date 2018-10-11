@@ -23,8 +23,8 @@
         
         <style>
 			.text-warning {color:#ffe661;}
-
-		 
+			.name_m{font-size:18px;}
+		    .fa-star {margin-top:12px;}
         </style>
         
     </head>
@@ -80,7 +80,7 @@
           <span class="fa fa-star ${(movieVO.imdb >=6.0)? 'text-warning':''}"></span>
           <span class="fa fa-star ${(movieVO.imdb >=8.0)? 'text-warning':''}"></span>
           <span class="fa fa-star ${(movieVO.imdb >=10.0)? 'text-warning':''}"></span>
-          <h3>${movieVO.movie_name}</h3>
+          <div class="name_m"><strong>${movieVO.movie_name}</strong></div>
           <p>${movieVO.eng_name}</p>
           <div class="grade">${movieVO.rating}</div>
           <p></p>

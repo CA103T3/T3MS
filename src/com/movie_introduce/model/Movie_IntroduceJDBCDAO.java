@@ -384,4 +384,10 @@ public class Movie_IntroduceJDBCDAO implements Movie_IntroduceDAO_interface {
 		// ----------------SELECT ALL---------------------------
 
 	}
+
+	@Override
+	public String insertReturnMovie_IntroduceNo(Movie_IntroduceVO movie_introduceVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

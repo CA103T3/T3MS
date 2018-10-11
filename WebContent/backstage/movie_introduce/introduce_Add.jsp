@@ -1,9 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.movie_introduce.model.*"%>
+<%@ page import="com.movie.model.*"%>
 
 <%																				 
  Movie_IntroduceVO movie_introduceVO = (Movie_IntroduceVO) request.getAttribute("movie_introduceVO"); //Movie_IntroduceServlet.java (Concroller) 存入req的movie_introduceVO物件 (包括幫忙取出的movie_introduceVO, 也包括輸入資料錯誤時的movie_introduceVO物件)
+ 
+ MovieService mSvc = new MovieService();
+ List<MovieVO> mList = mSvc.getAll();
+ pageContext.setAttribute("mList",mList);
 %>
 
 
@@ -72,8 +77,14 @@ margin-top: 10px;
 
 							
 								<div class="form-group">
-									<label class="control-label">電影編號:</label>
-									<input type="TEXT" class="form-control" name="movie_no" size="45" value="<%=(movie_introduceVO == null) ? "MV" : movie_introduceVO.getMovie_no()%>" />
+									<label class="control-label">電影名稱:</label>
+									<select class="form-control" id="movie_no" name="movie_no">
+		                          		<c:forEach var="movieVO" items="${mList}" varStatus="s" begin="<%=0%>" end="<%=mList.size()%>">
+		                           			 <c:if test="${movieVO.active==1}">
+				                                <option value="${movieVO.movie_no}" ${(movieVO.movie_no==movie_introduceVO.movie_no)? 'selected': '' }>${movieVO.movie_name}</option>
+				                             </c:if>
+		                          		</c:forEach>
+                       				 </select>
 
 								</div>
 

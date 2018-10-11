@@ -2,9 +2,13 @@
 	import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.movie_introduce.model.*"%>
+<%@ page import="com.movie.model.*"%>
 
 <%
   Movie_IntroduceVO movie_introduceVO = (Movie_IntroduceVO) request.getAttribute("movie_introduceVO"); //Movie_IntroduceServlet.java (Concroller) 存入req的movie_introduceVO物件 (包括幫忙取出的movie_introduceVO, 也包括輸入資料錯誤時的movie_introduceVO物件)
+  MovieService mSvc = new MovieService();
+  List<MovieVO> mList = mSvc.getAll();
+  pageContext.setAttribute("mList",mList);
 %>
 
 <!DOCTYPE html>
@@ -48,7 +52,7 @@ margin-top: 10px;
 						<div class="row">
 							<div class="col-md-10">
 								<div class="page-header text-warning">
-									<h1>電影介紹修改
+									<h1>電影情報修改
 										 <font color="#777777"> 
 											<span style="font-size: 23.4px; line-height: 23.4px;">Introduce Update</span>												
 										</font>
@@ -68,7 +72,7 @@ margin-top: 10px;
 
 								<form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie_introduce/movie_introduce.do" name="form1" enctype="multipart/form-data">
 									<div class="form-group has-error">
-										<label class="control-label">電影介紹編號:*</label>
+										<label class="control-label">電影情報編號:*</label>
 										<div>${param.introd_no}</div>
 									</div>
 																		
@@ -78,8 +82,14 @@ margin-top: 10px;
 <!-- 									</div> -->
 									
 									<div class="form-group has-error">
-										<label class="control-label">電影編號:*</label>
-										<div><%=movie_introduceVO.getMovie_no()%></div>
+										<label class="control-label">電影名稱:*</label>
+										<select class="form-control" id="movie_no" name="movie_no">
+		                          		<c:forEach var="movieVO" items="${mList}" varStatus="s" begin="<%=0%>" end="<%=mList.size()%>">
+		                           			 <c:if test="${movieVO.active==1}">
+				                                <option value="${movieVO.movie_no}" ${(movieVO.movie_no==movie_introduceVO.movie_no)? 'selected': '' }>${movieVO.movie_name}</option>
+				                             </c:if>
+		                          		</c:forEach>
+                       				 </select>
 									</div>
 															
 									<div class="form-group hidden-md hidden-sm has-feedback">

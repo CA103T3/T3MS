@@ -47,7 +47,7 @@
 						<div class=" col-md-8 text-left">
 							<div class="page-header">
 								<h1>
-									電影介紹單一查詢 <font color="#777777"> 
+									電影情報單一查詢 <font color="#777777"> 
 										
  						<span style="font-size: 23.4px; line-height: 23.4px;"> Movie Introduction Search &nbsp; </span> 
 																																																				
@@ -68,7 +68,7 @@
 							<table class="blueTable">
 								<thead>
 									<tr>
-										<th>介紹編號</th>
+										<th>電影情報編號</th>
 										<th>電影編號</th>
 										<th>網址</th>
 										<th>作者</th>
