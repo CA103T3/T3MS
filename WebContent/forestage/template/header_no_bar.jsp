@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="#"><img src="<%=request.getContextPath()%>/img/M&S-05Z.png"></a>
+                  <a class="navbar-brand" href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/img/M&S-05Z.png"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav">
@@ -16,8 +16,8 @@
                     <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">電影資訊<span class="caret"></span></a>
                       <ul class="dropdown-menu font-custom">
-                        <li><a href="#">電影時刻</a></li>
-                        <li><a href="#">電影介紹</a></li>
+                        <li><a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_Home.jsp">電影時刻</a></li>
+                        <li><a href="<%=request.getContextPath()%>/forestage/movie_introduce/List_introduce.jsp">電影介紹</a></li>
                         <li><a href="<%=request.getContextPath()%>/forestage/filmreview/fv_home.jsp">電影影評</a></li>
                       </ul>
                     </li>

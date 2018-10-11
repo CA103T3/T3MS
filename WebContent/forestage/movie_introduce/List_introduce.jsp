@@ -88,7 +88,7 @@
  							<div class="span6">
 							  <ul class="breadcrumb">
 								<li>
-									<a href="<%=request.getContextPath()%>/index.html">MS首頁</a> <span class="divider">></span>
+									<a href="<%=request.getContextPath()%>/index.jsp">MS首頁</a> <span class="divider">></span>
 								</li>
 								<li class="active" style="color:#ffffff;">電影介紹</li>										
 							 </ul>
