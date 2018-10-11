@@ -60,17 +60,29 @@ System.out.println("==after=="+jsonArray);
         <%@ include file="/forestage/template/header.jsp" %>
         <div class="container" style="color: #ffffff;font-size: 20px;">
         <!-- ==========================start============================= -->
-       
-			<%
-				String TempFileName = request.getParameter("TempFileName").trim();
-				String TempFilePath = request.getParameter("TempFilePath").trim();
-				String uuid = request.getParameter("uuid").trim();
-				
-				String TempResult = genQRCode(140, 140, uuid, TempFilePath + TempFileName);
-			%>
+        <%
+			//設定 QRCode 圖片要顯示的文字內容
+			String uuid = request.getParameter("uuid").trim();
+			
+        	//用不會重複的 UUID 當作圖片檔名
+			//String TempFileName = java.util.UUID.randomUUID().toString() + ".jpg";
+			
+			//用當前日期時間為檔名
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh：mm：ss-SS");
+			String TempFileName = sdf.format(date) + ".jpg";
+			System.out.println(TempFileName);
+			
+			//指定圖片存檔路徑， request.getServletContext().getRealPath 是伺服器端網站架設的最上層路徑(阿飄路徑)
+			String TempFilePath = request.getServletContext().getRealPath("/img/QRcode/");
+			
+			// out.println(TempFilePath);
+			//在 JSP 伺服器端產生一個長寬都是140的圖檔, genQRCode 函式內容在本文後面
+			String TempResult = genQRCode(140, 140, uuid, TempFilePath + TempFileName);
 			
 			
-				
+			if (TempResult.equals("")) {//成功
+				%>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="panel panel-default">
@@ -96,7 +108,15 @@ System.out.println("==after=="+jsonArray);
 				<input type="hidden" name="action" value="search_ticketDetail_seats"/>
 				<input type="hidden" name="uuid" value="<%=uuid%>"/>
 				</form>
-				
+				<% 
+			} else {//失敗
+				out.print(TempResult);//顯示錯誤訊息
+			}
+		%>
+        
+        
+        
+        
         
 		<!-- ==========================End============================= -->        
         </div>

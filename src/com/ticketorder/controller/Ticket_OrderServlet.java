@@ -37,7 +37,7 @@ public class Ticket_OrderServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
 		String action = request.getParameter("action");
@@ -62,7 +62,16 @@ public class Ticket_OrderServlet extends HttpServlet {
 			String mem_email = request.getParameter("mem_email").trim(); // 會員信箱
 			String mem_FullName = request.getParameter("mem_FullName").trim(); // 會員姓名
 			System.out.println("name " + mem_FullName);
-			String bookingSeats = request.getParameter("seatTD").trim();
+			String bookingSeats = request.getParameter("seatTD").trim(); 
+			String TempFileName = request.getParameter("TempFileName").trim(); //QRcode 檔案名稱
+			String TempFilePath = request.getParameter("TempFilePath").trim(); //QRcode 儲存路徑
+			System.out.println("=TempFileName=" + TempFileName);
+			System.out.println("=TempFilePath=" + TempFilePath);
+			
+		
+			
+			System.out.println();
+			
 			System.out.println(bookingSeats);
 			String[] bookingSeatArr = bookingSeats.split("@");
 
@@ -139,7 +148,22 @@ public class Ticket_OrderServlet extends HttpServlet {
 				String uuidOK = orderVO2.getUuid();
 				String successView = "/forestage/ticketOrder/BookingSuccess.jsp?uuid=" + uuidOK + "&bookingSeats="
 						+ bookingSeats + "&session_no=" + session_no;
-				mailService.setmail(mem_no, mem_FullName, mem_email);
+				String imgpath = TempFilePath + TempFileName;
+				genQRcodegood genQRcod = new genQRcodegood();
+				
+				String send = genQRcod.genQRCode(140, 140, uuidOK, imgpath);
+				
+				if (send=="") {
+					System.out.println("QRcode存檔成功");
+				}else {
+					System.out.println("QRcode存檔失敗");
+				}
+				
+//				String imgpath = request.getContextPath() + "/img/QRcode/" + TempFileName;
+				
+				System.out.println("imgpath=" + imgpath);
+				mailService.sendMail(mem_email, "M&S訂票通知", imgpath, mem_FullName);
+//				mailService.setmail("1", mem_FullName, mem_email);
 				request.getRequestDispatcher(successView).forward(request, response);
 
 			} catch (Exception e) {
@@ -163,14 +187,15 @@ public class Ticket_OrderServlet extends HttpServlet {
 			String refundView = "/forestage/ticketOrder/BookingRefund.jsp?" + sb;
 			request.getRequestDispatcher(refundView).forward(request, response);
 		}
-		
+
 		if ("del_ticket_open_seat".equals(action)) {
 			System.out.println("=========Delete_Start===========");
 			String uuid = request.getParameter("uuid").trim();
 			String delSeats = request.getParameter("delSeats").trim();
+			String Aseat = request.getParameter("Aseat").trim();
+			System.out.println("========" + Aseat);
 			String[] seatArr = delSeats.split("@");
-			
-			
+
 		}
 	}
 }

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html>
     <head>
@@ -31,19 +32,17 @@
 											String temp = (char)(Integer.parseInt(s[0]) + 64) +" 排 "+ s[1] + " 號";
 											str+=seatArr[i]+"@";
 									%>
-										<button type="submit" onclick="seat<%=s[0]+"_"+s[1]%>()" class="btn btn-lg btn-danger" id="seat<%=s[0]+"_"+s[1]%>" value="<%=s[0]+"_"+s[1]%>"><%=temp %></button>
+										<button type="submit" class="btn btn-lg btn-danger" id="seat<%=s[0]+"_"+s[1]%>" value="<%=s[0]+"_"+s[1]%>"><%=temp %></button>
 										
 										
 										<script>
-											function seat<%=s[0]+"_"+s[1]%>(){
-												alert("dd");
-												var seatDe = $('#seat<%=s[0]+"_"+s[1]%>').val();
-								            	console.log(seatDe);
-											}
+											$("#seat<%=s[0]+"_"+s[1]%>").click(function(){
+												$('#Aseat').val("<%=s[0]+"_"+s[1]%>");
+											});
 										</script>
 										
 								<%}%>
-										
+										<input type="hidden" name="Aseat" id="Aseat" value="" />
 										<input type="hidden" name="uuid" value="<%=request.getParameter("uuid")%>"/>
 										<input type="hidden" name="delSeats" value="<%=str%>"/>
 										<input type="hidden" name="action" value="del_ticket_open_seat"/>

@@ -4,6 +4,8 @@
 <%@page import="com.movie.model.MovieService"%>
 <%@page import="com.member.model.MemService"%>
 <%@page import="com.member.model.MemVO"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*"%>
 <!doctype html>
 <html>
@@ -23,7 +25,7 @@
 
 </head>
 <body class="body-template">
-
+<%-- 	<%@ include file="/forestage/ticketOrder/genQRcode.jsp" %> --%>
 	<%@ include file="/forestage/template/header.jsp"%>
 			<%
 				request.setCharacterEncoding("utf-8");
@@ -41,14 +43,43 @@
 				String mem_LastName = memVO.getLastname();
 				String mem_FirstName = memVO.getFirstname();
 // 				StringBuffer mem_FullName = new StringBuffer();
-// 				mem_FullName.append(mem_FirstName).append(mem_LastName); //會員名稱
-				
-				String mem_FullName = mem_FirstName.concat(mem_LastName);
+// 				mem_FullName.append(mem_FirstName).append(mem_LastName); 
+				String mem_FullName = mem_FirstName.concat(mem_LastName); //會員名稱
 				System.out.println("Full NAME = " + mem_FullName);
 
 				Integer price = Integer.valueOf(request.getParameter("price"));
 				String[] seats = request.getParameterValues("seats");
 				int ticket = seats.length;
+				
+			%>
+			
+			
+			<%
+			 
+				//設定 QRCode 圖片要顯示的文字內容
+// 				String uuid = request.getParameter("uuid").trim();
+				
+	        	//用不會重複的 UUID 當作圖片檔名
+				//String TempFileName = java.util.UUID.randomUUID().toString() + ".jpg";
+				
+				//用當前日期時間為檔名
+				Date date = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh：mm：ss-SS");
+				String TempFileName = sdf.format(date) + ".jpg";
+				System.out.println(TempFileName);
+				
+				//指定圖片存檔路徑， request.getServletContext().getRealPath 是伺服器端網站架設的最上層路徑(阿飄路徑)
+				String TempFilePath = request.getServletContext().getRealPath("/img/QRcode/");
+				
+				// out.println(TempFilePath);
+				//在 JSP 伺服器端產生一個長寬都是140的圖檔, genQRCode 函式內容在本文後面
+// 				String TempResult = genQRCode(140, 140, uuid, TempFilePath + TempFileName);
+				
+// 				if (TempResult.equals("")) {//成功
+					
+// 				}else {//失敗
+// 					out.print(TempResult);//顯示錯誤訊息
+// 				}
 			%>
 		
 	<div class="container" style="color: #000; font-size: 25px;">
@@ -143,7 +174,9 @@
                 <input type="hidden" name="session_no" value="<%=session_no %>" />
                	<input type="hidden" name="mem_FullName" value="<%=mem_FullName %>" />
                	<input type="hidden" name="mem_email" value="<%=mem_email %>" />
-               	<div class="panel panel-default">
+               	<input type="hidden" name="TempFileName" value="<%=TempFileName %>" /> 
+               	<input type="hidden" name="TempFilePath" value="<%=TempFilePath %>" />
+              	<div class="panel panel-default">
 				  <div class="panel-heading text-center">付款金額：＄<%=ticket*price%></div>
                 	<button type="submit" class="btn btn-lg btn-primary btn-block" id="save">確定</button>
                 </div>

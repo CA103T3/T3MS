@@ -25,7 +25,7 @@
 //  session.getAttribute("mem_no");
 	
 	//場次編號
-	String session_no = "SES0000003";
+	String session_no = "SES0000002";
 // 	String session_no = request.getParameter("session_no").trim();
 
 	//票種編號
