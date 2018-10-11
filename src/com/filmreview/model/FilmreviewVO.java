@@ -5,6 +5,10 @@ import java.sql.Date;
 
 public class FilmreviewVO implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8013052213831895519L;
 	private String fr_no;
 	private String movie_no;
 	private Date created_at;

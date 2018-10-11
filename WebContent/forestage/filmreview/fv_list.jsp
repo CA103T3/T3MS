@@ -3,12 +3,13 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.filmreview.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.movie.model.*"%>
 <%
 	FilmreviewDAO fvSvc = new FilmreviewDAO();
 	List<FilmreviewVO> list = fvSvc.findByMem(request.getParameter("mem_no"));
 	pageContext.setAttribute("list", list);
-	out.println(request.getParameter("mem_no"));
 %>
+<jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,7 @@ transform: translateY(50%);
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="請輸入電影名稱">
                   <span class="input-group-btn">
-                    <a class="btn btn-primary" type="submit">Go</a>
+                    <a class="btn btn-primary" type="submit">搜尋</a>
                   </span>
                 </div>
               </div>
@@ -94,29 +95,91 @@ transform: translateY(50%);
     <div class="section">
       <div class="container">
         <div class="row">
-          
-          <div class="col-md-6">
-            <h3>${FilmreviewVO.title}<br><br></h3>
+          <div class="col-md-1">
+						<c:forEach var="mvVO" items="${mvSvc.all}">
+							<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
+								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive">
+								</a>
+							</c:if>
+						</c:forEach>
+					</div>
+          <div class="col-md-5">
+            <h2>${FilmreviewVO.title}</h2>
           </div>
           <div class="col-md-1">
-            <h4 class="text-center">${FilmreviewVO.created_at}</h4>
+            <h3 class="text-center">${FilmreviewVO.created_at}</h3>
           </div>
           <div class="col-md-2">
-            <h3 class="text-center">${FilmreviewVO.movie_no}</h3>
+            <h3 class="text-center"><c:forEach var="mvVO" items="${mvSvc.all}">
+								<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
+	                   					 ${mvVO.movie_name}
+                    			</c:if>
+							</c:forEach></h3>
           </div>
           <div class="col-md-1">
             <h3 class="text-center">${FilmreviewVO.evaluation}</h3>
           </div>
           <div class="col-md-1 text-center ">
-            <a class="btn btn-primary center-vertical" data-toggle="button">修改</a>
+          <form action="<%=request.getContextPath()%>/filmreview/filmreview.do" method="POST">
+		<input type="submit" class="btn  btn-primary center-vertical" value="修改" >
+          <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
+		<input type="hidden" name="finalPage" value="<%=pageIndex + rowsPerPage%>"> 
+		<input type="hidden" name="whichPage" value="<%=whichPage%>">
+		<input type="hidden" name="fr_no" value="${FilmreviewVO.fr_no}">
+		<input type="hidden" class="form-control" name="action" value="toUpdate">
+            </form>
           </div>
           <div class="col-md-1 text-center">
-            <a class="btn btn-primary center-vertical">刪除</a>
+          
+            <button type="button" class="btn btn-primary center-vertical" data-toggle="modal" data-target="#hanhan">刪除</button>
           </div>
         </div>
       </div>
     </div>
-        </c:forEach>
+    
+  
+
+	<div class="container">
+		<div>
+			<form action="<%=request.getContextPath()%>/filmreview/filmreview.do" method="POST">
+				<div class="modal fade" id="hanhan" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+					<div class="modal-dialog modal-md">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h3 class="modal-title" id="myModalLabel">是否刪除?</h3>
+							</div>
+						
+							<div class="modal-footer text-center">
+								<div class="input-group">
+								
+									<div class="input-group-btn"></div>
+									<input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
+									<input type="hidden" name="finalPage" value="<%=pageIndex + rowsPerPage%>"> 
+									<input type="hidden" name="whichPage" value="<%=whichPage%>">
+									<input type="hidden" name="fr_no" value="${FilmreviewVO.fr_no}">
+									<input type="hidden" class="form-control" name="action" value="delete"> 
+									<input type="submit" class="btn btn btn-danger text-right" value="確定刪除" style="margin-left: 400px;">
+									<input type="button" class="btn btn-primary " value="取消" onclick="location.href='/T3MS/forestage/filmreview/fv_list.jsp?mem_no=<%=request.getParameter("mem_no")%>'">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--- if erroMsg open lightbox again--->
+	<c:if test="${openupdatereplyform!=null}">
+		<script>
+			$("#hanhan").modal({
+				show : true
+			});
+		</script>
+	</c:if>
+	<!--- if erroMsg --->
+
+  </c:forEach>
 	<%@ include file="/resources/page_code/pageb.file"%>
     
     

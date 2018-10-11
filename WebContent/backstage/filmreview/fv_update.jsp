@@ -149,6 +149,7 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                    
                    
                   <div class="col-md-12 text-center">
+							<input type="hidden" name="mem_no" value="${filmreviewVO.mem_no}">
 							<input type="hidden" name="action" value="update">
 							<input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
 							<button type="submit" class="btn btn-default">發佈</button>
