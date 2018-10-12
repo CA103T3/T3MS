@@ -108,7 +108,7 @@ public class ServletMemberUpdate extends HttpServlet {
 			System.out.println(memVO.getFirstname());
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/	
 			session.setAttribute("memVO", memVO);
-			res.sendRedirect(req.getContextPath()+"/forestage/member/successin.jsp");
+			res.sendRedirect(req.getContextPath()+"/index.jsp");
 //			RequestDispatcher successView = req.getRequestDispatcher("/forestage/member/successin.jsp");   // 修改成功後,轉交回送出修改的來源網頁
 //			successView.forward(req, res);
 			

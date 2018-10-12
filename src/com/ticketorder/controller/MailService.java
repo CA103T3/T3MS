@@ -54,7 +54,7 @@ public class MailService {
 			MimeMultipart multipart = new MimeMultipart("related");
 
 			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setContent(name + " 感謝您的購票，請依附件(QRcode)取票，謝謝。", "text/html; charset=UTF-8");
+			messageBodyPart.setContent("親愛的 " + name + " 感謝您的購票，請依附件(QRcode)取票，謝謝。", "text/html; charset=UTF-8");
 			// add it
 			multipart.addBodyPart(messageBodyPart);
 

@@ -48,7 +48,7 @@ public class MemRegistermailCheck extends HttpServlet {
 			memVO.setStatus(1);
 			MemService memSrc = new MemService();
 			memSrc.passemail(memVO.getEmail());
-			res.sendRedirect(req.getContextPath()+"/forestage/member/successin.jsp");
+			res.sendRedirect(req.getContextPath()+"/index.jsp");
 		} else {
 			System.out.println("驗證有誤，請重新申請");
 			 out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
