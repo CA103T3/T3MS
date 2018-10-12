@@ -26,11 +26,15 @@
 	List<CinemaVO> cvo = cinemaSvc.getAll();
 	pageContext.setAttribute("cvo", cvo);
 %>
+
 <%
 	TheaterService theaterSvc = new TheaterService();
 	List<TheaterVO> thVO = theaterSvc.getAll();
-	pageContext.setAttribute("thVO", thVO);
+	pageContext.setAttribute("thVO",thVO);
 %>
+
+
+
 <!doctype html>
 <html>
 <head>
@@ -45,6 +49,7 @@
 	href="<%=request.getContextPath()%>/css/m_Moment.css">
 <link href="<%=request.getContextPath()%>/css/introduceM.css"
 	rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <%@ include file="/forestage/template/link.jsp"%>
 <title>M&amp;S</title>
 <style>
@@ -65,6 +70,33 @@ body {
 	position: absolute;
 	top: 230px;
 	z-index: 999;
+}
+
+#time{
+margin-top: 12%;
+width: 90px;
+padding: 5px;
+}
+
+
+#ctype{
+width:100px;
+height:55px;
+background-color:rgba(29, 26, 26, 0.829);
+box-shadow:10px 10px 10px #888;
+padding:10px;
+margin:10px;
+text-align: center;
+color: #fff;
+border-radius: 3px;
+font-weight: 300;
+}
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
 }
 </style>
 
@@ -111,8 +143,7 @@ body {
 			</div>
 		</form>
 	</div>
-	</div>
-	</div>
+	
 
 	<!-- ==============================================新增跳出的燈箱============================================== -->
 
@@ -186,15 +217,25 @@ body {
 			</div>
 
 			<div id="Moment" class="tabcontent">
-
 				<div class="container">
-					<div class="col-md-6">
-						<!-- ----------------------------------------------------------------------------------------------------- -->
-
-						<!-- ---------------------------------------------------------------------------------------------------------------- -->
-					</div>
+					<div class="col-md-12">
+						<!-- -------------------------------------------------電影日期---------------------------------------------------- -->
+								
+							
+							
+							
+							
+							
+							
+						<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->
 				</div>
-				<!-- ----------------當日影城+時刻表--------------------- -->
+			</div>
+				
+				
+				
+<!-- ----------------當日影城+時刻表--------------------- -->
+				
+<!--   ------------------  影城FOREach   ------------------  -->				
 				<c:forEach var="cvo" items="${cvo}">
 
 					<div class="panel panel-primary">
@@ -210,50 +251,34 @@ body {
 							<div class="row">
 
 
-
-								<div class="col-md-8">
+									<c:forEach var="sessionVO" items="${list}">
+											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
+<!--   ------------------  時刻FOREach   ------------------  -->	
+	
+								<div class="col-md-3">
 
 									<div class="row">
-
-										<div class="col-md-4">
-									
-												<c:forEach var="thVO" items="${thVO}">
-											
-											
-											
-											
-													<c:if test="${thVO.cinema_no==cvo.cinema_no}">
-													
+								
+										<div class="col-md-6"> 
 											<div id="ctype">
-														<h4>${thVO.equipment}</h4>
+												<h4>${sessionVO.theaterVO.equipment}</h4>
+											</div>	
+										</div>	
+																													
+										<div class="col-md-1 text-center">
+											<div class="sisson">
+												<div id="time" style=" padding-top: 29px;">
+													<fmt:formatDate value="${sessionVO.session_time}"
+														pattern="MM/dd HH:mm" />
+												</div>
 											</div>
-													</c:if>
-												</c:forEach>
 										</div>
 
-										<c:forEach var="sessionVO" items="${list}">
-											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no)}">
-												
-														
-												
-												
-											
-												
-												
-												<div class="col-md-2 text-center">
-													<div class="sisson">
-														<div id="time">
-															<fmt:formatDate value="${sessionVO.session_time}"
-																pattern="MM/dd HH:mm" />
-														</div>
-													</div>
-												</div>
-
-											</c:if>
-										</c:forEach>
 									</div>
 
 								</div>
+											</c:if>
+										</c:forEach>
 
 							</div>
 						</div>
@@ -290,18 +315,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 	<!-- ----------------moment One ----------------->
 	<%@ include file="/forestage/template/footer.jsp"%>
 
@@ -309,6 +322,7 @@ body {
 	<script>
         $(document).ready(function(){
             $("li:contains('電影資訊')").addClass("custom-active");
+                             
         });
         </script>
 
@@ -330,55 +344,11 @@ body {
         document.getElementById("defaultOpen").click();
       </script>
 
-	<script>
-	
-	 $(document).on('change', '#theater_no', function (event) {
 
-         $.ajax({
-             type: "POST",
-             cache: false,
-             url: "<%=request.getContextPath()%>
-		/session/session.do",
-												data : {
-													'action' : 'get_seat_model',
-													'theater_no' : $(
-															"#theater_no")
-															.val()
-												},
-												dataType : 'json',
-												beforeSend : function(xhr) {
-													$('#loding_spinner')
-															.fadeIn(200);
-												}
-											})
-									.done(
-											function(data, textStatus) {
-												//console.log(JSON.stringify(data, undefined, 2));
-												//console.log(textStatus);
 
-												if (data.status == "done") {
-													gen_seat_session(
-															data.t_rows,
-															data.t_columns,
-															data.seat_model);
-												}
 
-											})
-									.fail(
-											function(jqXHR, textStatus,
-													errorThrown) {
-												console
-														.log('jqXHR.responseText: '
-																+ jqXHR.responseText);
-												console.log('jqXHR.status: '
-														+ jqXHR.status);
 
-											}).always(
-											function(jqXHR, textStatus) {
-												//$('#loding_spinner').fadeOut(300);
-											});
 
-						});
-	</script>
+
 </body>
 </html>

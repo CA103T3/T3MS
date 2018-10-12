@@ -100,7 +100,7 @@ resize: none;
 
 								<div class="form-group hidden-md hidden-sm has-feedback">
 									<label class="control-label">上映日期:</label>
-									<input class="form-control" type="date" name="relased" id="f_date1">
+									<input class="form-control"  name="relased" id="f_date1">
 								</div>
 
 								<div class="form-group hidden-md hidden-sm has-feedback">
@@ -200,9 +200,10 @@ resize: none;
 	java.sql.Date relased = null;
 	try {
 		relased = movieVO.getRelased();
-	} catch (Exception e) {
+	} catch (Exception e) {	
 		relased = new java.sql.Date(System.currentTimeMillis());
 	}
+	
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -249,17 +250,17 @@ resize: none;
 	//      }});
 
 	//      2.以下為某一天之後的日期無法選擇
-	//      var somedate2 = new Date('2017-06-15');
-	//      $('#f_date1').datetimepicker({
-	//          beforeShowDay: function(date) {
-	//        	  if (  date.getYear() >  somedate2.getYear() || 
-	//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-	//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-	//              ) {
-	//                   return [false, ""]
-	//              }
-	//              return [true, ""];
-	//      }});
+	     var somedate2 = new Date('2018-10-12');
+	     $('#f_date1').datetimepicker({
+	         beforeShowDay: function(date) {
+	       	  if (  date.getYear() >  somedate2.getYear() || 
+			           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
+			           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+	             ) {
+	                  return [false, ""]
+	             }
+	             return [true, ""];
+	     }});
 
 	//      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
 	//      var somedate1 = new Date('2017-06-15');

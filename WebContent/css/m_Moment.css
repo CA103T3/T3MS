@@ -114,7 +114,12 @@ margin-top: 20px;
 }
 
 #ctype{
-width:160px;height:55px;background-color:rgba(29, 26, 26, 0.829);box-shadow:10px 10px 10px #888;padding:10px;margin:40px;
+width:100px;
+height:55px;
+background-color:rgba(29, 26, 26, 0.829);
+box-shadow:10px 10px 10px #888;
+padding:10px;
+margin:10px;
 text-align: center;
 color: #fff;
 border-radius: 3px;
