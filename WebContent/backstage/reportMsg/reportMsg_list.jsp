@@ -104,6 +104,8 @@
                                     <button type="submit" id="mod-btn-${s.index}" class="btn btn-danger fs16 " >
                                         <i class="" aria-hidden="true"></i>&nbsp;刪除
                                     </button>&nbsp;&nbsp;
+                                    
+<%--                                     <input type="submit" name="rfm_no" value="${rmVO.rfm_no}"> --%>
                                     <input type="hidden" name="rfm_no" value="${rmVO.rfm_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">

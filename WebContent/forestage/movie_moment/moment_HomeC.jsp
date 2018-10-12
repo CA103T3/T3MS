@@ -25,6 +25,16 @@
 			.text-warning {color:#ffe661;}
 			.dateC {margin-top:10px;}
 			.name_m {font-size:18px;}
+			.card {
+  box-shadow: 0 4px 9px 0 rgb(0, 0, 0);
+  max-width: 350px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: arial;
+  color: #fff;
+  height: 500px;
+
+}
         </style>
         
     </head>

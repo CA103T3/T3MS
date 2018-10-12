@@ -189,7 +189,7 @@ public class Filmreview_MsgDAO implements Filmreview_MsgDAO_interface{
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_FRM);
-			pstmt.setString(1, fr_no);;
+			pstmt.setString(1, fr_no);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -248,8 +248,8 @@ public class Filmreview_MsgDAO implements Filmreview_MsgDAO_interface{
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt.setString(1, fr_no);     
 			rs = pstmt.executeQuery();
-			
 			while (rs.next()) {
 				
 				filmreview_msgVO = new Filmreview_MsgVO();

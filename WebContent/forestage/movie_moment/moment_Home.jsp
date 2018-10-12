@@ -25,7 +25,20 @@
 			.text-warning {color:#ffe661;}
 			.name_m{font-size:18px;}
 		    .fa-star {margin-top:12px;}
+		    .card {
+  box-shadow: 0 4px 9px 0 rgb(0, 0, 0);
+  max-width: 350px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: arial;
+  color: #fff;
+  height: 500px;
+
+}
         </style>
+        
+        
+        
         
     </head>
     <body class="body-template">

@@ -33,7 +33,7 @@
 </head>
 <body class="body-template">
 
-  <%@ include file="/forestage/template/header_no_bar.jsp" %>
+  <%@ include file="/forestage/template/header.jsp" %>
 
 
  <div class="section">
@@ -41,7 +41,7 @@
 	        <div class="row">
 	          <div class="col-md-12 text-right">
 
-				    <a href="<%=request.getContextPath()%>/forestage/filmreview/fv_list.jsp?mem_no=<%=request.getParameter("mem_no")%>" class="btn btn-primary">我的影評</a>
+				    <a href="<%=request.getContextPath()%>/forestage/filmreview/fv_list.jsp" class="btn btn-primary">我的影評</a>
 
 
 	          </div>
@@ -113,7 +113,7 @@
 						<br>
 					</c:if>
 <c:if test="${memVO.type==2}">
-					<a href="<%=request.getContextPath()%>/forestage/filmreview/fv_writing.jsp" class="btn btn-block btn-lg btn-primary" >寫影評</a>
+					<a href="<%=request.getContextPath()%>/forestage/filmreview/fv_writing.jsp" class="btn btn-block btn-lg btn-primary">寫影評</a>
 				</c:if>
 				</div>
 			</div>
@@ -167,14 +167,19 @@
 						<h3 class="text-center">${fv.created_at}</h3>
 					</div>
 
-					<div class="col-md-1">
+					<div class="col-md-1" style="margin-top: 10px;">
 						<c:forEach var="mVO" items="${mSvc.all}">
 							<c:if test="${fv.mem_no==mVO.memno}">
 
 								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${mVO.memno}" class="center-block img-circle img-responsive">
-								<p class="text-center">${mVO.firstname}${mVO.lastname}</p>
+								<p class="text-center">${mVO.lastname}${mVO.firstname}</p>
 							</c:if>
 						</c:forEach>
+						<c:if test="${fv.mem_no==null}">
+
+								<img src="<%=request.getContextPath() %>/img/M&S-05Z.png" class="center-block img-circle img-responsive">
+								<p class="text-center">M&S</p>
+							</c:if>
 					</div>
 
 					<div class="col-md-2">

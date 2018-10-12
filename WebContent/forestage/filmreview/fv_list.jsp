@@ -5,8 +5,9 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.movie.model.*"%>
 <%
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
 	FilmreviewDAO fvSvc = new FilmreviewDAO();
-	List<FilmreviewVO> list = fvSvc.findByMem(request.getParameter("mem_no"));
+	List<FilmreviewVO> list = fvSvc.findByMem(memVO.getmemno());
 	pageContext.setAttribute("list", list);
 %>
 <jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
@@ -53,7 +54,7 @@ transform: translateY(50%);
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-right">
-            <a href="fv_home.jsp" class="btn btn-primary">瀏覽影評</a>
+            <a href="/T3MS/forestage/filmreview/fv_home.jsp" class="btn btn-primary">瀏覽影評</a>
           </div>
         </div>
       </div>

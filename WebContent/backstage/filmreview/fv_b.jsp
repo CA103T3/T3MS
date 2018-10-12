@@ -56,7 +56,7 @@
                 		<span class="fs16">&nbsp;新增影評</span>
                 	</a>
                 </h3>
-                <table id="theaters" class="display" style="width:100%">
+                <table id="theaters" class="display" style="width:110%">
                     <thead>
                         <tr>
                             <th>影評編號</th>
@@ -143,9 +143,7 @@
                     }
 
                 }, 100);
-                // not work, use setTimeout
-                // var table = $('#theaters').DataTable();
-                // table.row(${param.whichRecordIndex}).show().draw(false);
+           
             </c:if>
         </c:if>
 

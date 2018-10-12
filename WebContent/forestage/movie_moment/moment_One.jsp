@@ -268,8 +268,10 @@ font-weight: 300;
 										<div class="col-md-1 text-center">
 											<div class="sisson">
 												<div id="time" style=" padding-top: 29px;">
+												<a href="<%=request.getContextPath()%>/forestage/ticketOrder/BookingSeat.jsp?session_no=${sessionVO.session_no}" class="card-img-a2">
 													<fmt:formatDate value="${sessionVO.session_time}"
-														pattern="MM/dd HH:mm" />
+														pattern="MM/dd HH:mm" /></a>
+														
 												</div>
 											</div>
 										</div>

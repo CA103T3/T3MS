@@ -5,6 +5,7 @@
 <%@ page import="com.movie.model.*"%>
 <%@ page import="com.member.model.*"%>
 
+<%session.getAttribute("memVO"); %>
 
 <%
 	FilmreviewDAO fvSvc = new FilmreviewDAO();
@@ -48,10 +49,9 @@
 
 </head>
 <body class="body-template">
-<%session.getAttribute("memVO"); %>
 
 
-  <%@ include file="/forestage/template/header_no_bar.jsp" %>
+  <%@ include file="/forestage/template/header.jsp" %>
   <div id="loader-wrapper">
 
                 <div id="loader"></div>
@@ -66,7 +66,7 @@
 	        <div class="row">
 	          <div class="col-md-12 text-right">
 
-				    <a href="<%=request.getContextPath()%>/forestage/filmreview/fv_list.jsp?mem_no=${memVO.memno}" class="btn btn-primary">我的影評</a>
+				    <a href="<%=request.getContextPath()%>/forestage/filmreview/fv_list.jsp" class="btn btn-primary">我的影評</a>
 
 
 	          </div>
@@ -149,7 +149,7 @@
 						</h4>
 						<br>
 					</c:if>
-<c:if test="${memVO.type==2}">
+				<c:if test="${memVO.type==2}">
 					<a href="<%=request.getContextPath()%>/forestage/filmreview/fv_writing.jsp" class="btn btn-block btn-lg btn-primary" >寫影評</a>
 				</c:if>
 				</div>
@@ -204,14 +204,19 @@
 					</div>
 
 
-					<div class="col-md-1">
+					<div class="col-md-1" style="margin-top: 15px;">
 						<c:forEach var="mVO" items="${mSvc.all}">
 							<c:if test="${FilmreviewVO.mem_no==mVO.memno}">
 
 								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${mVO.memno}" class="center-block img-circle img-responsive">
-								<p class="text-center">${mVO.firstname}${mVO.lastname}</p>
+								<p class="text-center">${mVO.lastname}${mVO.firstname}</p>
 							</c:if>
 						</c:forEach>
+							<c:if test="${FilmreviewVO.mem_no==null}">
+
+								<img src="<%=request.getContextPath() %>/img/M&S-05Z.png" class="center-block img-circle img-responsive">
+								<p class="text-center">M&S</p>
+							</c:if>
 					</div>
 
 					<div class="col-md-2">
@@ -234,9 +239,6 @@
 	</c:forEach>
 	<%@ include file="/resources/page_code/pageb.file"%>
 	
-
-
-
 	<%@ include file="/forestage/template/footer.jsp"%>
 
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>

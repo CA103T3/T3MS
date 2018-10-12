@@ -42,6 +42,7 @@
 
 <body data-spy="scroll" class="body-template">
 	<%@ include file="/forestage/template/header.jsp"%>
+	
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 	<script>
