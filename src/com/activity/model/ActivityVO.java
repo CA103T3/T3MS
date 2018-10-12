@@ -8,7 +8,7 @@ public class ActivityVO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7283965691414771941L;
 	
 	private String activity_no;
 	private String activity_name;

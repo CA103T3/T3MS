@@ -28,7 +28,7 @@
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">客服中心<span class="caret"></span></a>
                       <ul class="dropdown-menu font-custom">
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">線上客服</a></li>
+                        <li><a href="<%=request.getContextPath()%>/forestage/service_chat/chatClient.jsp">線上客服</a></li>
                         <li><a href="#">聯絡我們</a></li>
                       </ul>
                     </li>

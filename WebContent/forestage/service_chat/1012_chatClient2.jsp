@@ -1,66 +1,51 @@
-<%@page import="com.google.gson.JsonParser"%>
-<%@page import="com.servicechat.controller.JedisHandleMessage"%>
 <%@page import="com.member.model.MemVO"%>
-<%@ page import="org.json.*"%>
+<%@page import="com.servicechat.controller.ChatMessage"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>M&amp;S</title>
-    <%@ include file="/backstage/template/link.jsp" %>
-    <style type="text/css">
-    </style>
-</head>
- <%
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <%@ include file="/forestage/template/link.jsp" %>
+        <title>M&amp;S</title>
+        <style>
+
+        </style>
+        
+    </head>
+    <%
     	String memid = "M0001";
 //     	MemVO memVO = (MemVO) session.getAttribute("memVO");
 //     	String mem_no = memVO.getmemno();
-    	
     %>
-<body onload="connect();" class="fs16">
-    <%@ include file="/backstage/template/header.jsp" %>
-    <div id="wrapper" class="mt50">
-        <%@ include file="/backstage/template/sidebar.jsp" %>
-        <div class="flex-column" id="page-content-wrapper">
-            <div class="container-fluid mt20">
-             <div class="panel panel-primary">
+    <body onload="connect();" class="body-template">
+        <%@ include file="/forestage/template/header.jsp" %>
+        <div class="container" style="color: #ffffff;font-size: 20px;">
+        <!-- ==========================start============================= -->
+        <br><br>
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title text-center">Service Chat</h3>
                 </div>
                 
-               	<div style="height:500px;BACKGROUND-COLOR: #FFFFFF;
-                 overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;
-                  SCROLLBAR-HIGHLIGHT-COLOR: #c2d3fc; SCROLLBAR-SHADOW-COLOR: BLACK;
-                   SCROLLBAR-3DLIGHT-COLOR: #c2d3fc; SCROLLBAR-ARROW-COLOR:#000000; 
-                   SCROLLBAR-TRACK-COLOR: FFFFFF; SCROLLBAR-DARKSHADOW-COLOR: EAECEC"
-                    class="panel-body" id="content"></div>
+                <div class="panel-body" id="content"></div>
             </div>
             <hr/>
             <input type="text" class="form-control" placeholder="message" aria-describedby="sizing-addon1" id="msg">
             <hr/>
             <button type="button" class="btn btn-lg btn-success btn-block" onclick="emit()">發送</button>
         </div>
-<script>
-$(window).scroll(function(){
-    var scrollTop = $(this).scrollTop();
-    var scrollHeight = $(document).height();
-    var windowHeight = $(this).height();
-    if(scrollTop + windowHeight == scrollHeight){
-        alert("you are in the bottom");
-    }
-}); 
-</script> 
+
 <script type="text/javascript">
     	$(document).ready(function(){
     		$("#msg").focus();
     	});
-</script>
+s</script>
  <script type="text/javascript">
-		 	var MyPoint = "/FriendWS/Service";
+		 	var MyPoint = "/FriendWS/M0001";
 			var host = window.location.host;
 			var path = window.location.pathname;
 			var webCtx = path.substring(0, path.indexOf('/', 1)); 
@@ -71,16 +56,6 @@ $(window).scroll(function(){
 				 webSocket = new WebSocket(endPointURL);
 				
 				 webSocket.onopen = function() {
-					 <%
-					 	List<String> list = JedisHandleMessage.getHistoryMsg("Service", "M0001");
-					 	
-					 	for(int i=list.size()-1; i>-1; i--){
-					 		String oldTalk = list.get(i);
-					 		JSONObject json = new JSONObject(oldTalk);
-					 		String hisTemp = json.getString("message");
-					 		%>
-					 		$("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>" + "<%=hisTemp%>" +  "</span><br/>");
-					 <%}%>
 					 $("#content").append("<kbd>Welcome!</kbd></br>");
 				 };
 				
@@ -111,14 +86,14 @@ $(window).scroll(function(){
 			     }
 	 		 }; 	
 			
-			
+	 		
 		 function emit() {
 // 			 var text = $("#msg").val();
 		     var text = encodeScript($("#msg").val());
 		     var msg = {
 		    		 "type":"XhistoryX",
-		    		 "sender":"Service", 
-		    		 "receiver":"M0001",
+		    		 "sender":"M0001", 
+		    		 "receiver":"Service",
 		    		 "message":text
 		     };
 // 		     var msg = {
@@ -130,7 +105,7 @@ $(window).scroll(function(){
 		     msg = JSON.stringify(msg);
 		     //向server發送訊息
 		     webSocket.send(msg);
-		     $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>" + text +  "</span><br/>");
+		     $("#content").append("<kbd style='color: #" + "CECECE" + ";float:right; font-size: " + 12 + ";'>" + text +  "</kbd><br/>");
 		     $("#msg").val("");
 		 }
 		 
@@ -140,10 +115,18 @@ $(window).scroll(function(){
 			    }
 			    return data.replace("<", "&lt;").replace(">", "&gt;");
 			}
-</script>
-            </div>
-        </div>
-   
-    <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
-</body>
+</script>    
+  
+    
+    
+        
+		<!-- ==========================End============================= -->        
+        <%@ include file="/forestage/template/footer.jsp" %>
+        <script src="<%=request.getContextPath()%>/js/template.js"></script>
+        <script>
+        $(document).ready(function(){
+            $("li:contains('合作影城')").addClass("custom-active");
+        });
+        </script>
+    </body>
 </html>

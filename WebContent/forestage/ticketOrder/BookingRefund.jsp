@@ -51,22 +51,13 @@
 					</div>
 				</div>
         
-        
-        
-        
 		<!-- ==========================End============================= -->        
         </div>
         <%@ include file="/forestage/template/footer.jsp" %>
         <script src="<%=request.getContextPath()%>/js/template.js"></script>
-        <script type="text/javascript">
-        function seatdelete(){
-        	$('button').val();
-        }
-        </script>
         <script>
         $(document).ready(function(){
             $("li:contains('合作影城')").addClass("custom-active");
-   
         });
         </script>
     </body>

@@ -1,9 +1,11 @@
 package com.activity.model;
 
 import javax.sql.DataSource;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -224,17 +226,17 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 
 	@Override
 	public List<ActivityVO> getAll() {
-		List<ActivityVO> list =new ArrayList<>();
-		ActivityVO actVO =null;
-		Connection conn =null;
-		PreparedStatement pstmt =null;
-		ResultSet rs =null;
-		
+		List<ActivityVO> list = new ArrayList<>();
+		ActivityVO actVO = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				actVO = new ActivityVO();
 				actVO.setActivity_no(rs.getString("activity_no"));
@@ -249,9 +251,9 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 				list.add(actVO);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("A database error occurred. "+e.getMessage());
-		}finally {
-			if (rs!=null) {
+			throw new RuntimeException("A database error occurred. " + e.getMessage());
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
@@ -259,7 +261,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 					e.printStackTrace(System.err);
 				}
 			}
-			if (pstmt!=null) {
+			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
@@ -267,7 +269,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 					e.printStackTrace();
 				}
 			}
-			if (conn!=null) {
+			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -277,5 +279,63 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public String insertReturnActivityNo(ActivityVO activityVO) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String activityNo = null;
+
+		try {
+			conn = ds.getConnection();
+			String[] cols = { "ACTIVITY_NO" };
+
+			pstmt = conn.prepareStatement(INSERT, cols);
+
+			pstmt.setString(1, activityVO.getActivity_name());
+			pstmt.setString(2, activityVO.getActivity_desc());
+			pstmt.setString(3, activityVO.getBackstage_no());
+			pstmt.setInt(4, activityVO.getActive());
+			pstmt.setBytes(5, activityVO.getImg_path());
+			pstmt.setString(6, activityVO.getActivity_url());
+
+			pstmt.executeUpdate();
+
+			rs = pstmt.getGeneratedKeys();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			if (rs.next()) {
+				do {
+					for (int i = 1; i < columnCount; i++) {
+						activityNo = rs.getString(i);
+					}
+				} while (rs.next());
+			} else {
+				System.out.println("NO KEYS WERE GENERATED.");
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return activityNo;
 	}
 }

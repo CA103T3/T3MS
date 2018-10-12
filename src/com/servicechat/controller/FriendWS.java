@@ -41,7 +41,7 @@ public class FriendWS {
 				session.getAsyncRemote().sendText(stateMessageJson);
 			}
 		}
-
+		
 		String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
 				userName, userNames);
 		System.out.println(text);

@@ -13,5 +13,7 @@ public interface ActivityDAO_interface {
 	public ActivityVO findByPrimaryKey(String activity_no);
 	
 	public List<ActivityVO> getAll();
+	
+	public String insertReturnActivityNo(ActivityVO activityVO);
 
 }

@@ -1,7 +1,4 @@
-<%@page import="com.google.gson.JsonParser"%>
-<%@page import="com.servicechat.controller.JedisHandleMessage"%>
 <%@page import="com.member.model.MemVO"%>
-<%@ page import="org.json.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <!DOCTYPE html>
 <html>
@@ -32,28 +29,14 @@
                     <h3 class="panel-title text-center">Service Chat</h3>
                 </div>
                 
-               	<div style="height:500px;BACKGROUND-COLOR: #FFFFFF;
-                 overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;
-                  SCROLLBAR-HIGHLIGHT-COLOR: #c2d3fc; SCROLLBAR-SHADOW-COLOR: BLACK;
-                   SCROLLBAR-3DLIGHT-COLOR: #c2d3fc; SCROLLBAR-ARROW-COLOR:#000000; 
-                   SCROLLBAR-TRACK-COLOR: FFFFFF; SCROLLBAR-DARKSHADOW-COLOR: EAECEC"
-                    class="panel-body" id="content"></div>
+                <div class="panel-body" id="content"></div>
             </div>
             <hr/>
             <input type="text" class="form-control" placeholder="message" aria-describedby="sizing-addon1" id="msg">
             <hr/>
             <button type="button" class="btn btn-lg btn-success btn-block" onclick="emit()">發送</button>
         </div>
-<script>
-$(window).scroll(function(){
-    var scrollTop = $(this).scrollTop();
-    var scrollHeight = $(document).height();
-    var windowHeight = $(this).height();
-    if(scrollTop + windowHeight == scrollHeight){
-        alert("you are in the bottom");
-    }
-}); 
-</script> 
+
 <script type="text/javascript">
     	$(document).ready(function(){
     		$("#msg").focus();
@@ -71,16 +54,6 @@ $(window).scroll(function(){
 				 webSocket = new WebSocket(endPointURL);
 				
 				 webSocket.onopen = function() {
-					 <%
-					 	List<String> list = JedisHandleMessage.getHistoryMsg("Service", "M0001");
-					 	
-					 	for(int i=list.size()-1; i>-1; i--){
-					 		String oldTalk = list.get(i);
-					 		JSONObject json = new JSONObject(oldTalk);
-					 		String hisTemp = json.getString("message");
-					 		%>
-					 		$("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>" + "<%=hisTemp%>" +  "</span><br/>");
-					 <%}%>
 					 $("#content").append("<kbd>Welcome!</kbd></br>");
 				 };
 				
@@ -117,7 +90,7 @@ $(window).scroll(function(){
 		     var text = encodeScript($("#msg").val());
 		     var msg = {
 		    		 "type":"XhistoryX",
-		    		 "sender":"Service", 
+		    		 "sender":"客服人員", 
 		    		 "receiver":"M0001",
 		    		 "message":text
 		     };
@@ -130,7 +103,7 @@ $(window).scroll(function(){
 		     msg = JSON.stringify(msg);
 		     //向server發送訊息
 		     webSocket.send(msg);
-		     $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>" + text +  "</span><br/>");
+		     $("#content").append("<kbd style='color: #" + "CECECE" + ";float:right; font-size: " + 12 + ";'>" + text +  "</kbd><br/>");
 		     $("#msg").val("");
 		 }
 		 
