@@ -54,7 +54,7 @@ public class MailService {
 			MimeMultipart multipart = new MimeMultipart("related");
 
 			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setContent(name, "text/plain");
+			messageBodyPart.setContent(name + " 感謝您的購票，請依附件(QRcode)取票，謝謝。", "text/html; charset=UTF-8");
 			// add it
 			multipart.addBodyPart(messageBodyPart);
 
@@ -93,6 +93,7 @@ public class MailService {
 	}
 
 	public static void main(String[] args) throws IOException {
-
+		MailService MS = new MailService();
+		MS.sendMail("mark22013333@gmail.com", "M&S購票通知", "C:\\Users\\Java\\Pictures\\gtr.jpg", "阿鬼");
 	}
 }

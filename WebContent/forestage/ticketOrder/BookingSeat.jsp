@@ -19,13 +19,13 @@
 
 <%
 	//會員編號
-	String mem_no="M00002";
+	String mem_no="M007";
 // 	MemVO memVO = (MemVO) session.getAttribute("memVO");	
 // 	String mem_no = memVO.getmemno();
 //  session.getAttribute("mem_no");
 	
 	//場次編號
-	String session_no = "SES0000002";
+	String session_no = "SES0000001";
 // 	String session_no = request.getParameter("session_no").trim();
 
 	//票種編號

@@ -162,7 +162,7 @@ public class Ticket_OrderServlet extends HttpServlet {
 //				String imgpath = request.getContextPath() + "/img/QRcode/" + TempFileName;
 				
 				System.out.println("imgpath=" + imgpath);
-				mailService.sendMail(mem_email, "M&S訂票通知", imgpath, mem_FullName);
+				mailService.sendMail(mem_email, "M&S購票通知", imgpath, mem_FullName);
 //				mailService.setmail("1", mem_FullName, mem_email);
 				request.getRequestDispatcher(successView).forward(request, response);
 
