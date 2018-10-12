@@ -23,7 +23,7 @@ public class EzdingMovieInfoAdvTest {
         driver.get(targetUrl);
         WebDriverWait wait = new WebDriverWait(driver, 5);
         EzdingMovieInfoAdv.waitLoadingElement(wait, "div[class='post']");
-        /*
+        
         WebElement ele = driver.findElement(By.tagName("body"));
         String html = ele.getAttribute("outerHTML");
         //System.out.println(html);
@@ -34,11 +34,11 @@ public class EzdingMovieInfoAdvTest {
         Elements numIndexes = doc.select("div[class*='circle numIndex']");
         int pages = numIndexes.size();
         List<Thread> threads = new ArrayList<Thread>();
-        */
+        
 
-        /*
+        
         for (int i = 0; i < pages; i++) {
-            Thread t = new Thread(new EzdingMovieInfoAdv(i));
+            Thread t = new Thread(new EzdingMovieInfoAdv(i, false));
             threads.add(t);
             t.start();
             
@@ -60,7 +60,7 @@ public class EzdingMovieInfoAdvTest {
                 e.printStackTrace();
             }
         }
-        */
+        
         /*
         //Thread t = new Thread(new EzdingMovieInfoAdv(1));
 //        Thread t = new Thread(new EzdingMovieInfoAdv(0));
@@ -79,7 +79,7 @@ public class EzdingMovieInfoAdvTest {
             app.run();
         }
         */
-
+        /*
         //for comming movie
         driver.get(targetUrl);
         EzdingMovieInfoAdv.waitLoadingElement(wait, "div[class='post']");
@@ -94,6 +94,7 @@ public class EzdingMovieInfoAdvTest {
         List<WebElement> numIndexesForComing = eleForComing.findElements(By.cssSelector("div[class*='circle numIndex']"));
         int pagesForComing = numIndexesForComing.size();
         List<Thread> threadsForComing = new ArrayList<Thread>();
+        */
         /*
         for (int i = 0; i < pagesForComing; i++) {
             Thread tForComing = new Thread(new EzdingMovieInfoAdv(i, true));
@@ -119,7 +120,7 @@ public class EzdingMovieInfoAdvTest {
             }
         }
         */
-        
+        /*
         Thread tForComing = new Thread(new EzdingMovieInfoAdv(0, true)); //for coming movie
         tForComing.start();
         try {
@@ -128,7 +129,7 @@ public class EzdingMovieInfoAdvTest {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+        */
         /*
         for (int i = 0; i < pagesForComing; i++) {
             EzdingMovieInfoAdv app = new EzdingMovieInfoAdv(i, true);
