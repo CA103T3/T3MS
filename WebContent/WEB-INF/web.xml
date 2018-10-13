@@ -213,4 +213,15 @@
 		<servlet-name>Account_BackstageServlet</servlet-name>
 		<url-pattern>/backstage/account_backstage/account_backstageServlet.do</url-pattern>
   </servlet-mapping>
+  
+  
+  
+   <servlet>
+		<servlet-name>MomentServlet</servlet-name>
+		<servlet-class>com.session.controller.MomentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+		<servlet-name>MomentServlet</servlet-name>
+		<url-pattern>/forestage/movie_moment/moment.do</url-pattern>
+  </servlet-mapping>
 </web-app>

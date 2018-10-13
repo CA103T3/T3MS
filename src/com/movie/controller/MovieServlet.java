@@ -69,7 +69,7 @@ public class MovieServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("movieVO", movieVO); // 資料庫取出的movieVO物件,存入req
-				String url = "/backstage/movie/movie_One.jsp";
+				String url = "/forestage/movie_moment/moment_One.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 movie_One.jsp
 				successView.forward(req, res);
 

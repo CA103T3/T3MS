@@ -3,6 +3,10 @@
 	import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.sql.Timestamp"%>
+<%@ page import="java.text.DateFormat"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.movie.model.*"%>
 <%@ page import="com.session.model.*"%>
@@ -33,7 +37,7 @@
 	pageContext.setAttribute("thVO",thVO);
 %>
 
-
+<% SessionVO sessionVO = (SessionVO) request.getAttribute("sessionVO"); %>
 
 <!doctype html>
 <html>
@@ -49,7 +53,7 @@
 	href="<%=request.getContextPath()%>/css/m_Moment.css">
 <link href="<%=request.getContextPath()%>/css/introduceM.css"
 	rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css" />
 <%@ include file="/forestage/template/link.jsp"%>
 <title>M&amp;S</title>
 <style>
@@ -98,6 +102,9 @@ font-weight: 300;
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
 	height: 151px; /* height:  151px; */
 }
+
+.control-label{margin-top:20px;font-size:20px;}
+.btn-info{position: absolute;margin-top:50px;}
 </style>
 
 </head>
@@ -203,6 +210,7 @@ font-weight: 300;
 			</div>
 		</div>
 	</div>
+	
 
 	<!-- movie Moment   -->
 	<div class="section">
@@ -217,26 +225,49 @@ font-weight: 300;
 			</div>
 
 			<div id="Moment" class="tabcontent">
-				<div class="container">
-					<div class="col-md-12">
-						<!-- -------------------------------------------------電影日期---------------------------------------------------- -->
-								
+						
+																		
+			<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->
+			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form1">
+				<div class="container">			
+					<div class="col-md-2">	
+					
+					
+					   <%
+                            //https://yq.aliyun.com/articles/70182
+                            if(sessionVO != null) {
+                                if(sessionVO.getSession_time() != null) {
+                                    Timestamp tt = sessionVO.getSession_time();
+                                    Date date = new Date(tt.getTime());
+                                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                    String session_time = dateFormat.format(date);
+                                    pageContext.setAttribute("session_time", session_time);
+                                }
+                            }
+                        %>
+					
+					
+							<div class="form-group hidden-md hidden-sm has-feedback">
+								<label class="control-label">選擇場次日期:</label>
+								<input class="form-control" type="text" name="s_time" id="s_time" value="${sessionVO.session_time}">
+							</div>		
+			    	  </div>
+							<input type="hidden" name="action" value="selectD">
+							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">
 							
-							
-							
-							
-							
-							
-						<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->
+							<span><input  type="submit" class="btn btn-info" value="送出"></span>	
 				</div>
-			</div>
 				
-				
-				
+			</form>
+			<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->		
+			
+			
+					
 <!-- ----------------當日影城+時刻表--------------------- -->
-				
 <!--   ------------------  影城FOREach   ------------------  -->				
 				<c:forEach var="cvo" items="${cvo}">
+<%-- 				<c:if test="${sessionVO.session_time!=null}"> --%>
+				
 
 					<div class="panel panel-primary">
 
@@ -287,12 +318,14 @@ font-weight: 300;
 
 					</div>
 
+<%-- </c:if> --%>
 				</c:forEach>
 				<!-- ----------------當日影城+時刻表--------------------- -->
-
 			</div>
 
-
+<%if (request.getAttribute("selectD")!=null){%>
+       <jsp:include page="tom_Moment.jsp" />
+<%} %>
 
 			<!-- movie_Introd   -->
 			<div id="Introd" class="tabcontent">
@@ -316,14 +349,30 @@ font-weight: 300;
 
 
 
+<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.full.js"></script>
 
 	<!-- ----------------moment One ----------------->
 	<%@ include file="/forestage/template/footer.jsp"%>
-
+     
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
 	<script>
         $(document).ready(function(){
             $("li:contains('電影資訊')").addClass("custom-active");
+            
+            var somedate1 = new Date();
+            var somedate2 = new Date(somedate1.getTime()+2*24*60*60*1000);
+            $('#s_time').datetimepicker({
+                theme: '',          //theme: 'dark',
+                timepicker: false,   //timepicker: false,
+                step: 1,            //step: 60 (這是timepicker的預設間隔60分鐘)
+     	       format: 'Y-m-d',
+     	       value: new Date(),
+                //disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+                //startDate:	        '2017/07/10',  // 起始日
+	     	    minDate:somedate1,
+	            maxDate:somedate2
+             });
                              
         });
         </script>
@@ -347,10 +396,6 @@ font-weight: 300;
       </script>
 
 
-
-
-
-
-
 </body>
+
 </html>

@@ -1,13 +1,36 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*"%>
+<%@page import="com.cinema.model.CinemaService"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.movie.model.*"%>
+<%@ page import="com.session.model.*"%>
+<%@ page import="com.cinema.model.*"%>
+<%@ page import="com.theater.model.*"%>
 
 
 <%
 	MovieService movieSvc = new MovieService();
-    MovieVO movieVO = movieSvc.getOneMovie(request.getQueryString());
+	MovieVO movieVO = movieSvc.getOneMovie(request.getQueryString());
 	pageContext.setAttribute("movieVO", movieVO);
+%>
+
+<%
+	SessionService sessionSvc = new SessionService();
+	List<SessionVO> list = sessionSvc.getNowMoment();
+	pageContext.setAttribute("list", list);
+%>
+<%
+	CinemaService cinemaSvc = new CinemaService();
+	List<CinemaVO> cvo = cinemaSvc.getAll();
+	pageContext.setAttribute("cvo", cvo);
+%>
+
+<%
+	TheaterService theaterSvc = new TheaterService();
+	List<TheaterVO> thVO = theaterSvc.getAll();
+	pageContext.setAttribute("thVO",thVO);
 %>
 <!doctype html>
 <html>
@@ -121,218 +144,120 @@
 
   
 
- <!-- movie Moment   -->       
-    <div class="section">
-      <div class="container">
-            
-          
-          
-          <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'Moment')" >電影時刻</button>
-            <button class="tablinks" onclick="openCity(event, 'Introd')" id="defaultOpen">電影簡介</button> 
-          </div>
-          
-          <div id="Moment" class="tabcontent">
-          
-                  <div class="container">
-                          <div class="col-md-6">
-                           
-                            <form>
-                              <div class="form-group">
-                                <label for="sel1">選擇電影日期:</label>
-                                <select class="form-control" id="sel1">
-                                  <option>10/06</option>
-                                  <option>10/07</option>
-                                  <option>10/08</option>
-                                  <option>10/09</option>
-                                  <option>10/10</option>
-                                </select>
-                                <br>
-                              </div>
-                            </form>
-                          </div>
-                          </div>
-              
-                  
-                  <div class="panel panel-primary">
-          
-                    <div class="panel-heading">
-                      <h3 class="panel-title">板橋大園百威秀影城</h3>
-          
-                    
-                    </div>
-                    
-                    <div class="panel-body">
-                      <div class="row">
-                      <div class="col-md-3" ><div id="ctype"><h4>數位</h4></div> </div>
-                      <div class="col-md-9">
-                    
-                    <div class="row">
-          
-                      <div class="col-md-2 text-center">
-                        <div class="sisson">      
-                          <div id="time">08:20</div>
-                         </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">09:20</div>
-                           </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">10:20</div>
-                          </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">12:20</div>
-                          </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">12:20</div>
-                          </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">12:20</div>
-                          </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">12:20</div>
-                          </div>
-                      </div> 
-          
-          
-          
-          
-                    </div>
-          
-          
-                    </div>
-          
-                    
-                      
-                    </div>
-                </div>
-          
-                  </div>
-          
-                  <div class="panel panel-primary">
-          
-                    <div class="panel-heading">
-                      <h3 class="panel-title">台中老虎城威秀影城</h3>
-          
-                    
-                    </div>
-                    
-                    <div class="panel-body">
-                      <div class="row">
-                      <div class="col-md-3" ><div id="ctype"><h4>數位</h4></div> </div>
-                      <div class="col-md-9">
-                    
-                    <div class="row">
-          
-                      <div class="col-md-2 text-center">
-                        <div class="sisson">      
-                          <div id="time">08:20</div>
-                         </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">09:20</div>
-                           </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">10:20</div>
-                          </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">12:20</div>
-                          </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">12:20</div>
-                          </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">12:20</div>
-                          </div>
-                      </div> 
-          
-                      <div class="col-md-2 text-center">
-                          <div class="sisson">      
-                            <div id="time">12:20</div>
-                          </div>
-                      </div> 
-          
-          
-          
-          
-                    </div>
-          
-          
-                    </div>
-          
-                    
-                      
-                    </div>
-                </div>
-          
-                  </div>
-          
-          
-          </div>
-          
-          
-          
-          <!-- movie_Introd   -->
-          <div id="Introd" class="tabcontent">
-            <div style="display:inline;"><strong>導演:</strong></div><span style="display:inline;">${movieVO.director}</span>
-            <div style="display:inline;"><strong>演員:</strong></div><span style="display:inline;">${movieVO.starring}</span>
-            <p>${movieVO.brief_intro}</p>
-          </div>     
-         
+ <!-- movie Moment   -->
+	<div class="section">
+		<div class="container">
 
 
-      </div>
-   </div>
+
+			<div class="tab">
+				<button class="tablinks" onclick="openCity(event, 'Moment')">電影時刻</button>
+					
+				<button class="tablinks" onclick="openCity(event, 'Introd')" id="defaultOpen">電影簡介</button>
+			</div>
+
+			<div id="Moment" class="tabcontent">
+				<div class="container">
+					<div class="col-md-12">
+						<!-- -------------------------------------------------電影日期---------------------------------------------------- -->
+								
+							
+							
+							
+							
+							
+							
+						<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->
+				</div>
+			</div>
+				
+				
+				
+<!-- ----------------當日影城+時刻表--------------------- -->
+				
+<!--   ------------------  影城FOREach   ------------------  -->				
+				<c:forEach var="cvo" items="${cvo}">
+
+					<div class="panel panel-primary">
+
+						<div class="panel-heading">
+							<h3 class="panel-title">${cvo.cinema_name}</h3>
+
+
+						</div>
+
+
+						<div class="panel-body">
+							<div class="row">
+
+
+									<c:forEach var="sessionVO" items="${list}">
+											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
+<!--   ------------------  時刻FOREach   ------------------  -->	
+	
+								<div class="col-md-3">
+
+									<div class="row">
+								
+										<div class="col-md-6"> 
+											<div id="ctype">
+												<h4>${sessionVO.theaterVO.equipment}</h4>
+											</div>	
+										</div>	
+																													
+										<div class="col-md-1 text-center">
+											<div class="sisson">
+												<div id="time" style=" padding-top: 29px;">
+												<a href="<%=request.getContextPath()%>/forestage/ticketOrder/BookingSeat.jsp?session_no=${sessionVO.session_no}" class="card-img-a2">
+													<fmt:formatDate value="${sessionVO.session_time}"
+														pattern="MM/dd HH:mm" /></a>
+														
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+											</c:if>
+										</c:forEach>
+
+							</div>
+						</div>
+
+					</div>
+
+				</c:forEach>
+				<!-- ----------------當日影城+時刻表--------------------- -->
+
+			</div>
+
+
+
+			<!-- movie_Introd   -->
+			<div id="Introd" class="tabcontent">
+				<div style="display: inline;">
+					<strong>導演:</strong>
+				</div>
+				<span style="display: inline;">${movieVO.director}</span>
+				<div style="display: inline;">
+					<strong>演員:</strong>
+				</div>
+				<span style="display: inline;">${movieVO.starring}</span>
+				<p>${movieVO.brief_intro}</p>
+			</div>
+
+
+
+		</div>
+	</div>
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-       
-<!-- ----------------moment One ----------------->  
+	<!-- ----------------moment One ----------------->
         <%@ include file="/forestage/template/footer.jsp" %>
 
         <script src="<%=request.getContextPath()%>/js/template.js"></script>
@@ -360,17 +285,6 @@
         document.getElementById("defaultOpen").click();
       </script>
 
-<script>
-    export default {
-      data () {
-        return {
-          selected: null,
-          options: [
-            { value: 'A', text: 'Option A (from options prop)' },            
-          ]
-        }
-      }
-    }
-    </script>
+
     </body>
 </html>

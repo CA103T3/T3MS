@@ -8,12 +8,13 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.*;
 import org.json.JSONObject;
 
 import com.session.model.SessionService;
@@ -58,6 +59,78 @@ public class MomentServlet extends HttpServlet {
 		res.setContentType("text/html; charset=utf-8");
 
 		String action = req.getParameter("action");
+		
+		
+		if ("selectD".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.****************************************/
+				
+
+				/*************************** 2.****************************************/
+				SessionService sSvc = new SessionService();
+				List<SessionVO> sessionVOList = sSvc.getNowMoment();
+
+				String movie_no = req.getParameter("movie_no");
+				/*************************** 3.(Send the Success view) ************/
+				req.setAttribute("selectD", sessionVOList);    
+
+				String url = null;
+				if ("selectD".equals(action))
+					url = "/forestage/movie_moment/moment_One.jsp?"+movie_no;              
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+				/***************************  ***********************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//==================================AJAX========================================		
 
 		if ("get_moment".equals(action)) { // from moment_One.jsp ajax
 
