@@ -263,6 +263,7 @@ public class ServletMemberBackstage extends HttpServlet {
                 /***************************2.開始查詢資料*****************************************/
                 MemService memSrc = new MemService();
                 memSrc.becomeFC(memno);
+                MemVO memVO = memSrc.getMemVOByNO(memno);
                 System.out.println(errorMsgs);
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {

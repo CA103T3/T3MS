@@ -9,8 +9,8 @@
                   </button>
                   <a class="navbar-brand" href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/img/M&S-05Z.png"></a>
                 </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                  <ul class="nav navbar-nav">
+                <div class="collapse navbar-collapse" id="myNavbar" style="text-align: center !important;">
+                  <ul class="nav navbar-nav" style="display: inline-block;float: none; vertical-align: top;">
                     <li class=""><a href="#">線上訂票</a></li>
                     <li><a href="#">合作影城</a></li>
                     <li class="dropdown">
@@ -21,9 +21,9 @@
                         <li><a href="<%=request.getContextPath()%>/forestage/filmreview/fv_home.jsp">電影影評</a></li>
                       </ul>
                     </li>
-                    <li><a href="#">社群平台</a></li>
+                    
                     <li><a href="/T3MS/forestage/member/membercenter.jsp">會員專區</a></li>
-                    <li><a href="#">揪團看電影</a></li>
+                    
                     <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">客服中心<span class="caret"></span></a>
                       <ul class="dropdown-menu font-custom">
@@ -42,7 +42,7 @@
                  
  					<c:if test="${memVO!=null}">
  					<ul class="nav navbar-nav navbar-right">
- 						<li><img style="border: 1px solid black;width:44px;height:42px;border-radius:50%;padding-top:5px;" src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${memVO.memno}">
+ 						<li><img style="height:42px;border-radius:50%;padding-top:5px;" src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${memVO.memno}">
                     	<li><a style="font-size:16px;" href="/T3MS/forestage/member/membercenter.jsp">${memVO.lastname}${memVO.firstname}</a></li>
                     	<li><a style="font-size:14px;" href="<%=request.getContextPath()%>/member/logout.do" method="post" onclick="logout()">登出</a></li>
                     </ul>

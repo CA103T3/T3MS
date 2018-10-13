@@ -27,7 +27,7 @@
 
 <style>
 
-	body {background-color:#aaa !important;}
+	body {background-color:#aaa ;}
 	
 </style>
 </head>
@@ -55,7 +55,7 @@
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="text-center">影評搜尋</h1>
+					<h1 class="text-center" style="color:white !important;">影評搜尋</h1>
 				</div>
 			</div>
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/filmreview/filmreview.do">
@@ -66,9 +66,9 @@
 							<div class="input-group">
 
 
-								<input type="text" class="form-control" name="movie_no" placeholder="請輸入電影名稱">
+								<input type="text" class="form-control" name="movie_name" placeholder="請輸入電影名稱">
 								<div class="input-group-btn">
-									<input class="btn btn-primary" type="submit" value="送出"> <input type="hidden" name="action" value="getOne_For_Display">
+									<input class="btn btn-primary" type="submit" value="送出" style="border-top-right-radius:5px;border-bottom-right-radius:5px;"> <input type="hidden" name="action" value="getOne_For_Display">
 								</div>
 
 
@@ -124,7 +124,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="page-header">
-						<h3>
+						<h3 style="color:white !important;">
 									您的搜尋結果如下:					
 							<small>共<% out.print(fv_search.size()); %>筆</small>
 							
@@ -153,7 +153,7 @@
 					<div class="col-md-1">
 						<c:forEach var="mvVO" items="${mvSvc.all}">
 							<c:if test="${fv.movie_no==mvVO.movie_no}">
-								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
+								<a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_One.jsp?${mvVO.movie_no}"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
 								</a>
 							</c:if>
 						</c:forEach>
