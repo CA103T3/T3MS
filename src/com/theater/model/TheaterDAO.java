@@ -33,7 +33,8 @@ public class TheaterDAO implements TheaterDAO_interface {
             "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater where CINEMA_NO = ? and EQUIPMENT = ?";
     private static final String GET_ALL_OF_NO_CONFLICTING_THEATER_STMT =
             "SELECT * from theater where CINEMA_NO = ? and THEATER_NO not in ( SELECT DISTINCT THEATER_NO from MOVIE_SESSION where "
-            + "(session_time between to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS') and to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS')) and THEATER_NO in (select THEATER.THEATER_NO from THEATER where THEATER.CINEMA_NO = ?) )"
+            + "(session_time between to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS') and to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS')) and "
+            + "THEATER_NO in (select THEATER.THEATER_NO from THEATER where THEATER.CINEMA_NO = ?) )"
             + " order by THEATER_NO";
     private static final String DELETE =
         "DELETE FROM theater where THEATER_NO = ?";

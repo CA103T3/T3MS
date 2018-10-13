@@ -275,8 +275,8 @@ public class EzdingCrawler implements Runnable {
         System.out.println("handleMovieSession");
         SessionHandler shdr = new SessionHandler(movieSessionList);
         shdr.setServletContextRealPath(servletContextRealPath);
-        List<String> list = shdr.importDB(); //return list of theater_no
-        shdr.exportSer(list);
+        List<String> list = shdr.importDB(); //return list of session_no
+        //shdr.exportSer(list);
     }
 
     public void backToMovieInfoIndex(WebDriver driver, WebDriverWait wait) {
