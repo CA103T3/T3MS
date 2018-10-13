@@ -31,6 +31,10 @@ public class TheaterDAO implements TheaterDAO_interface {
         "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater where THEATER_NO = ?";
     private static final String GET_ALL_BY_CINEMA_NO_EQUIPMENT_STMT =
             "SELECT THEATER_NO,CINEMA_NO,THEATER_NAME,T_ROWS,T_COLUMNS,SEAT_MODEL,SEATS,EQUIPMENT FROM theater where CINEMA_NO = ? and EQUIPMENT = ?";
+    private static final String GET_ALL_OF_NO_CONFLICTING_THEATER_STMT =
+            "SELECT * from theater where CINEMA_NO = ? and THEATER_NO not in ( SELECT DISTINCT THEATER_NO from MOVIE_SESSION where "
+            + "(session_time between to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS') and to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS')) and THEATER_NO in (select THEATER.THEATER_NO from THEATER where THEATER.CINEMA_NO = ?) )"
+            + " order by THEATER_NO";
     private static final String DELETE =
         "DELETE FROM theater where THEATER_NO = ?";
     private static final String UPDATE =
@@ -383,6 +387,71 @@ public class TheaterDAO implements TheaterDAO_interface {
             pstmt = con.prepareStatement(GET_ALL_BY_CINEMA_NO_EQUIPMENT_STMT);
             pstmt.setString(1, cinema_no);
             pstmt.setString(2, equipment);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // theaterVO 也稱為 Domain objects
+                theaterVO = new TheaterVO();
+                theaterVO.setTheater_no(rs.getString("THEATER_NO"));
+                theaterVO.setCinema_no(rs.getString("CINEMA_NO"));
+                theaterVO.setTheater_name(rs.getString("THEATER_NAME"));
+                theaterVO.setT_rows(rs.getInt("T_ROWS"));
+                theaterVO.setT_columns(rs.getInt("T_COLUMNS"));
+                //theaterVO.setSeat_model(rs.getCharacterStream("SEAT_MODEL"));
+                theaterVO.setSeat_model(rs.getString("SEAT_MODEL"));
+                theaterVO.setSeats(rs.getInt("SEATS"));
+                theaterVO.setEquipment(rs.getString("EQUIPMENT"));
+                list.add(theaterVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<TheaterVO> getAllofNoConflictingTheater(String cinema_no, String sessionTimeFirst, String sessionTimeSec) {
+        List<TheaterVO> list = new ArrayList<TheaterVO>();
+        TheaterVO theaterVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ALL_OF_NO_CONFLICTING_THEATER_STMT);
+            pstmt.setString(1, cinema_no);
+            pstmt.setString(2, sessionTimeFirst);
+            pstmt.setString(3, sessionTimeSec);
+            pstmt.setString(4, cinema_no);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {

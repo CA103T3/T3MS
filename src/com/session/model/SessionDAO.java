@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 import com.movie.model.MovieVO;
@@ -36,19 +37,21 @@ public class SessionDAO implements SessionDAO_interface {
     private static final String GET_ALL_STMT =
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION order by SESSION_NO";
     private static final String GET_ALL_OF_THEATER_STMT =
-            "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where THEATER_NO = ? order by SESSION_NO";
+        "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where THEATER_NO = ? order by SESSION_NO";
     private static final String GET_ALL_BY_SESSION_TIME_MOVIE_NO_STMT =
-            "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where session_time = to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS') AND MOVIE_NO = ? order by SESSION_NO";
+        "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where session_time = to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS') AND MOVIE_NO = ? order by SESSION_NO";
     private static final String GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT =
-            "select MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,MOVIE_SESSION.MOVIE_NO,MOVIE_SESSION.SESSION_TIME,MOVIE_SESSION.SEAT_TABLE, THEATER.THEATER_NAME, MOVIE.MOVIE_NAME "
-            + "from MOVIE_SESSION left join THEATER on MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO left join MOVIE on MOVIE_SESSION.MOVIE_NO = MOVIE.MOVIE_NO "
-            + "where MOVIE_SESSION.THEATER_NO in (select THEATER.THEATER_NO from THEATER where THEATER.CINEMA_NO = ?) order by SESSION_NO";
+        "select MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,MOVIE_SESSION.MOVIE_NO,MOVIE_SESSION.SESSION_TIME,MOVIE_SESSION.SEAT_TABLE, THEATER.THEATER_NAME, MOVIE.MOVIE_NAME "
+        + "from MOVIE_SESSION left join THEATER on MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO left join MOVIE on MOVIE_SESSION.MOVIE_NO = MOVIE.MOVIE_NO "
+        + "where MOVIE_SESSION.THEATER_NO in (select THEATER.THEATER_NO from THEATER where THEATER.CINEMA_NO = ?) order by SESSION_NO";
     private static final String GET_ONE_STMT =
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where SESSION_NO = ?";
+    private static final String GET_ONE_BY_THEATER_NO_BEFORE_SESSION_TIME_STMT =
+        "SELECT * FROM MOVIE_SESSION where THEATER_NO = ? and session_time < to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS') and rownum = 1 order by SESSION_TIME desc";
     private static final String GET_ONE_OF_JOIN_THEATER_MOVIE_WHERE_SESSIONNO_STMT =
-            "select MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,MOVIE_SESSION.MOVIE_NO,MOVIE_SESSION.SESSION_TIME,MOVIE_SESSION.SEAT_TABLE, THEATER.THEATER_NAME, MOVIE.MOVIE_NAME "
-            + "from MOVIE_SESSION left join THEATER on MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO left join MOVIE on MOVIE_SESSION.MOVIE_NO = MOVIE.MOVIE_NO "
-            + "where SESSION_NO = ?";
+        "select MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,MOVIE_SESSION.MOVIE_NO,MOVIE_SESSION.SESSION_TIME,MOVIE_SESSION.SEAT_TABLE, THEATER.THEATER_NAME, MOVIE.MOVIE_NAME "
+        + "from MOVIE_SESSION left join THEATER on MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO left join MOVIE on MOVIE_SESSION.MOVIE_NO = MOVIE.MOVIE_NO "
+        + "where SESSION_NO = ?";
     private static final String DELETE =
         "DELETE FROM MOVIE_SESSION where SESSION_NO = ?";
     private static final String UPDATE =
@@ -217,6 +220,64 @@ public class SessionDAO implements SessionDAO_interface {
             pstmt = con.prepareStatement(GET_ONE_STMT);
 
             pstmt.setString(1, session_no);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // sessionVO 也稱為 Domain objects
+                sessionVO = new SessionVO();
+                sessionVO.setSession_no(rs.getString("SESSION_NO"));
+                sessionVO.setTheater_no(rs.getString("THEATER_NO"));
+                sessionVO.setMovie_no(rs.getString("MOVIE_NO"));
+                sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));
+                sessionVO.setSeat_table(rs.getString("SEAT_TABLE"));
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return sessionVO;
+    }
+
+    @Override
+    public SessionVO findByTheaterNoBeforeSessionTime(String session_no, String sessionTime) {
+        SessionVO sessionVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ONE_BY_THEATER_NO_BEFORE_SESSION_TIME_STMT);
+
+            pstmt.setString(1, session_no);
+            pstmt.setString(2, sessionTime);
 
             rs = pstmt.executeQuery();
 
@@ -635,6 +696,75 @@ public class SessionDAO implements SessionDAO_interface {
                 
                 sessionVO.setSession_time(rs.getTimestamp("SESSION_TIME"));                
                 list.add(sessionVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<HashMap> getAllCountInTheaterNoListGroupByTheaterNo(List<String> theater_no_list) {
+        List<HashMap> list = new ArrayList<HashMap>();
+        HashMap<String, String> record = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        StringBuilder builder = new StringBuilder();
+
+        for( int i = 0 ; i < theater_no_list.size(); i++ ) {
+            builder.append("?,");
+        }
+
+        String stmt = "SELECT COUNT(*) CNT , THEATER_NO from MOVIE_SESSION where THEATER_NO in ( " 
+                       + builder.deleteCharAt( builder.length() -1 ).toString() + " ) group by THEATER_NO order by CNT asc ";
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(stmt);
+            //pstmt.setString(1, cinema_no);
+
+            int index = 1;
+            for(String no : theater_no_list) {
+               pstmt.setString(index++, no);
+            }
+
+            rs = pstmt.executeQuery();
+            //System.out.println(GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT);
+            while (rs.next()) {
+                record = new HashMap<String, String>();
+                record.put("theater_no", rs.getString("THEATER_NO"));
+                record.put("cnt", rs.getString("CNT"));
+                list.add(record); // Store the row in the list
             }
 
             // Handle any driver errors

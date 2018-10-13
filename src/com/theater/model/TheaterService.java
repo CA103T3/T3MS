@@ -67,4 +67,8 @@ public class TheaterService {
     public List<TheaterVO> getAllByCinemaNOEquipment(String cinema_no, String equipment) {
         return dao.getAllByCinemaNOEquipment(cinema_no, equipment);
     }
+
+    public List<TheaterVO> getAllofNoConflictingTheater(String cinema_no, String sessionTimeFirst, String sessionTimeSec) {
+        return dao.getAllofNoConflictingTheater(cinema_no, sessionTimeFirst, sessionTimeSec);
+    }
 }

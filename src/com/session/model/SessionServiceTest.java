@@ -7,7 +7,9 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -67,9 +69,9 @@ public class SessionServiceTest extends HttpServlet {
         testGetAllofJoinTheaterMovieWhereTheaterNoCinema(cinema_no);
         testGetAllBySessionTimeMovieNo();
         testGetNowMoment();
+        testGetOneSessionByTheaterNoBeforeSessionTime();
+        testGetAllCountInTheaterNoListGroupByTheaterNo();
     }
-    
-    
 
     //INSERT INTO MOVIE (movie_no) values ('MV0001');
     public String testAddSession() throws IOException {
@@ -129,6 +131,28 @@ public class SessionServiceTest extends HttpServlet {
         //oracle sql
         //select to_char(SESSION_TIME, 'YYYY-MM-DD HH24:MI:SS TZR') from MOVIE_SESSION;
         //'2018-09-30 14:30:05 ASIA/TAIPEI'
+    }
+
+    public void testGetOneSessionByTheaterNoBeforeSessionTime() {
+        String theater_no = "T00002";
+        String sessionTime = "2018-10-15 09:00:30";
+        out.println("testGetOneSessionByTheaterNoBeforeSessionTime : ");
+        SessionVO sessionVO = sSvc.getOneSessionByTheaterNoBeforeSessionTime(theater_no, sessionTime);
+        if (sessionVO != null) {
+            out.println("Session_no : " + sessionVO.getSession_no());
+            out.println("Theater_no : " + sessionVO.getTheater_no());
+            out.println("Movie_no : " + sessionVO.getMovie_no());
+            out.println("Session_time : " + sessionVO.getSession_time());
+            Timestamp session_time = sessionVO.getSession_time();
+            Date date = new Date(session_time.getTime());
+            out.println("Timestamp convert to java.util.Date : " + date);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String strDate = dateFormat.format(date);
+            out.println("converted java.util.Date to String : " + strDate);
+            out.println("Seat_tabl : " + sessionVO.getSeat_table());
+        } else {
+            out.println("null");
+        }
     }
 
     //INSERT INTO MOVIE (movie_no) values ('MV0002');
@@ -210,6 +234,18 @@ public class SessionServiceTest extends HttpServlet {
             out.println(sessionVO.getSession_no());
             out.println("theater_name : " + sessionVO.getTheaterVO().getTheater_name());
             out.println("movie_name : " + sessionVO.getMovieVO().getMovie_name());
+        }
+    }
+
+    public void testGetAllCountInTheaterNoListGroupByTheaterNo() {
+        List<String> theater_no_list = new ArrayList<String>();
+        theater_no_list.add("T00001");
+        theater_no_list.add("T00002");
+        List<HashMap> list = sSvc.getAllCountInTheaterNoListGroupByTheaterNo(theater_no_list);
+        out.println("testGetAllCountInTheaterNoListGroupByTheaterNo: " + list.size());
+        for(HashMap record : list) {
+            out.println("theater_no : " + record.get("theater_no"));
+            out.println("cnt : " + record.get("cnt"));
         }
     }
 

@@ -2,6 +2,7 @@ package com.session.model;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 
 public class SessionService {
@@ -46,6 +47,10 @@ public class SessionService {
         return dao.findByPrimaryKey(session_no);
     }
 
+    public SessionVO getOneSessionByTheaterNoBeforeSessionTime(String theater_no, String sessionTime) {
+        return dao.findByTheaterNoBeforeSessionTime(theater_no, sessionTime);
+    }
+
     public List<SessionVO> getAllBySessionTimeMovieNo(String sessionTime, String movie_no) {
         return dao.findBySessionTimeMovieNo(sessionTime, movie_no);
     }
@@ -62,15 +67,18 @@ public class SessionService {
         return dao.getAllofJoinTheaterMovieWhereTheaterNoCinema(cinema_no);
     }
 
+    public List<HashMap> getAllCountInTheaterNoListGroupByTheaterNo(List<String> theater_no_list) {
+        return dao.getAllCountInTheaterNoListGroupByTheaterNo(theater_no_list);
+    }
+
     public SessionVO getOneofJoinTheaterMovieWhereSessionNo(String session_no) {
         return dao.getOneofJoinTheaterMovieWhereSessionNo(session_no);
     }
-    
-    
+
     public void updateSessionSeat(String seattable,String movie_session_no,Connection conn) {
     	dao.updateSessionSeat(seattable, movie_session_no, conn);
     }
-    
+
     public List<SessionVO> getNowMoment() {
         return dao.getNowMoment();
     }

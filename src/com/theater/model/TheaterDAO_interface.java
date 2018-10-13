@@ -11,4 +11,5 @@ public interface TheaterDAO_interface {
     public List<TheaterVO> getAllByCinemaNOEquipment(String cinema_no, String equipment);
     public List<TheaterVO> getAll();
     public List<TheaterVO> getAllofCinema(String cinema_no);
+    public List<TheaterVO> getAllofNoConflictingTheater(String cinema_no, String sessionTimeFirst, String sessionTimeSec);
 }

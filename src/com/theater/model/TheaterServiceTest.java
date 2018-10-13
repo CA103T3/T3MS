@@ -56,6 +56,9 @@ public class TheaterServiceTest extends HttpServlet {
         testGetAllofCinema(cinema_no);
         String equipment = "數位";
         testGetAllByCinemaNOEquipment(cinema_no, equipment);
+        String sessionTimeFirst = "2018-9-30 14:30:05";
+        String sessionTimeSec = "2018-10-15 09:00:30";
+        testGetAllofNoConflictingTheater(cinema_no, sessionTimeFirst, sessionTimeSec);
     }
 
 //  insert into CINEMA (CINEMA_NO, CINEMA_NAME) values ('C001', '威秀影城');
@@ -161,6 +164,17 @@ public class TheaterServiceTest extends HttpServlet {
         for(TheaterVO vo : list) {
             out.println(vo.getTheater_no());
             out.println(vo.getEquipment());
+        }
+    }
+
+    public void testGetAllofNoConflictingTheater(String cinema_no, String sessionTimeFirst, String sessionTimeSec) {
+        List<TheaterVO> list = tSvc.getAllofNoConflictingTheater(cinema_no, sessionTimeFirst, sessionTimeSec);
+        out.println("testGetAllofNoConflictingTheater : ");
+        out.println("sessionTimeFirst : " + sessionTimeFirst);
+        out.println("sessionTimeSec : " + sessionTimeSec);
+        for(TheaterVO vo : list) {
+            out.println(vo.getTheater_no());
+            out.println(vo.getCinema_no());
         }
     }
 
