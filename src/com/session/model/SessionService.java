@@ -51,8 +51,8 @@ public class SessionService {
         return dao.findByTheaterNoBeforeSessionTime(theater_no, sessionTime);
     }
 
-    public List<SessionVO> getAllBySessionTimeMovieNo(String sessionTime, String movie_no) {
-        return dao.findBySessionTimeMovieNo(sessionTime, movie_no);
+    public List<SessionVO> getAllBySessionTimeMovieNoCinemaNo(String sessionTime, String movie_no, String cinema_no) {
+        return dao.getAllBySessionTimeMovieNoCinemaNo(sessionTime, movie_no, cinema_no);
     }
 
     public List<SessionVO> getAll() {

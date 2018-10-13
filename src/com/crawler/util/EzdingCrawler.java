@@ -236,8 +236,9 @@ public class EzdingCrawler implements Runnable {
         outputFile(outputMovie, sbMovie.toString());
 
         handleMovie(movieInfoList);
-        handleMovieSessionList(movieSessionList);
+        handleCinema(movieSessionList);
         handleTheater();
+        handleMovieSession(movieSessionList);
 
         threadSleep(3000);
         driver.close();
@@ -251,11 +252,6 @@ public class EzdingCrawler implements Runnable {
         mhdr.setServletContextRealPath(servletContextRealPath);
         List<String> list = mhdr.importDB(); //return list of movie_no
         mhdr.exportSer(list);
-    }
-
-    public void handleMovieSessionList(List<HashMap> movieSessionList) {
-        handleCinema(movieSessionList);
-        //handleTheater(movieSessionList);
     }
 
     public void handleCinema(List<HashMap> movieSessionList) {
@@ -273,6 +269,14 @@ public class EzdingCrawler implements Runnable {
         thdr.setServletContextRealPath(servletContextRealPath);
         List<String> list = thdr.importDB(); //return list of theater_no
         thdr.exportSer(list);
+    }
+
+    public void handleMovieSession(List<HashMap> movieSessionList) {
+        System.out.println("handleMovieSession");
+        SessionHandler shdr = new SessionHandler(movieSessionList);
+        shdr.setServletContextRealPath(servletContextRealPath);
+        List<String> list = shdr.importDB(); //return list of theater_no
+        shdr.exportSer(list);
     }
 
     public void backToMovieInfoIndex(WebDriver driver, WebDriverWait wait) {

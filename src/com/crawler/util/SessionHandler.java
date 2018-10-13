@@ -2,6 +2,7 @@ package com.crawler.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,14 +36,33 @@ public class SessionHandler {
         //System.out.println("importDB");
         List<String> list = new ArrayList<String>();
         for(int i = 0; i < movieSessionList.size(); i++) {
+            String movie_name = (String) movieSessionList.get(i).get("movieTitle");
+            System.out.println(this.getClass().getSimpleName() + " importDB movieTitle :" + movieSessionList.get(i).get("movieTitle"));
+            MovieService mSvc = new MovieService();
+            MovieVO movieVO = mSvc.getOneMovieByMovieName(movie_name);
+            String movie_no = movieVO.getMovie_no();
+
             String cinema_name = (String) movieSessionList.get(i).get("cinemaName");
-            //System.out.println("importDB cinemaName :" + movieSessionList.get(i).get("cinemaName"));
             CinemaService cSvc = new CinemaService();
             CinemaVO cinemaVO = cSvc.getOneCinemaByCinemaName(cinema_name);
-            if(cinemaVO == null) {
-                String cinema_no = addCinema(movieSessionList.get(i));
-                System.out.println("importDB cinema_no: " + cinema_no);
-                list.add(cinema_no);
+            String cinema_no =cinemaVO.getCinema_no();
+
+            String sessionDate = (String) movieSessionList.get(i).get("sessionDate");
+            sessionDate = sessionDate.replaceAll("/", "-");
+            int session_month = Integer.valueOf(sessionDate.split("-")[0]).intValue();
+            String time = (String) movieSessionList.get(i).get("time");
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            int month = Calendar.getInstance().get(Calendar.MONTH);
+            year = month > session_month ? year + 1 : year; // next year or not
+            String sessionTime = year + "-" + sessionDate + " " + time + ":00";
+            SessionService sessionSvc = new SessionService();
+            List<SessionVO> session_list = sessionSvc.getAllBySessionTimeMovieNoCinemaNo(sessionTime, movie_no, cinema_no);
+            if(session_list.size() > 0) {
+//                String cinema_name = (String) movieSessionList.get(i).get("cinemaName");
+//                CinemaService cSvc = new CinemaService();
+//                CinemaVO cinemaVO = cSvc.getOneCinemaByCinemaName(cinema_name);
+            } else {
+                //add
             }
         }
         return list;

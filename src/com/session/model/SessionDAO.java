@@ -38,8 +38,9 @@ public class SessionDAO implements SessionDAO_interface {
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION order by SESSION_NO";
     private static final String GET_ALL_OF_THEATER_STMT =
         "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where THEATER_NO = ? order by SESSION_NO";
-    private static final String GET_ALL_BY_SESSION_TIME_MOVIE_NO_STMT =
-        "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where session_time = to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS') AND MOVIE_NO = ? order by SESSION_NO";
+    private static final String GET_ALL_BY_SESSION_TIME_MOVIE_NO_CINEMA_NO_STMT =
+        "SELECT SESSION_NO,THEATER_NO,MOVIE_NO,SESSION_TIME,SEAT_TABLE FROM MOVIE_SESSION where session_time = to_timestamp(?, 'YYYY-MM-DD HH24:MI:SS') AND MOVIE_NO = ? "
+        + " AND THEATER_NO in (SELECT THEATER_NO FROM theater where CINEMA_NO = ?) order by SESSION_NO";
     private static final String GET_ALL_OF_JOIN_THEATER_MOVIE_WHERE_THEATERNO_CINEMA_STMT =
         "select MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,MOVIE_SESSION.MOVIE_NO,MOVIE_SESSION.SESSION_TIME,MOVIE_SESSION.SEAT_TABLE, THEATER.THEATER_NAME, MOVIE.MOVIE_NAME "
         + "from MOVIE_SESSION left join THEATER on MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO left join MOVIE on MOVIE_SESSION.MOVIE_NO = MOVIE.MOVIE_NO "
@@ -323,7 +324,7 @@ public class SessionDAO implements SessionDAO_interface {
     }
 
     @Override
-    public List<SessionVO> findBySessionTimeMovieNo(String sessionTime, String movie_no) {
+    public List<SessionVO> getAllBySessionTimeMovieNoCinemaNo(String sessionTime, String movie_no, String cinema_no) {
         List<SessionVO> list = new ArrayList<SessionVO>();
         SessionVO sessionVO = null;
 
@@ -334,9 +335,10 @@ public class SessionDAO implements SessionDAO_interface {
         try {
 
             con = ds.getConnection();
-            pstmt = con.prepareStatement(GET_ALL_BY_SESSION_TIME_MOVIE_NO_STMT);
+            pstmt = con.prepareStatement(GET_ALL_BY_SESSION_TIME_MOVIE_NO_CINEMA_NO_STMT);
             pstmt.setString(1, sessionTime);
             pstmt.setString(2, movie_no);
+            pstmt.setString(3, cinema_no);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
