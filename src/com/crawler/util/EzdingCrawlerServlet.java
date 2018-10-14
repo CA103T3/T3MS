@@ -45,12 +45,12 @@ public class EzdingCrawlerServlet extends HttpServlet {
         WebDriver driver = new FirefoxDriver();
         String realPath = getServletContext().getRealPath("/");
         
-        /*
+        
         driver.get(targetUrl);
         WebDriverWait wait = new WebDriverWait(driver, 5);
         EzdingCrawler.waitLoadingElement(wait, "div[class='post']");
-        */
-        /*
+        
+        
         WebElement ele = driver.findElement(By.tagName("body"));
         String html = ele.getAttribute("outerHTML");
         //System.out.println(html);
@@ -60,8 +60,8 @@ public class EzdingCrawlerServlet extends HttpServlet {
         //pages
         Elements numIndexes = doc.select("div[class*='circle numIndex']");
         int pages = numIndexes.size();
-        */
-        /*
+        
+        
         List<Thread> threads = new ArrayList<Thread>();
         for (int i = 0; i < pages; i++) {
             //Thread t = new Thread(new EzdingCrawler(i, false));
@@ -91,11 +91,11 @@ public class EzdingCrawlerServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        */
+        
         /*
         //Thread t = new Thread(new EzdingCrawler(1));
 //        Thread t = new Thread(new EzdingCrawler(0));
-        EzdingCrawler crawler = new EzdingCrawler(4, false);
+        EzdingCrawler crawler = new EzdingCrawler(0, false);
         crawler.setServletContextRealPath(realPath);
         Thread t = new Thread(crawler); //for showing movie
         t.start();
@@ -113,7 +113,7 @@ public class EzdingCrawlerServlet extends HttpServlet {
             app.run();
         }
         */
-        
+        /*
         //for comming movie
         driver.get(targetUrl);
         WebDriverWait wait = new WebDriverWait(driver, 5);
@@ -159,7 +159,7 @@ public class EzdingCrawlerServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        
+        */
         /*
         //Thread tForComing = new Thread(new EzdingCrawler(0, true)); //for coming movie
         EzdingCrawler crawlerForComing = new EzdingCrawler(0, true);

@@ -1209,8 +1209,16 @@ public class SessionDAO implements SessionDAO_interface {
             builder.append("?,");
         }
 
-        String stmt = "SELECT COUNT(*) CNT , THEATER_NO from MOVIE_SESSION where THEATER_NO in ( " 
-                       + builder.deleteCharAt( builder.length() -1 ).toString() + " ) group by THEATER_NO order by CNT asc ";
+//        String stmt = "SELECT COUNT(*) CNT , THEATER_NO from MOVIE_SESSION where THEATER_NO in ( "
+//                       + builder.deleteCharAt( builder.length() -1 ).toString() + " ) group by THEATER_NO order by CNT asc ";
+
+        //https://dba.stackexchange.com/questions/153586/why-does-count-aggregate-return-0-for-null
+        //https://dba.stackexchange.com/questions/174694/how-to-get-a-group-where-the-count-is-zero
+        String stmt = "SELECT count(MOVIE_SESSION.SESSION_NO) cnt , THEATER.THEATER_NO from MOVIE_SESSION right join THEATER "
+                + " on MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO where THEATER.THEATER_NO in ( "
+                + builder.deleteCharAt( builder.length() -1 ).toString() + " ) group by THEATER.THEATER_NO order by cnt asc ";
+
+        System.out.println("getAllCountInTheaterNoListGroupByTheaterNo : " + stmt);
 
         try {
 
