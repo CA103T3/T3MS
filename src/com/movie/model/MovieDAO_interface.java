@@ -10,7 +10,10 @@ public interface MovieDAO_interface
 	public void delete(String movie_no);
 	public MovieVO findByPrimaryKey(String movie_no);
 	public MovieVO findByMovieName(String movie_name);
+	public Set<MovieVO> getsrMovieName(String movie_name);
 	public List<MovieVO> getAll();
+	
+	
 
 	//現正熱映
 	public List<MovieVO> getNow();

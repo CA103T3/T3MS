@@ -25,13 +25,14 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+     <link rel="stylesheet" href="/T3MS/css/style_2.css">
     <style type="text/css">
 
     </style>
     
 </head>
 
-<body class="fs16">
+<body class="fs16" background="/T3MS/img/a1.jpg">
     <!-- header -->
     <nav class="navbar navbar-default navbar-fixed-top mb0 brs-none">
         <div class="container-fluid">
@@ -292,17 +293,22 @@
         </div>
         <!-- sidebar -->
 
-        <div class="flex-column" id="page-content-wrapper">
-            <div class="container-fluid mt20">
-				<div class="jumbotron">
-					<h1>Hello, world!</h1>
-					  <div class="row">
-						  <div class="col-xs-10 col-md-10 col-offset-2">
-						      <img src="<%=request.getContextPath() %>/img/Test_UP_IMG/MI002.jpg" alt="...">
-						  </div>
-					  </div>
-				</div>
-           </div>
+        <div class="flex-column" id="page-content-wrapper" style="margin-left:150px;">
+           <section id="slideshow">
+			<div class="entire-content">
+				<div class="content-carrousel">
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+		</div>
+	</div>
+</section>
        </div>
    </div>
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>

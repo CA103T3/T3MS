@@ -38,7 +38,7 @@
         
     </head>
     <body class="body-template">
-        <%@ include file="/forestage/template/header_no_bar.jsp" %>
+        <%@ include file="/forestage/template/header.jsp" %>
         
     <!-- Preloader -->
 	    <div class="preloader" id="preloader" >
@@ -80,6 +80,7 @@
                     </div>
                 </div>
                 
+ <%@ include file="/forestage/template/search_bar.jsp" %>
 <%@ include file="/resources/page_code/pagef.file"%>
 
  <!-- ---------------------------電影情報內容----------------------------------------- --> 

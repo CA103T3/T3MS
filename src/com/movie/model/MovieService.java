@@ -2,6 +2,7 @@ package com.movie.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 public class MovieService {
 	
@@ -74,6 +75,11 @@ public class MovieService {
 
 	public MovieVO getOneMovie(String movie_no) {
 		return dao.findByPrimaryKey(movie_no);
+		           
+	}
+	
+	public Set<MovieVO> getsrMovieName(String movie_name) {
+		return dao.getsrMovieName(movie_name);
 		           
 	}
 

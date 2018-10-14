@@ -17,6 +17,7 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 			+ "movie_pic=?,relased=?,distributed=?," + "length=?,language=?,madein=?,imdb=?,"
 			+ "tomato=?,rating=?,trailer_url=?,brief_intro=?," + "active=?,director=?,starring=? " + "where movie_no=?";
 	private static final String DELETE = "DELETE FROM movie where movie_no=?";
+	private static final String GET_SEARCH_MOVIE_NAME = "SELECT * FROM MOVIE WHERE MOVIE_NAME LIKE ?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MOVIE WHERE MOVIE_NO=?";
 	private static final String GET_ALL_STMT = "SELECT * FROM MOVIE ORDER BY MOVIE_NO DESC";
 	private static final String GET_ALL_NOW = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') <= to_char(sysdate,'yyyy-mm-dd') ";
@@ -478,6 +479,10 @@ public class MovieJDBCDAO implements MovieDAO_interface {
 	}
 	
 	
+	
+	
+	
+	
 
 	public static void main(String[] args) {
 
@@ -689,5 +694,13 @@ public class MovieJDBCDAO implements MovieDAO_interface {
         // TODO Auto-generated method stub
         return null;
     }
+
+	@Override
+	public Set<MovieVO> getsrMovieName(String movie_name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }

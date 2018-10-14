@@ -110,11 +110,16 @@ body {
 	position: absolute;
 	margin-top: 50px;
 }
+
+.breadcrumb-item{font-size:18px;}
+.pulse-button:hover{
+ background-color: #e7008c;
+}
 </style>
 
 </head>
 <body class="body-template">
-	<%@ include file="/forestage/template/header_no_bar.jsp"%>
+	<%@ include file="/forestage/template/header.jsp"%>
 
 
 
@@ -214,7 +219,13 @@ body {
 				</div>
 			</div>
 		</div>
+		
+
 	</div>
+	
+	
+	
+
 
 
 	<!-- movie Moment   -->
@@ -222,6 +233,15 @@ body {
 		<div class="container">
 
 
+<div class="container">		
+<div class="col-md-12">		
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
+  <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_Home.jsp">現正熱映</a></li>
+  <li class="breadcrumb-item active">電影時刻</li>
+</ol>
+</div>
+</div>
 
 			<div class="tab">
 				<button class="tablinks" onclick="openCity(event, 'Moment')"
