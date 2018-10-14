@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SerUtilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     PrintWriter out;
-    private String[] voList = {"MovieVO", "CinemaVO", "TheaterVO","MemberVO","FilmreviewVO","Movie_IntroduceVO"};
+    private String[] voList = {"MovieVO", "CinemaVO", "TheaterVO", "MemberVO", "FilmreviewVO", "Movie_IntroduceVO", "SessionVO"};
     private String packagePath = "com.common.ser.";
     private SerUtil su;
     /**
