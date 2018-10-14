@@ -34,10 +34,14 @@
 <%
 	TheaterService theaterSvc = new TheaterService();
 	List<TheaterVO> thVO = theaterSvc.getAll();
-	pageContext.setAttribute("thVO",thVO);
+	pageContext.setAttribute("thVO", thVO);
 %>
 
-<% SessionVO sessionVO = (SessionVO) request.getAttribute("sessionVO"); %>
+<%
+	SessionVO sessionVO = (SessionVO) request.getAttribute("sessionVO");
+%>
+
+<jsp:useBean id="now" scope="page" class="java.util.Date" />
 
 <!doctype html>
 <html>
@@ -53,8 +57,8 @@
 	href="<%=request.getContextPath()%>/css/m_Moment.css">
 <link href="<%=request.getContextPath()%>/css/introduceM.css"
 	rel="stylesheet" type="text/css">
-	 <link rel="stylesheet" href="/T3MS/css/btn_moment.css">
-	 <link rel="stylesheet" href="/T3MS/css/btn_light.css">
+<link rel="stylesheet" href="/T3MS/css/btn_moment.css">
+<link rel="stylesheet" href="/T3MS/css/btn_light.css">
 <%@ include file="/forestage/template/link.jsp"%>
 <title>M&amp;S</title>
 <style>
@@ -74,32 +78,38 @@ body {
 .btnx {
 	position: absolute;
 	top: 260px;
-	left:10px;
+	left: 10px;
 	z-index: 999;
 }
 
-#time{
-margin-top: 12%;
-width: 90px;
-padding: 5px;
+#time {
+	margin-top: 12%;
+	width: 90px;
+	padding: 5px;
 }
 
-
-#ctype{
-width:100px;
-height:55px;
-background-color:rgba(29, 26, 26, 0.829);
-box-shadow:10px 10px 10px #888;
-padding:10px;
-margin:10px;
-text-align: center;
-color: #fff;
-border-radius: 3px;
-font-weight: 300;
+#ctype {
+	width: 100px;
+	height: 55px;
+	background-color: rgba(29, 26, 26, 0.829);
+	box-shadow: 10px 10px 10px #888;
+	padding: 10px;
+	margin: 10px;
+	text-align: center;
+	color: #fff;
+	border-radius: 3px;
+	font-weight: 300;
 }
 
-.control-label{margin-top:20px;font-size:20px;}
-.btn-info{position: absolute;margin-top:50px;}
+.control-label {
+	margin-top: 20px;
+	font-size: 20px;
+}
+
+.btn-info {
+	position: absolute;
+	margin-top: 50px;
+}
 </style>
 
 </head>
@@ -111,7 +121,7 @@ font-weight: 300;
 	<div class="row">
 		<div class="col-md-12 btnx">
 			<button type="button" class="pulse-button" data-toggle="modal"
-				data-target="#hanhan" id="btnbtn" style="background:#337ab7;">播放</button>
+				data-target="#hanhan" id="btnbtn" style="background: #337ab7;">播放</button>
 		</div>
 	</div>
 
@@ -145,7 +155,7 @@ font-weight: 300;
 			</div>
 		</form>
 	</div>
-	
+
 
 	<!-- ==============================================新增跳出的燈箱============================================== -->
 
@@ -166,7 +176,7 @@ font-weight: 300;
 
 
 
-	<div class="section" style="padding-top:230px !important;">
+	<div class="section" style="padding-top: 230px !important;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
@@ -205,7 +215,7 @@ font-weight: 300;
 			</div>
 		</div>
 	</div>
-	
+
 
 	<!-- movie Moment   -->
 	<div class="section">
@@ -220,124 +230,213 @@ font-weight: 300;
 			</div>
 
 			<div id="Moment" class="tabcontent">
-						
-																		
-			<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->
-								<label class="control-label">選擇場次日期:</label>
-				<div class="container" style="margin-top:20px;">	
-				<div class="row">		
-			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form1">
-					<div class="col-md-1" >					
-							
-							
-								
-							<input type="hidden" name="action" value="selectA">
-							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
-							<span><input  type="submit" class="pulse-button" value="今天" style="margin-top:0px !important"></span>							
-			    	 </div>
-			</form>
-			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form2">
-					<div class="col-md-1" >					
-							
-							
-								
-							<input type="hidden" name="action" value="selectB">
-							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
-							<span><input  type="submit" class="pulse-button" value="明天" style="margin-top:0px !important"></span>							
-			    	 </div>
-			</form>
-			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form3">
-					<div class="col-md-1" >					
-							
-							
-								
-							<input type="hidden" name="action" value="selectC">
-							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
-							<span><input  type="submit" class="pulse-button" value="後天" style="margin-top:0px !important"></span>							
-			    	 </div>
-			</form>
-			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form4">
-					<div class="col-md-1" >					
-							
-							
-								
-							<input type="hidden" name="action" value="selectD">
-							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
-							<span><input  type="submit" class="pulse-button" value="第4天" style="margin-top:0px !important"></span>							
-			    	 </div>
-			</form>
-			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form5">
-					<div class="col-md-1" >					
-							
-							
-								
-							<input type="hidden" name="action" value="selectE">
-							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
-							<span><input  type="submit" class="pulse-button" value="第5天" style="margin-top:0px !important"></span>							
-			    	 </div>
-			</form>
-			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form6">
-					<div class="col-md-1" >					
-							
-							
-								
-							<input type="hidden" name="action" value="selectF">
-							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
-							<span><input  type="submit" class="pulse-button" value="第6天" style="margin-top:0px !important"></span>							
-			    	 </div>
-			</form>
-			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form7">
-					<div class="col-md-1" >					
-							
-							
-								
-							<input type="hidden" name="action" value="selectG">
-							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
-							<span><input  type="submit" class="pulse-button" value="第7天" style="margin-top:0px !important"></span>							
-			    	 </div>
-			</form>
-			
+
+
+				<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->
+
+
+				<!-- 取得系統日期 -->
+
+				<%
+					Calendar cal = Calendar.getInstance();
+					Calendar cal1 = Calendar.getInstance();
+					Calendar cal2 = Calendar.getInstance();
+					Calendar cal3 = Calendar.getInstance();
+					Calendar cal4 = Calendar.getInstance();
+					Calendar cal5 = Calendar.getInstance();
+
+					cal.setTime(cal.getTime());
+					cal1.setTime(cal.getTime());
+					cal2.setTime(cal.getTime());
+					cal3.setTime(cal.getTime());
+					cal4.setTime(cal.getTime());
+					cal5.setTime(cal.getTime());
+					// 			取得日期 一個禮拜
+					cal.add(Calendar.DATE, 1);
+					cal1.add(Calendar.DATE, 2);
+					cal2.add(Calendar.DATE, 3);
+					cal3.add(Calendar.DATE, 4);
+					cal4.add(Calendar.DATE, 5);
+					cal5.add(Calendar.DATE, 6);
+
+					SimpleDateFormat format = new SimpleDateFormat("MM-dd");
+
+					String tomorrowStr = format.format(cal.getTime());
+					String three = format.format(cal1.getTime());
+					String four = format.format(cal2.getTime());
+					String five = format.format(cal3.getTime());
+					String six = format.format(cal4.getTime());
+					String seven = format.format(cal5.getTime());
+				%>
+
+				<!-- 取得系統日期 -->
+
+
+
+
+				<label class="control-label">選擇場次日期:</label>
+				<div class="container" style="margin-top: 20px;">
+					<div class="row">
+						<form METHOD="post"
+							ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do"
+							name="form1">
+							<div class="col-md-1">
+
+
+
+								<input type="hidden" name="action" value="selectA"> <input
+									type="hidden" name="movie_no" value="${movieVO.movie_no}">
+								<span><input type="submit" class="pulse-button"
+									value="<fmt:formatDate value="${now}" pattern="MM/dd"/>"
+									style="margin-top: 0px !important"></span>
+							</div>
+						</form>
+						<form METHOD="post"
+							ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do"
+							name="form2">
+							<div class="col-md-1">
+
+
+
+								<input type="hidden" name="action" value="selectB"> <input
+									type="hidden" name="movie_no" value="${movieVO.movie_no}">
+								<span><input type="submit" class="pulse-button"
+									value="<%=tomorrowStr%>" style="margin-top: 0px !important"></span>
+							</div>
+						</form>
+						<form METHOD="post"
+							ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do"
+							name="form3">
+							<div class="col-md-1">
+
+
+
+								<input type="hidden" name="action" value="selectC"> <input
+									type="hidden" name="movie_no" value="${movieVO.movie_no}">
+								<span><input type="submit" class="pulse-button"
+									value="<%=three%>" style="margin-top: 0px !important"></span>
+							</div>
+						</form>
+						<form METHOD="post"
+							ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do"
+							name="form4">
+							<div class="col-md-1">
+
+
+
+								<input type="hidden" name="action" value="selectD"> <input
+									type="hidden" name="movie_no" value="${movieVO.movie_no}">
+								<span><input type="submit" class="pulse-button"
+									value="<%=four%>" style="margin-top: 0px !important"></span>
+							</div>
+						</form>
+						<form METHOD="post"
+							ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do"
+							name="form5">
+							<div class="col-md-1">
+
+
+
+								<input type="hidden" name="action" value="selectE"> <input
+									type="hidden" name="movie_no" value="${movieVO.movie_no}">
+								<span><input type="submit" class="pulse-button"
+									value="<%=five%>" style="margin-top: 0px !important"></span>
+							</div>
+						</form>
+						<form METHOD="post"
+							ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do"
+							name="form6">
+							<div class="col-md-1">
+
+
+
+								<input type="hidden" name="action" value="selectF"> <input
+									type="hidden" name="movie_no" value="${movieVO.movie_no}">
+								<span><input type="submit" class="pulse-button"
+									value="<%=six%>" style="margin-top: 0px !important"></span>
+							</div>
+						</form>
+						<form METHOD="post"
+							ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do"
+							name="form7">
+							<div class="col-md-1">
+
+
+
+								<input type="hidden" name="action" value="selectG"> <input
+									type="hidden" name="movie_no" value="${movieVO.movie_no}">
+								<span><input type="submit" class="pulse-button"
+									value="<%=seven%>" style="margin-top: 0px !important"></span>
+							</div>
+						</form>
+
+
+					</div>
+				</div>
+
+
+				<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->
+
+
+
+				<!-- ----------------當日影城+時刻表--------------------- -->
+				<!--   ------------------  影城FOREach   ------------------  -->
+
+
+				<%
+					if (request.getAttribute("selectA") != null) {
+				%>
+				<jsp:include page="td_Moment.jsp" />
+				<%
+					}
+				%>
+				<%
+					if (request.getAttribute("selectB") != null) {
+				%>
+				<jsp:include page="tom_Moment.jsp" />
+				<%
+					}
+				%>
+				<%
+					if (request.getAttribute("selectC") != null) {
+				%>
+				<jsp:include page="C_Moment.jsp" />
+				<%
+					}
+				%>
+				<%
+					if (request.getAttribute("selectD") != null) {
+				%>
+				<jsp:include page="D_Moment.jsp" />
+				<%
+					}
+				%>
+				<%
+					if (request.getAttribute("selectE") != null) {
+				%>
+				<jsp:include page="E_Moment.jsp" />
+				<%
+					}
+				%>
+				<%
+					if (request.getAttribute("selectF") != null) {
+				%>
+				<jsp:include page="F_Moment.jsp" />
+				<%
+					}
+				%>
+				<%
+					if (request.getAttribute("selectG") != null) {
+				%>
+				<jsp:include page="G_Moment.jsp" />
+				<%
+					}
+				%>
 
 			</div>
-				</div>				
-			
-		
-			<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->		
-			
-			
-					
-<!-- ----------------當日影城+時刻表--------------------- -->
-<!--   ------------------  影城FOREach   ------------------  -->
-				
-<%if (request.getAttribute("selectA")==null){%>
-       <jsp:include page="td_Moment.jsp" />
-<%} %>
-<%if (request.getAttribute("selectA")!=null){%>
-       <jsp:include page="td_Moment.jsp" />
-<%} %>
-<%if (request.getAttribute("selectB")!=null){%>
-       <jsp:include page="tom_Moment.jsp" />
-<%} %>
-<%if (request.getAttribute("selectC")!=null){%>
-       <jsp:include page="C_Moment.jsp" />
-<%} %>
-<%if (request.getAttribute("selectD")!=null){%>
-       <jsp:include page="D_Moment.jsp" />
-<%} %>
-<%if (request.getAttribute("selectE")!=null){%>
-       <jsp:include page="E_Moment.jsp" />
-<%} %>
-<%if (request.getAttribute("selectF")!=null){%>
-       <jsp:include page="F_Moment.jsp" />
-<%} %>
-<%if (request.getAttribute("selectG")!=null){%>
-       <jsp:include page="G_Moment.jsp" />
-<%} %>
+			<!-- ----------------當日影城+時刻表--------------------- -->
 
-	</div>
-<!-- ----------------當日影城+時刻表--------------------- -->
 
-			
 
 
 
@@ -365,33 +464,33 @@ font-weight: 300;
 
 	<!-- ----------------moment One ----------------->
 	<%@ include file="/forestage/template/footer.jsp"%>
-     
+
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
 	<script>
-        $(document).ready(function(){
-            $("li:contains('電影資訊')").addClass("custom-active");
-            
-                      
-        });
-        </script>
+		$(document).ready(function() {
+			$("li:contains('電影資訊')").addClass("custom-active");
+
+		});
+	</script>
 
 	<script>
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-      </script>
+		function openCity(evt, cityName) {
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(
+						" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+		// Get the element with id="defaultOpen" and click on it
+		document.getElementById("defaultOpen").click();
+	</script>
 
 
 </body>
