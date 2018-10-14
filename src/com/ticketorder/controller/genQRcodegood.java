@@ -4,7 +4,7 @@ public class genQRcodegood {
 
 	public String genQRCode(int Img_Width, int Img_Height, String Text_In, String File_Path) {
 		try {
-			byte[] TempByte = Text_In.getBytes("Utf-8");// 將要製圖的內容轉成 byte 矩陣
+			byte[] TempByte = Text_In.getBytes("UTF-8");// 將要製圖的內容轉成 byte 矩陣
 			java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(Img_Width, Img_Height,
 					java.awt.image.BufferedImage.TYPE_INT_RGB);// 設定圖檔寬度予高度
 
@@ -32,6 +32,7 @@ public class genQRcodegood {
 					}
 				}
 			} else {
+				System.out.println("內容長度太長");
 				return "內容長度太長";
 			}
 			g2D.dispose();
@@ -40,9 +41,8 @@ public class genQRcodegood {
 			java.io.File TempFile = new java.io.File(File_Path);
 			javax.imageio.ImageIO.write(bi, "jpg", TempFile);
 		} catch (Exception e) {
-			return "" + e;// .printStackTrace();
+			e.printStackTrace(System.err);
 		}
-		return "";
+		return "OK";
 	}
-
 }

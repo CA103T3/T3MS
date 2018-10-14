@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import com.session.model.SessionService;
 import com.ticketorder.model.Ticket_OrderService;
+import com.ticketorder.model.Ticket_OrderVO;
 
 public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 
@@ -31,10 +32,12 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 
 	private static final String INSERT_STMT = "INSERT INTO TICKET_DETAIL (TICKET_DETAIL_NO,ORDER_NO,SESSION_NO,TICKETTYPE_NO,SEAT,CREATED_AT,UPDATED_AT) VALUES('TDA'||LPAD(TO_CHAR(TICKET_DETAIL_SEQ.NEXTVAL),6,'0'),?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)";
 	private static final String DELETE_ONE_TICKETDETAIL_STMT = "DELETE FROM TICKET_DETAIL WHERE TICKET_DETAIL_NO=?";
-	private static final String DELETE_ONE_TICKETORDER_STMT = "DELETE FROM TICKET_ORDER WHERE ORDER_NO=?";
+	private static final String DELETE_ONE_TICKETORDER_STMT = "DELETE FROM TICKET_ORDER WHERE UUID=?";
 	private static final String GET_ONE_TICKETDETAIL_STMT = "SELECT * FROM TICKET_DETAIL WHERE TICKET_DETAIL_NO=?";
-	private static final String GET_ONE_TICKETORDER_STMT = "SELECT * FROM TICKET_DETAIL WHERE ORDER_NO=?";
+	private static final String GET_ONE_TICKETORDER_STMT = "SELECT * FROM TICKET_ORDER WHERE UUID=?";
+	private static final String GET_ONE_TICKETDETAIL_BY_ORDERNO_STMT = "SELECT * FROM TICKET_DETAIL WHERE ORDER_NO=?";
 	private static final String GET_TICKETDETAIL_SESSION_STMT = "SELECT * FROM TICKET_DETAIL WHERE SESSION_NO=?";
+	private static final String DELETE_ONE_DETAIL_UPDATE_SEAT_STMT = "DELETE TICKET_DETAIL WHERE EXISTS(SELECT 1 FROM TICKET_ORDER WHERE TICKET_DETAIL.ORDER_NO=TICKET_ORDER.ORDER_NO AND UUID=? AND SEAT=?)";
 
 	@Override
 	public String insert(Ticket_DetailVO ticket_DetailVO) {
@@ -133,13 +136,13 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 		return delCount;
 	}
 
-	// 查一筆訂單
+	// 若要刪除明細時只剩一筆，就連同訂單一起刪除
 	@Override
-	public void deleteOneTicketOrder(String order_no, Connection conn) {
+	public void deleteOneTicketOrder(String uuid, Connection conn) {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(DELETE_ONE_TICKETORDER_STMT);
-			pstmt.setString(1, order_no);
+			pstmt.setString(1, uuid);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			try {
@@ -183,7 +186,6 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 				ticket_DetailVO.setSeat(rs.getString("SEAT"));
 				ticket_DetailVO.setCreated_at(rs.getTimestamp("CREATED_AT"));
 				ticket_DetailVO.setUpdated_at(rs.getTimestamp("UPDATED_AT"));
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(System.err);
@@ -215,9 +217,65 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 		return ticket_DetailVO;
 	}
 
-	// 查一筆訂單(可能多張票)
 	@Override
-	public List<Ticket_DetailVO> findOneTicketOrder(String order_no) {
+	public Ticket_DetailVO find_TicketDetail_By_OrderNo(String order_no) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Ticket_DetailVO ticket_DetailVO = null;
+
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(GET_ONE_TICKETDETAIL_BY_ORDERNO_STMT);
+
+			pstmt.setString(1, order_no);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				ticket_DetailVO = new Ticket_DetailVO();
+				ticket_DetailVO.setTicket_detail_no(rs.getString("TICKET_DETAIL_NO"));
+				ticket_DetailVO.setOrder_no(rs.getString("ORDER_NO"));
+				ticket_DetailVO.setSession_no(rs.getString("SESSION_NO"));
+				ticket_DetailVO.setTicketType_no(rs.getString("TICKETTYPE_NO"));
+				ticket_DetailVO.setSeat(rs.getString("SEAT"));
+				ticket_DetailVO.setCreated_at(rs.getTimestamp("CREATED_AT"));
+				ticket_DetailVO.setUpdated_at(rs.getTimestamp("UPDATED_AT"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(System.err);
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return ticket_DetailVO;
+	}
+
+	// 查一筆訂單(可能剩一筆明細，若明細刪除必須連訂單一起刪除)
+	@Override
+	public List<Ticket_DetailVO> find_ticketDetail_list(String order_no) {
 		List<Ticket_DetailVO> list = new ArrayList<>();
 		Ticket_DetailVO ticket_DetailVO = null;
 		Connection conn = null;
@@ -229,7 +287,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			pstmt = conn.prepareStatement(GET_ONE_TICKETORDER_STMT);
 			pstmt.setString(1, order_no);
 			rs = pstmt.executeQuery();
-
+			System.out.println("findOneTicketOrder============");
 			while (rs.next()) {
 				ticket_DetailVO = new Ticket_DetailVO();
 				ticket_DetailVO.setTicket_detail_no(rs.getString("TICKET_DETAIL_NO"));
@@ -241,6 +299,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 				ticket_DetailVO.setUpdated_at(rs.getTimestamp("UPDATED_AT"));
 				list.add(ticket_DetailVO);
 			}
+			System.out.println("findOneTicketOrder===========<KKL=OOO");
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occurred. " + e.getMessage());
 		} finally {
@@ -283,7 +342,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			pstmt.setString(2, ticket_DetailVO.getSession_no());
 			pstmt.setString(3, ticket_DetailVO.getTicketType_no());
 			pstmt.setString(4, ticket_DetailVO.getSeat());
-		
+
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			if (conn != null) {
@@ -388,7 +447,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 
 			// Check order have ticket, if none execute delete
 			Ticket_DetailService ticket_DetailSvc = new Ticket_DetailService();
-			List<Ticket_DetailVO> ticketList = ticket_DetailSvc.findOneTicketOrder(order_no);
+			List<Ticket_DetailVO> ticketList = ticket_DetailSvc.find_ticketDetail_list(order_no);
 
 			if (ticketList.size() == 1) {
 				ticket_DetailSvc.deleteOneTicketOrder(order_no, conn);
@@ -397,7 +456,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			conn.commit();
 			conn.setAutoCommit(true);
 
-			System.out.println("Return a ticket OK");
+			System.out.println("Update a ticket_order OK");
 		} catch (SQLException e) {
 			e.printStackTrace(System.err);
 			if (conn != null) {
@@ -408,7 +467,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 					throw new RuntimeException("rollback error! " + e1.getMessage());
 				}
 			}
-			throw new RuntimeException("transaction add ticket failed" + e.getMessage());
+			throw new RuntimeException("transaction update ticket failed" + e.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -427,6 +486,77 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 				}
 			}
 		}
+	}
+
+	// 先刪除訂單中的一筆座位，再修改訂單總金額，再修改該場次座位，再檢查訂單是否還有明細，若無則刪除訂單
+	@Override
+	public void delete_one_detail_update_seat(String uuid, String seat, Integer amount, String session_no,
+			String seat_table) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(DELETE_ONE_DETAIL_UPDATE_SEAT_STMT);
+			pstmt.setString(1, uuid);
+			pstmt.setString(2, seat);
+
+			pstmt.executeUpdate();
+
+			Ticket_OrderService ticket_OrderSvc = new Ticket_OrderService();
+			ticket_OrderSvc.updateAmount(uuid, amount, conn);
+			new SessionService().updateSessionSeat(seat_table, session_no, conn);
+			Ticket_OrderVO orderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
+			String order_no = orderVO.getOrder_no();
+			
+			Ticket_DetailService tDetailSvc = new Ticket_DetailService();
+			// 這邊有問題 應該要SELECT * FROM TICKET_DETAIL WHERE ORDER_NO = 'TOR000037';
+			// 找出一堆明細VO才能判斷！！！！
+			List<Ticket_DetailVO> lDetailVOs = tDetailSvc.find_ticketDetail_list(order_no);
+			System.out.println("==========12312312===================1231231");
+			if (lDetailVOs.isEmpty() || lDetailVOs == null) {
+				tDetailSvc.deleteOneTicketOrder(uuid, conn);
+			}
+			System.out.println("===========Ticket_Detail_controller==================");
+			conn.commit();
+			conn.setAutoCommit(true);
+			System.out.println("Update a ticket_order OK");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+					System.err.println("transaction failed ... so rollback!");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace(System.err);
+					throw new RuntimeException("rollback error! " + e1.getMessage());
+				}
+				throw new RuntimeException("transaction update ticket failed" + e.getMessage());
+			}
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
 	}
 
 }

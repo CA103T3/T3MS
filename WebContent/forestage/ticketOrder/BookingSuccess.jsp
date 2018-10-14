@@ -19,7 +19,7 @@
     <body class="body-template">
             
 	    <%
-		  	//取得已購買的座位
+		  	//取得要改變狀態(已購買)的座位
 			String bookingSeats = request.getParameter("bookingSeats").trim();
 	    	String[] bookiStringSeats = bookingSeats.split("@");
 	    	int bookingLeng = bookiStringSeats.length;
@@ -28,7 +28,7 @@ System.out.println(bookingSeats);
 	    	String session_no = request.getParameter("session_no").trim(); //場次編號
 	    	SessionService sessionSvc = new SessionService();
 	    	SessionVO sessionVO = sessionSvc.getOneSession(session_no);
-	    	//＠取該場次座位，並修改狀態
+	    	//取該場次座位，並修改狀態
 	    	String seats_table = sessionVO.getSeat_table();  //目前場次座位資訊
 	    	JSONObject jsonObject = new JSONObject(seats_table);
 	    	JSONArray jsonArray = null;
@@ -40,7 +40,7 @@ System.out.println(keyStr);
 				String containStr = null;
 				for(int j=0; j<bookingLeng; j++){
 					containStr = bookiStringSeats[j];
-					if(keyStr.contains(containStr)){
+					if(keyStr.equals(containStr)){
 						jsonArray = jsonObject.getJSONArray(keyStr);
 System.out.println("==befor=="+jsonArray);
 						jsonArray.put(1, "1");
@@ -69,8 +69,6 @@ System.out.println("==after=="+jsonArray);
 				String TempResult = genQRCode(140, 140, uuid, TempFilePath + TempFileName);
 			%>
 			
-			
-				
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="panel panel-default">
@@ -94,19 +92,19 @@ System.out.println("==after=="+jsonArray);
 				</div>
 				
 				<input type="hidden" name="action" value="search_ticketDetail_seats"/>
-				<input type="hidden" name="uuid" value="<%=uuid%>"/>
+				<input type="hidden" name="uuid" value="<%=uuid %>"/>
+				<input type="hidden" name="session_no" value="<%=session_no %>" />
+				<input type="hidden" name="price" value="<%=request.getParameter("price") %>" />
+				<input type="hidden" name="amount" value="<%=request.getParameter("amount") %>" />
 				</form>
-				
-        
 		<!-- ==========================End============================= -->        
         </div>
-
         <%@ include file="/forestage/template/footer.jsp" %>
+        
         <script src="<%=request.getContextPath()%>/js/template.js"></script>
         <script>
         $(document).ready(function(){
             $("li:contains('合作影城')").addClass("custom-active");
-   			
         });
         </script>
     </body>

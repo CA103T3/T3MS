@@ -42,6 +42,10 @@ public class Ticket_OrderService {
 	public Ticket_OrderVO findByPrimaryKey(String order_no) {
 		return dao.findByPrimaryKey(order_no);
 	}
+	
+	public Ticket_OrderVO find_oneOrder_by_uuid(String uuid) {
+		return dao.find_oneOrder_by_uuid(uuid);
+	}
 
 	public List<Ticket_OrderVO> findAllOrdersByMember(String mem_no) {
 		return dao.findAllOrdersByMember(mem_no);

@@ -16,7 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.google.gson.JsonObject;
 import com.movie.model.MovieService;
+import com.session.model.SessionService;
 import com.session.model.SessionVO;
 import com.sun.javafx.collections.MappingChange.Map;
 import com.ticketdetail.model.Ticket_DetailService;
@@ -62,16 +67,14 @@ public class Ticket_OrderServlet extends HttpServlet {
 			String mem_email = request.getParameter("mem_email").trim(); // 會員信箱
 			String mem_FullName = request.getParameter("mem_FullName").trim(); // 會員姓名
 			System.out.println("name " + mem_FullName);
-			String bookingSeats = request.getParameter("seatTD").trim(); 
-			String TempFileName = request.getParameter("TempFileName").trim(); //QRcode 檔案名稱
-			String TempFilePath = request.getParameter("TempFilePath").trim(); //QRcode 儲存路徑
+			String bookingSeats = request.getParameter("seatTD").trim(); // 已訂購的座位
+			String TempFileName = request.getParameter("TempFileName").trim(); // QRcode 檔案名稱
+			String TempFilePath = request.getParameter("TempFilePath").trim(); // QRcode 儲存路徑
 			System.out.println("=TempFileName=" + TempFileName);
 			System.out.println("=TempFilePath=" + TempFilePath);
-			
-		
-			
+
 			System.out.println();
-			
+
 			System.out.println(bookingSeats);
 			String[] bookingSeatArr = bookingSeats.split("@");
 
@@ -122,6 +125,7 @@ public class Ticket_OrderServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					request.getRequestDispatcher("/forestage/ticketOrder/BookingSeat.jsp").forward(request, response);
+					return;
 				}
 				String amount = request.getParameter("amount").trim();
 
@@ -139,9 +143,9 @@ public class Ticket_OrderServlet extends HttpServlet {
 				orderVO.setAuth_key(auth_key);
 
 				String order_no = ticketSvc.insert_con(orderVO, seat_ticketType, session_no);
-				System.out.println(order_no);
-				System.out.println(session_no);
-				System.out.println(tickettype_no);
+				System.out.println("order_no=" + order_no);
+				System.out.println("session_no=" + session_no);
+				System.out.println("tickettype_no=" + tickettype_no);
 
 				// 新增完後一筆訂單取出訂單編號，再取出uuid產生QRcode
 				Ticket_OrderVO orderVO2 = ticketSvc.findByPrimaryKey(order_no);
@@ -150,20 +154,16 @@ public class Ticket_OrderServlet extends HttpServlet {
 						+ bookingSeats + "&session_no=" + session_no;
 				String imgpath = TempFilePath + TempFileName;
 				genQRcodegood genQRcod = new genQRcodegood();
-				
 				String send = genQRcod.genQRCode(140, 140, uuidOK, imgpath);
-				
-				if (send=="") {
+
+				if (send == "OK") {
 					System.out.println("QRcode存檔成功");
-				}else {
+				} else {
 					System.out.println("QRcode存檔失敗");
 				}
-				
-//				String imgpath = request.getContextPath() + "/img/QRcode/" + TempFileName;
-				
+
 				System.out.println("imgpath=" + imgpath);
-				mailService.sendMail(mem_email, "M&S購票通知", imgpath, mem_FullName);
-//				mailService.setmail("1", mem_FullName, mem_email);
+				mailService.sendMail(mem_email, "M&S電影平台 購票通知", imgpath, mem_FullName);
 				request.getRequestDispatcher(successView).forward(request, response);
 
 			} catch (Exception e) {
@@ -191,11 +191,44 @@ public class Ticket_OrderServlet extends HttpServlet {
 		if ("del_ticket_open_seat".equals(action)) {
 			System.out.println("=========Delete_Start===========");
 			String uuid = request.getParameter("uuid").trim();
-			String delSeats = request.getParameter("delSeats").trim();
-			String Aseat = request.getParameter("Aseat").trim();
-			System.out.println("========" + Aseat);
-			String[] seatArr = delSeats.split("@");
+			System.out.println("UUID=" + uuid);
+			String a_seat = request.getParameter("a_seat").trim(); // 要退票的座位
+			Integer price = Integer.valueOf(request.getParameter("price"));
+			Integer amount = Integer.valueOf(request.getParameter("amount"));
+			Integer update_amount = amount - price; // 總價-單價
 
+			Ticket_OrderService ticket_OrderSvc = new Ticket_OrderService();
+			Ticket_OrderVO ticket_OrderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
+			String order_no = ticket_OrderVO.getOrder_no(); // 訂單編號
+			System.out.println("order_no=" + order_no);
+
+			Ticket_DetailService tDetailSvc = new Ticket_DetailService();
+			Ticket_DetailVO ticket_DetailVO = tDetailSvc.find_TicketDetail_By_OrderNo(order_no);
+			String session_no = ticket_DetailVO.getSession_no(); // 取得該場次編號
+			System.out.println("session_no=" + session_no);
+
+			SessionService sessionSvc = new SessionService();
+			SessionVO sessionVO = sessionSvc.getOneSession(session_no);
+			String seat_table = sessionVO.getSeat_table(); // 取得該場次座位資訊
+			System.out.println("==before==seat_table=" + seat_table);
+
+			// 更改座位資訊，轉成JSONobject，取出key，因value是JSONarray所以再另外宣告來接值
+			JSONObject jsonObject = new JSONObject(seat_table);
+			JSONArray jsonArray = null;
+			Iterator<String> iterator = jsonObject.keys();
+			while (iterator.hasNext()) {
+				String key = iterator.next();
+				if (key.equals(a_seat)) {
+					jsonArray = jsonObject.getJSONArray(key);
+					System.out.println("===before===" + jsonArray);
+					jsonArray.put(1, "2");
+					System.out.println("===after===" + jsonArray);
+				}
+			}
+			seat_table = jsonObject.toString();
+			System.out.println("==after==seat_table" + seat_table);
+			// 刪除訂單中的一筆座位，再修改訂單總金額，再修改該場次座位，再檢查訂單是否還有明細，若無則刪除訂單
+			tDetailSvc.delete_one_detail_update_seat(uuid, a_seat, update_amount, session_no, seat_table);
 		}
 	}
 }

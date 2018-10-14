@@ -19,13 +19,13 @@
 
 <%
 	//會員編號
-// 	String mem_no="M007";
-	MemVO memVO = (MemVO) session.getAttribute("memVO");	
-	String mem_no = memVO.getmemno();
+	String mem_no="M007";
+// 	MemVO memVO = (MemVO) session.getAttribute("memVO");	
+// 	String mem_no = memVO.getmemno();
 	
 	//場次編號
-// 	String session_no = "SES0000001";
-	String session_no = request.getParameter("session_no").trim();
+	String session_no = "SES0000004";
+// 	String session_no = request.getParameter("session_no").trim();
 
 	//票種編號
 	String type_no = "TT00001";
@@ -86,10 +86,10 @@
         <%@ include file="/forestage/template/header.jsp" %>
         
         <br><br><br>
-    <div class="container" style="color: #ffffff;font-size: 20px;">
+<!--     <div class="container" style="color: #ffffff;font-size: 20px;"> -->
  	   <form method="post" action="BookingBuySeat.jsp" name="form1">
 	       <div class="row">
-	       		<div class="col-sm-6 col-md-6">
+	       		<div class="col-sm-8 col-md-8">
 	       		<table class="wwFormTable" style="width:60%;">
 					<tr>
 						<td ><b>螢幕</b></td>
@@ -123,9 +123,9 @@
 				</tr>
 					</c:forEach>		
 			</table>
-       			
+<!--        			 col-sm-offset-2 col-md-offset-2 -->
        	</div>
-       		<div class="col-sm-4 col-md-4 col-sm-offset-1 col-md-offset-1">
+       		<div class="col-sm-3 col-md-3">
 				<table class="wwFormTable" style="width:100%; font-size:25px;">
 					<tr>
 						<td><b>影廳：<%=theater_name%></b></td>
@@ -148,7 +148,7 @@
 				
 				<table class="wwFormTable">
 					<tr>
-						<td><img style="width:250px; height:320px" id="movie_pic" src="<%=request.getContextPath() %>/DBGifReader?movie_no=<%=movie_no%>"></td>
+						<td><img style="width:350px; height:450px" id="movie_pic" src="<%=request.getContextPath() %>/DBGifReader?movie_no=<%=movie_no%>"></td>
 					</tr>
 				</table>
        		</div>
@@ -167,7 +167,7 @@
 <!-- 		<input class="myButton" type="button" value="下一步" onClick="checkup()"> -->
 	</form>
 
-  </div>
+<!--   </div> -->
   
   
   

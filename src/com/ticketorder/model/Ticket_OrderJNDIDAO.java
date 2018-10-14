@@ -45,7 +45,8 @@ public class Ticket_OrderJNDIDAO implements Ticket_OrderDAO_Interface {
 	private static final String DELETE_STMT = "DELETE FROM TICKET_ORDER WHERE ORDER_NO=?";
 	private static final String GET_ALL_OF_A_MEMNO_STMT = "SELECT * FROM TICKET_ORDER WHERE MEM_NO=? ORDER BY CREATED_AT DESC";
 	private static final String GET_ONE_STMT = "SELECT * FROM TICKET_ORDER WHERE ORDER_NO=?";
-	private static final String UPDATEAMOUNT = "UPDATE TICKET_ORDER SET AMOUNT=? WHERE ORDER_NO=?";
+	private static final String UPDATEAMOUNT = "UPDATE TICKET_ORDER SET AMOUNT=? WHERE UUID=?";
+	private static final String GET_ONE_ORDER_BY_UUID = "SELECT * FROM TICKET_ORDER WHERE UUID=?";
 	private static final String GET_DETAIL_STMT = "SELECT TICKET_ORDER.UUID, TICKET_DETAIL.ORDER_NO,TICKET_DETAIL.SEAT FROM TICKET_ORDER "
 			+ "INNER JOIN TICKET_DETAIL ON TICKET_ORDER.ORDER_NO=TICKET_DETAIL.ORDER_NO WHERE UUID=?";
 
@@ -395,13 +396,13 @@ public class Ticket_OrderJNDIDAO implements Ticket_OrderDAO_Interface {
 	}
 
 	@Override
-	public void updateAmount(String order_no, Integer amount, Connection conn) {
+	public void updateAmount(String uuid, Integer amount, Connection conn) {
 		PreparedStatement pstmt = null;
 
 		try {
 			pstmt = conn.prepareStatement(UPDATEAMOUNT);
 			pstmt.setInt(1, amount);
-			pstmt.setString(2, order_no);
+			pstmt.setString(2, uuid);
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -475,4 +476,64 @@ public class Ticket_OrderJNDIDAO implements Ticket_OrderDAO_Interface {
 		return seats;
 	}
 
+	@Override
+	public Ticket_OrderVO find_oneOrder_by_uuid(String uuid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Ticket_OrderVO ticketVO = null;
+
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(GET_ONE_ORDER_BY_UUID);
+			pstmt.setString(1, uuid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				ticketVO = new Ticket_OrderVO();
+				ticketVO.setOrder_no(rs.getString("ORDER_NO"));
+				ticketVO.setMem_no(rs.getString("MEM_NO"));
+				ticketVO.setMeal_no(rs.getString("MEAL_NO"));
+				ticketVO.setUuid(rs.getString("UUID"));
+				ticketVO.setAmount(rs.getString("AMOUNT"));
+				ticketVO.setOrder_state(rs.getInt("ORDER_STATE"));
+				ticketVO.setPayment_state(rs.getInt("PAYMENT_STATE"));
+				ticketVO.setCreated_at(rs.getTimestamp("CREATED_AT"));
+				ticketVO.setUpdated_at(rs.getTimestamp("UPDATED_AT"));
+				ticketVO.setExchange_state(rs.getInt("EXCHANGE_STATE"));
+				ticketVO.setCredit_card(rs.getString("CREDIT_CARD"));
+				ticketVO.setDeadline(rs.getString("DEADLINE"));
+				ticketVO.setAuth_key(rs.getString("AUTH_KEY"));
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(System.err);
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return ticketVO;
+	}
 }
