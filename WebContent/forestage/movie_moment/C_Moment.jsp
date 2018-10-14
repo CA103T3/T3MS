@@ -22,7 +22,7 @@
 
 <%
 	SessionService sessionSvc = new SessionService();
-	List<SessionVO> list = sessionSvc.getTmrMoment();
+	List<SessionVO> list = sessionSvc.getCMoment();
 	pageContext.setAttribute("list", list);
 %>
 <%
@@ -57,7 +57,7 @@
 <!-- ----------------當日影城+時刻表--------------------- -->
 				
 <!--   ------------------  影城FOREach   ------------------  -->				
-				<c:forEach var="cvo" items="${cvo}">
+				<c:forEach var="cvo" items="${cvo}" >
 				
 
 					<div class="panel panel-primary" style="margin-top:30px!important;">

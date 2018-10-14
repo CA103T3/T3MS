@@ -53,7 +53,8 @@
 	href="<%=request.getContextPath()%>/css/m_Moment.css">
 <link href="<%=request.getContextPath()%>/css/introduceM.css"
 	rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css" />
+	 <link rel="stylesheet" href="/T3MS/css/btn_moment.css">
+	 <link rel="stylesheet" href="/T3MS/css/btn_light.css">
 <%@ include file="/forestage/template/link.jsp"%>
 <title>M&amp;S</title>
 <style>
@@ -72,7 +73,8 @@ body {
 
 .btnx {
 	position: absolute;
-	top: 230px;
+	top: 260px;
+	left:10px;
 	z-index: 999;
 }
 
@@ -95,13 +97,6 @@ color: #fff;
 border-radius: 3px;
 font-weight: 300;
 }
-.xdsoft_datetimepicker .xdsoft_datepicker {
-	width: 300px; /* width:  300px; */
-}
-
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-	height: 151px; /* height:  151px; */
-}
 
 .control-label{margin-top:20px;font-size:20px;}
 .btn-info{position: absolute;margin-top:50px;}
@@ -114,9 +109,9 @@ font-weight: 300;
 
 
 	<div class="row">
-		<div class="col-md-12 text-center btnx">
-			<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-				data-target="#hanhan" id="btnbtn">播放</button>
+		<div class="col-md-12 btnx">
+			<button type="button" class="pulse-button" data-toggle="modal"
+				data-target="#hanhan" id="btnbtn" style="background:#337ab7;">播放</button>
 		</div>
 	</div>
 
@@ -171,7 +166,7 @@ font-weight: 300;
 
 
 
-	<div class="section">
+	<div class="section" style="padding-top:230px !important;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
@@ -228,104 +223,123 @@ font-weight: 300;
 						
 																		
 			<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->
-			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form1">
-				<div class="container">			
-					<div class="col-md-2">	
-					
-					
-					   <%
-                            //https://yq.aliyun.com/articles/70182
-                            if(sessionVO != null) {
-                                if(sessionVO.getSession_time() != null) {
-                                    Timestamp tt = sessionVO.getSession_time();
-                                    Date date = new Date(tt.getTime());
-                                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                    String session_time = dateFormat.format(date);
-                                    pageContext.setAttribute("session_time", session_time);
-                                }
-                            }
-                        %>
-					
-					
-							<div class="form-group hidden-md hidden-sm has-feedback">
 								<label class="control-label">選擇場次日期:</label>
-								<input class="form-control" type="text" name="s_time" id="s_time" value="${sessionVO.session_time}">
-							</div>		
-			    	  </div>
-							<input type="hidden" name="action" value="selectD">
-							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">
+				<div class="container" style="margin-top:20px;">	
+				<div class="row">		
+			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form1">
+					<div class="col-md-1" >					
 							
-							<span><input  type="submit" class="btn btn-info" value="送出"></span>	
-				</div>
-				
+							
+								
+							<input type="hidden" name="action" value="selectA">
+							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
+							<span><input  type="submit" class="pulse-button" value="今天" style="margin-top:0px !important"></span>							
+			    	 </div>
 			</form>
+			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form2">
+					<div class="col-md-1" >					
+							
+							
+								
+							<input type="hidden" name="action" value="selectB">
+							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
+							<span><input  type="submit" class="pulse-button" value="明天" style="margin-top:0px !important"></span>							
+			    	 </div>
+			</form>
+			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form3">
+					<div class="col-md-1" >					
+							
+							
+								
+							<input type="hidden" name="action" value="selectC">
+							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
+							<span><input  type="submit" class="pulse-button" value="後天" style="margin-top:0px !important"></span>							
+			    	 </div>
+			</form>
+			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form4">
+					<div class="col-md-1" >					
+							
+							
+								
+							<input type="hidden" name="action" value="selectD">
+							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
+							<span><input  type="submit" class="pulse-button" value="第4天" style="margin-top:0px !important"></span>							
+			    	 </div>
+			</form>
+			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form5">
+					<div class="col-md-1" >					
+							
+							
+								
+							<input type="hidden" name="action" value="selectE">
+							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
+							<span><input  type="submit" class="pulse-button" value="第5天" style="margin-top:0px !important"></span>							
+			    	 </div>
+			</form>
+			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form6">
+					<div class="col-md-1" >					
+							
+							
+								
+							<input type="hidden" name="action" value="selectF">
+							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
+							<span><input  type="submit" class="pulse-button" value="第6天" style="margin-top:0px !important"></span>							
+			    	 </div>
+			</form>
+			<form METHOD="post" ACTION="<%=request.getContextPath()%>/forestage/movie_moment/moment.do" name="form7">
+					<div class="col-md-1" >					
+							
+							
+								
+							<input type="hidden" name="action" value="selectG">
+							<input type="hidden" name="movie_no" value="${movieVO.movie_no}">						
+							<span><input  type="submit" class="pulse-button" value="第7天" style="margin-top:0px !important"></span>							
+			    	 </div>
+			</form>
+			
+
+			</div>
+				</div>				
+			
+		
 			<!-- ---------------------------------------------------電影日期------------------------------------------------------------- -->		
 			
 			
 					
 <!-- ----------------當日影城+時刻表--------------------- -->
-<!--   ------------------  影城FOREach   ------------------  -->				
-				<c:forEach var="cvo" items="${cvo}">
-<%-- 				<c:if test="${sessionVO.session_time!=null}"> --%>
+<!--   ------------------  影城FOREach   ------------------  -->
 				
-
-					<div class="panel panel-primary">
-
-						<div class="panel-heading">
-							<h3 class="panel-title">${cvo.cinema_name}</h3>
-
-
-						</div>
-
-
-						<div class="panel-body">
-							<div class="row">
-
-
-									<c:forEach var="sessionVO" items="${list}">
-											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
-<!--   ------------------  時刻FOREach   ------------------  -->	
-	
-								<div class="col-md-3">
-
-									<div class="row">
-								
-										<div class="col-md-6"> 
-											<div id="ctype">
-												<h4>${sessionVO.theaterVO.equipment}</h4>
-											</div>	
-										</div>	
-																													
-										<div class="col-md-1 text-center">
-											<div class="sisson">
-												<div id="time" style=" padding-top: 29px;">
-												<a href="<%=request.getContextPath()%>/forestage/ticketOrder/BookingSeat.jsp?session_no=${sessionVO.session_no}" class="card-img-a2">
-													<fmt:formatDate value="${sessionVO.session_time}"
-														pattern="MM/dd HH:mm" /></a>
-														
-												</div>
-											</div>
-										</div>
-
-									</div>
-
-								</div>
-											</c:if>
-										</c:forEach>
-
-							</div>
-						</div>
-
-					</div>
-
-<%-- </c:if> --%>
-				</c:forEach>
-				<!-- ----------------當日影城+時刻表--------------------- -->
-			</div>
-
-<%if (request.getAttribute("selectD")!=null){%>
+<%if (request.getAttribute("selectA")==null){%>
+       <jsp:include page="td_Moment.jsp" />
+<%} %>
+<%if (request.getAttribute("selectA")!=null){%>
+       <jsp:include page="td_Moment.jsp" />
+<%} %>
+<%if (request.getAttribute("selectB")!=null){%>
        <jsp:include page="tom_Moment.jsp" />
 <%} %>
+<%if (request.getAttribute("selectC")!=null){%>
+       <jsp:include page="C_Moment.jsp" />
+<%} %>
+<%if (request.getAttribute("selectD")!=null){%>
+       <jsp:include page="D_Moment.jsp" />
+<%} %>
+<%if (request.getAttribute("selectE")!=null){%>
+       <jsp:include page="E_Moment.jsp" />
+<%} %>
+<%if (request.getAttribute("selectF")!=null){%>
+       <jsp:include page="F_Moment.jsp" />
+<%} %>
+<%if (request.getAttribute("selectG")!=null){%>
+       <jsp:include page="G_Moment.jsp" />
+<%} %>
+
+	</div>
+<!-- ----------------當日影城+時刻表--------------------- -->
+
+			
+
+
 
 			<!-- movie_Introd   -->
 			<div id="Introd" class="tabcontent">
@@ -349,9 +363,6 @@ font-weight: 300;
 
 
 
-<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.full.js"></script>
-
 	<!-- ----------------moment One ----------------->
 	<%@ include file="/forestage/template/footer.jsp"%>
      
@@ -360,20 +371,7 @@ font-weight: 300;
         $(document).ready(function(){
             $("li:contains('電影資訊')").addClass("custom-active");
             
-            var somedate1 = new Date();
-            var somedate2 = new Date(somedate1.getTime()+2*24*60*60*1000);
-            $('#s_time').datetimepicker({
-                theme: '',          //theme: 'dark',
-                timepicker: false,   //timepicker: false,
-                step: 1,            //step: 60 (這是timepicker的預設間隔60分鐘)
-     	       format: 'Y-m-d',
-     	       value: new Date(),
-                //disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-                //startDate:	        '2017/07/10',  // 起始日
-	     	    minDate:somedate1,
-	            maxDate:somedate2
-             });
-                             
+                      
         });
         </script>
 

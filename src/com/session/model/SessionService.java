@@ -82,4 +82,22 @@ public class SessionService {
     public List<SessionVO> getNowMoment() {
         return dao.getNowMoment();
     }
+    public List<SessionVO> getTmrMoment() {
+        return dao.getTmrMoment();
+    }
+    public List<SessionVO> getCMoment() {
+    	return dao.getCMoment();
+    }
+    public List<SessionVO> getDMoment() {
+    	return dao.getDMoment();
+    }
+    public List<SessionVO> getEMoment() {
+    	return dao.getEMoment();
+    }
+    public List<SessionVO> getFMoment() {
+    	return dao.getFMoment();
+    }
+    public List<SessionVO> getGMoment() {
+    	return dao.getGMoment();
+    }
 }

@@ -22,7 +22,7 @@
 
 <%
 	SessionService sessionSvc = new SessionService();
-	List<SessionVO> list = sessionSvc.getTmrMoment();
+	List<SessionVO> list = sessionSvc.getDMoment();
 	pageContext.setAttribute("list", list);
 %>
 <%

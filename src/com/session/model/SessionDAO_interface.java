@@ -22,5 +22,12 @@ public interface SessionDAO_interface {
     public void updateSessionSeat(String seattable,String movie_session_no,Connection conn);
 
     //電影時刻 現正熱映 場次
-    public List<SessionVO> getNowMoment(); 
+    public List<SessionVO> getNowMoment();
+    //場次明天~第七天
+    public List<SessionVO> getTmrMoment();
+    public List<SessionVO> getCMoment();
+    public List<SessionVO> getDMoment();
+    public List<SessionVO> getEMoment();
+    public List<SessionVO> getFMoment();
+    public List<SessionVO> getGMoment();
 }

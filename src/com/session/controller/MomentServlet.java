@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,30 +62,242 @@ public class MomentServlet extends HttpServlet {
 
 		String action = req.getParameter("action");
 		
-		
-		if ("selectD".equals(action)) {
+	//-----------------------------------今天------------------------------------------	
+		if ("selectA".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				/*************************** 1.****************************************/
-				
+	
+				String movie_no = req.getParameter("movie_no");
 
 				/*************************** 2.****************************************/
-				SessionService sSvc = new SessionService();
-				List<SessionVO> sessionVOList = sSvc.getNowMoment();
 
-				String movie_no = req.getParameter("movie_no");
+
+	SessionService sSvc = new SessionService();
+	List<SessionVO> sessionVOList = sSvc.getNowMoment();
+	
+	req.setAttribute("selectA", sessionVOList); //Today
+	
 				/*************************** 3.(Send the Success view) ************/
-				req.setAttribute("selectD", sessionVOList);    
+		String url = null;
+				if ("selectA".equals(action))
+					url = "/forestage/movie_moment/moment_One.jsp?"+movie_no;              
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
 
+				/***************************  ***********************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+//------------------------------明天---------------------------------------------------		
+		
+		if ("selectB".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.****************************************/
+	
+				String movie_no = req.getParameter("movie_no");
+
+				/*************************** 2.****************************************/
+
+				
+				SessionService tmrSvc = new SessionService();
+				List<SessionVO> sessionVOList1 = tmrSvc.getTmrMoment();
+				
+				req.setAttribute("selectB", sessionVOList1); //  TMR  
+
+	
+				/*************************** 3.(Send the Success view) ************/
+		
+				String url = null;
+				if ("selectB".equals(action))
+					url = "/forestage/movie_moment/moment_One.jsp?"+movie_no;              
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+				/***************************  ***********************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+//------------------------------後天---------------------------------------------------		
+		
+		if ("selectC".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.****************************************/
+				
+				String movie_no = req.getParameter("movie_no");
+				
+				/*************************** 2.****************************************/
+				
+				
+				SessionService tmrSvc = new SessionService();
+				List<SessionVO> sessionVOList1 = tmrSvc.getCMoment();
+				
+				req.setAttribute("selectC", sessionVOList1); //  TMR  
+				
+				
+				/*************************** 3.(Send the Success view) ************/
+				
+				String url = null;
+				if ("selectC".equals(action))
+					url = "/forestage/movie_moment/moment_One.jsp?"+movie_no;              
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+				/***************************  ***********************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+//------------------------------明天---------------------------------------------------		
+		
+		if ("selectD".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.****************************************/
+				
+				String movie_no = req.getParameter("movie_no");
+				
+				/*************************** 2.****************************************/
+				
+				
+				SessionService tmrSvc = new SessionService();
+				List<SessionVO> sessionVOList1 = tmrSvc.getDMoment();
+				
+				req.setAttribute("selectD", sessionVOList1); //  TMR  
+				
+				
+				/*************************** 3.(Send the Success view) ************/
+				
 				String url = null;
 				if ("selectD".equals(action))
 					url = "/forestage/movie_moment/moment_One.jsp?"+movie_no;              
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-
+				
+				/***************************  ***********************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+//------------------------------明天---------------------------------------------------		
+		
+		if ("selectE".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.****************************************/
+				
+				String movie_no = req.getParameter("movie_no");
+				
+				/*************************** 2.****************************************/
+				
+				
+				SessionService tmrSvc = new SessionService();
+				List<SessionVO> sessionVOList1 = tmrSvc.getEMoment();
+				
+				req.setAttribute("selectE", sessionVOList1); //  TMR  
+				
+				
+				/*************************** 3.(Send the Success view) ************/
+				
+				String url = null;
+				if ("selectE".equals(action))
+					url = "/forestage/movie_moment/moment_One.jsp?"+movie_no;              
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+				/***************************  ***********************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+//------------------------------明天---------------------------------------------------		
+		
+		if ("selectF".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.****************************************/
+				
+				String movie_no = req.getParameter("movie_no");
+				
+				/*************************** 2.****************************************/
+				
+				
+				SessionService tmrSvc = new SessionService();
+				List<SessionVO> sessionVOList1 = tmrSvc.getFMoment();
+				
+				req.setAttribute("selectF", sessionVOList1); //  TMR  
+				
+				
+				/*************************** 3.(Send the Success view) ************/
+				
+				String url = null;
+				if ("selectF".equals(action))
+					url = "/forestage/movie_moment/moment_One.jsp?"+movie_no;              
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
+				/***************************  ***********************************/
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+//------------------------------7天---------------------------------------------------		
+		
+		if ("selectG".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				/*************************** 1.****************************************/
+				
+				String movie_no = req.getParameter("movie_no");
+				
+				/*************************** 2.****************************************/
+				
+				
+				SessionService tmrSvc = new SessionService();
+				List<SessionVO> sessionVOList1 = tmrSvc.getGMoment();
+				
+				req.setAttribute("selectG", sessionVOList1); //  TMR  
+				
+				
+				/*************************** 3.(Send the Success view) ************/
+				
+				String url = null;
+				if ("selectG".equals(action))
+					url = "/forestage/movie_moment/moment_One.jsp?"+movie_no;              
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
 				/***************************  ***********************************/
 			} catch (Exception e) {
 				throw new ServletException(e);
