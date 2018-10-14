@@ -59,7 +59,7 @@
                         <tr>
                             <td>${typeVO.type_no}</td>
                             <td>${typeVO.theaterVO.theater_name}</td>
-                            <td>${(typeVO.identify=="ADULT") ? "全票" : ''}${(typeVO.identify=="COMPLIMENTARY") ? "優待票" : ''}${(typeVO.identify=="GROUP") ? "團體票" : ''}</td>
+                            <td>${(typeVO.identity=="ADULT") ? "全票" : ''}${(typeVO.identity=="COMPLIMENTARY") ? "優待票" : ''}${(typeVO.identity=="GROUP") ? "團體票" : ''}</td>
                             <td>${(typeVO.time=="NORMAL") ? "一般" : ''}${(typeVO.time=="MAITNEE") ? "早場" : ''}</td>
                             <td>${typeVO.price}</td>
                             <td>

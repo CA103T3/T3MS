@@ -70,7 +70,7 @@ public class TypeDAO implements TypeDAO_interface {
             pstmt = con.prepareStatement(INSERT_STMT, cols);
 
             pstmt.setString(1, typeVO.getTheater_no());
-            pstmt.setString(2, typeVO.getIdentify());
+            pstmt.setString(2, typeVO.getIdentity());
             pstmt.setString(3, typeVO.getTime());
             pstmt.setInt(4, typeVO.getPrice());
             // pstmt.setString(3, typeVO.getEquipment());
@@ -131,7 +131,7 @@ public class TypeDAO implements TypeDAO_interface {
             pstmt = con.prepareStatement(UPDATE);
 
             pstmt.setString(1, typeVO.getTheater_no());
-            pstmt.setString(2, typeVO.getIdentify());
+            pstmt.setString(2, typeVO.getIdentity());
             pstmt.setString(3, typeVO.getTime());
             pstmt.setInt(4, typeVO.getPrice());
             pstmt.setString(5, typeVO.getType_no());
@@ -224,7 +224,7 @@ public class TypeDAO implements TypeDAO_interface {
                 typeVO = new TypeVO();
                 typeVO.setType_no(rs.getString("TICKETTYPE_NO"));
                 typeVO.setTheater_no(rs.getString("THEATER_NO"));
-                typeVO.setIdentify(rs.getString("IDENTITY"));
+                typeVO.setIdentity(rs.getString("IDENTITY"));
                 // typeVO.setEquipment(rs.getString("EQUIPMENT"));
                 typeVO.setTime(rs.getString("TIME"));
                 typeVO.setPrice(rs.getInt("PRICE"));
@@ -281,7 +281,7 @@ public class TypeDAO implements TypeDAO_interface {
                 typeVO = new TypeVO();
                 typeVO.setType_no(rs.getString("TICKETTYPE_NO"));
                 typeVO.setTheater_no(rs.getString("THEATER_NO"));
-                typeVO.setIdentify(rs.getString("IDENTITY"));
+                typeVO.setIdentity(rs.getString("IDENTITY"));
                 // typeVO.setEquipment(rs.getString("EQUIPMENT"));
                 typeVO.setTime(rs.getString("TIME"));
                 typeVO.setPrice(rs.getInt("PRICE"));
@@ -340,7 +340,7 @@ public class TypeDAO implements TypeDAO_interface {
                 typeVO = new TypeVO();
                 typeVO.setType_no(rs.getString("TICKETTYPE_NO"));
                 typeVO.setTheater_no(rs.getString("THEATER_NO"));
-                typeVO.setIdentify(rs.getString("IDENTITY"));
+                typeVO.setIdentity(rs.getString("IDENTITY"));
                 // typeVO.setEquipment(rs.getString("EQUIPMENT"));
                 typeVO.setTime(rs.getString("TIME"));
                 typeVO.setPrice(rs.getInt("PRICE"));
@@ -401,7 +401,7 @@ public class TypeDAO implements TypeDAO_interface {
                 typeVO = new TypeVO();
                 typeVO.setType_no(rs.getString("TICKETTYPE_NO"));
                 typeVO.setTheater_no(rs.getString("THEATER_NO"));
-                typeVO.setIdentify(rs.getString("IDENTITY"));
+                typeVO.setIdentity(rs.getString("IDENTITY"));
                 // typeVO.setEquipment(rs.getString("EQUIPMENT"));
                 typeVO.setTime(rs.getString("TIME"));
                 typeVO.setPrice(rs.getInt("PRICE"));

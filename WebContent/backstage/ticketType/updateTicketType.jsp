@@ -59,10 +59,10 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">購票身分</label>
                       <div class="col-md-3">
-                        <select class="form-control" id="identify" name="identify">
-                           <option value="ADULT" ${(typeVO.identify=="ADULT") ? 'selected': '' }>全票</option>
-                           <option value="COMPLIMENTARY" ${(typeVO.identify=="COMPLIMENTARY")? 'selected': '' }>優待票</option>
-                           <option value="GROUP" ${(typeVO.identify=="GROUP")? 'selected': '' }>團體票</option>
+                        <select class="form-control" id="identity" name="identity">
+                           <option value="ADULT" ${(typeVO.identity=="ADULT") ? 'selected': '' }>全票</option>
+                           <option value="COMPLIMENTARY" ${(typeVO.identity=="COMPLIMENTARY")? 'selected': '' }>優待票</option>
+                           <option value="GROUP" ${(typeVO.identity=="GROUP")? 'selected': '' }>團體票</option>
                         </select>
                       </div>
                       <div class="col-md-4">

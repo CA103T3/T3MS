@@ -10,7 +10,7 @@ public class TypeVO implements java.io.Serializable {
     private static final long serialVersionUID = 6461056948372828442L;
     private String type_no;
     private String theater_no;
-    private String identify;
+    private String identity;
     //private String equipment;
     private String time;
     private Integer price;
@@ -36,11 +36,11 @@ public class TypeVO implements java.io.Serializable {
     public void setTheater_no(String theater_no) {
         this.theater_no = theater_no;
     }
-    public String getIdentify() {
-        return identify;
+    public String getIdentity() {
+        return identity;
     }
-    public void setIdentify(String identify) {
-        this.identify = identify;
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
     // public String getEquipment() {
         // return equipment;

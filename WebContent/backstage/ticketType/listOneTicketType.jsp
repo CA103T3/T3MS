@@ -65,7 +65,7 @@
                 <div class="row form-group">
                     <label class="col-md-6 control-label text-right">購票身分</label>
                     <div class="col-md-6">
-                      <label>${(typeVO.identify=="ADULT") ? "全票" : ''}${(typeVO.identify=="COMPLIMENTARY") ? "優待票" : ''}${(typeVO.identify=="GROUP") ? "團體票" : ''}</label>
+                      <label>${(typeVO.identity=="ADULT") ? "全票" : ''}${(typeVO.identity=="COMPLIMENTARY") ? "優待票" : ''}${(typeVO.identity=="GROUP") ? "團體票" : ''}</label>
                     </div>
                 </div>
                 <div class="row form-group">

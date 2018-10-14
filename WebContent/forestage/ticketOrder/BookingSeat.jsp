@@ -51,7 +51,7 @@
 	TypeService typeSvc = new TypeService();
 	TypeVO typeVO = typeSvc.getOneType(type_no);
 	Integer price = typeVO.getPrice(); //票價
-	String identity = typeVO.getIdentify(); //成人票
+	String identity = typeVO.getIdentity(); //成人票
 	
 	//取得影廳資訊 
 	String theater_no = sessionVO.getTheater_no();

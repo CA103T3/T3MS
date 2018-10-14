@@ -75,11 +75,11 @@ public class TicketTypeServlet extends HttpServlet {
                     errorMsgs.add("影廳名稱請勿空白");
                 }
 
-                String identify = req.getParameter("identify");
-                String identifyReg = "^[(A-Z)]{5,13}$";
-                if (identify == null || identify.trim().length() == 0) {
+                String identity = req.getParameter("identity");
+                String identityReg = "^[(A-Z)]{5,13}$";
+                if (identity == null || identity.trim().length() == 0) {
                     errorMsgs.add("購票身分: 請勿空白");
-                } else if(!identify.trim().matches(identifyReg)) { //以下練習正則(規)表示式(regular-expression)
+                } else if(!identity.trim().matches(identityReg)) { //以下練習正則(規)表示式(regular-expression)
                     errorMsgs.add("購票身分: 請選擇正確購票身分");
                 }
 
@@ -111,7 +111,7 @@ public class TicketTypeServlet extends HttpServlet {
 
                 TypeVO typeVO = new TypeVO();
                 typeVO.setTheater_no(theater_no);
-                typeVO.setIdentify(identify);
+                typeVO.setIdentity(identity);
                 typeVO.setTime(time);
                 typeVO.setPrice(price);
 
@@ -129,7 +129,7 @@ public class TicketTypeServlet extends HttpServlet {
 
                 /***************************2.開始新增資料***************************************/
                 TypeService tSvc = new TypeService();
-                String type_no = tSvc.addType(theater_no, identify, time, price);
+                String type_no = tSvc.addType(theater_no, identity, time, price);
 
                 /***************************3.新增完成,準備轉交(Send the Success view)***********/
                 String url = "/backstage/ticketType/listAllTicketType.jsp?cinema_no=" + cinema_no;
@@ -186,11 +186,11 @@ public class TicketTypeServlet extends HttpServlet {
                     return;
                 }
 
-                String identify = req.getParameter("identify");
-                String identifyReg = "^[(A-Z)]{5,13}$";
-                if (identify == null || identify.trim().length() == 0) {
+                String identity = req.getParameter("identity");
+                String identityReg = "^[(A-Z)]{5,13}$";
+                if (identity == null || identity.trim().length() == 0) {
                     errorMsgs.add("購票身分: 請勿空白");
-                } else if(!identify.trim().matches(identifyReg)) { //以下練習正則(規)表示式(regular-expression)
+                } else if(!identity.trim().matches(identityReg)) { //以下練習正則(規)表示式(regular-expression)
                     errorMsgs.add("購票身分: 請選擇正確購票身分");
                 }
 
@@ -223,7 +223,7 @@ public class TicketTypeServlet extends HttpServlet {
                 TypeVO typeVO = new TypeVO();
                 typeVO.setType_no(type_no);
                 typeVO.setTheater_no(theater_no);
-                typeVO.setIdentify(identify);
+                typeVO.setIdentity(identity);
                 typeVO.setTime(time);
                 typeVO.setPrice(price);
 
@@ -241,7 +241,7 @@ public class TicketTypeServlet extends HttpServlet {
 
                 /***************************2.開始新增資料***************************************/
                 TypeService typeSvc = new TypeService();
-                typeSvc.updateType(type_no, theater_no, identify, time, price);
+                typeSvc.updateType(type_no, theater_no, identity, time, price);
 
                 /***************************3.新增完成,準備轉交(Send the Success view)***********/
                 String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑

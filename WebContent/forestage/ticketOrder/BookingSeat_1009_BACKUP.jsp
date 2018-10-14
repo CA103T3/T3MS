@@ -49,7 +49,7 @@
 	TypeService typeSvc = new TypeService();
 	TypeVO typeVO = typeSvc.getOneType(type_no);
 	Integer price = typeVO.getPrice(); //布基
-	String identity = typeVO.getIdentify(); //Θ布
+	String identity = typeVO.getIdentity(); //Θ布
 	
 	//眔紇芔戈癟 
 	String theater_no = sessionVO.getTheater_no();
