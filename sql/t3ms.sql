@@ -388,7 +388,13 @@ CREATE SEQUENCE FREINDSHIP_FRIEND_SEQ
   INCREMENT BY 1
   NOCACHE
   NOCYCLE;
-
+  
+CREATE SEQUENCE	BACKSTAGE_ROLE_SEQ
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE
+  NOCYCLE;
 --------------------------------------------------------
 --  for Table CINEMA
 --------------------------------------------------------

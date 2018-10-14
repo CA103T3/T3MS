@@ -130,7 +130,7 @@ body{
            <div class="row login_box">
 			<div class="col-sm login_right">
 				<h5>MS後台-新增後台帳號</h5>	
-				<form method="post" action="<%=request.getContextPath()%>/backstage/account_backstage/account_backstageServlet.do">
+				<form method="post" action="<%=request.getContextPath()%>/backstage/account/account.do">
 					<input type='hidden' name='action' value="insert">
 					<div class="form-group">
 						<input type="text" class="form-control"  name="role_no" placeholder="角色編號/role">		
