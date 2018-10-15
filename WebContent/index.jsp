@@ -10,9 +10,9 @@
     Movie_IntroduceService introduceSvc = new Movie_IntroduceService();
     List<Movie_IntroduceVO> introList = introduceSvc.getAll();
     pageContext.setAttribute("introList",introList);
-    // FilmreviewDAO fvSvc = new FilmreviewDAO();
-    // List<FilmreviewVO> fvList = fvSvc.getAll();
-    // pageContext.setAttribute("fvList", fvList);
+    FilmreviewDAO fvSvc = new FilmreviewDAO();
+    List<FilmreviewVO> frList = fvSvc.getAll();
+    pageContext.setAttribute("frList", frList);
 
 %>
 <!doctype html>
@@ -130,35 +130,22 @@
                 <div class="col-md-4 margin-top-ten">
                     <hr class="horizontal-line">
                 </div>
-                <c:forEach var="movie_introduceVO" items="${introList}" varStatus="s" begin="<%=0%>" end="<%=3%>">
-                <article>
-                    <div class="col-md-12 text-center">
-                        <header><h3 class="hover-custom"><a href="<%=request.getContextPath()%>/forestage/movie_introduce/One_introduce.jsp?${movie_introduceVO.introd_no}" >${movie_introduceVO.title}</a></h3></header>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 ">
-                            <a href="<%=request.getContextPath()%>/forestage/movie_introduce/One_introduce.jsp?${movie_introduceVO.introd_no}"><img class="img-custom" src="${movie_introduceVO.photo_small}" alt="${movie_introduceVO.title}"></a>
-                        </div>
-                        <div class="col-md-8 p-custom intro-content">
-                            <p class="">${movie_introduceVO.content}</p>
-                        </div>
-                    </div>
-                </article>
-                </c:forEach>
 
-                <c:forEach var="movie_introduceVO" items="${introList}" varStatus="s" begin="<%=4%>" end="<%=4%>">
+                <c:forEach var="movie_introduceVO" items="${introList}" varStatus="s" begin="<%=0%>" end="<%=4%>">
                 <article>
                     <div class="col-md-12 text-center">
                         <header><h3 class="hover-custom"><a href="<%=request.getContextPath()%>/forestage/movie_introduce/One_introduce.jsp?${movie_introduceVO.introd_no}" >${movie_introduceVO.title}</a></h3></header>
                     </div>
                     <div class="row">
                         <div class="col-md-4 ">
-                            <a href="<%=request.getContextPath()%>/forestage/movie_introduce/One_introduce.jsp?${movie_introduceVO.introd_no}"><img class="img-custom" src="${movie_introduceVO.photo_small}" alt="${movie_introduceVO.title}"></a>
+                            <a href="<%=request.getContextPath()%>/forestage/movie_introduce/One_introduce.jsp?${movie_introduceVO.introd_no}"><img class="img-custom-small" src="${movie_introduceVO.photo_small}" alt="${movie_introduceVO.title}"></a>
                         </div>
                         <div class="col-md-8 p-custom intro-content">
                             <p class="">${movie_introduceVO.content}</p>
                         </div>
-                        <div class="text-center"><a href="<%=request.getContextPath()%>/forestage/movie_introduce/List_introduce.jsp"><button type="button" class="btn btn-success btn-lg">更多介紹</button></a></div>
+                        <c:if test="${s.index == 4}" >
+                            <div class="text-center col-md-12"><a href="<%=request.getContextPath()%>/forestage/movie_introduce/List_introduce.jsp"><button type="button" class="btn btn-success btn-lg">更多情報</button></a></div>
+                        </c:if>
                     </div>
                 </article>
                 </c:forEach>
@@ -174,34 +161,24 @@
                     <hr class="horizontal-line">
                 </div>
 
+                <c:forEach var="filmreviewVO" items="${frList}" varStatus="s" begin="<%=0%>" end="<%=4%>">
                 <article>
                     <div class="col-md-12 text-center">
-                        <header><h3 class="hover-custom"><a href="#">幽默升級的《蟻人與黃蜂女》一樣有目標一樣道阻且長</a></h3></header>
+                        <header><h3 class="hover-custom"><a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?fr_no=${filmreviewVO.fr_no}">${filmreviewVO.title}</a></h3></header>
                     </div>
                     <div class="row">
                         <div class="col-md-4 ">
-                            <a href="#"><img class="img-custom" src="/T3MS/img/antman-and-wasp.jpg" alt=""></a>
+                            <a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?fr_no=${filmreviewVO.fr_no}"><img class="img-custom-small" src="<%=request.getContextPath() %>/DBGifReader?movie_no=${filmreviewVO.movie_no}" alt="${filmreviewVO.title}"></a>
                         </div>
-                        <div class="col-md-8 ">
-                            <p class="p-custom">其他超級英雄往往遇到阻礙和反派、衝破心理陰影面積才懂得成長，而蟻人史考特是因為知道自己想要什麼，才跟他有所衝突的反派或阻礙遇上，並試著一一解決，這也是《蟻人》和《蟻人與黃蜂女》充滿活力，並吸引到其他影迷的有趣之處。</p>
+                        <div class="col-md-8 p-custom intro-content">
+                            <p class="">${filmreviewVO.content}</p>
                         </div>
+                        <c:if test="${s.index == 4}" >
+                            <div class="text-center col-md-12"><a href="<%=request.getContextPath()%>/forestage/filmreview/fv_home.jsp"><button type="button" class="btn btn-success btn-lg">更多影評</button></a></div>
+                        </c:if>
                     </div>
                 </article>
-
-               <article>
-                    <div class="col-md-12 text-center">
-                        <header><h3 class="hover-custom"><a href="#">幽默升級的《蟻人與黃蜂女》一樣有目標一樣道阻且長</a></h3></header>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 ">
-                            <a href="#"><img class="img-custom" src="/T3MS/img/antman-and-wasp.jpg" alt=""></a>
-                        </div>
-                        <div class="col-md-8 ">
-                            <p class="p-custom">其他超級英雄往往遇到阻礙和反派、衝破心理陰影面積才懂得成長，而蟻人史考特是因為知道自己想要什麼，才跟他有所衝突的反派或阻礙遇上，並試著一一解決，這也是《蟻人》和《蟻人與黃蜂女》充滿活力，並吸引到其他影迷的有趣之處。</p>
-                            <div class="text-center"><a href="#"><button type="button" class="btn btn-success btn-lg">更多文章</button></a></div>
-                        </div>
-                    </div>
-                </article>
+                </c:forEach>
 
             </div>
 

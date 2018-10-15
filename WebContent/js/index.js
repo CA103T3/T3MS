@@ -133,7 +133,7 @@ $(document).ready(function(){
     });
 
     $(".intro-content").each(function() {
-        var maxwidth = 100;
+        var maxwidth = 150;
         //console.log($(this).text().trim());
         if($(this).text().trim().length > maxwidth) {
             let content = $(this).text().trim().substring(0, maxwidth) + '...';
