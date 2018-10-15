@@ -108,15 +108,7 @@
                 -->
             </div>
         </div>
-        <!-- search bar > -->
-        <div class="container-fluid slideanim">
-            <div class="col-md-4 col-md-offset-4 search-bar-margin">
-                <div class="input-group">
-                    <input type="text" class="form-control input-lg text-center font-custom-large" name="search" placeholder="搜尋電影時刻" aria-label="搜尋電影時刻">
-                    <span class="input-group-addon"><a href="#" title="搜尋電影時刻"><i class="fa fa-search fa-2x" aria-label="搜尋電影時刻"></i></a></span>
-                </div>
-            </div>
-        </div>
+        <%@ include file="/forestage/template/search_bar.jsp" %>
         <!-- <div class="container-fluid" > -->
         <div class="container slideanim" >
             <div class="col-md-8 ">
@@ -151,14 +143,16 @@
                 </c:forEach>
 
                 <!-- horizontal line with words -->
-                <div class="col-md-4 margin-top-ten">
-                    <hr class="horizontal-line">
-                </div>
-                <div class="col-md-4 ">
-                    <h3 class="title-custom"><span>影評文章</span></h3>
-                </div>
-                <div class="col-md-4 margin-top-ten">
-                    <hr class="horizontal-line">
+                <div class="row" style="margin-top: 30px">
+                    <div class="col-md-4 margin-top-ten">
+                        <hr class="horizontal-line">
+                    </div>
+                    <div class="col-md-4 ">
+                        <h3 class="title-custom"><span>影評文章</span></h3>
+                    </div>
+                    <div class="col-md-4 margin-top-ten">
+                        <hr class="horizontal-line">
+                    </div>
                 </div>
 
                 <c:forEach var="filmreviewVO" items="${frList}" varStatus="s" begin="<%=0%>" end="<%=4%>">
