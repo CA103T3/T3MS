@@ -48,7 +48,7 @@
                       <label class="col-md-5 control-label">影廳名稱</label>
                       <div class="col-md-3">
                         <select class="form-control" id="theater_no" name="theater_no">
-                          <c:forEach var="theaterVO" items="${tList}" varStatus="s" begin="<%=0%>" end="<%=tList.size()%>">
+                          <c:forEach var="theaterVO" items="${tList}" varStatus="s" begin="<%=0%>" end="<%=tList.size()-1%>">
                             <option value="${theaterVO.theater_no}" ${(theaterVO.theater_no==typeVO.theater_no)? 'selected': '' }>${theaterVO.theater_name}</option>
                           </c:forEach>
                         </select>

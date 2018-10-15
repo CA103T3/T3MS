@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="typeVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
+                    <c:forEach var="typeVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()-1%>">
                         <tr>
                             <td>${typeVO.type_no}</td>
                             <td>${typeVO.theaterVO.theater_name}</td>

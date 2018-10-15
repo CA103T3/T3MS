@@ -63,7 +63,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="sessionVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
+                    <c:forEach var="sessionVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()-1%>">
                         <tr>
                             <td>${sessionVO.session_no}</td>
                             <td>${sessionVO.theaterVO.theater_name}</td>

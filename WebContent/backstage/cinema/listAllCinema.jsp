@@ -54,7 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="cinemaVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
+                    <c:forEach var="cinemaVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()-1%>">
                         <tr>
                             <td>${cinemaVO.cinema_no}</td>
                             <td>${cinemaVO.cinema_name}</td>

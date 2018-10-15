@@ -29,7 +29,7 @@ $(document).ready(function(){
     $("nav").addClass("slide");
     $("footer").addClass("slide");
     
-	//for scroller
+    //for scroller
     $(window).on("resize", function () {
         $("body").css("padding-top", $("nav").height());
     });
@@ -131,4 +131,17 @@ $(document).ready(function(){
           }
       });
     });
+
+    $(".intro-content").each(function() {
+        var maxwidth = 100;
+        //console.log($(this).text().trim());
+        if($(this).text().trim().length > maxwidth) {
+            let content = $(this).text().trim().substring(0, maxwidth) + '...';
+            //$(this).text($(this).text().trim().substring(0, maxwidth) + '...');
+            $(this).empty();
+            $(this).append("<p>" + content + "</p>");
+            //console.log($(this).text());
+        }
+    });
+
 });

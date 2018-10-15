@@ -34,7 +34,7 @@
                       <label class="col-md-5 control-label">影城名稱</label>
                       <div class="col-md-3">
                         <select class="form-control" id="cinema_no" name="cinema_no">
-                          <c:forEach var="cinemaVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()%>">
+                          <c:forEach var="cinemaVO" items="${list}" varStatus="s" begin="<%=0%>" end="<%=list.size()-1%>">
                             <option value="${cinemaVO.cinema_no}">${cinemaVO.cinema_name}</option>
                           </c:forEach>
                         </select>

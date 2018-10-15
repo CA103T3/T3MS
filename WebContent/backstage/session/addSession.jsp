@@ -58,7 +58,7 @@
                       <label class="col-md-5 control-label">影廳名稱</label>
                       <div class="col-md-3">
                         <select class="form-control" id="theater_no" name="theater_no">
-                          <c:forEach var="theaterVO" items="${tList}" varStatus="s" begin="<%=0%>" end="<%=tList.size()%>">
+                          <c:forEach var="theaterVO" items="${tList}" varStatus="s" begin="<%=0%>" end="<%=tList.size()-1%>">
                             <option value="${theaterVO.theater_no}" ${(theaterVO.theater_no==sessionVO.theater_no)? 'selected': '' }>${theaterVO.theater_name}</option>
                           </c:forEach>
                         </select>
@@ -70,7 +70,7 @@
                       <label class="col-md-5 control-label">電影名稱</label>
                       <div class="col-md-3">
                         <select class="form-control" id="movie_no" name="movie_no">
-                          <c:forEach var="movieVO" items="${mList}" varStatus="s" begin="<%=0%>" end="<%=mList.size()%>">
+                          <c:forEach var="movieVO" items="${mList}" varStatus="s" begin="<%=0%>" end="<%=mList.size()-1%>">
                             <c:if test="${movieVO.active==1}">
                               <option value="${movieVO.movie_no}" ${(movieVO.movie_no==sessionVO.movie_no)? 'selected': '' }>${movieVO.movie_name}</option>
                             </c:if>
