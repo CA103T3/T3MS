@@ -20,4 +20,6 @@ public interface FilmreviewDAO_interface {
 
 	public Set<FilmreviewVO> getAllByMemNo(String movie_no);
 
+	public List<FilmreviewVO> getAllfr();
+
 }

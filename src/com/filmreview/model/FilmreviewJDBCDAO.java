@@ -559,6 +559,11 @@ public class FilmreviewJDBCDAO implements FilmreviewDAO_interface{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public List<FilmreviewVO> getAllfr() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

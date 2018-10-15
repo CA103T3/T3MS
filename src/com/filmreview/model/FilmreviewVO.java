@@ -3,6 +3,11 @@ package com.filmreview.model;
 
 import java.sql.Date;
 
+import com.cinema.model.CinemaVO;
+import com.member.model.MemVO;
+import com.movie.model.MovieVO;
+import com.theater.model.TheaterVO;
+
 public class FilmreviewVO implements java.io.Serializable{
 	
 	/**
@@ -20,6 +25,20 @@ public class FilmreviewVO implements java.io.Serializable{
 	private String url;
 	private String mem_no;
 	private String author;
+	private MemVO memVO;
+	private MovieVO movieVO;
+	public MemVO getMemVO() {
+		return memVO;
+	}
+	public void setMemVO(MemVO memVO) {
+		this.memVO = memVO;
+	}
+	public MovieVO getMovieVO() {
+		return movieVO;
+	}
+	public void setMovieVO(MovieVO movieVO) {
+		this.movieVO = movieVO;
+	}
 	
 	public String getFr_no() {
 		return fr_no;

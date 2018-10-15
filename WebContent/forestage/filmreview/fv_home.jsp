@@ -9,7 +9,7 @@
 
 
 	FilmreviewDAO fvSvc = new FilmreviewDAO();
-	List<FilmreviewVO> list = fvSvc.getAll();
+	List<FilmreviewVO> list = fvSvc.getAllfr();
 	pageContext.setAttribute("list", list);
 %>
 <jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
@@ -222,11 +222,9 @@
 
 					<div class="col-md-2">
 						<h3 class="text-center">
-							<c:forEach var="mvVO" items="${mvSvc.all}">
-								<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
-	                   					 ${mvVO.movie_name}
-                    			</c:if>
-							</c:forEach>
+							
+	                   					 ${FilmreviewVO.movieVO.movie_name}
+                    			
 						</h3>
 					</div>
 					<div class="col-md-1">

@@ -16,6 +16,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.member.model.MemVO;
+import com.movie.model.MovieVO;
+
 
 
 
@@ -36,6 +39,10 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 			"INSERT INTO Filmreview (FR_NO,MOVIE_NO,CREATED_AT,UPDATED_AT,CONTENT,EVALUATION,TITLE,SOURCE,URL,MEM_NO,AUTHOR) VALUES ('F'||LPAD(to_char(FILMREVIEW_SEQ.NEXTVAL), 5, '0'), ?, current_timestamp, current_timestamp, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 			"SELECT * FROM Filmreview order by UPDATED_AT DESC";
+	private static final String GET_ALL_FV = 
+			"SELECT Filmreview.FR_NO,Filmreview.MOVIE_NO,filmreview.created_at,Filmreview.updated_at,Filmreview.content,Filmreview.evaluation," + 
+			"Filmreview.title,Filmreview.source,Filmreview.url,Filmreview.mem_no,Filmreview.author,MOVIE.MOVIE_NAME,MEMBER.LNAME,MEMBER.FNAME FROM Filmreview LEFT JOIN MOVIE ON Filmreview.MOVIE_NO = " + 
+			"MOVIE.MOVIE_NO LEFT JOIN MEMBER ON FILMREVIEW.MEM_NO = MEMBER.MEM_NO ORDER BY FILMREVIEW.updated_at DESC";
 	private static final String GET_ONE_STMT = 
 			"SELECT * FROM Filmreview where FR_NO = ?";
 	private static final String GET_MEM_STMT = 
@@ -274,6 +281,79 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 			} 
 				
 				
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	@Override
+	public List<FilmreviewVO> getAllfr() {
+		List<FilmreviewVO> list = new ArrayList<FilmreviewVO>();
+		FilmreviewVO filmreviewVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_FV);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				filmreviewVO = new FilmreviewVO();
+				filmreviewVO.setFr_no(rs.getString("fr_no"));
+				filmreviewVO.setMovie_no(rs.getString("movie_no"));
+				filmreviewVO.setCreated_at(rs.getDate("created_at"));
+				filmreviewVO.setUpdated_at(rs.getDate("updated_at"));
+				filmreviewVO.setContent(rs.getString("content"));
+				filmreviewVO.setEvaluation(rs.getDouble("evaluation"));
+				filmreviewVO.setTitle(rs.getString("title"));
+				filmreviewVO.setSource(rs.getString("source"));
+				filmreviewVO.setUrl(rs.getString("url"));
+				filmreviewVO.setMem_no(rs.getString("mem_no"));
+				filmreviewVO.setAuthor(rs.getString("author"));
+				
+				MovieVO movieVO = new MovieVO();
+				movieVO.setMovie_name(rs.getString("movie_name"));
+				filmreviewVO.setMovieVO(movieVO);
+				
+				MemVO memVO = new MemVO();
+				memVO.setLastname(rs.getString("lname"));
+				memVO.setFirstname(rs.getString("fname"));
+				filmreviewVO.setMemVO(memVO);
+				
+				list.add(filmreviewVO);
+				
+			} 
+			
+			
 		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

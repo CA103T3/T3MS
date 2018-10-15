@@ -74,7 +74,7 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                     <div class="form-group">
                       <label class="col-md-5 control-label">影評標題</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="title" value="" >
+                        <input class="form-control" id="" type="text" name="title" value="<%=(filmreviewVO == null) ? "" : filmreviewVO.getTitle()%>" >
                       
                       </div>
                       <div class="col-md-4">
@@ -102,7 +102,7 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                       </div>
                       <div class="col-md-12">
                         <textarea id="summernote" name="content" >
-							
+							<%=(filmreviewVO == null) ? "" : filmreviewVO.getContent()%>
 						</textarea>
                       
                       </div>
@@ -110,7 +110,7 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                     <div class="form-group">
                       <label class="col-md-5 control-label">評分</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="evaluation" value="" >
+                        <input class="form-control" id="" type="text" name="evaluation" value="<%=(filmreviewVO == null) ? "" : filmreviewVO.getEvaluation()%>" >
                       
                       </div>
                       <div class="col-md-4">
@@ -119,7 +119,7 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                     <div class="form-group">
                       <label class="col-md-5 control-label">作者</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="author" value="" >
+                        <input class="form-control" id="" type="text" name="author" value="<%=(filmreviewVO == null) ? "" : filmreviewVO.getAuthor()%>" >
                       
                       </div>
                       <div class="col-md-4">
@@ -128,7 +128,7 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                     <div class="form-group">
                       <label class="col-md-5 control-label">影評來源</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="source" value="" >
+                        <input class="form-control" id="" type="text" name="source" value="<%=(filmreviewVO == null) ? "" : filmreviewVO.getSource()%>" >
                       
                       </div>
                       <div class="col-md-4">
@@ -137,7 +137,7 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                     <div class="form-group">
                       <label class="col-md-5 control-label">影評網址</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="url" value="" >
+                        <input class="form-control" id="" type="text" name="url" value="<%=(filmreviewVO == null) ? "" : filmreviewVO.getUrl()%>" >
                       
                       </div>
                       <div class="col-md-4">
