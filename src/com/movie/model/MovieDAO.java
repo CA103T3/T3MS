@@ -32,8 +32,8 @@ public class MovieDAO implements MovieDAO_interface {
 	private static final String GET_ONE_STMT_BY_MOVIE_NAME = "SELECT * FROM MOVIE WHERE MOVIE_NAME=?";
 	private static final String GET_SEARCH_MOVIE_NAME = "SELECT * FROM MOVIE WHERE MOVIE_NAME LIKE ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM MOVIE ORDER BY MOVIE_NO DESC";
-	private static final String GET_ALL_NOW = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') <= to_char(sysdate,'yyyy-mm-dd') ORDER BY MOVIE_NO  ";
-	private static final String GET_ALL_COMING = "SELECT * FROM MOVIE WHERE to_char(relased,'yyyy-mm-dd') > to_char(sysdate,'yyyy-mm-dd') ORDER BY relased ";
+	private static final String GET_ALL_NOW = "SELECT * FROM MOVIE WHERE relased <= sysdate and active = 1 ORDER BY MOVIE_NO ";
+	private static final String GET_ALL_COMING = "SELECT * FROM MOVIE WHERE relased > sysdate and active = 1 ORDER BY relased ";
 
 	@Override
 	public void insert(MovieVO movieVO) {
