@@ -52,7 +52,7 @@ margin-top: 10px;
 
 							<div class="page-header text-warning">
 								<h1>
-									電影介紹新增
+									電影情報新增
 									<font color="#777777">
 										<span style="font-size: 23.4px; line-height: 23.4px;">Introduce Add</span>
 									</font>

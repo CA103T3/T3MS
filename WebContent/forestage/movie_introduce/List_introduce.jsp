@@ -51,7 +51,7 @@
 	    </div>
     <!-- Preloader End -->
         
-     <!-- --------------------------------電影介紹list------------------------------------------------ -->
+     <!-- --------------------------------電影情報list------------------------------------------------ -->
         
         
          <div id="fullcarousel-example" data-interval="2000" class="carousel slide" data-ride="carousel">
@@ -91,7 +91,7 @@
 								<li>
 									<a href="<%=request.getContextPath()%>/index.jsp">MS首頁</a> <span class="divider">></span>
 								</li>
-								<li class="active" style="color:#ffffff;">電影介紹</li>										
+								<li class="active" style="color:#ffffff;">電影情報</li>
 							 </ul>
 							</div>
 						</div>
@@ -133,7 +133,7 @@
 <%@ include file="/resources/page_code/pageb.file"%>
         
              
-        <!-- --------------------------------電影介紹list------------------------------------------------ -->
+        <!-- --------------------------------電影情報list------------------------------------------------ -->
         
         <%@ include file="/forestage/template/footer.jsp" %>
         

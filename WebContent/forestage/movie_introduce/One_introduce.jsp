@@ -40,7 +40,7 @@ a {color: #ff54a7;}
 	<%@ include file="/forestage/template/header.jsp" %>
 
 
-	<!-- -----------------------------瀏覽單一電影介紹------------------------------------- -->
+	<!-- -----------------------------瀏覽單一電影情報------------------------------------- -->
 
 
 
@@ -69,7 +69,7 @@ a {color: #ff54a7;}
 						<a href="<%=request.getContextPath()%>/index.jsp">MS首頁</a> <span class="divider">></span>
 					</li>
 					<li>
-						<a href="<%=request.getContextPath()%>/forestage/movie_introduce/List_introduce.jsp">電影介紹</a> <span class="divider">></span>
+						<a href="<%=request.getContextPath()%>/forestage/movie_introduce/List_introduce.jsp">電影情報</a> <span class="divider">></span>
 					</li>
 					<li class="active">${movie_introduceVO.title}</li>
 				</ul>
@@ -156,7 +156,7 @@ a {color: #ff54a7;}
 
 
 
-	<!-- -----------------------------瀏覽單一電影介紹------------------------------------- -->
+	<!-- -----------------------------瀏覽單一電影情報------------------------------------- -->
 
 
 	<%@ include file="/forestage/template/footer.jsp" %>
