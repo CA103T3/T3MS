@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.theater.model.*"%>
 <%@ page import="com.cinema.model.*"%>
+<%@ page import="com.role.model.*"%>
 <%@ page import="java.io.Reader"%>
 <%@ page import="org.json.*"%>
 
@@ -10,6 +11,11 @@
 	CinemaService cSvc = new CinemaService();
 	List<CinemaVO> clist = cSvc.getAll();
 	pageContext.setAttribute("clist",clist);
+	
+	RoleService rSvc = new RoleService();
+	List<RoleVO> rlist = rSvc.getall();
+	pageContext.setAttribute("rlist",rlist);
+	
 %>
 
 
@@ -127,19 +133,39 @@ body{
     <div id="wrapper" class="mt50">
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
+        
+  	<c:if test="${not empty errorMsgs}">
+				<div style="width:600px;margin:0 auto;" class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					
+							<ul>
+					   			<c:forEach var="message" items="${errorMsgs}">
+									<li style="color:red;font-size:30px;font-weight:bold">${message}</li>
+								</c:forEach>
+							</ul>
+				</div>
+			</c:if>
+			<hr>
+        
            <div class="row login_box">
 			<div class="col-sm login_right">
 				<h5>MS後台-新增後台帳號</h5>	
 				<form method="post" action="<%=request.getContextPath()%>/backstage/account/account.do">
 					<input type='hidden' name='action' value="insert">
 					<div class="form-group">
-						<input type="text" class="form-control"  name="role_no" placeholder="角色編號/role">		
+						<select class="form-control" id="role_no" name="role_no">
+							<option value="">請選擇角色</option>
+                          <c:forEach var="rVO" items="${rlist}" varStatus="s" begin="<%=0%>" end="<%=rlist.size()%>">
+                              <option value="${rVO.br_no}">${rVO.br_name}</option>
+                          </c:forEach>
+                        </select>		
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control"  name="bs_acc_name" placeholder="帳號/Account">		
 					</div>
 					<div class="form-group">
 					 	<select class="form-control" id="cinema_no" name="cinema_no">
+					 	<option value="">請選擇影城</option>
                           <c:forEach var="cVO" items="${clist}" varStatus="s" begin="<%=0%>" end="<%=clist.size()%>">
                             <c:if test="${cVO.active==1}">
                               <option value="${cVO.cinema_no}">${cVO.cinema_name}</option>

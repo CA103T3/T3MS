@@ -1,4 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.theater.model.*"%>
+<%@ page import="com.cinema.model.*"%>
+<%@ page import="com.role.model.*"%>
+<%@ page import="java.io.Reader"%>
+<%@ page import="org.json.*"%>
+
+
+<%
+	CinemaService cSvc = new CinemaService();
+	List<CinemaVO> clist = cSvc.getAll();
+	pageContext.setAttribute("clist",clist);
+	
+	RoleService rSvc = new RoleService();
+	List<RoleVO> rlist = rSvc.getall();
+	pageContext.setAttribute("rlist",rlist);
+	
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,27 +129,27 @@ body{
 </head>
 
 <body class="fs16">
+    <%@ include file="/backstage/template/header.jsp" %>
+<div id="wrapper" class="mt50">
+        <%@ include file="/backstage/template/sidebar.jsp" %>
 
-
-           <div class="row login_box">
-			<div class="col-sm login_right">
-				<h5>MS後台登入</h5>	
-				<form name="form1" method="post" action="<%=request.getContextPath()%>/backstage/account/account.do">
-					<input type='hidden' name='action' value='login'/>
-					<div class="form-group">
-						<input type="text" class="form-control"  name="bs_acc_name" aria-describedby="" placeholder="帳號/Account">					
-					</div>
-					<div class="form-group">
-					 	<!-- <label for="exampleInputPassword1">Password</label> -->
-					 	<input type="password" class="form-control" name='bs_acc_psw' placeholder="密碼/Password">
-					</div>
-					<div class="btn_box">
-						<button type="submit" class="btn btn-primary login_btn" name="login" id="login">登入</button>
-					</div>
-				</form>
-			</div>
-		</div>
-           
+    <div class="flex-column" id="page-content-wrapper">
+            <div class="container-fluid mt20">
+				<div class="jumbotron">
+					<h1>&nbsp&nbsp&nbsp&nbsp&nbsp!!!!!!!!!!!!!!!!後臺首頁!!!!!!!!!!!!!!!!</h1>
+					  <div class="row">
+						  <div class="col-xs-10 col-md-10 col-offset-2">
+						      <img src="<%=request.getContextPath() %>/img/Test_UP_IMG/bindex.jpg" alt="...">
+						  </div>
+					  </div>
+				</div>
+           </div>
+       </div>
+       </div>
+   
+    <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
 </body>
+
+
 </html>

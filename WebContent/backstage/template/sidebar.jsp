@@ -57,7 +57,7 @@
                     </a>
                     <ul id="sub3" class="nav collapse">
                         <li>
-                            <a href="<%=request.getContextPath()%>/backstage/account_backstage/addaccount_backstage.jsp">
+                            <a href="<%=request.getContextPath()%>/backstage/staff/backstage_insert.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;新增帳號</a>
                         </li>
                         <li>
@@ -69,7 +69,7 @@
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;刪除帳號</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/staff/backstage_listAll.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;查詢帳號</a>
                         </li>
                     </ul>
@@ -83,7 +83,7 @@
                     </a>
                     <ul id="sub4" class="nav collapse">
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/role/role_insert.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;新增角色/權限</a>
                         </li>
                         <li>

@@ -96,7 +96,7 @@ DROP SEQUENCE NAV_BACKSTAGE_SEQ;
 DROP SEQUENCE ROLE_PERMISSION_BACKSTAGE_SEQ;
 DROP SEQUENCE INVITE_FRIEND_SEQ;
 DROP SEQUENCE FREINDSHIP_FRIEND_SEQ;
-
+DROP SEQUENCE BACKSTAGE_ROLE_SEQ;
 --------------------------------------------------------
 --  DDL for Sequence CINEMA_SEQ
 --------------------------------------------------------

@@ -52,13 +52,16 @@ public class AccountService {
 		dao.delete(bs_acc_no);
 	}
 
-	public AccountVO getOneAccount_Backstage(String bs_acc_no) {
-		return dao.findByPrimaryKey(bs_acc_no);
+	public AccountVO getVO(String bs_acc_name) {
+		return dao.findVO(bs_acc_name);
 	}
 
 	public List<AccountVO> getAll() {
-		System.out.println("OK");
 		return dao.getAll();
+	}
+	
+	public boolean login(String bs_acc_name,String bs_acc_psw) {
+		return dao.login(bs_acc_name, bs_acc_psw);
 	}
 
 }

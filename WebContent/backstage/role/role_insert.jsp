@@ -126,9 +126,23 @@ body{
     <div id="wrapper" class="mt50">
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
+        
+        
+        <c:if test="${success!=null}">
+				<div style="width:600px;margin:0 auto;" class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+									<span style="color:green;font-size:30px;font-weight:bold">${success}</span>					
+				</div>
+			</c:if>
+        
+        
+        
+        
            <div class="row login_box">
-			<div class="col-sm login_right">
-				<h5>MS後台-新增後台帳號</h5>	
+			<div class=" login_right">
+			<div class="row">
+				<h5>MS後台-新增後台角色</h5>	
 				<form method="post" action="<%=request.getContextPath()%>/backstage/role/Role.do">
 					<input type='hidden' name='action' value="insert">
 					<div class="form-group">
@@ -138,20 +152,21 @@ body{
 					<div class="form-group">
 	                    <c:forEach var="navVO" items="${nlist}" varStatus="s" begin="<%=0%>" end="<%=nlist.size()%>">
 	                    	<c:if test="${navVO.parent_id==null}">                                                                              
-								<input id="v-${s.index}" type="checkbox" value="${navVO.listitem_no}" name="listitem_no"><label for="v-${s.index}"><span style="font-weight:bolder;">${navVO.listitem_name}</span></label><br>
+<%-- 								<div class="col-sm-6"><input id="v-${s.index}" type="checkbox" value="${navVO.listitem_no}" name="listitem_no"><label for="v-${s.index}"><span style="font-weight:bolder;">${navVO.listitem_name}</span></label><br></div> --%>
 							</c:if>
 							<c:if test="${navVO.parent_id!=null}">                                                                              
-								<input id="b-${s.index}" type="checkbox" value="${navVO.listitem_no}" name="listitem_no"><label for="b-${s.index}"><span style="font-weight:normal;">${navVO.listitem_name}</span></label><br>
+								<div class="col-sm-6"><input id="b-${s.index}" type="checkbox" value="${navVO.listitem_no}" name="listitem_no"><label for="b-${s.index}"><span style="font-weight:normal;">${navVO.listitem_name}</span></label><br></div>
 							</c:if>
 	                    </c:forEach>                       
 					</div>
 					
 					
-					<div class="btn_box">
+					<div class="btn_box col-sm-12">
 						<button type="submit" class="btn btn-primary login_btn">新增</button>
 					</div>
 				</form>
 			</div>
+</div>
 		</div>
            
         </div>

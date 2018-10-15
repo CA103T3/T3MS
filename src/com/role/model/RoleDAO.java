@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.movie.model.MovieVO;
+import com.nav_backstage.model.NavVO;
 
 
 
@@ -33,7 +34,7 @@ public class RoleDAO implements RoleDAO_interface{
 			"INSERT INTO BACKSTAGE_ROLE(BR_NO,BR_NAME) VALUES ('R'||LPAD(to_char(BACKSTAGE_ROLE_SEQ.NEXTVAL), 3, '0'),?)";
 	
 	private static final String GET_ONE_STMT ="SELECT * FROM BACKSTAGE_ROLE WHERE BR_NAME=?";
-	
+	private static final String GET_ALL_STMT ="SELECT * FROM BACKSTAGE_ROLE";
 	
 	
 	
@@ -138,8 +139,57 @@ public class RoleDAO implements RoleDAO_interface{
 
 	@Override
 	public List<RoleVO> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<RoleVO> list = new ArrayList<RoleVO>();
+        RoleVO roleVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ALL_STMT);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                roleVO = new RoleVO();
+                roleVO.setBr_no(rs.getString("br_no"));
+                roleVO.setBr_name(rs.getString("br_name"));
+
+                list.add(roleVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+	
 	}
 
 	@Override

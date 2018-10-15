@@ -1,38 +1,38 @@
 
 
 
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'ÀËÁ|ºŞ²z','#',null,1);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¼vµû¯d¨¥ºŞ²z','http://localhost:8081/T3MS/backstage/reportMsg/reportMsg_list.jsp','N001',2);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'·|­û±b¸¹ºŞ²z','#',null,3);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¼vµû¸ê®æ¼f®Ö','http://localhost:8081/T3MS/backstage/member/becomeFilmCriticism.jsp','N003',4);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¬d¸ß·|­û±b¸¹','http://localhost:8081/T3MS/backstage/member/listAllMember.jsp','N003',5);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'«á¥x±b¸¹ºŞ²z','#',null,6);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'·s¼W±b¸¹','http://localhost:8081/T3MS/backstage/staff/staff_insert.jsp','N006',7);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'­×§ï±b¸¹','http://localhost:8081/T3MS/backstage/staff/staff_update.jsp','N006',8);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'§R°£±b¸¹','http://localhost:8081/T3MS/backstage/staff/staff_delete.jsp','N006',9);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'«á¥x¨¤¦âºŞ²z','#',null,10);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'·s¼W¨¤¦â/Åv­­','http://localhost:8081/T3MS/backstage/role/role_insert.jsp','N010',11);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'­×§ï¨¤¦â/Åv­­','http://localhost:8081/T3MS/backstage/role/role_update.jsp','N010',12);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'§R°£¨¤¦â/Åv­­','http://localhost:8081/T3MS/backstage/role/role_delete.jsp','N010',13);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¹q¼v°|ºŞ²z','#',null,14);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¼v«°','http://localhost:8081/T3MS/backstage/cinema/listAllCinema.jsp','N014',15);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¼vÆU','http://localhost:8081/T3MS/backstage/theater/listAllTheater.jsp','N014',16);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'³õ¦¸','http://localhost:8081/T3MS/backstage/session/listAllSession.jsp','N014',17);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'²¼ºØ/²¼»ù','http://localhost:8081/T3MS/backstage/ticketType/listAllTicketType.jsp','N014',18);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¹q¼v¸ê°TºŞ²z','#',null,19);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¹q¼vºŞ²z','http://localhost:8081/T3MS/backstage/movie/movie_List.jsp','N019',20);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'²¼©Ğ®Ç¦æº]ºŞ²z','#','N019',21);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¹q¼v¼vµûºŞ²z','http://localhost:8081/T3MS/backstage/filmreview/fv_b.jsp','N019',22);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¹q¼v±¡³øºŞ²z','#','N019',23);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'­q²¼¨t²ÎºŞ²z','#',null,24);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¬d¸ß³õ¦¸­q²¼ª¬ªp','#','N024',25);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¬d¸ß°h²¼¬ö¿ı','#','N024',26);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¬¡°Ê¤½§iºŞ²z','#',null,27);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¬¡°Ê¤½§i','http://localhost:8081/T3MS/backstage/announcement/listAnnouncement.jsp','N027',28);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¤½§iºŞ²z','#','N027',29);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'«ÈªA¨t²ÎºŞ²z','#',null,30);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'§Y®É«ÈªA²á¤Ñ«Ç','#','N030',31);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'¾ú¥v°T®§','#','N030',32);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æª¢èˆ‰ç®¡ç†','#',null,1);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å½±è©•ç•™è¨€ç®¡ç†','/T3MS/backstage/reportMsg/reportMsg_list.jsp','N001',2);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æœƒå“¡å¸³è™Ÿç®¡ç†','#',null,3);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å½±è©•è³‡æ ¼å¯©æ ¸','/T3MS/backstage/member/becomeFilmCriticism.jsp','N003',4);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æŸ¥è©¢æœƒå“¡å¸³è™Ÿ','/T3MS/backstage/member/listAllMember.jsp','N003',5);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å¾Œå°å¸³è™Ÿç®¡ç†','#',null,6);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æ–°å¢å¸³è™Ÿ','/T3MS/backstage/staff/staff_insert.jsp','N006',7);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'ä¿®æ”¹å¸³è™Ÿ','/T3MS/backstage/staff/staff_update.jsp','N006',8);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'åˆªé™¤å¸³è™Ÿ','/T3MS/backstage/staff/staff_delete.jsp','N006',9);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å¾Œå°è§’è‰²ç®¡ç†','#',null,10);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æ–°å¢è§’è‰²/æ¬Šé™','/T3MS/backstage/role/role_insert.jsp','N010',11);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'ä¿®æ”¹è§’è‰²/æ¬Šé™','/T3MS/backstage/role/role_update.jsp','N010',12);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'åˆªé™¤è§’è‰²/æ¬Šé™','/T3MS/backstage/role/role_delete.jsp','N010',13);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'é›»å½±é™¢ç®¡ç†','#',null,14);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å½±åŸ','/T3MS/backstage/cinema/listAllCinema.jsp','N014',15);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å½±å»³','/T3MS/backstage/theater/listAllTheater.jsp','N014',16);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å ´æ¬¡','/T3MS/backstage/session/listAllSession.jsp','N014',17);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'ç¥¨ç¨®/ç¥¨åƒ¹','/T3MS/backstage/ticketType/listAllTicketType.jsp','N014',18);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'é›»å½±è³‡è¨Šç®¡ç†','#',null,19);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'é›»å½±ç®¡ç†','/T3MS/backstage/movie/movie_List.jsp','N019',20);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'ç¥¨æˆ¿æ—è¡Œæ¦œç®¡ç†','#','N019',21);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'é›»å½±å½±è©•ç®¡ç†','/T3MS/backstage/filmreview/fv_b.jsp','N019',22);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'é›»å½±æƒ…å ±ç®¡ç†','#','N019',23);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'è¨‚ç¥¨ç³»çµ±ç®¡ç†','#',null,24);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æŸ¥è©¢å ´æ¬¡è¨‚ç¥¨ç‹€æ³','#','N024',25);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æŸ¥è©¢é€€ç¥¨ç´€éŒ„','#','N024',26);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æ´»å‹•å…¬å‘Šç®¡ç†','#',null,27);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æ´»å‹•å…¬å‘Š','/T3MS/backstage/announcement/listAnnouncement.jsp','N027',28);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å…¬å‘Šç®¡ç†','#','N027',29);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å®¢æœç³»çµ±ç®¡ç†','#',null,30);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'å³æ™‚å®¢æœèŠå¤©å®¤','#','N030',31);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'æ­·å²è¨Šæ¯','#','N030',32);
 
 
 

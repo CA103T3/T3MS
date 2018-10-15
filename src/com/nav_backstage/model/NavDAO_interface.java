@@ -11,6 +11,7 @@ public interface NavDAO_interface {
      public void delete(String listitem_no);
      public NavVO findByNO(String listitem_no);
      public List<NavVO> getAll();
+     public NavVO findByURL(String url);
 	
 
 }

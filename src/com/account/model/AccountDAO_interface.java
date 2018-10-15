@@ -10,7 +10,7 @@ public interface AccountDAO_interface {
 	public void insert(AccountVO account_BackstageVO);
 	public void update(AccountVO account_BackstageVO);
 	public void delete(String bs_acc_no);	
-	public AccountVO findByPrimaryKey(String bs_acc_no);
+	public AccountVO findVO(String bs_acc_name);
 	public List<AccountVO> getAll();
-
+	public boolean login(String bs_acc_name,String bs_acc_psw);
 }

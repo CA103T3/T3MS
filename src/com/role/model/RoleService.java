@@ -23,5 +23,9 @@ public class RoleService {
 	public RoleVO find(String br_name) {
 		return dao.findnoByname(br_name);
 	}
+	
+	public List<RoleVO> getall(){
+		return dao.getAll();
+	}
 
 }

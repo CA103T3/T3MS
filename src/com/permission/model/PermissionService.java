@@ -20,5 +20,9 @@ public class PermissionService {
 
 		return pVO;
 	}
+	
+	public List<String> getOnesP(String role_no){
+		return dao.getOnesOwn(role_no);
+	}
 
 }

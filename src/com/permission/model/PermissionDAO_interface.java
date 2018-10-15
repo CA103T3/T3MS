@@ -10,5 +10,6 @@ public interface PermissionDAO_interface {
 	public void delete(String permission_no);	
 	public PermissionVO findByPrimaryKey(String permission_no);
 	public List<PermissionVO> getAll();
+	public List<String> getOnesOwn(String role_no);
     
 }

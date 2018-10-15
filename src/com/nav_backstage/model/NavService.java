@@ -26,5 +26,8 @@ public class NavService {
 		return dao.getAll();
 	}
 	
+	public NavVO findbyurl(String url) {
+		return dao.findByURL(url);
+	}
 	
 }

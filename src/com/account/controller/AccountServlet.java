@@ -1,12 +1,14 @@
 package com.account.controller;
 
 import java.io.*;
+import java.text.ParseException;
 import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.account.model.*;
+
 
 public class AccountServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -61,7 +63,7 @@ public class AccountServlet extends HttpServlet{
 				
 				/***************************2.開始查詢資料*****************************************/
 				AccountService account_BackstageService = new AccountService();
-				AccountVO accountVO = account_BackstageService.getOneAccount_Backstage(bs_acc_no);
+				AccountVO accountVO = account_BackstageService.getVO(bs_acc_no);
 				if(!strpsw.equals(accountVO.getBs_acc_psw())) {
 					errorMsgs.add("查無資料");
 				}
@@ -102,7 +104,7 @@ public class AccountServlet extends HttpServlet{
 				
 				/***************************2.開始查詢資料****************************************/
 				AccountService account_BackstageService = new AccountService();
-				AccountVO accountVO = account_BackstageService.getOneAccount_Backstage(bs_acc_no);
+				AccountVO accountVO = account_BackstageService.getVO(bs_acc_no);
 					
 			
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
@@ -252,11 +254,15 @@ public class AccountServlet extends HttpServlet{
 				String role_no = req.getParameter("role_no").trim();
 				System.out.println(role_no);
 				if (role_no == null || role_no.trim().length() == 0) {
-					errorMsgs.add("角色編號請勿空白");
+					errorMsgs.add("請選擇角色");
 				}
 				
 								
 				String cinema_no = req.getParameter("cinema_no");
+				if (cinema_no == null || cinema_no.trim().length() == 0) {
+					errorMsgs.add("請選擇影城");
+				}
+				System.out.println("c="+cinema_no);
 
 				
 				String bs_acc_psw = req.getParameter("bs_acc_psw");
@@ -279,9 +285,8 @@ public class AccountServlet extends HttpServlet{
 					java.util.Date du = df.parse(req.getParameter("last_online_time").trim());
 					last_online_time = new java.sql.Timestamp(du.getTime());
 				} catch (IllegalArgumentException e) {
-					last_online_time=new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("上次在線時間請輸入日期!");
-				}
+				} 
 				System.out.println("last_online_time="+last_online_time);
 								
 				
@@ -312,7 +317,7 @@ public class AccountServlet extends HttpServlet{
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 			    HttpSession session = req.getSession();
 			    session.setAttribute("abVO",accountVO);
-				String url = "/backstage/account_backstage/listAllAccount_Backstage.jsp";
+				String url = "/backstage/staff/backstage_listAll.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -354,6 +359,55 @@ public class AccountServlet extends HttpServlet{
 				failureView.forward(req, res);
 			}
 		}
+		
+		if("login".equals(action)) {
+			boolean b=false;
+	        AccountService aSrc= new AccountService();
+	        HttpSession session = req.getSession();
+	        
+	        String bs_acc_name=req.getParameter("bs_acc_name");
+	        System.out.println(bs_acc_name);
+	        String bs_acc_psw=req.getParameter("bs_acc_psw");
+	        System.out.println(bs_acc_psw);
+	        String result = "";
+	 
+	        b=aSrc.login(bs_acc_name, bs_acc_psw);
+	        PrintWriter out = res.getWriter();
+	        if(b){  
+	            AccountVO aVO = new AccountVO();
+	            result = "success";
+	            aVO = aSrc.getVO(bs_acc_name);
+	            session.setAttribute("aVO",aVO);
+	            
+
+	            res.sendRedirect(req.getContextPath()+"/backstage/template/back_index.jsp");
+//	            Cookie username= new Cookie("email",email);
+	//   
+//	            username.setPath("/");
+//	            username.setMaxAge(60*60);
+//	            response.addCookie(username);
+
+	        }
+	        else { 
+	            result = "fail";
+	            
+//	            out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+//	            out.println("<BODY>你的帳號 , 密碼無效!<BR>");
+//	            out.println("請按此重新登入 <A HREF="+request.getContextPath()+"/forestage/member/loginf.jsp>重新登入</A>");
+//	            out.println("</BODY></HTML>");
+
+	            RequestDispatcher rpt = req.getRequestDispatcher("/backstage/staff/backstage_login.jsp");
+	            rpt.forward(req, res);
+	        }
+	        
+	        out.flush();
+	        out.close();
+	        System.out.println(result);
+	    
+		}
+		
+		
+		
 	}
 
 }

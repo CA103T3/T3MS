@@ -28,6 +28,7 @@ public class RoleServlet extends HttpServlet{
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			
 
 //			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -36,8 +37,7 @@ public class RoleServlet extends HttpServlet{
 				System.out.println("name="+br_name);
 				
 				String[] listitem_no = req.getParameterValues("listitem_no");
-				System.out.println(listitem_no.toString());
-				System.out.println("[2]="+listitem_no[2]);
+				
 
 				if (!errorMsgs.isEmpty()) {
 					
@@ -60,6 +60,8 @@ public class RoleServlet extends HttpServlet{
 			
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+				String success = "新增角色成功!!";
+				req.setAttribute("success", success);
 				String url = "/backstage/role/role_insert.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				

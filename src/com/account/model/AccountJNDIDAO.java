@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 //import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +35,17 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 		
 		
 		private static final String INSERT_STMT = 
-				"INSERT INTO ACCOUNT_BACKSTAGE(BS_ACC_NO,BS_ACC_NAME,ROLE_NO,CINEMA_NO,BS_ACC_PSW,EMAIL,TEL,LAST_ONLINE_TIME,STATE) VALUES ('A'||LPAD(to_char(member_seq.NEXTVAL), 3, '0'),?,?,?,?,?,?,?,1)";
+				"INSERT INTO ACCOUNT_BACKSTAGE(BS_ACC_NO,BS_ACC_NAME,ROLE_NO,CINEMA_NO,BS_ACC_PSW,EMAIL,TEL,LAST_ONLINE_TIME,STATE) VALUES ('A'||LPAD(to_char(ACCOUNT_BACKSTAGE_SEQ.NEXTVAL), 3, '0'),?,?,?,?,?,?,?,1)";
 		private static final String GET_ALL_STMT = 
 				"SELECT BS_ACC_NO,BS_ACC_NAME,ROLE_NO,CINEMA_NO,BS_ACC_PSW,EMAIL,TEL,LAST_ONLINE_TIME,STATE FROM ACCOUNT_BACKSTAGE order by BS_ACC_NO";
 		private static final String GET_ONE_STMT = 
-				"SELECT BS_ACC_NO,BS_ACC_NAME,ROLE_NO,CINEMA_NO,BS_ACC_PSW,EMAIL,TEL,LAST_ONLINE_TIME,STATE FROM ACCOUNT_BACKSTAGE where BS_ACC_NO = ?";
+				"SELECT BS_ACC_NO,BS_ACC_NAME,ROLE_NO,CINEMA_NO,BS_ACC_PSW,EMAIL,TEL,LAST_ONLINE_TIME,STATE FROM ACCOUNT_BACKSTAGE where BS_ACC_NAME = ?";
 		private static final String DELETE = 
 				"DELETE FROM ACCOUNT_BACKSTAGE where BS_ACC_NO = ?";
 		private static final String UPDATE = 
 				"UPDATE ACCOUNT_BACKSTAGE set BS_ACC_NAME=?, ROLE_NO=?, CINEMA_NO=?, BS_ACC_PSW=?, EMAIL=?, TEL=? ,LAST_ONLINE_TIME=? ,STATE=? where BS_ACC_NO = ?";
+		private static final String LOGIN = 
+				"SELECT * FROM ACCOUNT_BACKSTAGE WHERE BS_ACC_NAME=? AND BS_ACC_PSW=?";
 		
 		@Override
 		public void insert(AccountVO accountVO) {
@@ -87,6 +90,51 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 			}
 			
 		}
+		
+		@Override
+		public boolean login(String bs_acc_name,String bs_acc_psw) {
+			Connection con=null;
+			boolean isValid = false;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+	        try{
+	        	con = ds.getConnection(); 
+	        	pstmt = con.prepareStatement(LOGIN);
+	        	
+	        	pstmt.setString(1, bs_acc_name);
+				pstmt.setString(2, bs_acc_psw);
+				rs=pstmt.executeQuery();            
+	 
+	            if(rs.next()){
+	                isValid = true;
+	            }
+	            rs.close();
+	            pstmt.close();
+	            
+	       
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+			}finally {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+	        if(isValid){
+	            return true;
+	        }
+	        else return false;
+	    }
+		
+		
+		
+		
+		
+		
+		
+		
 
 		@Override
 		public void update(AccountVO accountVO) {
@@ -175,7 +223,7 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 		}
 		
 		@Override
-		public AccountVO findByPrimaryKey(String bs_acc_no) {
+		public AccountVO findVO(String bs_acc_name) {
 
 			AccountVO accountVO = null;
 			Connection con = null;
@@ -187,7 +235,7 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ONE_STMT);
 
-				pstmt.setString(1, bs_acc_no);
+				pstmt.setString(1, bs_acc_name);
 
 				rs = pstmt.executeQuery();
 

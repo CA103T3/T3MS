@@ -45,7 +45,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" role="button" data-toggle="dropdown">
-                        Admin
+                        ${aVO.bs_acc_name}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
