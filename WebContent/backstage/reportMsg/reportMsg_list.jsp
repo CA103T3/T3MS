@@ -48,7 +48,7 @@
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
-                <h3 class="page-header"><label>會員列表&nbsp;&nbsp;&nbsp;</label></h3>
+                <h3 class="page-header"><label>留言檢舉列表&nbsp;&nbsp;&nbsp;</label></h3>
                 <table id="theaters" class="display" style="width:100%">
                     <thead>
                         <tr>

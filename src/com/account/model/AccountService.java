@@ -63,5 +63,8 @@ public class AccountService {
 	public boolean login(String bs_acc_name,String bs_acc_psw) {
 		return dao.login(bs_acc_name, bs_acc_psw);
 	}
+	public void logintime(String bs_acc_name) {
+		dao.logintime(bs_acc_name);
+	}
 
 }

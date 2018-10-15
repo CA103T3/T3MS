@@ -224,7 +224,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AccountServlet</servlet-name>
-    <url-pattern>/backstage/account/account.do</url-pattern>
+    <url-pattern>/account/account.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>RoleServlet</servlet-name>
@@ -234,4 +234,15 @@
     <servlet-name>RoleServlet</servlet-name>
     <url-pattern>/backstage/role/Role.do</url-pattern>
   </servlet-mapping>
+  
+  <filter>
+    <filter-name>Back_accountFilter</filter-name>
+    <filter-class>com.common.filter.Back_accountFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Back_accountFilter</filter-name>
+    <url-pattern>/backstage/*</url-pattern>
+  </filter-mapping>
+  
+  
 </web-app>

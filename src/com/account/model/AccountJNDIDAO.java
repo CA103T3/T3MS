@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 //import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,8 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 				"UPDATE ACCOUNT_BACKSTAGE set BS_ACC_NAME=?, ROLE_NO=?, CINEMA_NO=?, BS_ACC_PSW=?, EMAIL=?, TEL=? ,LAST_ONLINE_TIME=? ,STATE=? where BS_ACC_NO = ?";
 		private static final String LOGIN = 
 				"SELECT * FROM ACCOUNT_BACKSTAGE WHERE BS_ACC_NAME=? AND BS_ACC_PSW=?";
+		private static final String LOGINTIME = 
+				"UPDATE ACCOUNT_BACKSTAGE SET LAST_ONLINE_TIME=? WHERE BS_ACC_NAME=?";
 		
 		@Override
 		public void insert(AccountVO accountVO) {
@@ -345,7 +348,44 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 		}
 
 	
+		@Override
+		public void logintime(String bs_acc_name) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
 
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(LOGINTIME);
+
+				pstmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+				pstmt.setString(2, bs_acc_name);
+							
+				pstmt.executeUpdate();
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+
+		}
 
 		
 			

@@ -114,7 +114,7 @@ body{
            <div class="row login_box">
 			<div class="col-sm login_right">
 				<h5>MS後台登入</h5>	
-				<form name="form1" method="post" action="<%=request.getContextPath()%>/backstage/account/account.do">
+				<form name="form1" method="post" action="<%=request.getContextPath()%>/account/account.do">
 					<input type='hidden' name='action' value='login'/>
 					<div class="form-group">
 						<input type="text" class="form-control"  name="bs_acc_name" aria-describedby="" placeholder="帳號/Account">					
@@ -122,6 +122,9 @@ body{
 					<div class="form-group">
 					 	<!-- <label for="exampleInputPassword1">Password</label> -->
 					 	<input type="password" class="form-control" name='bs_acc_psw' placeholder="密碼/Password">
+					</div>
+					<div class="form-group">
+					 	<input type="hidden" id="getBookTime" name='last_online_time'>
 					</div>
 					<div class="btn_box">
 						<button type="submit" class="btn btn-primary login_btn" name="login" id="login">登入</button>
@@ -132,4 +135,18 @@ body{
            
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
 </body>
+<script>
+window.onload = function(){
+function getDate(){
+debugger;
+var today = new Date(); 
+var date; 
+date = (today.getFullYear()) +"-" + (today.getMonth() + 1 ) + "-" + today.getDate() + "-" + today.toLocaleTimeString(); 
+return date;
+}
+window.setInterval(function(){
+document.getElementById("getBookTime").value=getDate();
+}, 1000);
+}
+</script>
 </html>

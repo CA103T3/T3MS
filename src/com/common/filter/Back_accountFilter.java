@@ -30,16 +30,18 @@ public class Back_accountFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
-
+    	
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession();
+        req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        // 1. 检查用户是否已登录
+        // 1. 檢查是否已登入
         AccountVO aVO = (AccountVO) session.getAttribute("aVO");
 
-        // 2. 没登录，登录去
+        // 2. 沒登入=>轉交
         if (aVO == null) {
             request.setAttribute("message", "轉交至登入畫面");
             request.getRequestDispatcher("/backstage/staff/backstage_login.jsp").forward(request, response);
@@ -48,7 +50,7 @@ public class Back_accountFilter implements Filter {
 
         // 3. 得到用户想访问的资源
         String url = request.getRequestURI();
-
+        System.out.println(url);
         // 4. 得到访问该资源需要的权限
         NavService nSvc = new NavService();
         NavVO nVO = nSvc.findbyurl(url);
@@ -58,7 +60,7 @@ public class Back_accountFilter implements Filter {
          * 才有，如果为null，这个资源不受权限系统控制。
          */
         if (nVO == null) {
-            chain.doFilter(request, response);
+            chain.doFilter(req, res);
             return;
         }
         String p = nVO.getListitem_no(); // 得到访问资源需要的权限
@@ -78,7 +80,7 @@ public class Back_accountFilter implements Filter {
         }
 
         // 7. 如果有，则则放行
-        chain.doFilter(request, response);
+        chain.doFilter(req, res);
 
     }
 

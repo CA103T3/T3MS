@@ -150,7 +150,7 @@ body{
            <div class="row login_box">
 			<div class="col-sm login_right">
 				<h5>MS後台-新增後台帳號</h5>	
-				<form method="post" action="<%=request.getContextPath()%>/backstage/account/account.do">
+				<form method="post" action="<%=request.getContextPath()%>/account/account.do">
 					<input type='hidden' name='action' value="insert">
 					<div class="form-group">
 						<select class="form-control" id="role_no" name="role_no">

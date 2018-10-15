@@ -259,9 +259,7 @@ public class AccountServlet extends HttpServlet{
 				
 								
 				String cinema_no = req.getParameter("cinema_no");
-				if (cinema_no == null || cinema_no.trim().length() == 0) {
-					errorMsgs.add("請選擇影城");
-				}
+				
 				System.out.println("c="+cinema_no);
 
 				
@@ -369,6 +367,20 @@ public class AccountServlet extends HttpServlet{
 	        System.out.println(bs_acc_name);
 	        String bs_acc_psw=req.getParameter("bs_acc_psw");
 	        System.out.println(bs_acc_psw);
+	        
+	        java.sql.Timestamp last_online_time = null;
+	        System.out.println(req.getParameter("last_online_time"));
+	        try {
+				java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date du = df.parse(req.getParameter("last_online_time").trim());
+				last_online_time = new java.sql.Timestamp(du.getTime());
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			System.out.println("last_online_time="+last_online_time);
+	        
+	        
+	        
 	        String result = "";
 	 
 	        b=aSrc.login(bs_acc_name, bs_acc_psw);
@@ -377,10 +389,11 @@ public class AccountServlet extends HttpServlet{
 	            AccountVO aVO = new AccountVO();
 	            result = "success";
 	            aVO = aSrc.getVO(bs_acc_name);
+	            aSrc.logintime(bs_acc_name);
 	            session.setAttribute("aVO",aVO);
 	            
 
-	            res.sendRedirect(req.getContextPath()+"/backstage/template/back_index.jsp");
+	            res.sendRedirect(req.getContextPath()+"/backstage/backstage_index.jsp");
 //	            Cookie username= new Cookie("email",email);
 	//   
 //	            username.setPath("/");

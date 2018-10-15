@@ -1,5 +1,6 @@
 package com.account.model;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 import com.account_backstage.model.Account_BackstageVO;
@@ -13,4 +14,5 @@ public interface AccountDAO_interface {
 	public AccountVO findVO(String bs_acc_name);
 	public List<AccountVO> getAll();
 	public boolean login(String bs_acc_name,String bs_acc_psw);
+	public void logintime(String bs_acc_name);
 }
