@@ -15,9 +15,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/SerUtilServlet")
 public class SerUtilServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     PrintWriter out;
-    private String[] voList = {"MovieVO", "CinemaVO", "TheaterVO", "MemberVO", "FilmreviewVO", "Movie_IntroduceVO", "SessionVO"};
+    private String[] voList = {"MovieVO", "CinemaVO", "TheaterVO", "MemberVO", "FilmreviewVO", "Movie_IntroduceVO",
+            "SessionVO", "TypeVO"};
     private String packagePath = "com.common.ser.";
     private SerUtil su;
     /**
@@ -28,10 +29,10 @@ public class SerUtilServlet extends HttpServlet {
         su = new SerUtil();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest req, HttpServletResponse res)
-	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest req, HttpServletResponse res)
+     */
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         res.setContentType("text/plain; charset=UTF-8");
 
@@ -81,10 +82,10 @@ public class SerUtilServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-	}
+    }
 
-	public void executeAction(String action, String no) throws Exception {
-	    if("add".equals(action)) {
+    public void executeAction(String action, String no) throws Exception {
+        if("add".equals(action)) {
             if (no == null || no.trim().length() == 0) {
                 su.importAll();
             } else {
@@ -103,25 +104,25 @@ public class SerUtilServlet extends HttpServlet {
                 su.export(su.findVOByNo(no));
             }
         }
-	}
+    }
 
-	public void importAll() throws Exception {
-	    out.println("import all ser");
-	    for(int i = 0; i < voList.length; i++) {
-	        String voName = voList[i];
-	        SerStrategy_interface si = getSerStrategy(voName);
-	        if(si == null) {
-	            out.println("can not find " + voName + "Ser");
-	            return;
-	        }
-	        su.setStrategy(si);
-	        String realPath = getServletContext().getRealPath("/");
-	        su.setServletContextRealPath(realPath);
-	        su.importAll();
-	    }
-	}
+    public void importAll() throws Exception {
+        out.println("import all ser");
+        for(int i = 0; i < voList.length; i++) {
+            String voName = voList[i];
+            SerStrategy_interface si = getSerStrategy(voName);
+            if(si == null) {
+                out.println("can not find " + voName + "Ser");
+                return;
+            }
+            su.setStrategy(si);
+            String realPath = getServletContext().getRealPath("/");
+            su.setServletContextRealPath(realPath);
+            su.importAll();
+        }
+    }
 
-	public SerStrategy_interface getSerStrategy(String voName) {
+    public SerStrategy_interface getSerStrategy(String voName) {
         SerStrategy_interface si = null;
         try {
             si = (SerStrategy_interface) Class.forName(packagePath + voName + "Ser").newInstance();
@@ -137,6 +138,6 @@ public class SerUtilServlet extends HttpServlet {
             e.printStackTrace();
         }
         return si;
-	}
+    }
 
 }
