@@ -110,7 +110,7 @@
 							<label for="inputEmail3" class="control-label">影評標題</label>
 						</div>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="inputEmail3" name="title" value="<%=(filmreviewVO == null) ? "影評標題" : filmreviewVO.getTitle()%>" placeholder="影評標題">
+							<input type="text" class="form-control" id="inputEmail3" name="title" value="" placeholder="影評標題">
 						</div>
 					</div>
 					<div class="form-group">
@@ -127,18 +127,13 @@
 					</div>
 				</div>
 			
-				<div class="row">
-					<div class="col-sm-2">
-						<label for="inputPassword3" class="control-label">內容</label>
+				
+				<div class="row" >
+					<div class="col-sm-12">
+						<label for="inputPassword3" class="control-label" style="margin-left:13px;margin-bottom:13px;">內容</label>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="alert alert-dismissable alert-success">
-							<strong>提醒!</strong> 圖片請上傳2Mb以下的檔案
-						</div>
-					</div>
-				</div>
+			
 			
 				<div class="row">
 					<div class="col-md-12">
@@ -150,39 +145,16 @@
 
 					</div>
 				</div>
-			
+		
 				<div class="row">
 					<div class="col-md-12">
 
 
-						<div class="form-group">
-							<div class="col-sm-2">
-								<label for="inputPassword3" class="control-label">會員編號</label>
-							</div>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEmail3" name="mem_no" value="${memVO.memno}" placeholder="會員編號">
-
-							</div>
-						</div>
 						
-						<div class="form-group">
-							<div class="col-sm-2">
-								<label for="inputEmail3" class="control-label">影評來源</label>
-							</div>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEmail3" name="source" value="<%=(filmreviewVO == null) ? "影評來源" : filmreviewVO.getSource()%>" placeholder="影評來源">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-2">
-								<label for="inputPassword3" class="control-label">影評網址</label>
-							</div>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEmail3" name="url" value="<%=(filmreviewVO == null) ? "影評網址" : filmreviewVO.getUrl()%>" placeholder="影評網址">
-							</div>
-						</div>
+						
 
 						<div class="col-md-12 text-center">
+							<input type="hidden" name="mem_no" value="${memVO.memno }">
 							<input type="hidden" name="action" value="insert">
 							<button type="submit" class="btn btn-default">發佈</button>
 						</div>
@@ -192,7 +164,9 @@
 			</div>
 		</div>
 	</form>
-
+<div class="col-sm-12 text-center" style="font-size:20px;margin-top:20px;">
+<a href="/T3MS/forestage/filmreview/fv_home.jsp"><img src="/T3MS/img/House-Icon.png" style="height:40px;edith:40px;"></a>
+</div>
 	<%@ include file="/forestage/template/footer.jsp"%>
 
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>

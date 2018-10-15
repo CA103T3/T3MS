@@ -47,7 +47,7 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 	private static final String GET_ALL_MEM = 
 			"SELECT  Filmreview.FR_NO,Filmreview.MOVIE_NO,filmreview.created_at,Filmreview.updated_at,Filmreview.content,Filmreview.evaluation,"
 			+ "Filmreview.title,Filmreview.source,Filmreview.url,Filmreview.mem_no,Filmreview.author  FROM Filmreview LEFT JOIN MOVIE ON Filmreview.MOVIE_NO = "
-			+ "MOVIE.MOVIE_NO where MOVIE_NAME LiKE ?";
+			+ "MOVIE.MOVIE_NO where MOVIE_NAME||MOVIE_TYPE||STARRING||DIRECTOR LiKE ?";
 	@Override
 	public void insert(FilmreviewVO filmreviewVO) {
 		

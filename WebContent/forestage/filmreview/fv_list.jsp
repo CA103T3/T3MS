@@ -34,7 +34,7 @@ top: 50%;
 transform: translateY(50%);
 }
 .toto {margin-top: 60px;}
-	body {background-color:#aaa !important;}
+	body {}
 	 .ctnr {
 	border-radius: 5px;
 	background-color: rgb(238, 238, 238);
@@ -54,7 +54,7 @@ transform: translateY(50%);
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-right">
-            <a href="/T3MS/forestage/filmreview/fv_home.jsp" class="btn btn-primary">瀏覽影評</a>
+            <a href="/T3MS/forestage/filmreview/fv_home.jsp" class="btn btn-primary" >瀏覽影評</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ transform: translateY(50%);
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="text-center">影評搜尋</h1>
+					<h1 class="text-center" style="color:white !important;">影評搜尋</h1>
 				</div>
 			</div>
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/filmreview/filmreview.do">
@@ -127,7 +127,7 @@ transform: translateY(50%);
 			<div class="row">
 				<div class="col-md-6">
 					<div class="page-header">
-						<h3>
+						<h3 style="color:white !important;">
 									您的所有影評如下:					
 							<small></small>
 							
@@ -228,10 +228,15 @@ transform: translateY(50%);
 	<!--- if erroMsg --->
 
   </c:forEach>
+  
+  
+  
 	<%@ include file="/resources/page_code/pageb.file"%>
     
     
-    
+  <div class="col-sm-12 text-center" style="font-size:20px;margin-top:20px;">
+<a href="/T3MS/forestage/filmreview/fv_home.jsp"><img src="/T3MS/img/House-Icon.png" style="height:40px;edith:40px;"></a>
+</div>  
     
 	<%@ include file="/forestage/template/footer.jsp"%>
 

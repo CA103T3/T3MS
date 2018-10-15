@@ -77,6 +77,8 @@ public class FilmreviewServlet extends HttpServlet {
 //				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("fv_search", set); // 資料庫取出的VO物件,存入req
+				req.setAttribute("moviename", str); // 資料庫取出的VO物件,存入req
+				
 				String urll = "/forestage/filmreview/fv_search.jsp";
 				
 				RequestDispatcher successView = req.getRequestDispatcher(urll); // 成功轉交jsp
@@ -445,14 +447,9 @@ public class FilmreviewServlet extends HttpServlet {
 			
 				
 				String url = req.getParameter("url");
-				if (url == null || url.trim().length() == 0) {
-					errorMsgs.add("網址請勿空白");
-				}
+			
 				String source = req.getParameter("source");
-				if (source == null || source.trim().length() == 0) {
-					errorMsgs.add("來源請勿空白");
-				}
-				
+			
 				
 				Double evaluation = null;
 				try {

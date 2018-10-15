@@ -16,7 +16,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+<link href="/T3MS/css/circle1440.css" rel="stylesheet" type="text/css">
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
 
@@ -34,9 +34,15 @@
 <body class="body-template">
 
   <%@ include file="/forestage/template/header.jsp" %>
+ <div id="loader-wrapper">
 
-
- <div class="section">
+                <div id="loader"></div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+        
+            </div>
+<c:if test="${memVO.memno!=null}">
+ <div class="section"style="padding-bottom: 2px;">
 	      <div class="container">
 	        <div class="row">
 	          <div class="col-md-12 text-right">
@@ -48,10 +54,10 @@
 	        </div>
 	      </div>
 	    </div>
+</c:if>
 
 
-
-	<div class="section" style=" padding-top: 2px;">
+	<div class="section" style=" padding-bottom: 2px;">
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-12">
@@ -68,7 +74,7 @@
 
 								<input type="text" class="form-control" name="movie_name" placeholder="請輸入電影名稱">
 								<div class="input-group-btn">
-									<input class="btn btn-primary" type="submit" value="送出" style="border-top-right-radius:5px;border-bottom-right-radius:5px;"> <input type="hidden" name="action" value="getOne_For_Display">
+									<input class="btn btn-primary" type="submit" value="送出" style="border-top-right-radius:5px;border-bottom-right-radius:5px;border-top-width: 0px;border-bottom-width: 0px;height: 34px;"> <input type="hidden" name="action" value="getOne_For_Display">
 								</div>
 
 
@@ -126,7 +132,9 @@
 					<div class="page-header">
 						<h3 style="color:white !important;">
 									您的搜尋結果如下:					
-							<small>共<% out.print(fv_search.size()); %>筆</small>
+							<small style="color: #aaa;">您搜尋的關鍵字是
+							<b style="color:#00FFFF;"><%out.print(request.getAttribute("moviename")); %></b>
+							，共<b style="color:#00FFFF;"><% out.print(fv_search.size()); %></b>筆</small>
 							
 								
 						</h3>
@@ -200,10 +208,9 @@
 
 
 	</c:forEach>
-
-
-
-
+<div class="col-sm-12 text-center" style="font-size:20px;margin-top:20px;">
+<a href="/T3MS/forestage/filmreview/fv_home.jsp"><img src="/T3MS/img/House-Icon.png" style="height:40px;edith:40px;"></a>
+</div>
 	<%@ include file="/forestage/template/footer.jsp"%>
 
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
@@ -211,6 +218,7 @@
 		$(document).ready(function() {
 			$("li:contains('電影資訊')").addClass("custom-active");
 		});
+		$('body').addClass('loaded');
 	</script>
 
 
