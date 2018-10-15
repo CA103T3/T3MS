@@ -22,7 +22,7 @@
 
 <%
 	SessionService sessionSvc = new SessionService();
-	List<SessionVO> list = sessionSvc.getTmrMoment();
+	List<SessionVO> list = sessionSvc.getTmrMoment(movieVO.getMovie_no());
 	pageContext.setAttribute("list", list);
 %>
 <%
@@ -56,7 +56,8 @@
 	
 <!-- ----------------當日影城+時刻表--------------------- -->
 				
-<!--   ------------------  影城FOREach   ------------------  -->				
+<!--   ------------------  影城FOREach   ------------------  -->	
+			
 				<c:forEach var="cvo" items="${cvo}">
 				
 
@@ -74,7 +75,7 @@
 
 
 									<c:forEach var="sessionVO" items="${list}">
-											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
+											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
 <!--   ------------------  時刻FOREach   ------------------  -->	
 	
 								<div class="col-md-3">

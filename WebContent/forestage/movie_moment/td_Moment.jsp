@@ -22,7 +22,7 @@
 
 <%
 	SessionService sessionSvc = new SessionService();
-	List<SessionVO> list = sessionSvc.getNowMoment();
+	List<SessionVO> list = sessionSvc.getNowMoment(movieVO.getMovie_no());
 	pageContext.setAttribute("list", list);
 %>
 <%
@@ -91,13 +91,14 @@
 <!-- ----------------當日影城+時刻表--------------------- -->
 				
 <!--   ------------------  影城FOREach   ------------------  -->				
+									<c:forEach var="sessionVO" items="${list}">
 				<c:forEach var="cvo" items="${cvo}">
-				
+		
 
-					<div class="panel panel-primary" style="margin-top:30px!important;">
+					<div class="panel panel-primary hi" style="margin-top:30px!important;" >
 
-						<div class="panel-heading">
-							<h3 class="panel-title">${cvo.cinema_name}</h3>
+						<div class="panel-heading" >
+							<h3 class="panel-title" >${cvo.cinema_name}</h3>
 
 
 						</div>
@@ -107,9 +108,7 @@
 							<div class="row">
 
 
-									<c:forEach var="sessionVO" items="${list}">
-											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)
-											and (!empty sessionVO.session_time)}">
+									
 <!--   ------------------  時刻FOREach   ------------------  -->	
 	
 								<div class="col-md-3">
@@ -139,8 +138,9 @@
 									</div>
 
 								</div>
-											</c:if>
-										</c:forEach>
+										
+										
+											
 
 							</div>
 						</div>
@@ -148,6 +148,7 @@
 					</div>
 
 				</c:forEach>
+										</c:forEach>
 				<!-- ----------------當日影城+時刻表--------------------- -->
 
 			

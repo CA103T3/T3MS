@@ -66,7 +66,8 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "to_date(to_char(sysdate,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
     		+ "AND SESSION_TIME > systimestamp "
-    		+ "order by SESSION_TIME ";
+    		+ "AND MOVIE_SESSION.MOVIE_NO =? "
+    		+ "order by CINEMA_NO ";
     private static final String GET_TMR_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
     		+ "LEFT JOIN CINEMA ON THEATER.CINEMA_NO = CINEMA.CINEMA_NO "
@@ -75,6 +76,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "to_date(to_char(sysdate+1,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+1,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
     		+ "AND SESSION_TIME > systimestamp "
+    		+ "AND MOVIE_SESSION.MOVIE_NO =? "
     		+ "order by SESSION_TIME ";
     private static final String GET_C_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -84,6 +86,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "to_date(to_char(sysdate+2,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+2,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
     		+ "AND SESSION_TIME > systimestamp "
+    		+ "AND MOVIE_SESSION.MOVIE_NO =? "
     		+ "order by SESSION_TIME ";
     private static final String GET_D_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -93,6 +96,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "to_date(to_char(sysdate+3,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+3,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
     		+ "AND SESSION_TIME > systimestamp "
+    		+ "AND MOVIE_SESSION.MOVIE_NO =? "
     		+ "order by SESSION_TIME ";
     private static final String GET_E_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -102,6 +106,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "to_date(to_char(sysdate+4,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+4,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
     		+ "AND SESSION_TIME > systimestamp "
+    		+ "AND MOVIE_SESSION.MOVIE_NO =? "
     		+ "order by SESSION_TIME ";
     private static final String GET_F_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -111,6 +116,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "to_date(to_char(sysdate+5,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+5,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
     		+ "AND SESSION_TIME > systimestamp "
+    		+ "AND MOVIE_SESSION.MOVIE_NO =? "
     		+ "order by SESSION_TIME ";
     private static final String GET_G_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -120,6 +126,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "to_date(to_char(sysdate+6,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+6,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
     		+ "AND SESSION_TIME > systimestamp "
+    		+ "AND MOVIE_SESSION.MOVIE_NO =? "
     		+ "order by SESSION_TIME ";
    
     @Override
@@ -717,18 +724,23 @@ public class SessionDAO implements SessionDAO_interface {
 	}
 
 	@Override
-	public List<SessionVO> getNowMoment() {
+	public List<SessionVO> getNowMoment(String movie_no) {
 		List<SessionVO> list = new ArrayList<SessionVO>();
         SessionVO sessionVO = null;
 
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        
+        
 
         try {
 
             con = ds.getConnection();
             pstmt = con.prepareStatement(GET_NOW_MOMENT);
+            pstmt.setString(1, movie_no);
+            
+            
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -787,7 +799,7 @@ public class SessionDAO implements SessionDAO_interface {
     }
 	
 	@Override
-	public List<SessionVO> getTmrMoment() {
+	public List<SessionVO> getTmrMoment(String movie_no) {
 		List<SessionVO> list = new ArrayList<SessionVO>();
         SessionVO sessionVO = null;
 
@@ -799,7 +811,9 @@ public class SessionDAO implements SessionDAO_interface {
 
             con = ds.getConnection();
             pstmt = con.prepareStatement(GET_TMR_MOMENT);
+            pstmt.setString(1, movie_no);
             rs = pstmt.executeQuery();
+            
 
             while (rs.next()) {
                 // sessionVO 也稱為 Domain objects
@@ -856,7 +870,7 @@ public class SessionDAO implements SessionDAO_interface {
         return list;
     }
 	@Override
-	public List<SessionVO> getCMoment() {
+	public List<SessionVO> getCMoment(String movie_no) {
 		List<SessionVO> list = new ArrayList<SessionVO>();
 		SessionVO sessionVO = null;
 		
@@ -868,6 +882,7 @@ public class SessionDAO implements SessionDAO_interface {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_C_MOMENT);
+			pstmt.setString(1, movie_no);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -925,7 +940,7 @@ public class SessionDAO implements SessionDAO_interface {
 		return list;
 	}
 	@Override
-	public List<SessionVO> getDMoment() {
+	public List<SessionVO> getDMoment(String movie_no) {
 		List<SessionVO> list = new ArrayList<SessionVO>();
 		SessionVO sessionVO = null;
 		
@@ -937,6 +952,7 @@ public class SessionDAO implements SessionDAO_interface {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_D_MOMENT);
+			pstmt.setString(1, movie_no);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -994,7 +1010,7 @@ public class SessionDAO implements SessionDAO_interface {
 		return list;
 	}
 	@Override
-	public List<SessionVO> getEMoment() {
+	public List<SessionVO> getEMoment(String movie_no) {
 		List<SessionVO> list = new ArrayList<SessionVO>();
 		SessionVO sessionVO = null;
 		
@@ -1006,6 +1022,7 @@ public class SessionDAO implements SessionDAO_interface {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_E_MOMENT);
+			pstmt.setString(1, movie_no);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -1063,7 +1080,7 @@ public class SessionDAO implements SessionDAO_interface {
 		return list;
 	}
 	@Override
-	public List<SessionVO> getFMoment() {
+	public List<SessionVO> getFMoment(String movie_no) {
 		List<SessionVO> list = new ArrayList<SessionVO>();
 		SessionVO sessionVO = null;
 		
@@ -1075,6 +1092,7 @@ public class SessionDAO implements SessionDAO_interface {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_F_MOMENT);
+			pstmt.setString(1, movie_no);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -1132,7 +1150,7 @@ public class SessionDAO implements SessionDAO_interface {
 		return list;
 	}
 	@Override
-	public List<SessionVO> getGMoment() {
+	public List<SessionVO> getGMoment(String movie_no) {
 		List<SessionVO> list = new ArrayList<SessionVO>();
 		SessionVO sessionVO = null;
 		
@@ -1144,6 +1162,7 @@ public class SessionDAO implements SessionDAO_interface {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_G_MOMENT);
+			pstmt.setString(1, movie_no);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {

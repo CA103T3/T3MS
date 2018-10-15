@@ -68,7 +68,8 @@ public class SessionServiceTest extends HttpServlet {
         String cinema_no = "C001";
         testGetAllofJoinTheaterMovieWhereTheaterNoCinema(cinema_no);
         testGetAllBySessionTimeMovieNoCinemaNo();
-        testGetNowMoment();
+        String movie_no ="MV0002";
+        testGetNowMoment(movie_no);
         testGetOneSessionByTheaterNoBeforeSessionTime();
         testGetAllCountInTheaterNoListGroupByTheaterNo();
     }
@@ -272,8 +273,8 @@ public class SessionServiceTest extends HttpServlet {
         out.println("delete session_no : " + session_no);
     }
     
-    public void testGetNowMoment() {
-      	 List<SessionVO> list = sSvc.getNowMoment();
+    public void testGetNowMoment(String movie_no) {
+      	 List<SessionVO> list = sSvc.getNowMoment(movie_no);
            out.println("list="+list.size());
            for(SessionVO vo : list) {
                out.println(vo.getSession_no()+ ",");

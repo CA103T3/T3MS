@@ -79,25 +79,25 @@ public class SessionService {
     	dao.updateSessionSeat(seattable, movie_session_no, conn);
     }
 
-    public List<SessionVO> getNowMoment() {
-        return dao.getNowMoment();
+    public List<SessionVO> getNowMoment(String movie_no) {
+        return dao.getNowMoment(movie_no);
     }
-    public List<SessionVO> getTmrMoment() {
-        return dao.getTmrMoment();
+    public List<SessionVO> getTmrMoment(String movie_no) {
+        return dao.getTmrMoment(movie_no);
     }
-    public List<SessionVO> getCMoment() {
-    	return dao.getCMoment();
+    public List<SessionVO> getCMoment(String movie_no) {
+    	return dao.getCMoment(movie_no);
     }
-    public List<SessionVO> getDMoment() {
-    	return dao.getDMoment();
+    public List<SessionVO> getDMoment(String movie_no) {
+    	return dao.getDMoment(movie_no);
     }
-    public List<SessionVO> getEMoment() {
-    	return dao.getEMoment();
+    public List<SessionVO> getEMoment(String movie_no) {
+    	return dao.getEMoment(movie_no);
     }
-    public List<SessionVO> getFMoment() {
-    	return dao.getFMoment();
+    public List<SessionVO> getFMoment(String movie_no) {
+    	return dao.getFMoment(movie_no);
     }
-    public List<SessionVO> getGMoment() {
-    	return dao.getGMoment();
+    public List<SessionVO> getGMoment(String movie_no) {
+    	return dao.getGMoment(movie_no);
     }
 }

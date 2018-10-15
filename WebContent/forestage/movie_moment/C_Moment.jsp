@@ -22,7 +22,7 @@
 
 <%
 	SessionService sessionSvc = new SessionService();
-	List<SessionVO> list = sessionSvc.getCMoment();
+	List<SessionVO> list = sessionSvc.getCMoment(movieVO.getMovie_no());
 	pageContext.setAttribute("list", list);
 %>
 <%
@@ -74,7 +74,7 @@
 
 
 									<c:forEach var="sessionVO" items="${list}">
-											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
+											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
 <!--   ------------------  時刻FOREach   ------------------  -->	
 	
 								<div class="col-md-3">

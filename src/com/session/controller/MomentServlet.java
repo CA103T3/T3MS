@@ -77,7 +77,7 @@ public class MomentServlet extends HttpServlet {
 
 
 	SessionService sSvc = new SessionService();
-	List<SessionVO> sessionVOList = sSvc.getNowMoment();
+	List<SessionVO> sessionVOList = sSvc.getNowMoment(movie_no);
 	
 	req.setAttribute("selectA", sessionVOList); //Today
 	
@@ -110,7 +110,7 @@ public class MomentServlet extends HttpServlet {
 
 				
 				SessionService tmrSvc = new SessionService();
-				List<SessionVO> sessionVOList1 = tmrSvc.getTmrMoment();
+				List<SessionVO> sessionVOList1 = tmrSvc.getTmrMoment(movie_no);
 				
 				req.setAttribute("selectB", sessionVOList1); //  TMR  
 
@@ -145,7 +145,7 @@ public class MomentServlet extends HttpServlet {
 				
 				
 				SessionService tmrSvc = new SessionService();
-				List<SessionVO> sessionVOList1 = tmrSvc.getCMoment();
+				List<SessionVO> sessionVOList1 = tmrSvc.getCMoment(movie_no);
 				
 				req.setAttribute("selectC", sessionVOList1); //  TMR  
 				
@@ -180,7 +180,7 @@ public class MomentServlet extends HttpServlet {
 				
 				
 				SessionService tmrSvc = new SessionService();
-				List<SessionVO> sessionVOList1 = tmrSvc.getDMoment();
+				List<SessionVO> sessionVOList1 = tmrSvc.getDMoment(movie_no);
 				
 				req.setAttribute("selectD", sessionVOList1); //  TMR  
 				
@@ -215,7 +215,7 @@ public class MomentServlet extends HttpServlet {
 				
 				
 				SessionService tmrSvc = new SessionService();
-				List<SessionVO> sessionVOList1 = tmrSvc.getEMoment();
+				List<SessionVO> sessionVOList1 = tmrSvc.getEMoment(movie_no);
 				
 				req.setAttribute("selectE", sessionVOList1); //  TMR  
 				
@@ -250,7 +250,7 @@ public class MomentServlet extends HttpServlet {
 				
 				
 				SessionService tmrSvc = new SessionService();
-				List<SessionVO> sessionVOList1 = tmrSvc.getFMoment();
+				List<SessionVO> sessionVOList1 = tmrSvc.getFMoment(movie_no);
 				
 				req.setAttribute("selectF", sessionVOList1); //  TMR  
 				
@@ -285,7 +285,7 @@ public class MomentServlet extends HttpServlet {
 				
 				
 				SessionService tmrSvc = new SessionService();
-				List<SessionVO> sessionVOList1 = tmrSvc.getGMoment();
+				List<SessionVO> sessionVOList1 = tmrSvc.getGMoment(movie_no);
 				
 				req.setAttribute("selectG", sessionVOList1); //  TMR  
 				
@@ -362,11 +362,11 @@ public class MomentServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
-				
+				String movie_no = req.getParameter("movie_no");
 
 				/*************************** 2.查詢資料 ***************************************/
 				SessionService sSvc = new SessionService();
-				List<SessionVO> sessionVOList = sSvc.getNowMoment();
+				List<SessionVO> sessionVOList = sSvc.getNowMoment(movie_no);
 
 				
 				

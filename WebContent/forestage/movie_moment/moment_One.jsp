@@ -22,7 +22,7 @@
 
 <%
 	SessionService sessionSvc = new SessionService();
-	List<SessionVO> list = sessionSvc.getNowMoment();
+	List<SessionVO> list = sessionSvc.getNowMoment(movieVO.getMovie_no());
 	pageContext.setAttribute("list", list);
 %>
 <%
@@ -59,6 +59,7 @@
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/T3MS/css/btn_moment.css">
 <link rel="stylesheet" href="/T3MS/css/btn_light.css">
+
 <%@ include file="/forestage/template/link.jsp"%>
 <title>M&amp;S</title>
 <style>
@@ -220,12 +221,16 @@ body {
 			</div>
 		</div>
 		
+<!-- ---------------------收藏------------------------------ -->	
+<div >
+	<div><img class="favorite" id="favorite" src="/T3MS/img/Test_UP_IMG/heart.png" alt=""></div>
+	<div><img  src="/T3MS/img/Test_UP_IMG/heart(1).png" alt=""></div>
+</div>
 
+	
 	</div>
 	
-	
-	
-
+		
 
 
 	<!-- movie Moment   -->
@@ -403,52 +408,39 @@ body {
 				<!--   ------------------  影城FOREach   ------------------  -->
 
 
+				
 				<%
 					if (request.getAttribute("selectA") != null) {
 				%>
 				<jsp:include page="td_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectB") != null) {
+					;}else if (request.getAttribute("selectB") != null) {
 				%>
 				<jsp:include page="tom_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectC") != null) {
+					;}else if (request.getAttribute("selectC") != null) {
 				%>
 				<jsp:include page="C_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectD") != null) {
+					;}else if (request.getAttribute("selectD") != null) {
 				%>
 				<jsp:include page="D_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectE") != null) {
+					;}else if (request.getAttribute("selectE") != null) {
 				%>
 				<jsp:include page="E_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectF") != null) {
+					;}else if (request.getAttribute("selectF") != null) {
 				%>
 				<jsp:include page="F_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectG") != null) {
+					;}else if (request.getAttribute("selectG") != null) {
 				%>
 				<jsp:include page="G_Moment.jsp" />
+				<%
+					;}else if (request.getAttribute("selectA") == null) {
+				%>
+				<jsp:include page="td_Moment.jsp" />
 				<%
 					}
 				%>
@@ -511,6 +503,37 @@ body {
 		// Get the element with id="defaultOpen" and click on it
 		document.getElementById("defaultOpen").click();
 	</script>
+	
+<script>
+$('.favorite').click(function(){
+    var productId = $(this).attr('data-like')
+    var memId = "${memVO.mem_id}";
+   
+     $.ajax({
+       type:"POST",
+       url:"<%=request.getContextPath()%>/ProductFavoriteServlet",
+       data:{"productId":productId,"memId":memId,"action":"deleteFavorite"},
+       dataType:"json",
+       success:function(data){
+       $('tr[name="'+data.productId+'"]').remove()
+       swal({
+         title: "取消收藏",
+         text: "電影已取消收藏",
+         icon: "success",
+         button: "Aww yiss!",
+       });
+       },
+       error:function(){
+         alert("取消收藏")
+       }
+     })
+})
+
+
+</script>
+
+
+
 
 
 </body>

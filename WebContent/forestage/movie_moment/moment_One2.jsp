@@ -22,7 +22,7 @@
 
 <%
 	SessionService sessionSvc = new SessionService();
-	List<SessionVO> list = sessionSvc.getNowMoment();
+	List<SessionVO> list = sessionSvc.getNowMoment(movieVO.getMovie_no());
 	pageContext.setAttribute("list", list);
 %>
 <%
@@ -400,53 +400,39 @@ body {
 				<!-- ----------------當日影城+時刻表--------------------- -->
 				<!--   ------------------  影城FOREach   ------------------  -->
 
-
+	
 				<%
 					if (request.getAttribute("selectA") != null) {
 				%>
 				<jsp:include page="td_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectB") != null) {
+					;}else if (request.getAttribute("selectB") != null) {
 				%>
 				<jsp:include page="tom_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectC") != null) {
+					;}else if (request.getAttribute("selectC") != null) {
 				%>
 				<jsp:include page="C_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectD") != null) {
+					;}else if (request.getAttribute("selectD") != null) {
 				%>
 				<jsp:include page="D_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectE") != null) {
+					;}else if (request.getAttribute("selectE") != null) {
 				%>
 				<jsp:include page="E_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectF") != null) {
+					;}else if (request.getAttribute("selectF") != null) {
 				%>
 				<jsp:include page="F_Moment.jsp" />
 				<%
-					}
-				%>
-				<%
-					if (request.getAttribute("selectG") != null) {
+					;}else if (request.getAttribute("selectG") != null) {
 				%>
 				<jsp:include page="G_Moment.jsp" />
+				<%
+					;}else if (request.getAttribute("selectA") == null) {
+				%>
+				<jsp:include page="td_Moment.jsp" />
 				<%
 					}
 				%>
