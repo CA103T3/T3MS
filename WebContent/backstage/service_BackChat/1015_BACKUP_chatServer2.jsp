@@ -42,20 +42,25 @@
             <hr/>
             <input type="text" class="form-control" placeholder="message" aria-describedby="sizing-addon1" id="msg">
             <hr/>
-            <button type="button" id="sendmsg" class="btn btn-lg btn-success btn-block" onclick="emit()">發送</button>
+            <button type="button" class="btn btn-lg btn-success btn-block" onclick="emit()">發送</button>
         </div>
-
+<script>
+$(window).scroll(function(){
+    var scrollTop = $(this).scrollTop();
+    var scrollHeight = $(document).height();
+    var windowHeight = $(this).height();
+    if(scrollTop + windowHeight == scrollHeight){
+        alert("you are in the bottom");
+    }
+}); 
+</script> 
 <script type="text/javascript">
     	$(document).ready(function(){
     		$("#msg").focus();
-    		$("#content").scrollTop(10000);
-    		$("#sendmsg").click(function(){
-    			$("#content").scrollTop(10000);
-    		});
     	});
 </script>
  <script type="text/javascript">
-		 	var MyPoint = "/FriendWS/客服人員";
+		 	var MyPoint = "/FriendWS/Service";
 			var host = window.location.host;
 			var path = window.location.pathname;
 			var webCtx = path.substring(0, path.indexOf('/', 1)); 
@@ -67,7 +72,7 @@
 				
 				 webSocket.onopen = function() {
 					 <%
-					 	List<String> list = JedisHandleMessage.getHistoryMsg("客服人員", "結衣新垣");
+					 	List<String> list = JedisHandleMessage.getHistoryMsg("Service", "M0001");
 					 	
 					 	for(int i=list.size()-1; i>-1; i--){
 					 		String oldTalk = list.get(i);
@@ -85,8 +90,7 @@
 			         console.log("receiver="+data.receiver);
 			         console.log("data.message="+data.message);
 			         if(data.sender != undefined){
-			        	 $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + "; font-size: " + 14 + ";'>"+ "&nbsp;&nbsp;"+ data.sender + "：" + data.message + "&nbsp;&nbsp;" + "</span><br/>");
-// 			        	 $("#content").append("<kbd style='color: #fff;font-size:16px ;margin-top: 10px;'>" + data.sender + ":" + data.message + "</kbd></br>");
+			        	 $("#content").append("<kbd style='color: #fff;font-size:16px ;margin-top: 10px;'>" + data.sender + ":" + data.message + "</kbd></br>");
 			         }
 			         console.log("DDD");
 // 			         /* $("#content").append("<kbd style='color: #" + data.color + ";font-size: " + data.fontSize + ";margin-top: 10px;'>" + data.sender + " Say: " + data.message + "</kbd></br>"); */
@@ -104,7 +108,6 @@
 			     var e = event || window.event || arguments.callee.caller.arguments[0];
 			     if(e && e.keyCode == 13){
 			         emit();
-			         $("#content").scrollTop(10000);
 			     }
 	 		 }; 	
 			
@@ -114,9 +117,9 @@
 		     var text = encodeScript($("#msg").val());
 		     var msg = {
 		    		 "type":"XhistoryX",
-		    		 "sender":"客服人員", 
+		    		 "sender":"Service", 
 		    		 "receiver":"M0001",
-		    		 "message":"&nbsp;" + text + "&nbsp;"
+		    		 "message":text
 		     };
 // 		     var msg = {
 // 		         "message" : text,
@@ -135,8 +138,8 @@
 			    if(null == data || "" == data) {
 			        return "";
 			    }
-			    return data.replace("<", "&lt;").replace(">", "&gt;").replace(" ","&nbsp;");
-		 }
+			    return data.replace("<", "&lt;").replace(">", "&gt;");
+			}
 </script>
             </div>
         </div>

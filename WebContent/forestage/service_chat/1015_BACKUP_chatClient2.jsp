@@ -1,7 +1,5 @@
 <%@page import="com.member.model.MemVO"%>
 <%@page import="com.servicechat.controller.ChatMessage"%>
-<%@page import="com.servicechat.controller.JedisHandleMessage"%>
-<%@ page import="org.json.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <!doctype html>
@@ -22,7 +20,7 @@
 //     	String memid = "M0001";
     	MemVO memVO = (MemVO) session.getAttribute("memVO");
     	String mem_no = memVO.getmemno();
-    	String mem_fullName = memVO.getLastname()+memVO.getFirstname();
+    	String mem_fullName = memVO.getFirstname()+memVO.getLastname();
     %>
     <body onload="connect();" class="body-template">
         <%@ include file="/forestage/template/header.jsp" %>
@@ -44,30 +42,21 @@
             <hr/>
             <input type="text" class="form-control" placeholder="message" aria-describedby="sizing-addon1" id="msg">
             <hr/>
-            <button type="button" id="sendmsg" class="btn btn-lg btn-success btn-block" onclick="emit()">發送</button>
+            <button type="button" class="btn btn-lg btn-success btn-block" onclick="emit()">發送</button>
         </div>
 <script>
-$('#sendmsg').click(function(event){
-	event.preventDefault();
-	var n = $("#content").height();
-	$('html,body').animate({scorllTop:n},50);
-});
-// $(window).scroll(function(){
-//     var scrollTop = $(this).scrollTop();
-//     var scrollHeight = $(document).height();
-//     var windowHeight = $(this).height();
-//     if(scrollTop + windowHeight == scrollHeight){
-//         alert("you are in the bottom");
-//     }
-// }); 
+$(window).scroll(function(){
+    var scrollTop = $(this).scrollTop();
+    var scrollHeight = $(document).height();
+    var windowHeight = $(this).height();
+    if(scrollTop + windowHeight == scrollHeight){
+        alert("you are in the bottom");
+    }
+}); 
 </script> 
 <script type="text/javascript">
     	$(document).ready(function(){
     		$("#msg").focus();
-    		$("#content").scrollTop(10000);
-    		$("#sendmsg").click(function(){
-    			$("#content").scrollTop(10000);
-    		});
     	});
 </script>
  <script type="text/javascript">
@@ -82,16 +71,6 @@ $('#sendmsg').click(function(event){
 				 webSocket = new WebSocket(endPointURL);
 				
 				 webSocket.onopen = function() {
-					 <%
-					 	List<String> list = JedisHandleMessage.getHistoryMsg("Service", "結衣新垣");
-					 	
-					 	for(int i=list.size()-1; i>-1; i--){
-					 		String oldTalk = list.get(i);
-					 		JSONObject json = new JSONObject(oldTalk);
-					 		String hisTemp = json.getString("message");
-					 		%>
-					 		$("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>" + " <%=hisTemp%> " +  "</span><br/>");
-					 <%}%>
 					 $("#content").append("<kbd>Welcome!</kbd></br>");
 				 };
 				
@@ -101,8 +80,7 @@ $('#sendmsg').click(function(event){
 			         console.log("receiver="+data.receiver);
 			         console.log("data.message="+data.message);
 			         if(data.sender != undefined){
-			        	 $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + "; font-size: " + 14 + ";'>"+ "&nbsp;&nbsp;"+ data.sender + "：" + data.message + "&nbsp;&nbsp;" + "</span><br/>");
-// 			        	 $("#content").append("<kbd style='color: #fff;font-size:16px ;margin-top: 10px;'>" + data.sender + ":" + data.message + "</kbd></br>");
+			        	 $("#content").append("<kbd style='color: #fff;font-size:16px ;margin-top: 10px;'>" + data.sender + ":" + data.message + "</kbd></br>");
 			         }
 			         console.log("DDD");
 // 			         /* $("#content").append("<kbd style='color: #" + data.color + ";font-size: " + data.fontSize + ";margin-top: 10px;'>" + data.sender + " Say: " + data.message + "</kbd></br>"); */
@@ -120,7 +98,6 @@ $('#sendmsg').click(function(event){
 			     var e = event || window.event || arguments.callee.caller.arguments[0];
 			     if(e && e.keyCode == 13){
 			         emit();
-			         $("#content").scrollTop(10000);
 			     }
 	 		 }; 	
 			
@@ -131,8 +108,8 @@ $('#sendmsg').click(function(event){
 		     var msg = {
 		    		 "type":"<%=mem_fullName%>",
 		    		 "sender":"<%=mem_fullName%>", 
-		    		 "receiver":"客服人員",
-		    		 "message":"&nbsp;" + text + "&nbsp;"
+		    		 "receiver":"Service",
+		    		 "message":text
 		     };
 // 		     var msg = {
 // 		         "message" : text,
@@ -143,7 +120,7 @@ $('#sendmsg').click(function(event){
 		     msg = JSON.stringify(msg);
 		     //向server發送訊息
 		     webSocket.send(msg);
-		     $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>"+ "&nbsp;" + text + "&nbsp;" +"</span><br/>");
+		     $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>"+ "&nbsp;&nbsp;" + text + "&nbsp;&nbsp;" +"</span><br/>");
 		     $("#msg").val("");
 		 }
 		 
@@ -151,8 +128,8 @@ $('#sendmsg').click(function(event){
 			    if(null == data || "" == data) {
 			        return "";
 			    }
-			    return data.replace("<", "&lt;").replace(">", "&gt;").replace(" ","&nbsp;");
-		 }
+			    return data.replace("<", "&lt;").replace(">", "&gt;");
+			}
 </script>    
   
     

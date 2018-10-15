@@ -512,8 +512,6 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			String order_no = orderVO.getOrder_no();
 			
 			Ticket_DetailService tDetailSvc = new Ticket_DetailService();
-			// 這邊有問題 應該要SELECT * FROM TICKET_DETAIL WHERE ORDER_NO = 'TOR000037';
-			// 找出一堆明細VO才能判斷！！！！
 			List<Ticket_DetailVO> lDetailVOs = tDetailSvc.find_ticketDetail_list(order_no);
 			System.out.println("==========12312312===================1231231");
 			if (lDetailVOs.isEmpty() || lDetailVOs == null) {

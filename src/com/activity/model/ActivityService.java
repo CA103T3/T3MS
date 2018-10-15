@@ -10,14 +10,14 @@ public class ActivityService {
 	}
 
 	public ActivityVO addAct(String activity_name, String activity_desc, String backstage_no,
-			Integer active, byte[] img_path, String activity_url) {
+			Integer active, byte[] Img_pic, String activity_url) {
 		ActivityVO actVO = new ActivityVO();
 
 		actVO.setActivity_name(activity_name);
 		actVO.setActivity_desc(activity_desc);
 		actVO.setBackstage_no(backstage_no);
 		actVO.setActive(active);
-		actVO.setImg_path(img_path);
+		actVO.setImg_pic(Img_pic);
 		actVO.setActivity_url(activity_url);
 		dao.insert(actVO);
 
@@ -25,14 +25,14 @@ public class ActivityService {
 	}
 
 	public ActivityVO updateAct(String activity_name, String activity_desc, String backstage_no, Integer active,
-			byte[] img_path, String activity_url) {
+			byte[] Img_pic, String activity_url) {
 
 		ActivityVO actVO = new ActivityVO();
 		actVO.setActivity_name(activity_name);
 		actVO.setActivity_desc(activity_desc);
 		actVO.setBackstage_no(backstage_no);
 		actVO.setActive(active);
-		actVO.setImg_path(img_path);
+		actVO.setImg_pic(Img_pic);
 		actVO.setActivity_url(activity_url);
 		dao.update(actVO);
 

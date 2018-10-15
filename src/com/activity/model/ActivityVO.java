@@ -17,7 +17,7 @@ public class ActivityVO implements Serializable {
 	private Timestamp created_at;
 	private Timestamp updated_at;
 	private Integer active;
-	private byte[] img_path;
+	private byte[] img_pic;
 	private String activity_url;
 	/**
 	 * @return the activity_no
@@ -104,16 +104,16 @@ public class ActivityVO implements Serializable {
 		this.active = active;
 	}
 	/**
-	 * @return the img_path
+	 * @return the img_pic
 	 */
-	public byte[] getImg_path() {
-		return img_path;
+	public byte[] getImg_pic() {
+		return img_pic;
 	}
 	/**
-	 * @param img_path the img_path to set
+	 * @param img_pic the img_pic to set
 	 */
-	public void setImg_path(byte[] img_path) {
-		this.img_path = img_path;
+	public void setImg_pic(byte[] img_pic) {
+		this.img_pic = img_pic;
 	}
 	/**
 	 * @return the activity_url

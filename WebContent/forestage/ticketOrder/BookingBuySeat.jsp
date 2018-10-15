@@ -42,7 +42,7 @@
 				String mem_email = memVO.getEmail(); //會員信箱
 				String mem_LastName = memVO.getLastname();
 				String mem_FirstName = memVO.getFirstname();
-				String mem_FullName = mem_FirstName.concat(mem_LastName); //會員名稱
+				String mem_FullName = mem_LastName.concat(mem_FirstName); //會員名稱
 				System.out.println("Full NAME = " + mem_FullName);
 
 				Integer price = Integer.valueOf(request.getParameter("price")); //電影票價

@@ -34,12 +34,12 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 	// private Timestamp created_at;
 	// private Timestamp updated_at;
 	// private Integer active;
-	// private byte[] img_path;
+	// private byte[] Img_pic;
 	// private String activity_url;
 
-	private static final String INSERT = "INSERT INTO ACTIVITY (ACTIVITY_NO,ACTIVITY_NAME,ACTIVITY_DESC,BACKSTAGE_NO,CREATED_AT,UPDATED_AT,ACTIVE,IMG_PATH,ACTIVITY_URL)"
+	private static final String INSERT = "INSERT INTO ACTIVITY (ACTIVITY_NO,ACTIVITY_NAME,ACTIVITY_DESC,BACKSTAGE_NO,CREATED_AT,UPDATED_AT,ACTIVE,IMG_PIC,ACTIVITY_URL)"
 			+ "VALUES ('AC'||LPAD(ACTIVITY_SEQ.NEXTVAL,4,'0'),?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?,?,?)";
-	private static final String UPDATE = "UPDATE ACTIVITY SET ACTIVITY_NAME=?, ACTIVITY_DESC=?,BACKSTAGE_NO=?,UPDATED_AT=CURRENT_TIMESTAMP,ACTIVE=?,IMG_PATH=?,ACTIVITY_URL=? "
+	private static final String UPDATE = "UPDATE ACTIVITY SET ACTIVITY_NAME=?, ACTIVITY_DESC=?,BACKSTAGE_NO=?,UPDATED_AT=CURRENT_TIMESTAMP,ACTIVE=?,IMG_PIC=?,ACTIVITY_URL=? "
 			+ "WHERE ACTIVITY_NO=?";
 	private static final String DELETE = "DELETE FROM ACTIVITY WHERE ACTIVITY_NO=?";
 	private static final String GET_ONE_STMT = "SELECT * FROM ACTIVITY WHERE ACTIVITY_NO=?";
@@ -57,7 +57,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 			pstmt.setString(2, actVO.getActivity_desc());
 			pstmt.setString(3, actVO.getBackstage_no());
 			pstmt.setInt(4, actVO.getActive());
-			pstmt.setBytes(5, actVO.getImg_path());
+			pstmt.setBytes(5, actVO.getImg_pic());
 			pstmt.setString(6, actVO.getActivity_url());
 
 			pstmt.executeUpdate();
@@ -76,7 +76,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 					conn.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e.printStackTrace(System.err);
 				}
 			}
 		}
@@ -88,7 +88,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 	// BACKSTAGE_NO=?,
 	// UPDATED_AT=CURRENT_TIMESTAMP,
 	// ACTIVE=?,
-	// IMG_PATH=?,
+	// Img_pic=?,
 	// ACTIVITY_URL=? "
 	// WHERE ACTIVITY_NO=?";
 	@Override
@@ -104,7 +104,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 			pstmt.setString(2, actVO.getActivity_desc());
 			pstmt.setString(3, actVO.getBackstage_no());
 			pstmt.setInt(4, actVO.getActive());
-			pstmt.setBytes(5, actVO.getImg_path());
+			pstmt.setBytes(5, actVO.getImg_pic());
 			pstmt.setString(6, actVO.getActivity_url());
 			pstmt.setString(7, actVO.getActivity_no());
 
@@ -189,7 +189,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 				actVO.setCreated_at(rs.getTimestamp("created_at"));
 				actVO.setUpdated_at(rs.getTimestamp("updated_at"));
 				actVO.setActive(rs.getInt("active"));
-				actVO.setImg_path(rs.getBytes("img_path"));
+				actVO.setImg_pic(rs.getBytes("Img_pic"));
 				actVO.setActivity_url(rs.getString("activity_url"));
 			}
 		} catch (SQLException e) {
@@ -246,7 +246,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 				actVO.setCreated_at(rs.getTimestamp("created_at"));
 				actVO.setUpdated_at(rs.getTimestamp("updated_at"));
 				actVO.setActive(rs.getInt("active"));
-				actVO.setImg_path(rs.getBytes("img_path"));
+				actVO.setImg_pic(rs.getBytes("Img_pic"));
 				actVO.setActivity_url(rs.getString("activity_url"));
 				list.add(actVO);
 			}
@@ -299,7 +299,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 			pstmt.setString(2, activityVO.getActivity_desc());
 			pstmt.setString(3, activityVO.getBackstage_no());
 			pstmt.setInt(4, activityVO.getActive());
-			pstmt.setBytes(5, activityVO.getImg_path());
+			pstmt.setBytes(5, activityVO.getImg_pic());
 			pstmt.setString(6, activityVO.getActivity_url());
 
 			pstmt.executeUpdate();

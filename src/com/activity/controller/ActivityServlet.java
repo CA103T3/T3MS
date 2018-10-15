@@ -55,9 +55,9 @@ public class ActivityServlet extends HttpServlet {
 					errorMsgs.add("活動描述請勿空白");
 				}
 
-				InputStream in = request.getPart("img_path").getInputStream();
-				byte[] img_path = new byte[in.available()];
-				in.read(img_path);
+				InputStream in = request.getPart("img_pic").getInputStream();
+				byte[] img_pic = new byte[in.available()];
+				in.read(img_pic);
 				in.close();
 
 				String activity_url = request.getParameter("activity_url").trim();
@@ -73,7 +73,7 @@ public class ActivityServlet extends HttpServlet {
 				activityVO.setActivity_desc(activity_desc);
 				activityVO.setBackstage_no(backstage_no);
 				activityVO.setActive(active);
-				activityVO.setImg_path(img_path);
+				activityVO.setImg_pic(img_pic);
 				activityVO.setActivity_url(activity_url);
 
 				ActivityService activitySvc = new ActivityService();
@@ -87,10 +87,8 @@ public class ActivityServlet extends HttpServlet {
 					return;
 				}
 				
-				System.out.println("=========");
-				activityVO = activitySvc.addAct(activity_name, activity_desc, backstage_no, active, img_path,
+				activityVO = activitySvc.addAct(activity_name, activity_desc, backstage_no, active, img_pic,
 						activity_url);
-				System.out.println("======@@@@@@@@@@===");
 //				String openupdatereplyform =null;
 //				request.setAttribute("openupdatereplyform", openupdatereplyform);
 				RequestDispatcher successView = request.getRequestDispatcher(url);
@@ -103,8 +101,9 @@ public class ActivityServlet extends HttpServlet {
 				RequestDispatcher errorView = request.getRequestDispatcher(url);
 				errorView.forward(request, response);
 			}
-
 		}
+		
+		
 	}
 
 }

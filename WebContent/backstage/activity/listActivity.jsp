@@ -5,7 +5,7 @@
 <%@ page import="java.util.*"%>
 
 <%
-	String account_backstage_no="bs0001";
+	String account_backstage_no="BS0001";
 	ActivityVO actVO = new ActivityVO();
 	ActivityService actSvc = new ActivityService();
 	List<ActivityVO> list = actSvc.getAll();
