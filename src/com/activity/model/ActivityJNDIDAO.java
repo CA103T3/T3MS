@@ -246,7 +246,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface {
 				actVO.setCreated_at(rs.getTimestamp("created_at"));
 				actVO.setUpdated_at(rs.getTimestamp("updated_at"));
 				actVO.setActive(rs.getInt("active"));
-				actVO.setImg_pic(rs.getBytes("Img_pic"));
+				actVO.setImg_pic(rs.getBytes("img_pic"));
 				actVO.setActivity_url(rs.getString("activity_url"));
 				list.add(actVO);
 			}

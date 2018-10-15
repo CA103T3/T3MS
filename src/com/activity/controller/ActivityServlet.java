@@ -33,8 +33,8 @@ public class ActivityServlet extends HttpServlet {
 		if ("view".equals(action)) {
 			List<String> errorMsgs = new LinkedList<>();
 			request.setAttribute("errorMsgs", errorMsgs);
-//			String activity_no = request.getParameter("activity_no");
-//			System.out.println(activity_no);
+			// String activity_no = request.getParameter("activity_no");
+			// System.out.println(activity_no);
 
 		}
 
@@ -43,7 +43,7 @@ public class ActivityServlet extends HttpServlet {
 			request.setAttribute("errorMsgs", errorMsgs);
 			String url = "/backstage/activity/listActivity.jsp";
 			String backstage_no = request.getParameter("backstage_no");
-			
+
 			try {
 				String activity_name = request.getParameter("activity_name").trim();
 				if (activity_name == null || activity_name.trim().length() == 0) {
@@ -56,6 +56,9 @@ public class ActivityServlet extends HttpServlet {
 				}
 
 				InputStream in = request.getPart("img_pic").getInputStream();
+				if (in == null || in.available() == 0) {
+					errorMsgs.add("請上傳圖片");
+				}
 				byte[] img_pic = new byte[in.available()];
 				in.read(img_pic);
 				in.close();
@@ -79,6 +82,7 @@ public class ActivityServlet extends HttpServlet {
 				ActivityService activitySvc = new ActivityService();
 
 				if (!errorMsgs.isEmpty()) {
+
 					boolean openupdatereplyform = true; // 再次打開燈箱
 					request.setAttribute("openupdatereplyform", openupdatereplyform);
 					request.setAttribute("actVO", activityVO);
@@ -86,11 +90,11 @@ public class ActivityServlet extends HttpServlet {
 					errorView.forward(request, response);
 					return;
 				}
-				
+
 				activityVO = activitySvc.addAct(activity_name, activity_desc, backstage_no, active, img_pic,
 						activity_url);
-//				String openupdatereplyform =null;
-//				request.setAttribute("openupdatereplyform", openupdatereplyform);
+				// String openupdatereplyform =null;
+				// request.setAttribute("openupdatereplyform", openupdatereplyform);
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				successView.forward(request, response);
 
@@ -102,8 +106,7 @@ public class ActivityServlet extends HttpServlet {
 				errorView.forward(request, response);
 			}
 		}
-		
-		
+
 	}
 
 }

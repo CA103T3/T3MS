@@ -28,10 +28,10 @@ public class DBGifReader extends HttpServlet {
 			String activity_no = req.getParameter("activity_no");
 			System.out.println(activity_no);
 			ResultSet rs = stmt.executeQuery(
-				"SELECT IMG_PATH FROM ACTIVITY WHERE ACTIVITY_NO = '" + activity_no + "'");
+				"SELECT IMG_PIC FROM ACTIVITY WHERE ACTIVITY_NO = '" + activity_no + "'");
 
 			if (rs.next()) {
-				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("img_path"));
+				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("img_pic"));
 				byte[] buf = new byte[4 * 1024]; // 4K buffer
 				int len;
 				while ((len = in.read(buf)) != -1) {

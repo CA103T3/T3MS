@@ -17,11 +17,12 @@ public class Ticket_OrderService {
 	public String insert(Ticket_OrderVO ticket_OrderVO) {
 		return dao.insert(ticket_OrderVO);
 	}
-	
-	public String insert_con(Ticket_OrderVO ticket_OrderVO, HashMap<String,String> seat_ticketType,String session_no) {
+
+	public String insert_con(Ticket_OrderVO ticket_OrderVO, HashMap<String, String> seat_ticketType,
+			String session_no) {
 		return dao.insert_con(ticket_OrderVO, seat_ticketType, session_no);
 	}
-	
+
 	public List<String> search_TicketDetail(String uuid) {
 		return dao.search_TicketDetail(uuid);
 	}
@@ -30,8 +31,8 @@ public class Ticket_OrderService {
 			Integer exchange_state, Connection conn) {
 		dao.update(order_no, amount, order_state, payment_state, exchange_state, conn);
 	}
-	
-	public void updateAmount(String order_no,Integer amount,Connection conn) {
+
+	public void updateAmount(String order_no, Integer amount, Connection conn) {
 		dao.updateAmount(order_no, amount, conn);
 	}
 
@@ -42,7 +43,7 @@ public class Ticket_OrderService {
 	public Ticket_OrderVO findByPrimaryKey(String order_no) {
 		return dao.findByPrimaryKey(order_no);
 	}
-	
+
 	public Ticket_OrderVO find_oneOrder_by_uuid(String uuid) {
 		return dao.find_oneOrder_by_uuid(uuid);
 	}
@@ -51,4 +52,7 @@ public class Ticket_OrderService {
 		return dao.findAllOrdersByMember(mem_no);
 	}
 
+	public List<Ticket_Refund_tempVO> find_Order_Movie_By_orderNo(String order_no) {
+		return dao.find_Order_Movie_By_orderNo(order_no);
+	}
 }

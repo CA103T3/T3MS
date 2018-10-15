@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 
 import com.sun.crypto.provider.RSACipher;
 import com.sun.javafx.collections.MappingChange.Map;
+import com.sun.org.apache.bcel.internal.generic.LSTORE;
 import com.ticketdetail.model.Ticket_DetailJNDIDAO;
 import com.ticketdetail.model.Ticket_DetailVO;
 
@@ -49,7 +50,17 @@ public class Ticket_OrderJNDIDAO implements Ticket_OrderDAO_Interface {
 	private static final String GET_ONE_ORDER_BY_UUID = "SELECT * FROM TICKET_ORDER WHERE UUID=?";
 	private static final String GET_DETAIL_STMT = "SELECT TICKET_ORDER.UUID, TICKET_DETAIL.ORDER_NO,TICKET_DETAIL.SEAT FROM TICKET_ORDER "
 			+ "INNER JOIN TICKET_DETAIL ON TICKET_ORDER.ORDER_NO=TICKET_DETAIL.ORDER_NO WHERE UUID=?";
-
+	private static final String GET_ORDER_MOVIE_STMT = "SELECT MOVIE.MOVIE_NAME,MOVIE.MOVIE_NO,TICKET_ORDER.UUID,MOVIE_SESSION.SESSION_TIME ,TICKET_DETAIL.SEAT ,TICKETTYPE.PRICE,TICKET_ORDER.AMOUNT " + 
+			"FROM TICKET_DETAIL " + 
+			"LEFT JOIN MOVIE_SESSION " + 
+			"ON TICKET_DETAIL.SESSION_NO = MOVIE_SESSION.SESSION_NO " + 
+			"LEFT JOIN MOVIE " + 
+			"ON MOVIE_SESSION.MOVIE_NO = MOVIE.MOVIE_NO " + 
+			"LEFT JOIN TICKET_ORDER " + 
+			"ON TICKET_DETAIL.ORDER_NO = TICKET_ORDER.ORDER_NO " + 
+			"LEFT JOIN TICKETTYPE " + 
+			"ON MOVIE_SESSION.THEATER_NO = TICKETTYPE.THEATER_NO " + 
+			"WHERE TICKET_DETAIL.ORDER_NO=?";
 	@Override
 	public String insert_con(Ticket_OrderVO ticket_OrderVO, HashMap<String, String> seat_ticketType,
 			String session_no) {
@@ -535,5 +546,62 @@ public class Ticket_OrderJNDIDAO implements Ticket_OrderDAO_Interface {
 			}
 		}
 		return ticketVO;
+	}
+
+	@Override
+	public List<Ticket_Refund_tempVO> find_Order_Movie_By_orderNo(String order_no) {
+		List<Ticket_Refund_tempVO> list = new ArrayList<>();
+		Ticket_Refund_tempVO tempVO = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(GET_ORDER_MOVIE_STMT);
+			pstmt.setString(1, order_no);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				tempVO = new Ticket_Refund_tempVO();
+				tempVO.setMovie_name(rs.getString("MOVIE_NAME"));
+				tempVO.setMovie_no(rs.getString("MOVIE_NO"));
+				tempVO.setUuid(rs.getString("UUID"));
+				tempVO.setSession_time(rs.getTimestamp("SESSION_TIME"));
+				tempVO.setSeat(rs.getString("SEAT"));
+				tempVO.setPrice(rs.getInt("PRICE"));
+				tempVO.setAmount(rs.getInt("AMOUNT"));
+				list.add(tempVO);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(System.err);
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 }

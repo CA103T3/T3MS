@@ -15,10 +15,8 @@ import javax.sql.DataSource;
 import com.movie_introduce.model.Movie_IntroduceVO;
 
 public class Ticket_testDAO {
-	private static final String GET_ONES_STMT = 
-			"SELECT * FROM TICKET_ORDER  WHERE MEM_NO=?";
+	private static final String GET_ONES_STMT = "SELECT * FROM TICKET_ORDER  WHERE MEM_NO=?";
 
-	
 	private static DataSource ds = null;
 	static {
 		try {
@@ -28,7 +26,7 @@ public class Ticket_testDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<Ticket_OrderVO> getAll(String memno) {
 		List<Ticket_OrderVO> list = new ArrayList<Ticket_OrderVO>();
 		Ticket_OrderVO tVO = null;
@@ -90,8 +88,5 @@ public class Ticket_testDAO {
 
 		return list;
 	}
-	
-	
-	
-	
+
 }

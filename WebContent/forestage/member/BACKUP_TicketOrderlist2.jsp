@@ -57,21 +57,22 @@
 <%
 	MemVO memVO = (MemVO)session.getAttribute("memVO"); 
 
-	String order_no = "TOR000035";
-	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	
-// 	SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
-// 	String str =memVO.getBirthday();
-// 	Date date1 = df.parse(str);     
-// 	String str1 = df1.format(date1);
+	String order_no = "TOR000037";
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
+	SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+	String str =memVO.getBirthday();
+	Date date1 = df.parse(str);     
+	String str1 = df1.format(date1);
+%>
 
+<%
 	Ticket_OrderService ticket_OrderSvc = new Ticket_OrderService();
 	List<Ticket_Refund_tempVO> Refund_list = ticket_OrderSvc.find_Order_Movie_By_orderNo(order_no);
 	pageContext.setAttribute("Refund_list", Refund_list);
 // 	DetailTest teda = new DetailTest();
 %>
 <body>
-<%-- <jsp:useBean id="tdSrc" scope="page" class="com.ticketdetail.model.DetailTest" /> --%>
+<jsp:useBean id="tdSrc" scope="page" class="com.ticketdetail.model.DetailTest" />
 
 	<div class="container">
 		<div class="row"></div>
@@ -80,31 +81,34 @@
 		</div>
 		<div class="col-md-1"></div>
 		<div class="col-md-9">
-			<h2 style="color: pink; font-weight: bold;">選擇要退票的座位</h2>
+			<h2 style="color: pink; font-weight: bold;">訂票紀錄</h2>
 			<div class="whitebord">
 				<table class="table">
 					<tr>
-						<th>電影名稱</th>
-						<th></th>
-<!-- 						<th>訂票序號</th> -->
-						<th>場次時間</th>
-<!-- 						<th>開演時間</th> -->
-						<th>訂購座位</th>
+						<th>電影</th>
+						<th>名稱</th>
+						<th>訂票序號</th>
+						<th>開演日期</th>
+						<th>開演時間</th>
+						<th>詳細內容</th>
 					</tr>
-					<c:forEach var="tVO" items="${Refund_list}" varStatus="s" >
+					<c:forEach var="tVO" items="${Refund_list}">
 								<tr>
 									<td>${tVO.movie_name}</td>
-									<td><img style="width:250px;height:280px" id="img_path" src="<%=request.getContextPath() %>/DBGifReader?movie_no=${tVO.movie_no}>"></td>
-									<td>${tVO.session_time}</td>
+									<td>${tVO.movie_pic}</td>
 									<td>
-										<form method="post" action="<%=request.getContextPath()%>/ticketOrder/ticketOrder.do">
-											<button type="submit">${tVO.seat}</button>
-											<input type="hidden" name="uuid" value="${tVO.uuid}" />
-											<input type="hidden" name="a_seat" value="${tVO.seat}" />
-											<input type="hidden" name="price" value="${tVO.price}" />
-											<input type="hidden" name="amount" value="${tVO.amount}" />
-											<input type="hidden" name="action" value="del_ticket_open_seat" />
-										</form>
+										<c:forEach var="tdVO" items="${tdSrc.all}">
+					                    	<c:if test="${tVO.order_no==tdVO.order_no}">
+						                   		${tdVO.seat}
+					                    	</c:if>
+							            </c:forEach>
+									</td>
+									
+									<td><c:forEach var="tdVO" items="${tdSrc.all}">
+					                    	<c:if test="${tVO.order_no==tdVO.order_no}">
+						                   		${tdVO.ticketType_no}
+					                    	</c:if>
+							            </c:forEach>
 									</td>
 								</tr>
 					</c:forEach>

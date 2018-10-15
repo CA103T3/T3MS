@@ -119,9 +119,9 @@
 								<input type="checkbox" id="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-checkbox2-red '":"class='css-checkbox1-blue'"} name="seats" value="${s1.count}_${s2.count}" onclick="sendMessage('${s1.count}_${s2.count}'); isChecked();" ${isBooked? "checked disabled":""}> 	
 								<label id="${s1.count}_${s2.count}" for="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-label2-red'":"class='css-label1-blue'"}></label> <!-- ${s1.count}_${s2.count} -->
 							</td>
-								</c:forEach>
+					</c:forEach>
 				</tr>
-					</c:forEach>		
+		</c:forEach>		
 			</table>
 <!--        			 col-sm-offset-2 col-md-offset-2 -->
        	</div>

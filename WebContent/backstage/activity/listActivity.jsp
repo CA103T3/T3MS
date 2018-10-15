@@ -73,7 +73,7 @@ img {
 										<textarea class="form-control" rows="8" style="resize: none" name="activity_desc" placeholder="內容描述"></textarea>
 									</div>
 									<div class="form-group">
-										<input type="file" class="form-control" name="img_path" placeholder="圖片上傳">
+										<input type="file" class="form-control" name="img_pic" placeholder="圖片上傳">
 									</div>
 									<!--                 <div class="form-group"> -->
 									<!--                     <input type="text" class="form-control" id="updated_at" placeholder="時間" -->
@@ -138,7 +138,7 @@ img {
 								<td>${actVO.activity_no}</td>
 								<td>${actVO.activity_name}</td>
 								<td>${actVO.backstage_no}</td>
-								<td><img id="img_path" src="<%=request.getContextPath() %>/DBGifReaderAct?activity_no=${actVO.activity_no}"></td>
+								<td><img id="img_pic" src="<%=request.getContextPath() %>/DBGifReaderAct?activity_no=${actVO.activity_no}"></td>
 								<td>${actVO.active}</td>
 								<td>
 									<form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/backstage/activity/activity.do">

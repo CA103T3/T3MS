@@ -20,9 +20,11 @@ public interface Ticket_OrderDAO_Interface {
 	public void delete(Ticket_OrderVO ticket_OrderVO);
 
 	public Ticket_OrderVO findByPrimaryKey(String order_no);
-	
+
 	public Ticket_OrderVO find_oneOrder_by_uuid(String uuid);
 
 	public List<Ticket_OrderVO> findAllOrdersByMember(String mem_no);
+
+	public List<Ticket_Refund_tempVO> find_Order_Movie_By_orderNo(String order_no);
 
 }

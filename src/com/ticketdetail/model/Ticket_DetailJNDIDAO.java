@@ -34,7 +34,9 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 	private static final String DELETE_ONE_TICKETDETAIL_STMT = "DELETE FROM TICKET_DETAIL WHERE TICKET_DETAIL_NO=?";
 	private static final String DELETE_ONE_TICKETORDER_STMT = "DELETE FROM TICKET_ORDER WHERE UUID=?";
 	private static final String GET_ONE_TICKETDETAIL_STMT = "SELECT * FROM TICKET_DETAIL WHERE TICKET_DETAIL_NO=?";
-	private static final String GET_ONE_TICKETORDER_STMT = "SELECT * FROM TICKET_ORDER WHERE UUID=?";
+	private static final String GET_ONE_TICKETORDER_STMT = "SELECT TICKET_DETAIL.TICKET_DETAIL_NO,TICKET_DETAIL.ORDER_NO,TICKET_DETAIL.SESSION_NO,TICKET_DETAIL.TICKETTYPE_NO,TICKET_DETAIL.SEAT,TICKET_DETAIL.CREATED_AT,TICKET_DETAIL.UPDATED_AT "
+			+ "FROM TICKET_DETAIL " + "LEFT JOIN TICKET_ORDER " + "ON TICKET_ORDER.ORDER_NO=TICKET_DETAIL.ORDER_NO "
+			+ "WHERE TICKET_ORDER.UUID=?";
 	private static final String GET_ONE_TICKETDETAIL_BY_ORDERNO_STMT = "SELECT * FROM TICKET_DETAIL WHERE ORDER_NO=?";
 	private static final String GET_TICKETDETAIL_SESSION_STMT = "SELECT * FROM TICKET_DETAIL WHERE SESSION_NO=?";
 	private static final String DELETE_ONE_DETAIL_UPDATE_SEAT_STMT = "DELETE TICKET_DETAIL WHERE EXISTS(SELECT 1 FROM TICKET_ORDER WHERE TICKET_DETAIL.ORDER_NO=TICKET_ORDER.ORDER_NO AND UUID=? AND SEAT=?)";
@@ -287,7 +289,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			pstmt = conn.prepareStatement(GET_ONE_TICKETORDER_STMT);
 			pstmt.setString(1, order_no);
 			rs = pstmt.executeQuery();
-			System.out.println("findOneTicketOrder============");
+			System.out.println("findOneTicketOrder====Start====");
 			while (rs.next()) {
 				ticket_DetailVO = new Ticket_DetailVO();
 				ticket_DetailVO.setTicket_detail_no(rs.getString("TICKET_DETAIL_NO"));
@@ -299,7 +301,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 				ticket_DetailVO.setUpdated_at(rs.getTimestamp("UPDATED_AT"));
 				list.add(ticket_DetailVO);
 			}
-			System.out.println("findOneTicketOrder===========<KKL=OOO");
+			System.out.println("findOneTicketOrder====End======");
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occurred. " + e.getMessage());
 		} finally {
@@ -510,12 +512,15 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			new SessionService().updateSessionSeat(seat_table, session_no, conn);
 			Ticket_OrderVO orderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
 			String order_no = orderVO.getOrder_no();
-			
+
 			Ticket_DetailService tDetailSvc = new Ticket_DetailService();
 			List<Ticket_DetailVO> lDetailVOs = tDetailSvc.find_ticketDetail_list(order_no);
-			System.out.println("==========12312312===================1231231");
+			System.out.println("Ticket_DetailVO" + lDetailVOs);
+			System.out.println("Ticket_DetailVO" + lDetailVOs.toString());
+			System.out.println("Ticket_DetailVO.Size=" + lDetailVOs.size());
 			if (lDetailVOs.isEmpty() || lDetailVOs == null) {
 				tDetailSvc.deleteOneTicketOrder(uuid, conn);
+				System.out.println("delete Ticket Order,because there is only one ticket left!");
 			}
 			System.out.println("===========Ticket_Detail_controller==================");
 			conn.commit();
