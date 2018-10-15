@@ -490,7 +490,7 @@ public class MovieServlet extends HttpServlet {
 		//------------------------------Search----------------------------------------------------------	
 		
 				if ("getMovie_Name".equals(action)) { // 來自select_page.jsp的請求
-System.out.println(action);
+
 					List<String> errorMsgs = new LinkedList<String>();
 					// Store this set in the request scope, in case we need to
 					// send the ErrorPage view.
@@ -505,7 +505,7 @@ System.out.println(action);
 							errorMsgs.add("請輸入電影名稱");
 						}
 				
-System.out.println("------------"+str);		
+
 						/***************************2.開始查詢資料*****************************************/
 						MovieService movieSvc = new MovieService();
 						Set<MovieVO> set = movieSvc.getsrMovieName(str);

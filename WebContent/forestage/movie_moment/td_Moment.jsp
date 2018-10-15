@@ -60,45 +60,17 @@
 
 
 
-<!-- 取得系統日期 -->
-
-				<%
-					Calendar cal = Calendar.getInstance();
-				
-
-					cal.setTime(cal.getTime());
-				
-					// 			取得日期 一個禮拜
-					cal.add(Calendar.DATE, 0);
-					
-
-					SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
-					String tStr = format.format(cal.getTime());
-				
-					System.out.println(tStr);
-				%>
-
-				<!-- 取得系統日期 -->
-
-
-
-
-
-
-	
-	
 <!-- ----------------當日影城+時刻表--------------------- -->
 				
-<!--   ------------------  影城FOREach   ------------------  -->				
-									<c:forEach var="sessionVO" items="${list}">
+<!--   ------------------  影城FOREach   ------------------  -->	
+			
 				<c:forEach var="cvo" items="${cvo}">
-		
+				
 
-					<div class="panel panel-primary hi" style="margin-top:30px!important;" >
+					<div class="panel panel-primary" style="margin-top:30px!important;">
 
-						<div class="panel-heading" >
-							<h3 class="panel-title" >${cvo.cinema_name}</h3>
+						<div class="panel-heading">
+							<h3 class="panel-title">${cvo.cinema_name}</h3>
 
 
 						</div>
@@ -108,7 +80,8 @@
 							<div class="row">
 
 
-									
+									<c:forEach var="sessionVO" items="${list}">
+											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
 <!--   ------------------  時刻FOREach   ------------------  -->	
 	
 								<div class="col-md-3">
@@ -124,23 +97,19 @@
 										<div class="col-md-1 text-center">
 											<div class="sisson">
 												<div id="time" style=" padding-top: 29px;">
-										
 												<a href="<%=request.getContextPath()%>/forestage/ticketOrder/BookingSeat.jsp?session_no=${sessionVO.session_no}" class="card-img-a2">
 													<fmt:formatDate value="${sessionVO.session_time}"
 														pattern="MM/dd HH:mm" /></a>
-												
 														
 												</div>
-									
 											</div>
 										</div>
 
 									</div>
 
 								</div>
-										
-										
-											
+											</c:if>
+										</c:forEach>
 
 							</div>
 						</div>
@@ -148,7 +117,6 @@
 					</div>
 
 				</c:forEach>
-										</c:forEach>
 				<!-- ----------------當日影城+時刻表--------------------- -->
 
 			

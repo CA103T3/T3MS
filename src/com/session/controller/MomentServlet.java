@@ -303,46 +303,9 @@ public class MomentServlet extends HttpServlet {
 				throw new ServletException(e);
 			}
 		}
+	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		
 //==================================AJAX========================================		
 
