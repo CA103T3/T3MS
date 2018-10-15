@@ -7,9 +7,9 @@ insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) va
 insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'影評資格審核','/T3MS/backstage/member/becomeFilmCriticism.jsp','N003',4);
 insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'查詢會員帳號','/T3MS/backstage/member/listAllMember.jsp','N003',5);
 insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'後台帳號管理','#',null,6);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'新增帳號','/T3MS/backstage/staff/staff_insert.jsp','N006',7);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'修改帳號','/T3MS/backstage/staff/staff_update.jsp','N006',8);
-insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'刪除帳號','/T3MS/backstage/staff/staff_delete.jsp','N006',9);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'新增帳號','/T3MS/backstage/staff/backstage_insert.jsp','N006',7);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'修改帳號','/T3MS/backstage/staff/backstage_update.jsp','N006',8);
+insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'刪除帳號','/T3MS/backstage/staff/backstage_delete.jsp','N006',9);
 insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'後台角色管理','#',null,10);
 insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'新增角色/權限','/T3MS/backstage/role/role_insert.jsp','N010',11);
 insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),'修改角色/權限','/T3MS/backstage/role/role_update.jsp','N010',12);

@@ -11,7 +11,7 @@ public class AccountService {
 		dao = new AccountJNDIDAO();
 	}
 
-	public AccountVO addAccount_Backstage(String bs_acc_name, String role_no,
+	public String addAccount_Backstage(String bs_acc_name, String role_no,
 			String cinema_no, String bs_acc_psw,String email,String tel, java.sql.Timestamp last_online_time) {
 
 		AccountVO accountVO = new AccountVO();
@@ -24,12 +24,11 @@ public class AccountService {
 		accountVO.setTel(tel);
 		accountVO.setLast_online_time(new Timestamp(System.currentTimeMillis()));
 		
-		dao.insert(accountVO);
 
-		return accountVO;
+		return dao.insert(accountVO);
 	}
 
-	public AccountVO updateaccount_Backstage(String bs_acc_no,String bs_acc_name, String role_no, String cinema_no,String bs_acc_psw,String email,String tel,
+	public void updateaccount_Backstage(String bs_acc_no,String bs_acc_name, String role_no, String cinema_no,String bs_acc_psw,String email,String tel,
 			java.sql.Timestamp last_online_time,Integer state) {
 
 		AccountVO accountVO = new AccountVO();
@@ -45,7 +44,7 @@ public class AccountService {
 		accountVO.setState(state);
 		dao.update(accountVO);
 
-		return accountVO;
+		
 	}
 
 	public void deleteAccount_Backstage(String bs_acc_no) {
@@ -54,6 +53,10 @@ public class AccountService {
 
 	public AccountVO getVO(String bs_acc_name) {
 		return dao.findVO(bs_acc_name);
+	}
+	
+	public AccountVO findVObyno(String bs_acc_no) {
+		return dao.findVO(bs_acc_no);
 	}
 
 	public List<AccountVO> getAll() {

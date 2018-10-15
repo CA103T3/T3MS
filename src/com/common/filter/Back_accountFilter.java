@@ -70,12 +70,16 @@ public class Back_accountFilter implements Filter {
         List<String> list = pSvc.getOnesP(aVO.getRole_no()); // 得到用户所有权限
         if (!list.contains(p)) {
             // 6. 没有权限，则提示用户权限不足，联系管理员
-            request.setAttribute("message", "無權限");
-//            request.getRequestDispatcher("/T3MS/backstage/role/role_insert.jsp").forward(request, response);
-            out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-            out.println("<BODY>你無權限<BR>");
-            out.println("請按上一頁 <A HREF="+request.getContextPath()+"/backstage/stage/backstge_insert.jsp>按</A>");
-            out.println("</BODY></HTML>");
+            request.setAttribute("nop", url);
+            
+            
+            request.getRequestDispatcher("/backstage/backstage_index.jsp").forward(request, response);
+            
+            
+//            out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+//            out.println("<BODY>你無權限<BR>");
+//            out.println("請按上一頁 <A HREF="+request.getContextPath()+"/backstage/stage/backstge_insert.jsp>按</A>");
+//            out.println("</BODY></HTML>");
             return;
         }
 

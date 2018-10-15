@@ -2,10 +2,17 @@ package com.permission.model;
 
 public class PermissionVO implements java.io.Serializable{
 	private static final long serialVersionUID = 1677349311158107695L;
+	private String rp_no;
 	private String permission_no;
 	private String role_no;
 	
 	
+	public String getRp_no() {
+		return rp_no;
+	}
+	public void setRp_no(String rp_no) {
+		this.rp_no = rp_no;
+	}
 	public String getPermission_no() {
 		return permission_no;
 	}

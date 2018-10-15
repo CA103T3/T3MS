@@ -174,19 +174,5 @@ body{
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
 </body>
 
-<script>
-window.onload = function(){
-function getDate(){
-debugger;
-var today = new Date(); 
-var date; 
-date = (today.getFullYear()) +"-" + (today.getMonth() + 1 ) + "-" + today.getDate() + "-" + today.toLocaleTimeString(); 
-return date;
-}
-window.setInterval(function(){
-document.getElementById("getBookTime").value=getDate();
-}, 1000);
-}
-</script>
 
 </html>

@@ -38,7 +38,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<%=request.getContextPath()%>/account/logout.do">
                         <span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a>
                 </li>
             </ul>

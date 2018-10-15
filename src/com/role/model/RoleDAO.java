@@ -3,6 +3,7 @@ package com.role.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +36,37 @@ public class RoleDAO implements RoleDAO_interface{
 	
 	private static final String GET_ONE_STMT ="SELECT * FROM BACKSTAGE_ROLE WHERE BR_NAME=?";
 	private static final String GET_ALL_STMT ="SELECT * FROM BACKSTAGE_ROLE";
-	
+	private static final String GET_ONE ="SELECT * FROM BACKSTAGE_ROLE WHERE BR_NO=?";
 	
 	
 	@Override
-	public void insert(RoleVO roleVO) {
+	public String insert(RoleVO roleVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		String br_no = null;
 		try {
 			
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			String[] cols = { "br_no" };
+			pstmt = con.prepareStatement(INSERT_STMT,cols);
 			pstmt.setString(1, roleVO.getBr_name());
 			
 			pstmt.executeUpdate();
-
+			ResultSet rs = pstmt.getGeneratedKeys();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            if (rs.next()) {
+                do {
+                    for (int i = 1; i <= columnCount; i++) {
+                    	br_no = rs.getString(i);
+                        //System.out.println("自增主鍵值 = " + theater_no);
+                    }
+                } while (rs.next());
+            } else {
+                System.out.println("NO KEYS WERE GENERATED.");
+            }
+            
+            rs.close();
 		}  catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -69,7 +86,7 @@ public class RoleDAO implements RoleDAO_interface{
 				}
 			}
 		}
-		
+		return br_no;
 	}
 
 	@Override
@@ -103,6 +120,7 @@ public class RoleDAO implements RoleDAO_interface{
 				// MovieVo 也稱為 Domain objects
 				roleVO = new RoleVO();
 				roleVO.setBr_no(rs.getString("br_no"));
+				roleVO.setBr_name(rs.getString("br_name"));
 			}
 
 			// Handle any SQL errors
@@ -193,9 +211,57 @@ public class RoleDAO implements RoleDAO_interface{
 	}
 
 	@Override
-	public RoleVO findByPrimaryKey(String permission_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public RoleVO findByno(String br_no) {
+		RoleVO roleVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE);
+			pstmt.setString(1, br_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// MovieVo 也稱為 Domain objects
+				roleVO = new RoleVO();
+				roleVO.setBr_no(rs.getString("br_no"));
+				roleVO.setBr_name(rs.getString("br_name"));
+			}
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return roleVO;
+	
 	}
 
 	

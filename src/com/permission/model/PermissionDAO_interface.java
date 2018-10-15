@@ -5,10 +5,10 @@ import java.util.List;
 
 
 public interface PermissionDAO_interface {
-	public void insert(PermissionVO pVO);
+	public String insert(PermissionVO pVO);
 	public void update(PermissionVO pVO);
 	public void delete(String permission_no);	
-	public PermissionVO findByPrimaryKey(String permission_no);
+	public PermissionVO findByPrimaryKey(String rp_no);
 	public List<PermissionVO> getAll();
 	public List<String> getOnesOwn(String role_no);
     

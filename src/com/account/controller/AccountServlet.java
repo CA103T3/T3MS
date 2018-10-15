@@ -213,8 +213,8 @@ public class AccountServlet extends HttpServlet{
 				/***************************2.開始修改資料*****************************************/
 				AccountService account_BackstageService = new AccountService();
 			
-				accountVO = account_BackstageService.updateaccount_Backstage(bs_acc_no,bs_acc_name,role_no
-						,cinema_no,bs_acc_psw,email,tel,last_online_time,state);
+//				accountVO = account_BackstageService.updateaccount_Backstage(bs_acc_no,bs_acc_name,role_no
+//						,cinema_no,bs_acc_psw,email,tel,last_online_time,state);
 				
 				
 				
@@ -239,7 +239,7 @@ public class AccountServlet extends HttpServlet{
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			try {
+//			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String bs_acc_name = req.getParameter("bs_acc_name");
 				System.out.println(bs_acc_name);
@@ -278,13 +278,13 @@ public class AccountServlet extends HttpServlet{
 				
 				
 				java.sql.Timestamp last_online_time = null;
-				try {
-					java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-					java.util.Date du = df.parse(req.getParameter("last_online_time").trim());
-					last_online_time = new java.sql.Timestamp(du.getTime());
-				} catch (IllegalArgumentException e) {
-					errorMsgs.add("上次在線時間請輸入日期!");
-				} 
+//				try {
+//					java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+//					java.util.Date du = df.parse(req.getParameter("last_online_time").trim());
+//					last_online_time = new java.sql.Timestamp(du.getTime());
+//				} catch (IllegalArgumentException e) {
+//					errorMsgs.add("上次在線時間請輸入日期!");
+//				} 
 				System.out.println("last_online_time="+last_online_time);
 								
 				
@@ -309,23 +309,22 @@ public class AccountServlet extends HttpServlet{
 		
 				/***************************2.開始新增資料***************************************/
 				AccountService account_BackstageService = new AccountService();
-				accountVO = account_BackstageService.addAccount_Backstage(bs_acc_name,role_no
+				account_BackstageService.addAccount_Backstage(bs_acc_name,role_no
 						,cinema_no,bs_acc_psw,email,tel,last_online_time);
-
+				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-			    HttpSession session = req.getSession();
-			    session.setAttribute("abVO",accountVO);
+			    
 				String url = "/backstage/staff/backstage_listAll.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
-			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backstage/staff/backstage_insert.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add(e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/backstage/staff/backstage_insert.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 		
 		

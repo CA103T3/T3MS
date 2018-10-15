@@ -5,6 +5,7 @@ import java.sql.Connection;
 //import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -49,16 +50,19 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 				"SELECT * FROM ACCOUNT_BACKSTAGE WHERE BS_ACC_NAME=? AND BS_ACC_PSW=?";
 		private static final String LOGINTIME = 
 				"UPDATE ACCOUNT_BACKSTAGE SET LAST_ONLINE_TIME=? WHERE BS_ACC_NAME=?";
+		private static final String GETONE = 
+				"SELECT * FROM ACCOUNT_BACKSTAGE where BS_ACC_NO = ?";
 		
 		@Override
-		public void insert(AccountVO accountVO) {
+		public String insert(AccountVO accountVO) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
-
+			String bs_acc_no=null;
 			try {
 
 				con = ds.getConnection();
-				pstmt = con.prepareStatement(INSERT_STMT);
+				String[] cols = { "Bs_acc_no" };
+				pstmt = con.prepareStatement(INSERT_STMT,cols);
 
 				pstmt.setString(1, accountVO.getBs_acc_name());
 				pstmt.setString(2, accountVO.getRole_no());
@@ -69,6 +73,22 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 				pstmt.setTimestamp(7, accountVO.getLast_online_time());
 						
 				pstmt.executeUpdate();
+				ResultSet rs = pstmt.getGeneratedKeys();
+	            ResultSetMetaData rsmd = rs.getMetaData();
+	            int columnCount = rsmd.getColumnCount();
+	            if (rs.next()) {
+	                do {
+	                    for (int i = 1; i <= columnCount; i++) {
+	                    	bs_acc_no = rs.getString(i);
+	                        //System.out.println("自增主鍵值 = " + theater_no);
+	                    }
+	                } while (rs.next());
+	            } else {
+	                System.out.println("NO KEYS WERE GENERATED.");
+	            }
+	            
+	            rs.close();
+							
 
 				// Handle any driver errors
 			}  catch (SQLException se) {
@@ -91,7 +111,7 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 					}
 				}
 			}
-			
+			return bs_acc_no;
 		}
 		
 		@Override
@@ -239,6 +259,67 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 				pstmt = con.prepareStatement(GET_ONE_STMT);
 
 				pstmt.setString(1, bs_acc_name);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					accountVO = new AccountVO();
+					accountVO.setBs_acc_no(rs.getString("bs_acc_no"));
+					accountVO.setBs_acc_name(rs.getString("bs_acc_name"));
+					accountVO.setRole_no(rs.getString("role_no"));
+					accountVO.setCinema_no(rs.getString("cinema_no"));
+					accountVO.setBs_acc_psw(rs.getString("bs_acc_psw"));
+					accountVO.setEmail(rs.getString("email"));
+					accountVO.setTel(rs.getString("tel"));
+					accountVO.setLast_online_time(rs.getTimestamp("last_online_time"));
+					accountVO.setState(rs.getInt("state"));
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return accountVO;
+		}
+		
+		@Override
+		public AccountVO findVObyno(String bs_acc_no) {
+
+			AccountVO accountVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GETONE);
+
+				pstmt.setString(1, bs_acc_no);
 
 				rs = pstmt.executeQuery();
 

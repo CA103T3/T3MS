@@ -151,5 +151,12 @@ body{
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
 </body>
 
+<script>
+window.onload = function() {
+<% if(request.getAttribute("nop")!=null){ %>	
+　alert("你無權限進入${nop}");
+<% } %>
+}
+</script>
 
 </html>
