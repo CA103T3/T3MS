@@ -279,7 +279,7 @@ body {
 					cal4.add(Calendar.DATE, 5);
 					cal5.add(Calendar.DATE, 6);
 
-					SimpleDateFormat format = new SimpleDateFormat("MM-dd");
+					SimpleDateFormat format = new SimpleDateFormat("MM/dd");
 
 					String tomorrowStr = format.format(cal.getTime());
 					String three = format.format(cal1.getTime());

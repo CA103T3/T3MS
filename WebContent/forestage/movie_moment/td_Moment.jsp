@@ -37,11 +37,11 @@
 	pageContext.setAttribute("thVO",thVO);
 %>
 
-<% SessionVO sessionVO = (SessionVO) request.getAttribute("sessionVO"); %>
+
 
 
 <html>
-<head><title>部門員工 - listEmps_ByDeptno.jsp</title>
+<head><title></title>
 
 <style>
  
@@ -49,6 +49,40 @@
 
 </head>
 <body>
+
+
+
+
+
+
+
+
+
+
+
+<!-- 取得系統日期 -->
+
+				<%
+					Calendar cal = Calendar.getInstance();
+				
+
+					cal.setTime(cal.getTime());
+				
+					// 			取得日期 一個禮拜
+					cal.add(Calendar.DATE, 0);
+					
+
+					SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+					String tStr = format.format(cal.getTime());
+				
+					System.out.println(tStr);
+				%>
+
+				<!-- 取得系統日期 -->
+
+
+
 
 
 
@@ -74,7 +108,8 @@
 
 
 									<c:forEach var="sessionVO" items="${list}">
-											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)}">
+											<c:if test="${(sessionVO.cinemaVO.cinema_no==cvo.cinema_no) and (movieVO.movie_no==sessionVO.movie_no) and (sessionVO.theaterVO.theater_no==theaterVO.theater_no)
+											and (!empty sessionVO.session_time)}">
 <!--   ------------------  時刻FOREach   ------------------  -->	
 	
 								<div class="col-md-3">
@@ -90,11 +125,14 @@
 										<div class="col-md-1 text-center">
 											<div class="sisson">
 												<div id="time" style=" padding-top: 29px;">
+										
 												<a href="<%=request.getContextPath()%>/forestage/ticketOrder/BookingSeat.jsp?session_no=${sessionVO.session_no}" class="card-img-a2">
 													<fmt:formatDate value="${sessionVO.session_time}"
 														pattern="MM/dd HH:mm" /></a>
+												
 														
 												</div>
+									
 											</div>
 										</div>
 

@@ -65,6 +65,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "AND SESSION_TIME BETWEEN "
     		+ "to_date(to_char(sysdate,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
+    		+ "AND SESSION_TIME > systimestamp "
     		+ "order by SESSION_TIME ";
     private static final String GET_TMR_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -73,6 +74,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "AND SESSION_TIME BETWEEN "
     		+ "to_date(to_char(sysdate+1,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+1,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
+    		+ "AND SESSION_TIME > systimestamp "
     		+ "order by SESSION_TIME ";
     private static final String GET_C_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -81,6 +83,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "AND SESSION_TIME BETWEEN "
     		+ "to_date(to_char(sysdate+2,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+2,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
+    		+ "AND SESSION_TIME > systimestamp "
     		+ "order by SESSION_TIME ";
     private static final String GET_D_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -89,6 +92,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "AND SESSION_TIME BETWEEN "
     		+ "to_date(to_char(sysdate+3,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+3,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
+    		+ "AND SESSION_TIME > systimestamp "
     		+ "order by SESSION_TIME ";
     private static final String GET_E_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -97,6 +101,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "AND SESSION_TIME BETWEEN "
     		+ "to_date(to_char(sysdate+4,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+4,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
+    		+ "AND SESSION_TIME > systimestamp "
     		+ "order by SESSION_TIME ";
     private static final String GET_F_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -105,6 +110,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "AND SESSION_TIME BETWEEN "
     		+ "to_date(to_char(sysdate+5,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+5,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
+    		+ "AND SESSION_TIME > systimestamp "
     		+ "order by SESSION_TIME ";
     private static final String GET_G_MOMENT= "SELECT MOVIE_SESSION.SESSION_NO,MOVIE_SESSION.THEATER_NO,CINEMA.CINEMA_NO,MOVIE_SESSION.MOVIE_NO,CINEMA.CINEMA_NAME,THEATER.EQUIPMENT,MOVIE_SESSION.SESSION_TIME "
     		+ "FROM MOVIE_SESSION LEFT JOIN THEATER ON MOVIE_SESSION.THEATER_NO = THEATER.THEATER_NO "
@@ -113,6 +119,7 @@ public class SessionDAO implements SessionDAO_interface {
     		+ "AND SESSION_TIME BETWEEN "
     		+ "to_date(to_char(sysdate+6,'yyyy-mm-dd') || ' 00:00:01','yyyy-mm-dd hh24:mi:ss') AND "
     		+ "to_date(to_char(sysdate+6,'yyyy-mm-dd') || ' 23:59:59','yyyy-mm-dd hh24:mi:ss') "
+    		+ "AND SESSION_TIME > systimestamp "
     		+ "order by SESSION_TIME ";
    
     @Override
