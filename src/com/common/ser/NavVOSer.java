@@ -12,7 +12,7 @@ import java.util.List;
 import com.nav_backstage.model.*;
 
 
-public class Nav_backstageVOSer implements SerStrategy_interface {
+public class NavVOSer implements SerStrategy_interface {
 
 
   private String dir = "resources/ser/NavVO"; //for Java EE Servlet
@@ -24,7 +24,7 @@ public class Nav_backstageVOSer implements SerStrategy_interface {
       this.servletContextRealPath = servletContextRealPath;
   }
 
-  public Nav_backstageVOSer() {
+  public NavVOSer() {
       tSvc = new NavService();
       dao = new NavDAO();
   }

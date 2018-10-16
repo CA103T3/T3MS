@@ -117,6 +117,7 @@ public class PermissionDAO implements PermissionDAO_interface{
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
+            	pVO = new PermissionVO();
                 pVO.setPermission_no(rs.getString("PERMISSION_NO"));
                 pVO.setRole_no(rs.getString("ROLE_NO"));
                 pVO.setRp_no(rs.getString("RP_NO"));

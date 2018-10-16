@@ -18,7 +18,7 @@ public class SerUtilServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     PrintWriter out;
     private String[] voList = {"MovieVO", "CinemaVO", "TheaterVO", "MemberVO", "FilmreviewVO", "Movie_IntroduceVO",
-            "SessionVO", "TypeVO"};
+    		"SessionVO", "TypeVO","NavVO","RoleVO","PermissionVO","AccountVO"};
     private String packagePath = "com.common.ser.";
     private SerUtil su;
     /**

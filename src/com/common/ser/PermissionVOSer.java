@@ -66,10 +66,10 @@ public class PermissionVOSer implements SerStrategy_interface {
       for(File f : fsaveDir.listFiles()){
           System.out.println(f.getName());
           String filename = f.getName();
-          String theater_no = filename.substring(0, filename.lastIndexOf("."));
+          String rp_no = filename.substring(0, filename.lastIndexOf("."));
           //System.out.println("theater_no : " + theater_no);
           String action = "add";
-          importOne(action, theater_no);
+          importOne(action, rp_no);
       }
   }
 
