@@ -62,7 +62,7 @@ resize: none;
 
 
 
-							<form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie/movie.do" name="form1" enctype="multipart/form-data">
+							<form METHOD="post" ACTION="<%=request.getContextPath()%>/movie/movie.do" name="form1" enctype="multipart/form-data">
 
 								<div class="form-group">
 									<label class="control-label">電影種類:</label>

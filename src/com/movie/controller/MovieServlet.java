@@ -7,7 +7,6 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import com.movie.model.*;
 
-
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class MovieServlet extends HttpServlet {
 
@@ -19,9 +18,9 @@ public class MovieServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
+
 //------------------------------Search----------------------------------------------------------	
-				
+
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -30,61 +29,55 @@ public class MovieServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String str = req.getParameter("movie_no");
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請輸入電影編號");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backstage/movie/movie_List.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/backstage/movie/movie_List.jsp");
 					failureView.forward(req, res);
-					return;//程式中斷
+					return;// 程式中斷
 				}
-				
-							
+
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backstage/movie/movie_List.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/backstage/movie/movie_List.jsp");
 					failureView.forward(req, res);
-					return;//程式中斷
+					return;// 程式中斷
 				}
-				
-				/***************************2.開始查詢資料*****************************************/
+
+				/*************************** 2.開始查詢資料 *****************************************/
 				MovieService movieSvc = new MovieService();
 				MovieVO movieVO = movieSvc.getOneMovie(str);
-				
+
 				if (movieVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backstage/movie/movie_List.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/backstage/movie/movie_List.jsp");
 					failureView.forward(req, res);
-					return;//程式中斷
+					return;// 程式中斷
 				}
-				
-				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("movieVO", movieVO); // 資料庫取出的movieVO物件,存入req
 				String url = "/forestage/movie_moment/moment_One.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 movie_One.jsp
 				successView.forward(req, res);
 
-				/***************************其他可能的錯誤處理*************************************/
+				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backstage/movie/movie_List.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/backstage/movie/movie_List.jsp");
 				failureView.forward(req, res);
 			}
 		}
-		
-		
+
 //----------------------------Delete--------------------------------------------------------------------
-		
+
 		if ("delete".equals(action)) { // 來自movie_List.jsp 的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -115,7 +108,7 @@ public class MovieServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+
 //----------------------------Update--------------------------------------------------------------------		
 
 		if ("getOne_For_Update".equals(action)) { // 來自movie_List.jsp 的請求
@@ -148,8 +141,7 @@ public class MovieServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) { // 來自movie_Update.jsp的請求
-			
-		
+
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -176,24 +168,22 @@ public class MovieServlet extends HttpServlet {
 				} else if (!eng_name.trim().matches(eng_name_enReg)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("電影英文名稱: 只能是英文");
 				}
-				
-				
-				Part part=req.getPart("movie_pic");
-				String type=part.getContentType();
-				String ex = part.getContentType().substring(0,type.indexOf("/"));
-			
+
+				Part part = req.getPart("movie_pic");
+				String type = part.getContentType();
+				String ex = part.getContentType().substring(0, type.indexOf("/"));
+
 				MovieService movieSvc = new MovieService();
 				byte[] movie_pic = movieSvc.getOneMovie(movie_no).getMovie_pic();
-				if (part.getSize() != 0 &&  ex.equals("image") ) {
+				if (part.getSize() != 0 && ex.equals("image")) {
 					InputStream in = part.getInputStream();
 					movie_pic = new byte[in.available()];
 					in.read(movie_pic);
 					in.close();
-				}else {
+				} else {
 					errorMsgs.add("說好的正確檔案呢");
 				}
-				
-				
+
 				java.sql.Date relased = null;
 				try {
 					relased = java.sql.Date.valueOf(req.getParameter("relased").trim());
@@ -231,11 +221,11 @@ public class MovieServlet extends HttpServlet {
 				Double imdb = null;
 				try {
 					imdb = new Double(req.getParameter("imdb").trim());
-					if (imdb < 0.0 ) {
+					if (imdb < 0.0) {
 						errorMsgs.add("評分不能小於或等於0.0");
-					}else if (imdb > 10.0 ){
+					} else if (imdb > 10.0) {
 						errorMsgs.add("評分不能大於10.0");
-					
+
 					}
 				} catch (NumberFormatException e) {
 					imdb = 0.0;
@@ -321,7 +311,7 @@ public class MovieServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+
 //----------------------------Insert--------------------------------------------------------------------		
 
 		if ("insert".equals(action)) { // 來自addMovie.jsp的請求
@@ -337,7 +327,7 @@ public class MovieServlet extends HttpServlet {
 				if (movie_type == null || movie_type.trim().length() == 0) {
 					errorMsgs.add("電影類別請勿空白");
 				}
-				
+
 				String movie_name = req.getParameter("movie_name");
 				if (movie_name == null || movie_name.trim().length() == 0) {
 					errorMsgs.add("電影中文名稱: 請勿空白");
@@ -350,15 +340,12 @@ public class MovieServlet extends HttpServlet {
 				} else if (!eng_name.trim().matches(eng_name_enReg)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("電影英文名稱: 只能是英文");
 				}
-				
-				
+
 				InputStream in = req.getPart("movie_pic").getInputStream();
 				byte[] movie_pic = new byte[in.available()];
 				in.read(movie_pic);
 				in.close();
-				
-				
-				
+
 				java.sql.Date relased = null;
 				try {
 					relased = java.sql.Date.valueOf(req.getParameter("relased").trim());
@@ -396,11 +383,11 @@ public class MovieServlet extends HttpServlet {
 				Double imdb = null;
 				try {
 					imdb = new Double(req.getParameter("imdb").trim());
-					if (imdb < 0.0 ) {
+					if (imdb < 0.0) {
 						errorMsgs.add("片長不能小於或等於0.0");
+					} else if (imdb > 10.0) {
+						errorMsgs.add("評分不能大於10.0");
 					}
-					else if (imdb > 10.0 ){
-					errorMsgs.add("評分不能大於10.0");}
 				} catch (NumberFormatException e) {
 					imdb = 0.0;
 					errorMsgs.add("評分請填數字.");
@@ -485,61 +472,56 @@ public class MovieServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
-		
-		//------------------------------Search----------------------------------------------------------	
-		
-				if ("getMovie_Name".equals(action)) { // 來自select_page.jsp的請求
 
-					List<String> errorMsgs = new LinkedList<String>();
-					// Store this set in the request scope, in case we need to
-					// send the ErrorPage view.
-					req.setAttribute("errorMsgs", errorMsgs);
-					String requestURL = req.getParameter("requestURL");
+		// ------------------------------Search----------------------------------------------------------
 
-					try {
-						/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-						String str = req.getParameter("movie_name").trim();
+		if ("getMovie_Name".equals(action)) { // 來自select_page.jsp的請求
 
-						if (str == null || (str.trim()).length() == 0) {
-							errorMsgs.add("請輸入電影名稱");
-						}
-				
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			String requestURL = req.getParameter("requestURL");
 
-						/***************************2.開始查詢資料*****************************************/
-						MovieService movieSvc = new MovieService();
-						Set<MovieVO> set = movieSvc.getsrMovieName(str);
-						System.out.println(set.size());
-						if(set.size() == 0) {
-							errorMsgs.add("查無資料");
-							RequestDispatcher failureView = req
-									.getRequestDispatcher(requestURL);
-							failureView.forward(req, res);
-							return;//程式中斷
-						}
-						
-						// Send the use back to the form, if there were errors
-						if (!errorMsgs.isEmpty()) {
-							RequestDispatcher failureView = req
-									.getRequestDispatcher(requestURL);
-							failureView.forward(req, res);
-							return;//程式中斷
-						}
-						
-						/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-						req.setAttribute("movie_search", set); // 資料庫取出的movieVO物件,存入req
-						String url = "/forestage/search_page/search_page.jsp";
-						RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 movie_One.jsp
-						successView.forward(req, res);
-						
-						/***************************其他可能的錯誤處理*************************************/
-					} catch (Exception e) {
-						errorMsgs.add("無法取得資料:" + e.getMessage());
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/forestage/search_page/search_page.jsp");
-						failureView.forward(req, res);
-					}
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String str = req.getParameter("movie_name").trim();
+
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入電影名稱");
 				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				MovieService movieSvc = new MovieService();
+				Set<MovieVO> set = movieSvc.getsrMovieName(str);
+			
+				if (set.size() == 0) {
+					errorMsgs.add("查無資料");
+					RequestDispatcher failureView = req.getRequestDispatcher(requestURL);
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher(requestURL);
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("movie_search", set); // 資料庫取出的movieVO物件,存入req
+				String url = "/forestage/search_page/search_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 movie_One.jsp
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/forestage/search_page/search_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 	}
 

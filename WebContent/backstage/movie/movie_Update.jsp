@@ -62,7 +62,7 @@ resize: none;
 								</c:if>
 
 
-								<form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie/movie.do" name="form1" enctype="multipart/form-data">
+								<form METHOD="post" ACTION="<%=request.getContextPath()%>/movie/movie.do" name="form1" enctype="multipart/form-data">
 									<div class="form-group has-error">
 										<label class="control-label">電影編號:*</label>
 										<div>${param.movie_no}</div>

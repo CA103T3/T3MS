@@ -142,11 +142,11 @@ input[type=text]:focus {
 					<div class="hidden-md row">
 						<div class="col-md-12 text-justify">
 						
-						<form METHOD="post" ACTION="movie.do" id="src_movie" >
-					        <input type="text" name="movie_no" placeholder="Search..">			  									
-			                <input type="hidden" name="action" value="getOne_For_Display">
-			                <input type="submit" value="送出">
-			            </form>
+<%-- 						<form METHOD="post" ACTION="<%=request.getContextPath()%>/movie/movie.do" id="src_movie" > --%>
+<!-- 					        <input type="text" name="movie_no" placeholder="Search..">			  									 -->
+<!-- 			                <input type="hidden" name="action" value="getOne_For_Display"> -->
+<!-- 			                <input type="submit" value="送出"> -->
+<!-- 			            </form> -->
 						
 							<table class="table">
 
@@ -169,7 +169,7 @@ input[type=text]:focus {
 										<td>${movieVO.active}</td>
 										<td><img id="movie_pic" src="<%=request.getContextPath() %>/DBGifReader?movie_no=${movieVO.movie_no}"></td>
 										<td id="upbtn">
-											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie/movie.do" style="margin-bottom: 0px;">
+											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/movie/movie.do" style="margin-bottom: 0px;">
 					     						<input type="submit" value="修改"> 
 					     						<input type="hidden" name="movie_no"      value="${movieVO.movie_no}">
 					     						<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
@@ -178,7 +178,7 @@ input[type=text]:focus {
 				     						</FORM>
 			     						</td>
 										<td id="delbtn">
-											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie/movie.do" style="margin-bottom: 0px;">
+											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/movie/movie.do" style="margin-bottom: 0px;">
 											    <input type="submit" value="刪除">
 											    <input type="hidden" name="movie_no"      value="${movieVO.movie_no}">
 											    <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
