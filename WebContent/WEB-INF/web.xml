@@ -167,6 +167,8 @@
     <url-pattern>/forestage/member/membercenter.jsp</url-pattern>
     <url-pattern>/forestage/member/changpaw.jsp</url-pattern>
     <url-pattern>/forestage/member/changfin.jsp</url-pattern>
+    <url-pattern>/forestage/ticketOrder/*</url-pattern>
+    <url-pattern>/forestage/service_chat/chatClient.jsp</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>LogoutFilter</filter-name>

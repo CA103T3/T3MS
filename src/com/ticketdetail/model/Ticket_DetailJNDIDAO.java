@@ -277,7 +277,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 
 	// 查一筆訂單(可能剩一筆明細，若明細刪除必須連訂單一起刪除)
 	@Override
-	public List<Ticket_DetailVO> find_ticketDetail_list(String order_no) {
+	public List<Ticket_DetailVO> find_ticketDetail_list(String uuid) {
 		List<Ticket_DetailVO> list = new ArrayList<>();
 		Ticket_DetailVO ticket_DetailVO = null;
 		Connection conn = null;
@@ -287,7 +287,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(GET_ONE_TICKETORDER_STMT);
-			pstmt.setString(1, order_no);
+			pstmt.setString(1, uuid);
 			rs = pstmt.executeQuery();
 			System.out.println("findOneTicketOrder====Start====");
 			while (rs.next()) {
@@ -300,6 +300,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 				ticket_DetailVO.setCreated_at(rs.getTimestamp("CREATED_AT"));
 				ticket_DetailVO.setUpdated_at(rs.getTimestamp("UPDATED_AT"));
 				list.add(ticket_DetailVO);
+				System.out.println(list);
 			}
 			System.out.println("findOneTicketOrder====End======");
 		} catch (SQLException e) {
@@ -510,11 +511,11 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			Ticket_OrderService ticket_OrderSvc = new Ticket_OrderService();
 			ticket_OrderSvc.updateAmount(uuid, amount, conn);
 			new SessionService().updateSessionSeat(seat_table, session_no, conn);
-			Ticket_OrderVO orderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
-			String order_no = orderVO.getOrder_no();
-
+//			Ticket_OrderVO orderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
+//			String order_no = orderVO.getOrder_no();
+//			System.out.println(order_no);
 			Ticket_DetailService tDetailSvc = new Ticket_DetailService();
-			List<Ticket_DetailVO> lDetailVOs = tDetailSvc.find_ticketDetail_list(order_no);
+			List<Ticket_DetailVO> lDetailVOs = tDetailSvc.find_ticketDetail_list(uuid);
 			System.out.println("Ticket_DetailVO" + lDetailVOs);
 			System.out.println("Ticket_DetailVO" + lDetailVOs.toString());
 			System.out.println("Ticket_DetailVO.Size=" + lDetailVOs.size());

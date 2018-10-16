@@ -19,7 +19,7 @@
 
 <%
 	//會員編號
-// 	String mem_no="M007";
+// 	String mem_no="M001";
 	MemVO memVO = (MemVO) session.getAttribute("memVO");	
 	String mem_no = memVO.getmemno();
 	
@@ -54,6 +54,7 @@
 	String identity = typeVO.getIdentity(); //成人票
 	
 	//取得影廳資訊 
+// 	String theater_no = "T00001";
 	String theater_no = sessionVO.getTheater_no();
 	TheaterService tSvc = new TheaterService();
 	TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
@@ -92,9 +93,19 @@
 	       		<div class="col-sm-8 col-md-8">
 	       		<table class="wwFormTable" style="width:60%;">
 					<tr>
-						<td ><b>螢幕</b></td>
+						<td><b>螢幕</b></td>
 					</tr>
 				</table>
+				<table class="wwFormTable" style="width:80%;color:#fff;">
+					<tr>
+						<td><b><img src="<%=request.getContextPath() %>/img/sofa-skyblue.png" />&nbsp;&nbsp;可選位</b></td>
+						<td><b><img src="<%=request.getContextPath() %>/img/sofa-blue.png" />&nbsp;&nbsp;已選位</b></td>
+						<td><b><img src="<%=request.getContextPath() %>/img/sofa-yellow.png" />&nbsp;&nbsp;保留位</b></td>
+						<td><b><img src="<%=request.getContextPath() %>/img/sofa-red2.png" />&nbsp;&nbsp;選位中</b></td>
+						<td><b><img src="<%=request.getContextPath() %>/img/sofa-purple.png" />&nbsp;&nbsp;已售出</b></td>
+					</tr>
+				</table>
+				
        		
        	<table class="wwFormTable">
 			<c:forEach var="row" begin="1" end="<%=theaterVO.getT_rows()%>" varStatus="s1">

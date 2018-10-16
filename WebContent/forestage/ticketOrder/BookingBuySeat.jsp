@@ -96,13 +96,13 @@
 							   	    <%  
 										String seat = null;
 							   	    	StringBuffer seatAll = new StringBuffer();
-							   	    	StringBuffer seatChinese = new StringBuffer();
+// 							   	    	StringBuffer seatChinese = new StringBuffer();
 										for(int i=0; i < ticket; i++ ){
 											seat = seats[i];
 											String[] seatArr = seat.split("_");
 											String temp = (char)(Integer.parseInt(seatArr[0]) + 64) +"排"+ seatArr[1] + "號";
 											out.print(temp);
-											seatChinese.append(temp+"@");  //儲存顯示的中文座位
+// 											seatChinese.append(temp+"@");  //儲存顯示的中文座位
 											seatAll.append(seat+"@");
 											if(!(i==ticket-1)){
 												out.print("、");

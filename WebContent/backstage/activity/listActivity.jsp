@@ -37,9 +37,9 @@ img {
 </head>
 
 <body class="fs16">
-	<%@ include file="/backstage/template/header.jsp"%>
+<%-- 	<%@ include file="/backstage/template/header.jsp"%> --%>
 	<div id="wrapper" class="mt50">
-		<%@ include file="/backstage/template/sidebar.jsp"%>
+<%-- 		<%@ include file="/backstage/template/sidebar.jsp"%> --%>
 		<div class="flex-column" id="page-content-wrapper">
 			<div class="container-fluid mt20">
 				<!-- start -->
