@@ -82,7 +82,7 @@
            <div> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${movieVO.movie_no}"> </div>
             <div class="img_hover">
               <a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_One2.jsp?${movieVO.movie_no}" class="card-img-a">電影簡介</a>
-              <a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_One.jsp?${movieVO.movie_no}" class="card-img-a2">電影時刻</a>
+              <a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_No.jsp?${movieVO.movie_no}" class="card-img-a2">電影時刻</a>
             </div>
           </div>
           <div class="dateC">上映日期:<strong>${movieVO.relased}</strong></div>

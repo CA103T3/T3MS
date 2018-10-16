@@ -37,7 +37,7 @@
 	pageContext.setAttribute("thVO",thVO);
 %>
 
-
+<% SessionVO sessionVO = (SessionVO) request.getAttribute("sessionVO"); %>
 
 
 <html>
@@ -52,14 +52,8 @@
 
 
 
-
-
-
-
-
-
-
-
+	
+	
 <!-- ----------------當日影城+時刻表--------------------- -->
 				
 <!--   ------------------  影城FOREach   ------------------  -->	

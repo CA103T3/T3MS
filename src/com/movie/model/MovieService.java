@@ -128,4 +128,8 @@ public class MovieService {
 
         return movie_no;
     }
+    
+    public List<Movie_Session_Temp_VO> find_Movie_Session_All(String movie_no) {
+    	return dao.find_Movie_Session_All(movie_no);
+    }
 }

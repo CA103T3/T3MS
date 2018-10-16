@@ -20,4 +20,6 @@ public interface MovieDAO_interface
 
 	//即將上映
 	public List<MovieVO> getComingsoon();
+	
+	public List<Movie_Session_Temp_VO> find_Movie_Session_All(String movie_no);
 }

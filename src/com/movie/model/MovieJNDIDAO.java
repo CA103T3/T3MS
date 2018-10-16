@@ -481,4 +481,10 @@ public class MovieJNDIDAO implements MovieDAO_interface {
 		return null;
 	}
 
+	@Override
+	public List<Movie_Session_Temp_VO> find_Movie_Session_All(String movie_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
