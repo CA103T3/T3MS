@@ -50,4 +50,8 @@ public class BoxOfficeService {
     public List<BoxOfficeVO> getAll() {
         return dao.getAll();
     }
+
+    public List<BoxOfficeVO> getLatestTenByLoc(Integer loc) {
+        return dao.getLatestTenByLoc(loc);
+    }
 }

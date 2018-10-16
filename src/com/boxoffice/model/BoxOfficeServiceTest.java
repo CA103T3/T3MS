@@ -52,7 +52,30 @@ public class BoxOfficeServiceTest extends HttpServlet {
         testGetAll();
         testDeleteBoxOffice(ranking_no);
         testGetAll();
+        Integer loc = 1;
+        testGetLatestTenByLoc(loc);
 	}
+
+    private void testGetLatestTenByLoc(Integer loc) {
+        List<BoxOfficeVO> list = bSvc.getLatestTenByLoc(loc);
+        out.println(list.size());
+        for(BoxOfficeVO vo : list) {
+            out.println(vo.getRanking_no());
+            out.println(vo.getMovie_no());
+
+            out.println("Statistics date : " + vo.getStatistics());
+            java.sql.Date sqlDate = vo.getStatistics();
+            java.util.Date utilDate = new java.util.Date();
+            utilDate.setTime(sqlDate.getTime());
+            out.println("utilDate : " + utilDate);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String strDate = dateFormat.format(utilDate);
+            out.println("converted java.util.Date to String : " + strDate);
+
+            out.println("vo.getMoviename() : " + vo.getMoviename());
+            out.println("vo.getMovieVO().getMovie_name() : " + vo.getMovieVO().getMovie_name());
+        }
+    }
 
     public String testAddBoxOffice() {
         String movie_no = "MV0001";

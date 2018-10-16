@@ -3,6 +3,7 @@
 <%@ page import="com.movie.model.*"%>
 <%@ page import="com.movie_introduce.model.*"%>
 <%@ page import="com.filmreview.model.*"%>
+<%@ page import="com.boxoffice.model.*"%>
 <%
     MovieService mSvc = new MovieService();
     List<MovieVO> mList = mSvc.getNow();
@@ -14,6 +15,18 @@
     List<FilmreviewVO> frList = fvSvc.getAll();
     pageContext.setAttribute("frList", frList);
 
+    BoxOfficeService bSvc = new BoxOfficeService();
+    Integer loc_tw = 0;
+    Integer loc_us = 1;
+    List<BoxOfficeVO> list_tw = bSvc.getLatestTenByLoc(loc_tw);
+    pageContext.setAttribute("list_tw", list_tw);
+    java.sql.Date stat_tw = list_tw.get(0).getStatistics();
+    pageContext.setAttribute("stat_tw", stat_tw);
+
+    List<BoxOfficeVO> list_us = bSvc.getLatestTenByLoc(loc_us);
+    pageContext.setAttribute("list_us", list_us);
+    java.sql.Date stat_us = list_us.get(0).getStatistics();
+    pageContext.setAttribute("stat_us", stat_us);
 %>
 <!doctype html>
 <html>
@@ -179,40 +192,26 @@
             <!-- rank list -->
             <div class="col-md-4 movie_rank">
                 <div class="panel panel-info panel-custom">
-                    <div class="panel-heading text-center">全美週末票房排行榜<br>2018-07-06</div>
+                    <div class="panel-heading text-center">全美週末票房排行榜<br>${stat_us}</div>
                     <div class="panel-body">
                         <div class="rank_list">
                             <ul class="hover-custom">
-                                <li><a href="#">蟻人與黃蜂女</a></li>
-                                <li><a href="#">侏羅紀世界：殞落國度</a></li>
-                                <li><a href="#">超人特攻隊2</a></li>
-                                <li><a href="#">殺戮元年</a></li>
-                                <li><a href="#">怒火邊界2：毒刑者</a></li>
-                                <li><a href="#">德魯大叔</a></li>
-                                <li><a href="#">瞞天過海：八面玲瓏</a></li>
-                                <li><a href="#">貼背戰</a></li>
-                                <li><a href="#">願與我為鄰？</a></li>
-                                <li><a href="#">死侍2</a></li>
+                            <c:forEach var="boVO" items="${list_us}" varStatus="s" begin="<%=0%>" end="<%=list_us.size()-1%>">
+                                <li><a href='<c:if test="${!empty boVO.movie_no}"><%=request.getContextPath()%>/forestage/movie_moment/moment_One2.jsp?${boVO.movie_no}</c:if><c:if test="${empty boVO.movie_no}">#</c:if>'>${(empty boVO.movie_no) ? boVO.moviename : boVO.movieVO.movie_name}</a></li>
+                            </c:forEach>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="panel panel-info panel-custom">
-                    <div class="panel-heading text-center">台北週末票房排行榜<br>2018-07-06</div>
+                    <div class="panel-heading text-center">台北週末票房排行榜<br>${stat_tw}</div>
                     <div class="panel-body">
                         <div class="rank_list">
                             <ul class="hover-custom">
-                                <li><a href="#">蟻人與黃蜂女</a></li>
-                                <li><a href="#">侏羅紀世界：殞落國度</a></li>
-                                <li><a href="#">超人特攻隊2</a></li>
-                                <li><a href="#">殺戮元年</a></li>
-                                <li><a href="#">怒火邊界2：毒刑者</a></li>
-                                <li><a href="#">德魯大叔</a></li>
-                                <li><a href="#">瞞天過海：八面玲瓏</a></li>
-                                <li><a href="#">貼背戰</a></li>
-                                <li><a href="#">願與我為鄰？</a></li>
-                                <li><a href="#">死侍2</a></li>
+                            <c:forEach var="boVO" items="${list_tw}" varStatus="s" begin="<%=0%>" end="<%=list_tw.size()-1%>">
+                                <li><a href='<c:if test="${!empty boVO.movie_no}"><%=request.getContextPath()%>/forestage/movie_moment/moment_One2.jsp?${boVO.movie_no}</c:if><c:if test="${empty boVO.movie_no}">#</c:if>'>${(empty boVO.movie_no) ? boVO.moviename : boVO.movieVO.movie_name}</a></li>
+                            </c:forEach>
                             </ul>
                         </div>
                     </div>

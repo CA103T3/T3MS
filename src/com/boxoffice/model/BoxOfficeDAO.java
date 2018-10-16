@@ -13,6 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.movie.model.MovieVO;
+
 
 public class BoxOfficeDAO implements BoxOfficeDAO_interface {
 
@@ -37,9 +39,11 @@ public class BoxOfficeDAO implements BoxOfficeDAO_interface {
         "DELETE FROM BOX_OFFICE_CHARTS where RANKING_NO = ?";
     private static final String UPDATE =
         "UPDATE BOX_OFFICE_CHARTS set MOVIE_NO=?, MOVIENAME=?, STATISTICS=?, RANK=?, LOC=? where RANKING_NO = ?";
-    private static final String GET_LATEST_TEN_STMT =
+    private static final String GET_LATEST_TEN_BY_LOC_STMT =
             "SELECT * FROM " +
-            "(SELECT RANKING_NO,MOVIE_NO,MOVIENAME,STATISTICS,RANK,LOC, ROW_NUMBER() OVER (ORDER BY STATISTICS desc, RANK asc) as rno FROM BOX_OFFICE_CHARTS where LOC=? ) "
+            "(SELECT RANKING_NO,BOX_OFFICE_CHARTS.MOVIE_NO,MOVIENAME,STATISTICS,RANK,LOC,MOVIE.MOVIE_NAME,"
+            + " ROW_NUMBER() OVER (ORDER BY STATISTICS desc, RANK asc) as rno FROM BOX_OFFICE_CHARTS "
+            + " left join MOVIE on BOX_OFFICE_CHARTS.MOVIE_NO = MOVIE.MOVIE_NO  where LOC=? ) "
             + "where rno <= 10  order by STATISTICS desc, RANK asc";
 
     @Override
@@ -264,6 +268,67 @@ public class BoxOfficeDAO implements BoxOfficeDAO_interface {
                 boVO.setStatistics(rs.getDate("STATISTICS"));
                 boVO.setRank(rs.getInt("RANK"));
                 boVO.setLoc(rs.getInt("LOC"));
+                list.add(boVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<BoxOfficeVO> getLatestTenByLoc(Integer loc) {
+        List<BoxOfficeVO> list = new ArrayList<BoxOfficeVO>();
+        BoxOfficeVO boVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_LATEST_TEN_BY_LOC_STMT);
+            pstmt.setInt(1, loc);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // boVO 也稱為 Domain objects
+                boVO = new BoxOfficeVO();
+                boVO.setRanking_no(rs.getString("RANKING_NO"));
+                boVO.setMovie_no(rs.getString("MOVIE_NO"));
+                boVO.setMoviename(rs.getString("MOVIENAME"));
+                boVO.setStatistics(rs.getDate("STATISTICS"));
+                boVO.setRank(rs.getInt("RANK"));
+                boVO.setLoc(rs.getInt("LOC"));
+                MovieVO movieVO = new MovieVO();
+                movieVO.setMovie_name(rs.getString("MOVIE_NAME"));
+                boVO.setMovieVO(movieVO);
                 list.add(boVO); // Store the row in the list
             }
 
