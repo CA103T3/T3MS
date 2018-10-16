@@ -99,51 +99,81 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><font color="#e6e6e6">1</font></td>
-                <td id="sok"><div><img src="/T3MS/<%= list.get(0).getMovie_pic()%>"></div><font color="#e6e6e6"><%= list.get(0).getMovie_name() %></font>
+<!--               <tr> -->
+<!--                 <td><font color="#e6e6e6">1</font></td> -->
+<%--                 <td id="sok"><div><img src="/T3MS/<%= list.get(0).getMovie_pic()%>"></div><font color="#e6e6e6"><%= list.get(0).getMovie_name() %></font> --%>
+<!--                 <table id ="czy"> -->
+<!--                     <tr class="starRow"> -->
+<!--                         <td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td> -->
+<!--                     </tr> -->
+<!--                 </table><input type="button" class="btnScore" value="想看度"><span style="color:red;font-weight:bold"></span><font color="#ff6600">分</font></td> -->
+<%--                 <td><font color="#e6e6e6"><%= list.get(0).getRelased()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(0).getLength()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(0).getLanguage()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(0).getImdb()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(0).getTomato()%></font></td> --%>
+<!--               </tr> -->
+              
+<!--               <tr> -->
+<!--                 <td><font color="#e6e6e6">2</font></td> -->
+<%--                 <td><div><img src="/T3MS/<%= list.get(1).getMovie_pic()%>"></div><font color="#e6e6e6"><%= list.get(1).getMovie_name() %></font> --%>
+<!--                 <table id ="czy"> -->
+<!--                     <tr class="starRow"> -->
+<!--                         <td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td> -->
+<!--                     </tr> -->
+<!--                 </table><input type="button" class="btnScore" value="想看度"><span style="color:red;font-weight:bold"></span><font color="#ff6600">分</font></td> -->
+<%--                 <td><font color="#e6e6e6"><%= list.get(1).getRelased()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(1).getLength()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(1).getLanguage()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(1).getImdb()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(1).getTomato()%></font></td> --%>
+<!--               </tr> -->
+              
+<!--               <tr> -->
+<!--                 <td><font color="#e6e6e6">3</font></td> -->
+<%--                 <td><div><img src="/T3MS/<%= list.get(2).getMovie_pic()%>"></div><font color="#e6e6e6"><%= list.get(2).getMovie_name() %></font> --%>
+<!--                 <table id ="czy"> -->
+<!--                     <tr class="starRow"> -->
+<!--                         <td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td> -->
+<!--                     </tr> -->
+<!--                 </table><input type="button" class="btnScore" value="想看度"><span style="color:red;font-weight:bold"></span><font color="#ff6600">分</font></td> -->
+<%--                 <td><font color="#e6e6e6"><%= list.get(2).getRelased()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(2).getLength()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(2).getLanguage()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(2).getImdb()%></font></td> --%>
+<%--                 <td><font color="#e6e6e6"><%= list.get(2).getTomato()%></font></td> --%>
+              
+              </tr>
+              
+              <c:forEach var="movieVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<!-- 		<tr> -->
+<%-- 			<td><font color="#e6e6e6">${movieVO.movie_no}</font></td> --%>				
+<%-- 			<td><font color="#e6e6e6">${movieVO.movie_pic}</font></td> --%>
+<%-- 			<td><font color="#e6e6e6">${movieVO.movie_name}</font></td> --%>
+<%-- 			<td><font color="#e6e6e6">${movieVO.relased}</font></td> --%>
+<%-- 			<td><font color="#e6e6e6">${movieVO.length}</font></td> --%>
+<%-- 			<td><font color="#e6e6e6">${movieVO.language}</font></td> --%>
+<%-- 			<td><font color="#e6e6e6">${movieVO.imdb}</font></td> --%>
+<%-- 			<td><font color="#e6e6e6">${movieVO.tomato}</font></td>	 --%>
+			
+			
+			   <tr>
+                <td><font color="#e6e6e6">${movieVO.movie_no}</font></td>
+                <td><div><img src="/T3MS/${movieVO.movie_pic}"></div><font color="#e6e6e6">${movieVO.movie_name}</font>
                 <table id ="czy">
                     <tr class="starRow">
                         <td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td>
                     </tr>
                 </table><input type="button" class="btnScore" value="想看度"><span style="color:red;font-weight:bold"></span><font color="#ff6600">分</font></td>
-                <td><font color="#e6e6e6"><%= list.get(0).getRelased()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(0).getLength()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(0).getLanguage()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(0).getImdb()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(0).getTomato()%></font></td>
-              </tr>
-              
-              <tr>
-                <td><font color="#e6e6e6">2</font></td>
-                <td><div><img src="/T3MS/<%= list.get(1).getMovie_pic()%>"></div><font color="#e6e6e6"><%= list.get(1).getMovie_name() %></font>
-                <table id ="czy">
-                    <tr class="starRow">
-                        <td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td>
-                    </tr>
-                </table><input type="button" class="btnScore" value="想看度"><span style="color:red;font-weight:bold"></span><font color="#ff6600">分</font></td>
-                <td><font color="#e6e6e6"><%= list.get(1).getRelased()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(1).getLength()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(1).getLanguage()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(1).getImdb()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(1).getTomato()%></font></td>
-              </tr>
-              
-              <tr>
-                <td><font color="#e6e6e6">3</font></td>
-                <td><div><img src="/T3MS/<%= list.get(2).getMovie_pic()%>"></div><font color="#e6e6e6"><%= list.get(2).getMovie_name() %></font>
-                <table id ="czy">
-                    <tr class="starRow">
-                        <td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td>
-                    </tr>
-                </table><input type="button" class="btnScore" value="想看度"><span style="color:red;font-weight:bold"></span><font color="#ff6600">分</font></td>
-                <td><font color="#e6e6e6"><%= list.get(2).getRelased()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(2).getLength()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(2).getLanguage()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(2).getImdb()%></font></td>
-                <td><font color="#e6e6e6"><%= list.get(2).getTomato()%></font></td>
+                <td><font color="#e6e6e6">${movieVO.relased}</font></td>
+                <td><font color="#e6e6e6">${movieVO.length}</font></td>
+                <td><font color="#e6e6e6">${movieVO.language}</font></td>
+                <td><font color="#e6e6e6">${movieVO.imdb}</font></td>
+                <td><font color="#e6e6e6">${movieVO.tomato}</font></td>
               
               </tr>
+<!-- 		</tr> -->
+			</c:forEach>	
             </tbody>
           </table>
         </div>

@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav">
                     <li class=""><a href="#">線上訂票</a></li>
-                    <li><a href="#">合作影城</a></li>
+                    <li><a href="<%=request.getContextPath()%>/forestage/introduction/introduction.jsp">合作影城</a></li>
                     <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">電影資訊<span class="caret"></span></a>
                       <ul class="dropdown-menu font-custom">
