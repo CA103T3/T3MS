@@ -2,6 +2,8 @@ package com.boxoffice.model;
 
 import java.sql.Date;
 
+import com.movie.model.MovieVO;
+
 public class BoxOfficeVO implements java.io.Serializable {
 
     /**
@@ -10,10 +12,18 @@ public class BoxOfficeVO implements java.io.Serializable {
     private static final long serialVersionUID = -1240329133845125022L;
     private String ranking_no;
     private String movie_no;
+    private String moviename;
     private Date statistics;
     private Integer rank;
     private Integer loc;
+    private MovieVO movieVO;
 
+    public MovieVO getMovieVO() {
+        return movieVO;
+    }
+    public void setMovieVO(MovieVO movieVO) {
+        this.movieVO = movieVO;
+    }
     public String getRanking_no() {
         return ranking_no;
     }
@@ -25,6 +35,12 @@ public class BoxOfficeVO implements java.io.Serializable {
     }
     public void setMovie_no(String movie_no) {
         this.movie_no = movie_no;
+    }
+    public String getMoviename() {
+        return moviename;
+    }
+    public void setMoviename(String moviename) {
+        this.moviename = moviename;
     }
     public Date getStatistics() {
         return statistics;

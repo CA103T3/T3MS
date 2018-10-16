@@ -28,15 +28,19 @@ public class BoxOfficeDAO implements BoxOfficeDAO_interface {
     }
 
     private static final String INSERT_STMT =
-        "INSERT INTO BOX_OFFICE_CHARTS (RANKING_NO,MOVIE_NO,STATISTICS,RANK,LOC) VALUES ('BOC'||LPAD(to_char(BOX_OFFICE_CHARTS_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, ?)";
+        "INSERT INTO BOX_OFFICE_CHARTS (RANKING_NO,MOVIE_NO,MOVIENAME,STATISTICS,RANK,LOC) VALUES ('BOC'||LPAD(to_char(BOX_OFFICE_CHARTS_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?)";
     private static final String GET_ALL_STMT =
-        "SELECT RANKING_NO,MOVIE_NO,STATISTICS,RANK,LOC FROM BOX_OFFICE_CHARTS order by RANKING_NO";
+        "SELECT RANKING_NO,MOVIE_NO,MOVIENAME,STATISTICS,RANK,LOC FROM BOX_OFFICE_CHARTS order by RANKING_NO";
     private static final String GET_ONE_STMT =
-        "SELECT RANKING_NO,MOVIE_NO,STATISTICS,RANK,LOC FROM BOX_OFFICE_CHARTS where RANKING_NO = ?";
+        "SELECT RANKING_NO,MOVIE_NO,MOVIENAME,STATISTICS,RANK,LOC FROM BOX_OFFICE_CHARTS where RANKING_NO = ?";
     private static final String DELETE =
         "DELETE FROM BOX_OFFICE_CHARTS where RANKING_NO = ?";
     private static final String UPDATE =
-        "UPDATE BOX_OFFICE_CHARTS set MOVIE_NO=?, STATISTICS=?, RANK=?, LOC=? where RANKING_NO = ?";
+        "UPDATE BOX_OFFICE_CHARTS set MOVIE_NO=?, MOVIENAME=?, STATISTICS=?, RANK=?, LOC=? where RANKING_NO = ?";
+    private static final String GET_LATEST_TEN_STMT =
+            "SELECT * FROM " +
+            "(SELECT RANKING_NO,MOVIE_NO,MOVIENAME,STATISTICS,RANK,LOC, ROW_NUMBER() OVER (ORDER BY STATISTICS desc) as rno FROM BOX_OFFICE_CHARTS where LOC=? ) "
+            + "where rno <= 10  order by STATISTICS desc, RANK asc";
     
     @Override
     public String insert(BoxOfficeVO boVO) {
@@ -51,9 +55,10 @@ public class BoxOfficeDAO implements BoxOfficeDAO_interface {
             pstmt = con.prepareStatement(INSERT_STMT, cols);
 
             pstmt.setString(1, boVO.getMovie_no());
-            pstmt.setDate(2, boVO.getStatistics());
-            pstmt.setInt(3, boVO.getRank());
-            pstmt.setInt(4, boVO.getLoc());
+            pstmt.setString(2, boVO.getMoviename());
+            pstmt.setDate(3, boVO.getStatistics());
+            pstmt.setInt(4, boVO.getRank());
+            pstmt.setInt(5, boVO.getLoc());
 
             pstmt.executeUpdate();
             
@@ -109,10 +114,11 @@ public class BoxOfficeDAO implements BoxOfficeDAO_interface {
             pstmt = con.prepareStatement(UPDATE);
 
             pstmt.setString(1, boVO.getMovie_no());
-            pstmt.setDate(2, boVO.getStatistics());
-            pstmt.setInt(3, boVO.getRank());
-            pstmt.setInt(4, boVO.getLoc());
-            pstmt.setString(5, boVO.getRanking_no());
+            pstmt.setString(2, boVO.getMoviename());
+            pstmt.setDate(3, boVO.getStatistics());
+            pstmt.setInt(4, boVO.getRank());
+            pstmt.setInt(5, boVO.getLoc());
+            pstmt.setString(6, boVO.getRanking_no());
 
             pstmt.executeUpdate();
 
@@ -198,6 +204,7 @@ public class BoxOfficeDAO implements BoxOfficeDAO_interface {
                 boVO = new BoxOfficeVO();
                 boVO.setRanking_no(rs.getString("RANKING_NO"));
                 boVO.setMovie_no(rs.getString("MOVIE_NO"));
+                boVO.setMoviename(rs.getString("MOVIENAME"));
                 boVO.setStatistics(rs.getDate("STATISTICS"));
                 boVO.setRank(rs.getInt("RANK"));
                 boVO.setLoc(rs.getInt("LOC"));
@@ -253,6 +260,7 @@ public class BoxOfficeDAO implements BoxOfficeDAO_interface {
                 boVO = new BoxOfficeVO();
                 boVO.setRanking_no(rs.getString("RANKING_NO"));
                 boVO.setMovie_no(rs.getString("MOVIE_NO"));
+                boVO.setMoviename(rs.getString("MOVIENAME"));
                 boVO.setStatistics(rs.getDate("STATISTICS"));
                 boVO.setRank(rs.getInt("RANK"));
                 boVO.setLoc(rs.getInt("LOC"));

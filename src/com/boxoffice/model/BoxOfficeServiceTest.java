@@ -56,6 +56,7 @@ public class BoxOfficeServiceTest extends HttpServlet {
 
     public String testAddBoxOffice() {
         String movie_no = "MV0001";
+        String moviename = "猛毒";
         String date = "2018-10-01";
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilDate = null;
@@ -68,7 +69,7 @@ public class BoxOfficeServiceTest extends HttpServlet {
         java.sql.Date statistics = new java.sql.Date(utilDate.getTime());
         Integer rank = 1;
         Integer loc = 0;
-        String ranking_no = bSvc.addBoxOffice(movie_no, statistics, rank, loc);
+        String ranking_no = bSvc.addBoxOffice(movie_no, moviename, statistics, rank, loc);
         return ranking_no;
     }
 
@@ -76,6 +77,7 @@ public class BoxOfficeServiceTest extends HttpServlet {
         BoxOfficeVO boVO = bSvc.getOneBoxOffice(ranking_no);
         out.println("Ranking_no : " + boVO.getRanking_no());
         out.println("Movie_no : " + boVO.getMovie_no());
+        out.println("Moviename : " + boVO.getMoviename());
         out.println("Statistics date : " + boVO.getStatistics());
         java.sql.Date sqlDate = boVO.getStatistics();
         java.util.Date utilDate = new java.util.Date();
@@ -94,6 +96,7 @@ public class BoxOfficeServiceTest extends HttpServlet {
 
     public void testUpdatBoxOffice(String ranking_no) {
         String movie_no = "MV0002";
+        String moviename = "一個巨星的誕生";
         String date = "2019-11-11";
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilDate = null;
@@ -106,7 +109,7 @@ public class BoxOfficeServiceTest extends HttpServlet {
         java.sql.Date statistics = new java.sql.Date(utilDate.getTime());
         Integer rank = 2;
         Integer loc = 1;
-        bSvc.updateBoxOffice(ranking_no, movie_no, statistics, rank, loc);
+        bSvc.updateBoxOffice(ranking_no, movie_no, moviename, statistics, rank, loc);
     }
 
     public void testGetAll() {
@@ -114,6 +117,7 @@ public class BoxOfficeServiceTest extends HttpServlet {
         out.println(list.size());
         for(BoxOfficeVO vo : list) {
             out.println(vo.getRanking_no());
+            out.println(vo.getMoviename());
         }
     }
 

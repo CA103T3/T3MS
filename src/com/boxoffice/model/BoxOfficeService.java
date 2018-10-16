@@ -11,10 +11,11 @@ public class BoxOfficeService {
         dao = new BoxOfficeDAO();
     }
 
-    public String addBoxOffice(String movie_no, Date statistics, Integer rank, Integer loc) {
+    public String addBoxOffice(String movie_no, String moviename, Date statistics, Integer rank, Integer loc) {
 
         BoxOfficeVO boVO = new BoxOfficeVO();
         boVO.setMovie_no(movie_no);
+        boVO.setMoviename(moviename);
         boVO.setStatistics(statistics);
         boVO.setRank(rank);
         boVO.setLoc(loc);
@@ -24,12 +25,13 @@ public class BoxOfficeService {
         return ranking_no;
     }
 
-    public void updateBoxOffice(String ranking_no, String movie_no, Date statistics, Integer rank,
+    public void updateBoxOffice(String ranking_no, String movie_no, String moviename, Date statistics, Integer rank,
             Integer loc) {
 
         BoxOfficeVO boVO = new BoxOfficeVO();
         boVO.setRanking_no(ranking_no);
         boVO.setMovie_no(movie_no);
+        boVO.setMoviename(moviename);
         boVO.setStatistics(statistics);
         boVO.setRank(rank);
         boVO.setLoc(loc);
