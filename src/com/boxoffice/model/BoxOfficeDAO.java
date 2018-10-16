@@ -39,9 +39,9 @@ public class BoxOfficeDAO implements BoxOfficeDAO_interface {
         "UPDATE BOX_OFFICE_CHARTS set MOVIE_NO=?, MOVIENAME=?, STATISTICS=?, RANK=?, LOC=? where RANKING_NO = ?";
     private static final String GET_LATEST_TEN_STMT =
             "SELECT * FROM " +
-            "(SELECT RANKING_NO,MOVIE_NO,MOVIENAME,STATISTICS,RANK,LOC, ROW_NUMBER() OVER (ORDER BY STATISTICS desc) as rno FROM BOX_OFFICE_CHARTS where LOC=? ) "
+            "(SELECT RANKING_NO,MOVIE_NO,MOVIENAME,STATISTICS,RANK,LOC, ROW_NUMBER() OVER (ORDER BY STATISTICS desc, RANK asc) as rno FROM BOX_OFFICE_CHARTS where LOC=? ) "
             + "where rno <= 10  order by STATISTICS desc, RANK asc";
-    
+
     @Override
     public String insert(BoxOfficeVO boVO) {
 
