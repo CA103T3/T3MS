@@ -27,11 +27,12 @@ public class NavDAO implements NavDAO_interface {
 			}
 		}
 		
-		
 		private static final String INSERT_STMT ="insert into NAV_BACKSTAGE(listitem_no,listitem_name,url,parent_id,item_order) values('N'||LPAD(to_char(NAV_BACKSTAGE_seq.NEXTVAL), 3, '0'),?,?,?,?)";
 		private static final String GET_ALL_STMT = "SELECT * FROM NAV_BACKSTAGE";
 		private static final String FINDBYURL = "SELECT * FROM NAV_BACKSTAGE WHERE URL=?";
 		private static final String FINDVO = "SELECT * FROM NAV_BACKSTAGE WHERE listitem_no=?";
+		
+		
 		
 		@Override
 		public String insert(NavVO navVO) {		

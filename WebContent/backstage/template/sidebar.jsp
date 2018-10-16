@@ -243,7 +243,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                 <!-- 活動公告管理 側邊折疊 -->
 
                 <!-- 客服系統管理 側邊折疊 -->
-                <c:if test='<%=sidelist.contains("N031")||sidelist.contains("N032")||sidelist.contains("N033") %>'>
+                <c:if test='<%=sidelist.contains("N031")||sidelist.contains("N032") %>'>
                 <li>
                     <a href="#sub9" data-toggle="collapse">客服系統管理
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
@@ -253,12 +253,6 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <li>
                             <a href="#">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;即時客服聊天室</a>
-                        </li>
-                        </c:if>
-                        <c:if test='<%=sidelist.contains("N033") %>'>
-                        <li>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-list-alt"></span>&nbsp;歷史訊息</a>
                         </li>
                         </c:if>
                     </ul>
