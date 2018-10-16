@@ -12,7 +12,7 @@ public class AccountService {
 	}
 
 	public String addAccount_Backstage(String bs_acc_name, String role_no,
-			String cinema_no, String bs_acc_psw,String email,String tel, java.sql.Timestamp last_online_time) {
+			String cinema_no, String bs_acc_psw,String email,String tel) {
 
 		AccountVO accountVO = new AccountVO();
 
@@ -22,8 +22,6 @@ public class AccountService {
 		accountVO.setBs_acc_psw(bs_acc_psw);
 		accountVO.setEmail(email);
 		accountVO.setTel(tel);
-		accountVO.setLast_online_time(new Timestamp(System.currentTimeMillis()));
-		
 
 		return dao.insert(accountVO);
 	}

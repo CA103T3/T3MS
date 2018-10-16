@@ -230,7 +230,7 @@ public class AccountServlet extends HttpServlet{
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-//			try {
+			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String bs_acc_name = req.getParameter("bs_acc_name");
 				System.out.println(bs_acc_name);
@@ -268,7 +268,7 @@ public class AccountServlet extends HttpServlet{
 				String tel = req.getParameter("tel");
 				
 				
-				java.sql.Timestamp last_online_time = null;
+				
 //				try {
 //					java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 //					java.util.Date du = df.parse(req.getParameter("last_online_time").trim());
@@ -276,7 +276,7 @@ public class AccountServlet extends HttpServlet{
 //				} catch (IllegalArgumentException e) {
 //					errorMsgs.add("上次在線時間請輸入日期!");
 //				} 
-				System.out.println("last_online_time="+last_online_time);
+				
 								
 				
 				AccountVO accountVO = new AccountVO();
@@ -286,7 +286,7 @@ public class AccountServlet extends HttpServlet{
 				accountVO.setBs_acc_psw(bs_acc_psw);
 				accountVO.setEmail(email);
 				accountVO.setTel(tel);
-				accountVO.setLast_online_time(last_online_time);
+				
 				
 				
 				// Send the use back to the form, if there were errors
@@ -300,22 +300,22 @@ public class AccountServlet extends HttpServlet{
 		
 				/***************************2.開始新增資料***************************************/
 				AccountService account_BackstageService = new AccountService();
-				account_BackstageService.addAccount_Backstage(bs_acc_name,role_no
-						,cinema_no,bs_acc_psw,email,tel,last_online_time);
+				account_BackstageService.addAccount_Backstage(bs_acc_name, role_no, cinema_no, bs_acc_psw, email, tel);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-			    
-				String url = "/backstage/staff/backstage_listAll.jsp";
+				String success = "新增帳號成功!!";
+				req.setAttribute("success", success);
+				String url = "/backstage/staff/backstage_insert.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/backstage/staff/backstage_insert.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backstage/staff/backstage_insert.jsp");
+				failureView.forward(req, res);
+			}
 		}
 		
 		
@@ -389,7 +389,7 @@ public class AccountServlet extends HttpServlet{
 	                out.println("</BODY></HTML>");
 	            }
 	            if(aVO.getState()==1) {
-	            res.sendRedirect(req.getContextPath()+"/backstage/backstage_index.jsp");
+	            	res.sendRedirect(req.getContextPath()+"/backstage/backstage_index.jsp");
 	            }
 //	            Cookie username= new Cookie("email",email);
 	//   

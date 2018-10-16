@@ -37,7 +37,7 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 		
 		
 		private static final String INSERT_STMT = 
-				"INSERT INTO ACCOUNT_BACKSTAGE(BS_ACC_NO,BS_ACC_NAME,ROLE_NO,CINEMA_NO,BS_ACC_PSW,EMAIL,TEL,LAST_ONLINE_TIME,STATE) VALUES ('A'||LPAD(to_char(ACCOUNT_BACKSTAGE_SEQ.NEXTVAL), 3, '0'),?,?,?,?,?,?,?,1)";
+				"INSERT INTO ACCOUNT_BACKSTAGE(BS_ACC_NO,BS_ACC_NAME,ROLE_NO,CINEMA_NO,BS_ACC_PSW,EMAIL,TEL,STATE) VALUES ('A'||LPAD(to_char(ACCOUNT_BACKSTAGE_SEQ.NEXTVAL), 3, '0'),?,?,?,?,?,?,1)";
 		private static final String GET_ALL_STMT = 
 				"SELECT BS_ACC_NO,BS_ACC_NAME,ROLE_NO,CINEMA_NO,BS_ACC_PSW,EMAIL,TEL,LAST_ONLINE_TIME,STATE FROM ACCOUNT_BACKSTAGE order by BS_ACC_NO";
 		private static final String GET_ONE_STMT = 
@@ -71,8 +71,7 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 				pstmt.setString(4, accountVO.getBs_acc_psw());
 				pstmt.setString(5, accountVO.getEmail());
 				pstmt.setString(6, accountVO.getTel());
-				pstmt.setTimestamp(7, accountVO.getLast_online_time());
-						
+
 				pstmt.executeUpdate();
 				ResultSet rs = pstmt.getGeneratedKeys();
 	            ResultSetMetaData rsmd = rs.getMetaData();

@@ -209,7 +209,9 @@ public class ServletMemberBackstage extends HttpServlet {
                 
                 /***************************2.開始查詢資料*****************************************/
                 MemService memSrc = new MemService();
-                memSrc.wanttobeFC(memno);
+                if(memSrc.getMemVOByNO(memno).getType()==0) {
+                	memSrc.wanttobeFC(memno);            	
+                }
                 MemVO memVO = memSrc.getMemVOByNO(memno);
                 System.out.println(memVO.getType());
                 System.out.println(errorMsgs);

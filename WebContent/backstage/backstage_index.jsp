@@ -132,19 +132,10 @@ body{
     <%@ include file="/backstage/template/header.jsp" %>
 <div id="wrapper" class="mt50">
         <%@ include file="/backstage/template/sidebar.jsp" %>
+		
+		<img src="/T3MS/img/Test_UP_IMG/bindex1.jpg" alt="..." style="width:100%;height:100%;">
 
-    <div class="flex-column" id="page-content-wrapper">
-            <div class="container-fluid mt20">
-				<div class="jumbotron">
-					<h1>&nbsp&nbsp&nbsp&nbsp&nbsp!!!!!!!!!!!!!!!!後臺首頁!!!!!!!!!!!!!!!!</h1>
-					  <div class="row">
-						  <div class="col-xs-10 col-md-10 col-offset-2">
-						      <img src="<%=request.getContextPath() %>/img/Test_UP_IMG/bindex.jpg" alt="...">
-						  </div>
-					  </div>
-				</div>
-           </div>
-       </div>
+
        </div>
    
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>

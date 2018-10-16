@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top mb0 brs-none">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="#" class="navbar-brand">
+                <a href="/T3MS/backstage/backstage_index.jsp" class="navbar-brand">
                     <img id="backimg" src="<%=request.getContextPath()+"/img/LOGO3_SM.png"%>" alt="logo">
                 </a>
                 <a href="#" class="btn menu-toggle mt4"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>

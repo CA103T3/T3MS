@@ -233,7 +233,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         </c:if>
                         <c:if test='<%=sidelist.contains("N030") %>'>
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/activity/listActivity.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;活動管理</a>
                         </li>
                         </c:if>
@@ -251,7 +251,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                     <ul id="sub9" class="nav collapse">
                     	<c:if test='<%=sidelist.contains("N032") %>'>
                         <li>
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/backstage/service_BackChat/chatServer.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;即時客服聊天室</a>
                         </li>
                         </c:if>

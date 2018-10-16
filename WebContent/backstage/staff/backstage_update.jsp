@@ -128,6 +128,8 @@ body{
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
         
+        
+
   	<c:if test="${not empty errorMsgs}">
 				<div style="width:600px;margin:0 auto;" class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

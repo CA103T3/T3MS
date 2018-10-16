@@ -134,6 +134,15 @@ body{
         <%@ include file="/backstage/template/sidebar.jsp" %>
         <div class="flex-column" id="page-content-wrapper">
         
+        
+                <c:if test="${success!=null}">
+				<div style="width:600px;margin:0 auto;" class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+									<span style="color:green;font-size:30px;font-weight:bold">${success}</span>					
+				</div>
+			</c:if>
+        
   	<c:if test="${not empty errorMsgs}">
 				<div style="width:600px;margin:0 auto;" class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -182,10 +191,7 @@ body{
 					<div class="form-group">
 					 	<input type="text" class="form-control" name='tel' placeholder="電話號碼">
 					</div>
-					<div class="form-group">
-					 	<input type="hidden" id="getBookTime" name='last_online_time'>
-					</div>
-							
+
 					<div class="btn_box">
 						<button type="submit" class="btn btn-primary login_btn">新增</button>
 					</div>
