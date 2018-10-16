@@ -531,12 +531,12 @@ public class MovieServlet extends HttpServlet {
 						String url = "/forestage/search_page/search_page.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 movie_One.jsp
 						successView.forward(req, res);
-					
+						
 						/***************************其他可能的錯誤處理*************************************/
 					} catch (Exception e) {
 						errorMsgs.add("無法取得資料:" + e.getMessage());
 						RequestDispatcher failureView = req
-								.getRequestDispatcher(requestURL);
+								.getRequestDispatcher("/forestage/search_page/search_page.jsp");
 						failureView.forward(req, res);
 					}
 				}

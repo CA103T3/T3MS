@@ -5,7 +5,7 @@
         <!-- search bar > -->
         <div class="container-fluid">
             <div class="col-md-4 col-md-offset-4 search-bar-margin">
-                <form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie/movie.do">
+                <form METHOD="post" ACTION="<%=request.getContextPath()%>/movie/movie.do">
                     <div class="input-group">
                         <input type="text" class="form-control input-lg text-center font-custom-large" name="movie_name" placeholder="搜尋電影時刻" aria-label="搜尋電影時刻">
                         <span class="input-group-btn">

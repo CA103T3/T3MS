@@ -194,7 +194,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>MovieServlet</servlet-name>
-    <url-pattern>/backstage/movie/movie.do</url-pattern>
+    <url-pattern>/movie/movie.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Report_Filmreview_MsgServlet</servlet-name>
