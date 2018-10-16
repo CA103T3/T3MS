@@ -41,7 +41,7 @@ public class NavDAO implements NavDAO_interface {
 			try {
 
 				con = ds.getConnection(); 
-				String[] cols = { "itemlist_no" };
+				String[] cols = { "listitem_no" };
 				pstmt = con.prepareStatement(INSERT_STMT,cols);
 				
 				pstmt.setString(1,navVO.getListitem_name());
