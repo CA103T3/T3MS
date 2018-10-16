@@ -16,5 +16,7 @@ public interface AccountDAO_interface {
 	public boolean login(String bs_acc_name,String bs_acc_psw);
 	public void logintime(String bs_acc_name);
 	public AccountVO findVObyno(String bs_acc_no);
+	public void stop(String bs_acc_no);
+	public void unstop(String bs_acc_no);
 	
 }

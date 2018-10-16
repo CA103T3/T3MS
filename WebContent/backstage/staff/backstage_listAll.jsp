@@ -75,21 +75,23 @@
 					            <c:if test="${rVO.br_no==aVO.role_no}">${rVO.br_name}</c:if></c:forEach></td>
                             <td>${aVO.email}</td>
                             <td><c:forEach var="cVO" items="${cSrc.all}">
-					            <c:if test="${cVO.cinema_no==aVO.cinema_no}">${cVO.cinema_name}</c:if></c:forEach></td>
+					            	<c:if test="${cVO.cinema_no==aVO.cinema_no}">${cVO.cinema_name}</c:if></c:forEach></td>
                             <td>${aVO.tel}</td>
                             <td>${aVO.last_online_time}</td>
                             <td>${(aVO.state==1)?'<span style="color:green;">啟用</span>':'<span style="color:red;">停用</span>'}</td>
                             <td>
-                                <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/">
+                                <form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/account/account.do">
                                     <button type="submit" id="view-btn-${s.index}" class="btn btn-warning fs16 " >
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;修改
                                     </button>&nbsp;&nbsp;
                                     <input type="hidden" name="bs_acc_no" value="${aVO.bs_acc_no}">
                                     <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
-                                    <input type="hidden" name="action" value="update">
+                                    <input type="hidden" name="action" value="view">
                                 </form>
-                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/">
+                                
+                                <c:if test="${aVO.state==1}">
+                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/account/account.do">
                                     <button type="submit" id="mod-btn-${s.index}" class="btn btn-danger fs16 " >
                                         <i class="" aria-hidden="true"></i>&nbsp;停權
                                     </button>&nbsp;&nbsp;
@@ -98,6 +100,18 @@
                                     <input type="hidden" name="whichRecordIndex" value="${s.index}">
                                     <input type="hidden" name="action" value="stop">
                                 </form>
+                                </c:if>
+                                <c:if test="${aVO.state==0}">
+                                <form id="fm-mod-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/account/account.do">
+                                    <button type="submit" id="mod-btn-${s.index}" class="btn btn-success fs16 " >
+                                        <i class="" aria-hidden="true"></i>&nbsp;解鎖
+                                    </button>&nbsp;&nbsp;
+                                    <input type="hidden" name="bs_acc_no" value="${aVO.bs_acc_no}">
+                                    <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
+                                    <input type="hidden" name="whichRecordIndex" value="${s.index}">
+                                    <input type="hidden" name="action" value="unstop">
+                                </form>                                                     
+                                </c:if>
 
                         
                             </td>

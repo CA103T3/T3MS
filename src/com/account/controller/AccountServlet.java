@@ -8,6 +8,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.account.model.*;
+import com.member.model.MemService;
+import com.member.model.MemVO;
 
 
 public class AccountServlet extends HttpServlet{
@@ -91,39 +93,57 @@ public class AccountServlet extends HttpServlet{
 		}
 		
 		
-		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+		if ("view".equals(action)) { // from listAllMember.jsp
 
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-//			try {
-				/***************************1.接收請求參數****************************************/
-				String bs_acc_no = new String(req.getParameter("bs_acc_no"));
-				
-				/***************************2.開始查詢資料****************************************/
-				AccountService account_BackstageService = new AccountService();
-				AccountVO accountVO = account_BackstageService.getVO(bs_acc_no);
-					
-			
-				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("accountVO", accountVO);         // 資料庫取出的empVO物件,存入req
-				System.out.println("getLast_online_time=" + accountVO.getLast_online_time());
-				String url = "/backstage/account_backstage/update_account_backstage_input.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
-				
-				successView.forward(req, res);
+            List<String> errorMsgs = new LinkedList<String>();
+            // Store this set in the request scope, in case we need to
+            // send the ErrorPage view.
+            req.setAttribute("errorMsgs", errorMsgs);
+            String requestURL = req.getParameter("requestURL");
 
-				/***************************其他可能的錯誤處理**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/backstage/account_backstage/listAllAccount_Backstage.jsp");
-//				failureView.forward(req, res);
-//			}
-		}
-		
+            try {
+                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+                String bs_acc_no = req.getParameter("bs_acc_no");
+                System.out.println(bs_acc_no);
+                if (bs_acc_no == null || (bs_acc_no.trim()).length() == 0) {
+                    errorMsgs.add("請輸入會員編號");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************2.開始查詢資料*****************************************/
+                AccountService aSrc = new AccountService();
+                AccountVO aaVO = aSrc.findVObyno(bs_acc_no);
+                if (aaVO == null) {
+                    errorMsgs.add("查無資料");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)*************/
+                req.setAttribute("aaVO", aaVO); // 資料庫取出的theaterVO物件,存入req
+                String url = "/backstage/staff/backstage_update.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listOneTheater.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理*************************************/
+            } catch (Exception e) {
+                errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher("requestURL");
+                failureView.forward(req, res);
+            }
+        }
 		
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 			
@@ -134,8 +154,7 @@ public class AccountServlet extends HttpServlet{
 		
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String bs_acc_no = new String(req.getParameter("bs_acc_no").trim());
-				
+				String bs_acc_no = req.getParameter("bs_acc_no");
 				String bs_acc_name = req.getParameter("bs_acc_name");
 				String bs_acc_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (bs_acc_name == null || bs_acc_name.trim().length() == 0) {
@@ -151,27 +170,8 @@ public class AccountServlet extends HttpServlet{
 				} else if(!bs_acc_psw.trim().matches(bs_acc_pswReg)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("帳號密碼: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
-				
-				String role_no = req.getParameter("role_no").trim();
-				if (role_no == null || role_no.trim().length() == 0) {
-					errorMsgs.add("角色編號請勿空白");
-				}
-				
-				java.sql.Timestamp last_online_time = null;
-				try {
-					last_online_time = java.sql.Timestamp.valueOf(req.getParameter("last_online_time").trim());
-				} catch (IllegalArgumentException e) {
-					last_online_time=new java.sql.Timestamp(System.currentTimeMillis());
-					errorMsgs.add("上次在線時間請輸入日期!");
-				}
-				
-				String cinema_no = null;
-				try {
-					cinema_no = new String(req.getParameter("cinema_no").trim());
-				} catch (NumberFormatException e) {
-					cinema_no = "0";
-					errorMsgs.add("影城編號請填數字.");
-				}
+
+
 				
 				String email = null;
 				try {
@@ -188,40 +188,31 @@ public class AccountServlet extends HttpServlet{
 					errorMsgs.add("電話號碼請填數字.");
 				}
 				
-				Integer state = new Integer(req.getParameter("state").trim());
 
 				AccountVO accountVO = new AccountVO();
 				accountVO.setBs_acc_no(bs_acc_no);
 				accountVO.setBs_acc_name(bs_acc_name);
 				accountVO.setBs_acc_name(bs_acc_psw);
-				accountVO.setRole_no(role_no);
-				accountVO.setLast_online_time(last_online_time);
-				accountVO.setCinema_no(cinema_no);
+
 				accountVO.setEmail(email);
 				accountVO.setTel(tel);
-				accountVO.setState(state);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("accountVO", accountVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backstage/account_backstage/update_account_backstage_input.jsp");
+							.getRequestDispatcher("/backstage/staff/backstage_update.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
 				
 				/***************************2.開始修改資料*****************************************/
-				AccountService account_BackstageService = new AccountService();
-			
-//				accountVO = account_BackstageService.updateaccount_Backstage(bs_acc_no,bs_acc_name,role_no
-//						,cinema_no,bs_acc_psw,email,tel,last_online_time,state);
+				AccountService aSvc = new AccountService();
+				aSvc.update(bs_acc_no, bs_acc_name, bs_acc_psw, email, tel);
 				
-				
-				
-				
+							
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("accountVO", accountVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/backstage/account_backstage/listAllAccount_Backstage.jsp";
+				String url = "/backstage/staff/backstage_listAll.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -229,7 +220,7 @@ public class AccountServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backstage/account_backstage/update_account_backstage_input.jsp");
+						.getRequestDispatcher("/backstage/staff/backstage_update.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -391,8 +382,15 @@ public class AccountServlet extends HttpServlet{
 	            aSrc.logintime(bs_acc_name);
 	            session.setAttribute("aVO",aVO);
 	            
-
+	            if(aVO.getState()==0) {
+	            	out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+	                out.println("<BODY>你已被停權<BR>");
+	                out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/backstagestage/staff/backstage_login.jsp>重新登入</A>");
+	                out.println("</BODY></HTML>");
+	            }
+	            if(aVO.getState()==1) {
 	            res.sendRedirect(req.getContextPath()+"/backstage/backstage_index.jsp");
+	            }
 //	            Cookie username= new Cookie("email",email);
 	//   
 //	            username.setPath("/");
@@ -417,6 +415,110 @@ public class AccountServlet extends HttpServlet{
 	        System.out.println(result);
 	    
 		}
+		
+		
+		
+		
+		if ("stop".equals(action)) { // from listAllMember.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            
+            req.setAttribute("errorMsgs", errorMsgs);
+            String requestURL = req.getParameter("requestURL");
+            System.out.println(requestURL);
+
+            try {
+                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+                String bs_acc_no = req.getParameter("bs_acc_no");
+                System.out.println(bs_acc_no);
+                if (bs_acc_no == null || (bs_acc_no.trim()).length() == 0) {
+                    errorMsgs.add("請輸入會員編號");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+                
+                /***************************2.開始查詢資料*****************************************/
+                AccountService aSrc = new AccountService();
+                aSrc.stop(bs_acc_no);
+                System.out.println(errorMsgs);
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)*************/
+//                req.setAttribute("memVO", memVO); // 資料庫取出的theaterVO物件,存入req
+                String url = "/backstage/staff/backstage_listAll.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listALLmember.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理*************************************/
+            } catch (Exception e) {
+                errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher(requestURL);
+                failureView.forward(req, res);
+            }
+        }
+		
+		
+		if ("unstop".equals(action)) { // from listAllMember.jsp
+
+            List<String> errorMsgs = new LinkedList<String>();
+            
+            req.setAttribute("errorMsgs", errorMsgs);
+            String requestURL = req.getParameter("requestURL");
+            System.out.println(requestURL);
+
+            try {
+                /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+                String bs_acc_no = req.getParameter("bs_acc_no");
+                System.out.println(bs_acc_no);
+                if (bs_acc_no == null || (bs_acc_no.trim()).length() == 0) {
+                    errorMsgs.add("請輸入會員編號");
+                }
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+                
+                /***************************2.開始查詢資料*****************************************/
+                AccountService aSrc = new AccountService();
+                aSrc.unstop(bs_acc_no);
+                System.out.println(errorMsgs);
+                // Send the use back to the form, if there were errors
+                if (!errorMsgs.isEmpty()) {
+                    RequestDispatcher failureView = req
+                            .getRequestDispatcher(requestURL);
+                    failureView.forward(req, res);
+                    return;//程式中斷
+                }
+
+                /***************************3.查詢完成,準備轉交(Send the Success view)*************/
+//                req.setAttribute("memVO", memVO); // 資料庫取出的theaterVO物件,存入req
+                String url = "/backstage/staff/backstage_listAll.jsp";
+                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交listALLmember.jsp
+                successView.forward(req, res);
+
+                /***************************其他可能的錯誤處理*************************************/
+            } catch (Exception e) {
+                errorMsgs.add("無法取得資料:" + e.getMessage().replaceAll("\r|\n", ""));
+                RequestDispatcher failureView = req
+                        .getRequestDispatcher(requestURL);
+                failureView.forward(req, res);
+            }
+        }
 		
 		
 		

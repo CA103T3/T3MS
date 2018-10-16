@@ -28,22 +28,16 @@ public class AccountService {
 		return dao.insert(accountVO);
 	}
 
-	public void updateaccount_Backstage(String bs_acc_no,String bs_acc_name, String role_no, String cinema_no,String bs_acc_psw,String email,String tel,
-			java.sql.Timestamp last_online_time,Integer state) {
+	public void update(String bs_acc_no,String bs_acc_name,String bs_acc_psw,String email,String tel) {
 
 		AccountVO accountVO = new AccountVO();
 
 		accountVO.setBs_acc_no(bs_acc_no);
 		accountVO.setBs_acc_name(bs_acc_name);
-		accountVO.setRole_no(role_no);
-		accountVO.setCinema_no(cinema_no);
 		accountVO.setBs_acc_psw(bs_acc_psw);
 		accountVO.setEmail(email);
 		accountVO.setTel(tel);
-		accountVO.setLast_online_time(new Timestamp(System.currentTimeMillis()));
-		accountVO.setState(state);
 		dao.update(accountVO);
-
 		
 	}
 
@@ -56,7 +50,7 @@ public class AccountService {
 	}
 	
 	public AccountVO findVObyno(String bs_acc_no) {
-		return dao.findVO(bs_acc_no);
+		return dao.findVObyno(bs_acc_no);
 	}
 
 	public List<AccountVO> getAll() {
@@ -69,5 +63,13 @@ public class AccountService {
 	public void logintime(String bs_acc_name) {
 		dao.logintime(bs_acc_name);
 	}
-
+	public void stop(String bs_acc_no) {
+		dao.stop(bs_acc_no);
+	}
+	public void unstop(String bs_acc_no) {
+		dao.unstop(bs_acc_no);
+	}
+	
+	
+	
 }

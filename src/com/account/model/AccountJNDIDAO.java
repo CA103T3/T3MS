@@ -45,13 +45,14 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 		private static final String DELETE = 
 				"DELETE FROM ACCOUNT_BACKSTAGE where BS_ACC_NO = ?";
 		private static final String UPDATE = 
-				"UPDATE ACCOUNT_BACKSTAGE set BS_ACC_NAME=?, ROLE_NO=?, CINEMA_NO=?, BS_ACC_PSW=?, EMAIL=?, TEL=? ,LAST_ONLINE_TIME=? ,STATE=? where BS_ACC_NO = ?";
+				"UPDATE ACCOUNT_BACKSTAGE set BS_ACC_NAME=?,BS_ACC_PSW=?, EMAIL=?, TEL=? where BS_ACC_NO = ?";
 		private static final String LOGIN = 
 				"SELECT * FROM ACCOUNT_BACKSTAGE WHERE BS_ACC_NAME=? AND BS_ACC_PSW=?";
 		private static final String LOGINTIME = 
 				"UPDATE ACCOUNT_BACKSTAGE SET LAST_ONLINE_TIME=? WHERE BS_ACC_NAME=?";
 		private static final String GETONE = 
 				"SELECT * FROM ACCOUNT_BACKSTAGE where BS_ACC_NO = ?";
+		private static final String BAN ="UPDATE ACCOUNT_BACKSTAGE SET STATE=? WHERE BS_ACC_NO=?";
 		
 		@Override
 		public String insert(AccountVO accountVO) {
@@ -170,14 +171,10 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 				pstmt = con.prepareStatement(UPDATE);
 
 				pstmt.setString(1, accountVO.getBs_acc_name());
-				pstmt.setString(2, accountVO.getRole_no());
-				pstmt.setString(3, accountVO.getCinema_no());
-				pstmt.setString(4, accountVO.getBs_acc_psw());
-				pstmt.setString(5, accountVO.getEmail());
-				pstmt.setString(6, accountVO.getTel());
-				pstmt.setTimestamp(7, accountVO.getLast_online_time());
-				pstmt.setInt(8, accountVO.getState());
-				pstmt.setString(9, accountVO.getBs_acc_no());
+				pstmt.setString(2, accountVO.getBs_acc_psw());
+				pstmt.setString(3, accountVO.getEmail());
+				pstmt.setString(4, accountVO.getTel());
+				pstmt.setString(5, accountVO.getBs_acc_no());
 				
 				pstmt.executeUpdate();
 
@@ -465,9 +462,79 @@ public class AccountJNDIDAO implements AccountDAO_interface{
 					}
 				}
 			}
-
 		}
 
+		
+		
+		@Override
+		public void stop(String bs_acc_no) {
+			Connection con = null;
+			PreparedStatement pstmt = null;	
+			try {
+
+				con = ds.getConnection(); 
+				pstmt = con.prepareStatement(BAN);
+				pstmt.setInt(1, 0);
+				pstmt.setString(2, bs_acc_no);
+				pstmt.executeUpdate();
+			
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}		
+		}
+		
+		@Override
+		public void unstop(String bs_acc_no) {
+			Connection con = null;
+			PreparedStatement pstmt = null;	
+			try {
+
+				con = ds.getConnection(); 
+				pstmt = con.prepareStatement(BAN);
+				pstmt.setInt(1, 1);
+				pstmt.setString(2, bs_acc_no);
+				pstmt.executeUpdate();
+			
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}		
+		}
 		
 			
 	}
