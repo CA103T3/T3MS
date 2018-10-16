@@ -11,25 +11,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>M&amp;S</title>
-    <%@ include file="/backstage/template/link.jsp" %>
-    <style type="text/css">
-    </style>
+ <%@ include file="/backstage/template/link.jsp"%>
 </head>
+
  <%
-    	String memid = "M0001";
+    	String memid = "M007";
 //     	MemVO memVO = (MemVO) session.getAttribute("memVO");
 //     	String mem_no = memVO.getmemno();
     	
     %>
 <body onload="connect();" class="fs16">
-    <%@ include file="/backstage/template/header.jsp" %>
-    <div id="wrapper" class="mt50">
-        <%@ include file="/backstage/template/sidebar.jsp" %>
-        <div class="flex-column" id="page-content-wrapper">
-            <div class="container-fluid mt20">
-             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center">Service Chat</h3>
+	<%@ include file="/backstage/template/header.jsp"%>
+	<div id="wrapper" class="mt50">
+<%@ include file="/backstage/template/sidebar.jsp"%>
+    	<div class="flex-column" id="page-content-wrapper">
+        	<div class="container-fluid mt20">
+            	<div class="panel panel-primary">
+                	<div class="panel-heading">
+                    	<h3 class="panel-title text-center">Service Chat</h3>
                 </div>
                 
                	<div style="height:500px;BACKGROUND-COLOR: #FFFFFF;
@@ -67,7 +66,7 @@
 				
 				 webSocket.onopen = function() {
 					 <%
-					 	List<String> list = JedisHandleMessage.getHistoryMsg("客服人員", "結衣新垣");
+					 	List<String> list = JedisHandleMessage.getHistoryMsg("客服人員", "新垣結衣");
 					 	
 					 	for(int i=list.size()-1; i>-1; i--){
 					 		String oldTalk = list.get(i);
@@ -110,20 +109,14 @@
 			
 			
 		 function emit() {
-// 			 var text = $("#msg").val();
 		     var text = encodeScript($("#msg").val());
 		     var msg = {
 		    		 "type":"XhistoryX",
 		    		 "sender":"客服人員", 
-		    		 "receiver":"M0001",
+		    		 "receiver":"M007",
 		    		 "message":"&nbsp;" + text + "&nbsp;"
 		     };
-// 		     var msg = {
-// 		         "message" : text,
-// 		         "color" : "#CECECE",
-// 		         "bubbleColor" : "#2E2E2E",
-// 		         "fontSize" : "16"
-// 		     };
+
 		     msg = JSON.stringify(msg);
 		     //向server發送訊息
 		     webSocket.send(msg);
@@ -138,9 +131,10 @@
 			    return data.replace("<", "&lt;").replace(">", "&gt;").replace(" ","&nbsp;");
 		 }
 </script>
-            </div>
-        </div>
+      </div>
+	</div>
    
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
 </body>
+
 </html>

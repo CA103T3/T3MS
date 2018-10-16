@@ -13,10 +13,6 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <%@ include file="/forestage/template/link.jsp" %>
         <title>M&amp;S</title>
-        <style>
-
-        </style>
-        
     </head>
     <%
 //     	String memid = "M0001";
@@ -24,44 +20,35 @@
     	String mem_no = memVO.getmemno();
     	String mem_fullName = memVO.getLastname()+memVO.getFirstname();
     %>
-    <body onload="connect();" class="body-template">
-        <%@ include file="/forestage/template/header.jsp" %>
-        <div class="container" style="color: #ffffff;font-size: 20px;">
+<body onload="connect();" class="body-template">
+	<%@ include file="/forestage/template/header.jsp" %>
+	<div class="container" style="color: #ffffff;font-size: 20px;">
         <!-- ==========================start============================= -->
-        <br><br>
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center">Service Chat</h3>
-                </div>
-                
-                <div style="height:500px;BACKGROUND-COLOR: #FFFFFF;
+    <br><br>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+            	<h3 class="panel-title text-center">Service Chat</h3>
+            </div>
+				<div style="height:500px;BACKGROUND-COLOR: #FFFFFF;
                  overflow-y:scroll; SCROLLBAR-FACE-COLOR: #c2d3fc;
                   SCROLLBAR-HIGHLIGHT-COLOR: #c2d3fc; SCROLLBAR-SHADOW-COLOR: BLACK;
                    SCROLLBAR-3DLIGHT-COLOR: #c2d3fc; SCROLLBAR-ARROW-COLOR:#000000; 
                    SCROLLBAR-TRACK-COLOR: FFFFFF; SCROLLBAR-DARKSHADOW-COLOR: EAECEC"
                     class="panel-body" id="content"></div>
-            </div>
+       </div>
             <hr/>
             <input type="text" class="form-control" placeholder="message" aria-describedby="sizing-addon1" id="msg">
             <hr/>
             <button type="button" id="sendmsg" class="btn btn-lg btn-success btn-block" onclick="emit()">發送</button>
-        </div>
-<script>
-$('#sendmsg').click(function(event){
-	event.preventDefault();
-	var n = $("#content").height();
-	$('html,body').animate({scorllTop:n},50);
-});
-// $(window).scroll(function(){
-//     var scrollTop = $(this).scrollTop();
-//     var scrollHeight = $(document).height();
-//     var windowHeight = $(this).height();
-//     if(scrollTop + windowHeight == scrollHeight){
-//         alert("you are in the bottom");
-//     }
-// }); 
-</script> 
-<script type="text/javascript">
+    </div>
+	<script type="text/javascript">
+	$('#sendmsg').click(function(event){
+		event.preventDefault();
+		var n = $("#content").height();
+		$('html,body').animate({scorllTop:n},50);
+	});
+	</script> 
+	<script type="text/javascript">
     	$(document).ready(function(){
     		$("#msg").focus();
     		$("#content").scrollTop(10000);
@@ -69,8 +56,8 @@ $('#sendmsg').click(function(event){
     			$("#content").scrollTop(10000);
     		});
     	});
-</script>
- <script type="text/javascript">
+	</script>
+	<script type="text/javascript">
 		 	var MyPoint = "/FriendWS/<%=mem_no%>";
 			var host = window.location.host;
 			var path = window.location.pathname;
@@ -104,10 +91,8 @@ $('#sendmsg').click(function(event){
 			        	 $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + "; font-size: " + 14 + ";'>"+ "&nbsp;&nbsp;"+ data.sender + "：" + data.message + "&nbsp;&nbsp;" + "</span><br/>");
 // 			        	 $("#content").append("<kbd style='color: #fff;font-size:16px ;margin-top: 10px;'>" + data.sender + ":" + data.message + "</kbd></br>");
 			         }
-			         console.log("DDD");
-// 			         /* $("#content").append("<kbd style='color: #" + data.color + ";font-size: " + data.fontSize + ";margin-top: 10px;'>" + data.sender + " Say: " + data.message + "</kbd></br>"); */
+// 			            $("#content").append("<kbd style='color: #" + data.color + ";font-size: " + data.fontSize + ";margin-top: 10px;'>" + data.sender + " Say: " + data.message + "</kbd></br>");
 			     };
-			     
 			     
 			     webSocket.onclose = function(evt) {
 			         $("#content").append("<kbd>" + "Close!" + "</kbd></br>");
@@ -126,7 +111,6 @@ $('#sendmsg').click(function(event){
 			
 	 		
 		 function emit() {
-// 			 var text = $("#msg").val();
 		     var text = encodeScript($("#msg").val());
 		     var msg = {
 		    		 "type":"<%=mem_fullName%>",
@@ -134,12 +118,6 @@ $('#sendmsg').click(function(event){
 		    		 "receiver":"客服人員",
 		    		 "message":"&nbsp;" + text + "&nbsp;"
 		     };
-// 		     var msg = {
-// 		         "message" : text,
-// 		         "color" : "#CECECE",
-// 		         "bubbleColor" : "#2E2E2E",
-// 		         "fontSize" : "16"
-// 		     };
 		     msg = JSON.stringify(msg);
 		     //向server發送訊息
 		     webSocket.send(msg);
@@ -153,18 +131,14 @@ $('#sendmsg').click(function(event){
 			    }
 			    return data.replace("<", "&lt;").replace(">", "&gt;").replace(" ","&nbsp;");
 		 }
-</script>    
-  
-    
-    
-        
+	</script>    
 		<!-- ==========================End============================= -->        
-        <%@ include file="/forestage/template/footer.jsp" %>
-        <script src="<%=request.getContextPath()%>/js/template.js"></script>
-        <script>
+    <%@ include file="/forestage/template/footer.jsp" %>
+    <script src="<%=request.getContextPath()%>/js/template.js"></script>
+    <script>
         $(document).ready(function(){
             $("li:contains('合作影城')").addClass("custom-active");
         });
-        </script>
+    </script>
     </body>
 </html>

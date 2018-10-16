@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Set;
 
 public class MemJDBCDAO implements MemDAO_interface {
 	
@@ -348,6 +349,13 @@ public class MemJDBCDAO implements MemDAO_interface {
 	public void foul(String memno) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public Set<Mem_Ticket_SearchVO> MEM_TICKET_SEARCH_STMT(String memno) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

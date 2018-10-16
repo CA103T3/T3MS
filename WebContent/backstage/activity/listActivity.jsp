@@ -5,8 +5,9 @@
 <%@ page import="java.util.*"%>
 
 <%
-	String account_backstage_no="BS0001";
-	ActivityVO actVO = new ActivityVO();
+	AccountVO aVo= (AccountVO) session.getAttribute("aVO");
+	String backstage_no = aVo.getBs_acc_no();
+// 	ActivityVO actVO = new ActivityVO();
 	ActivityService actSvc = new ActivityService();
 	List<ActivityVO> list = actSvc.getAll();
 	pageContext.setAttribute("list", list);
@@ -37,9 +38,9 @@ img {
 </head>
 
 <body class="fs16">
-<%-- 	<%@ include file="/backstage/template/header.jsp"%> --%>
+	<%@ include file="/backstage/template/header.jsp"%>
 	<div id="wrapper" class="mt50">
-<%-- 		<%@ include file="/backstage/template/sidebar.jsp"%> --%>
+		<%@ include file="/backstage/template/sidebar.jsp"%>
 		<div class="flex-column" id="page-content-wrapper">
 			<div class="container-fluid mt20">
 				<!-- start -->
@@ -95,7 +96,7 @@ img {
 								</div>
 								<div class="modal-footer">
 									<input type="hidden" name="action" value="insert" />
-									<input type="hidden" name="backstage_no" value="<%=account_backstage_no %>" />
+									<input type="hidden" name="backstage_no" value="<%=backstage_no %>" />
 									<button type="button" class="btn btn-info" id="demoTest">DEMO</button>
 									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 									<button type="submit" class="btn btn-primary" id="save">確定</button>
@@ -141,15 +142,12 @@ img {
 								<td><img id="img_pic" src="<%=request.getContextPath() %>/DBGifReaderAct?activity_no=${actVO.activity_no}"></td>
 								<td>${actVO.active}</td>
 								<td>
-									<form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/backstage/activity/activity.do">
-										<button type="submit" id="view-btn-${s.index}" class="btn btn-success fs16 ">
-											<i class="fa fa-eye" aria-hidden="true"></i>
-											&nbsp;檢視
-										</button>
-										<br>
-										&nbsp;&nbsp;
-										<input type="hidden" name="activity_no" value="${actVO.activity_no}">
-										<input type="hidden" name="action" value="view">
+									<form id="fm-view-${s.index}" method="post" class="dp-inline" action="<%=request.getContextPath()%>/backstage/activity/activity.do?activity_no=${actVO.activity_no}&action=getOne_For_Delete">
+										<button type="submit" id="view-btn-${s.index}" class="btn btn-danger fs16 del-btn">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+											&nbsp;刪除
+										</button>									
+										<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 									</form>
 							</td>
 							</tr>
@@ -158,12 +156,45 @@ img {
 					</tbody>
 
 				</table>
+				
+				
+				
+				
+				<!-- =========================刪除跳出的燈箱========================= -->
+				<c:if test="${deleteAnn!=null}">
+				
+					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+						<form METHOD="post" action="<%=request.getContextPath()%>/backstage/activity/activity.do?activity_no=<%=request.getParameter("activity_no") %>&action=delete">
+							<div class="modal-dialog modal-md">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h3 class="modal-title" id="myModalLabel">活動刪除</h3>
+									</div>
+									<div class="modal-body">是否刪除活動編號：<%=request.getParameter("activity_no") %></div>
+
+									<div class="modal-footer">
+										
+										<button type="submit" class="btn btn-danger">刪除</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<script>
+						$("#deleteModal").modal({
+							show : true
+						});
+					</script>
+				</c:if>
+				<!-- =========================刪除跳出的燈箱========================= -->
+				
+				
 			</div>
-			<%-- 				<%@ include file="page2.file"%> --%>
 			<!-- End -->
 		</div>
 	</div>
-	<!-- 	</div> -->
 
 	<script src="<%=request.getContextPath() + "/js/back_index.js"%>"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>

@@ -1,6 +1,7 @@
 package com.member.model;
 
 import java.util.List;
+import java.util.Set;
 
 public class MemService {
 
@@ -117,6 +118,10 @@ public class MemService {
 	//違規次數+1
 		public void foul(String memno) {
 			dao.foul(memno);
+		}
+		
+		public Set<Mem_Ticket_SearchVO> MEM_TICKET_SEARCH_STMT(String memno){
+			return dao.MEM_TICKET_SEARCH_STMT(memno);
 		}
 		
 }

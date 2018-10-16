@@ -35,7 +35,42 @@ public class ActivityServlet extends HttpServlet {
 			request.setAttribute("errorMsgs", errorMsgs);
 			// String activity_no = request.getParameter("activity_no");
 			// System.out.println(activity_no);
+			
 
+		}
+		
+		if ("getOne_For_Delete".equals(action)) {
+			List<String> errorMsgs = new LinkedList<>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			String requestURL = request.getParameter("requestURL").trim();
+			System.out.println("requestURL="+requestURL);
+			String anc_no = request.getParameter("activity_no").trim();
+			try {
+				boolean deleteAnn = true;
+				request.setAttribute("deleteAnn", deleteAnn);
+				request.setAttribute("activity_no", anc_no);
+				request.getRequestDispatcher(requestURL).forward(request, response);
+
+			} catch (Exception e) {
+				errorMsgs.add("modify error" + e.getMessage());
+				request.getRequestDispatcher(requestURL).forward(request, response);
+			}
+			
+		}
+		
+		if ("delete".equals(action)) {
+			List<String> errorMsgs = new LinkedList<>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String activity_no = request.getParameter("activity_no").trim();
+				ActivityService activityService = new ActivityService();
+				activityService.deleteAct(activity_no);
+				String url = "/backstage/activity/listActivity.jsp";
+				request.getRequestDispatcher(url).forward(request, response);
+
+			} catch (Exception e) {
+				errorMsgs.add("delete" + e.getMessage());
+			}
 		}
 
 		if ("insert".equals(action)) {
@@ -43,7 +78,6 @@ public class ActivityServlet extends HttpServlet {
 			request.setAttribute("errorMsgs", errorMsgs);
 			String url = "/backstage/activity/listActivity.jsp";
 			String backstage_no = request.getParameter("backstage_no");
-
 			try {
 				String activity_name = request.getParameter("activity_name").trim();
 				if (activity_name == null || activity_name.trim().length() == 0) {

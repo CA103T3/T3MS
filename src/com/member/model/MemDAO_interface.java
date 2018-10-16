@@ -21,5 +21,6 @@ public interface MemDAO_interface {
      public void betheFC(String memno);
      public String InsertReturnNO(MemVO memVO);
      public void foul(String memno);
+     public Set<Mem_Ticket_SearchVO> MEM_TICKET_SEARCH_STMT(String memno);
 	
 }

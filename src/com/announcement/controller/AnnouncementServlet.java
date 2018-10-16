@@ -31,7 +31,7 @@ public class AnnouncementServlet extends HttpServlet {
 		if ("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<>();
 			request.setAttribute("errorMsgs", errorMsgs);
-			String backstage_no = "B001"; // 假設後台人員編號
+			String backstage_no = request.getParameter("backstage_no").trim();
 
 			try {
 				String anc_con = request.getParameter("anc_con").trim();

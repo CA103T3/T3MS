@@ -6,6 +6,8 @@
 
 <%
 	request.setCharacterEncoding("utf-8");
+AccountVO aVo= (AccountVO) session.getAttribute("aVO");
+String backstage_no = aVo.getBs_acc_no();
 	AnnouncementService annSvc = new AnnouncementService();
 	AnnouncementVO annVO = new AnnouncementVO();
 	List<AnnouncementVO> list = annSvc.getAll();
@@ -101,6 +103,7 @@ th {
 											<input type="hidden" name="finalPage" value="<%=pageNumber + 1%>">
 											<input type="hidden" name="whichPage" value="<%=whichPage%>">
 											<!--只用於:istAllEmp.jsp-->
+											<input type="hidden" name="backstage_no" value="<%=backstage_no %>" >
 											<input type="hidden" class="form-control" name="action" value="insert">
 											<input type="submit" class="btn btn-success" value="確認">
 										</div>
