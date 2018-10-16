@@ -53,8 +53,8 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 			"UPDATE Filmreview set MOVIE_NO=?, UPDATED_AT=current_timestamp, CONTENT=?, EVALUATION=?, TITLE=?, SOURCE=?, URL=?, MEM_NO=?, AUTHOR=? where FR_NO = ?";
 	private static final String GET_ALL_MEM = 
 			"SELECT  Filmreview.FR_NO,Filmreview.MOVIE_NO,filmreview.created_at,Filmreview.updated_at,Filmreview.content,Filmreview.evaluation,"
-			+ "Filmreview.title,Filmreview.source,Filmreview.url,Filmreview.mem_no,Filmreview.author  FROM Filmreview LEFT JOIN MOVIE ON Filmreview.MOVIE_NO = "
-			+ "MOVIE.MOVIE_NO where MOVIE_NAME||MOVIE_TYPE||STARRING||DIRECTOR LiKE ?";
+			+ "Filmreview.title,Filmreview.source,Filmreview.url,Filmreview.mem_no,Filmreview.author,MOVIE.MOVIE_NAME,MEMBER.LNAME,MEMBER.FNAME  FROM Filmreview LEFT JOIN MOVIE ON Filmreview.MOVIE_NO = "
+			+ "MOVIE.MOVIE_NO LEFT JOIN MEMBER ON FILMREVIEW.MEM_NO = MEMBER.MEM_NO where MOVIE_NAME||MOVIE_TYPE||STARRING||DIRECTOR LiKE ?";
 	@Override
 	public void insert(FilmreviewVO filmreviewVO) {
 		
@@ -413,6 +413,14 @@ public class FilmreviewDAO implements FilmreviewDAO_interface{
 				filmreviewVO.setUrl(rs.getString("url"));
 				filmreviewVO.setMem_no(rs.getString("mem_no"));
 				filmreviewVO.setAuthor(rs.getString("author"));
+				MovieVO movieVO = new MovieVO();
+				movieVO.setMovie_name(rs.getString("movie_name"));
+				filmreviewVO.setMovieVO(movieVO);
+				
+				MemVO memVO = new MemVO();
+				memVO.setLastname(rs.getString("lname"));
+				memVO.setFirstname(rs.getString("fname"));
+				filmreviewVO.setMemVO(memVO);
 				set.add(filmreviewVO);
 				
 			} 

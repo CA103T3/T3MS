@@ -55,7 +55,7 @@
                 		<span class="fs16">&nbsp;新增影評</span>
                 	</a>
                 </h3>
-                <table id="theaters" class="display" style="width:110%">
+                <table id="theaters" class="display" style="width:100%">
                     <thead>
                         <tr>
                             <th>影評編號</th>

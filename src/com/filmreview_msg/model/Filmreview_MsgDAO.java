@@ -3,6 +3,7 @@ package com.filmreview_msg.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -292,6 +293,70 @@ public class Filmreview_MsgDAO implements Filmreview_MsgDAO_interface{
 			}
 		}
 		return filmreview_msgVO;
+	}
+
+	@Override
+	public String insertReturnFilmreviewNo(Filmreview_MsgVO filmreview_msgVO) {
+		  Connection con = null;
+	        PreparedStatement pstmt = null;
+	        String frm_no = null;
+	        try {
+
+	            con = ds.getConnection();
+	            String[] cols = { "FRM_NO" }; // 或 int cols[] = {1};
+	            pstmt = con.prepareStatement(INSERT_STMT, cols);
+
+				pstmt.setString(1, filmreview_msgVO.getFr_no());
+				pstmt.setString(2, filmreview_msgVO.getMem_no());
+
+				
+				pstmt.setString(3, filmreview_msgVO.getContent());
+
+	
+
+				
+	
+				
+	            pstmt.executeUpdate();
+
+	            ResultSet rs = pstmt.getGeneratedKeys();
+	            ResultSetMetaData rsmd = rs.getMetaData();
+	            int columnCount = rsmd.getColumnCount();
+	            if (rs.next()) {
+	                do {
+	                    for (int i = 1; i <= columnCount; i++) {
+	                        frm_no = rs.getString(i);
+	                        //System.out.println("自增主鍵值 = " + theater_no);
+	                    }
+	                } while (rs.next());
+	            } else {
+	                System.out.println("NO KEYS WERE GENERATED.");
+	            }
+
+	            rs.close();
+
+	            // Handle any SQL errors
+	        } catch (SQLException se) {
+	            throw new RuntimeException("A database error occured. " + se.getMessage());
+	            // Clean up JDBC resources
+	        } finally {
+	            if (pstmt != null) {
+	                try {
+	                    pstmt.close();
+	                } catch (SQLException se) {
+	                    se.printStackTrace(System.err);
+	                }
+	            }
+	            if (con != null) {
+	                try {
+	                    con.close();
+	                } catch (Exception e) {
+	                    e.printStackTrace(System.err);
+	                }
+	            }
+	        }
+
+	        return frm_no;
 	}
 	
 

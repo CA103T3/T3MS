@@ -12,8 +12,7 @@
 	List<FilmreviewVO> list = fvSvc.getAllfr();
 	pageContext.setAttribute("list", list);
 %>
-<jsp:useBean id="mvSvc" scope="page" class="com.movie.model.MovieService" />
-<jsp:useBean id="mSvc" scope="page" class="com.member.model.MemService" />
+
 
 <!DOCTYPE html>
 
@@ -138,7 +137,7 @@
 						<form action="<%=request.getContextPath()%>/member/Bmember.do" method="post">
 							<input type="hidden" name="action" value="wnatbeFC"> <input type="hidden" name="memno" value="${memVO.memno}">
 							<div align="center">
-								<input type="submit" value="成為影評" class="btn btn-block btn-lg btn-primary">
+								<input type="submit" value="成為影評" class="btn btn-block btn-lg btn-info">
 							</div>
 						</form>
 					</c:if>
@@ -187,13 +186,11 @@
 
 
 					<div class="col-md-1" >
-						<c:forEach var="mvVO" items="${mvSvc.all}">
-							<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
-								<a href="<%=request.getContextPath() %>/forestage/movie_moment/moment_One.jsp?${mvVO.movie_no}"> 
-								<img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive " style="border-radius: 1%;">
+					
+								<a href="<%=request.getContextPath() %>/forestage/movie_moment/moment_One.jsp?${FilmreviewVO.movie_no}"> 
+								<img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${FilmreviewVO.movie_no}" class="center-block img-circle img-responsive " style="border-radius: 1%;">
 								</a>
-							</c:if>
-						</c:forEach>
+							
 					</div>
 
 					<div class="col-md-6">
@@ -206,13 +203,13 @@
 
 
 					<div class="col-md-1" style="margin-top: 15px;">
-						<c:forEach var="mVO" items="${mSvc.all}">
-							<c:if test="${FilmreviewVO.mem_no==mVO.memno}">
+					
+							<c:if test="${FilmreviewVO.mem_no!=null}">
 
-								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${mVO.memno}" class="center-block img-circle img-responsive">
-								<p class="text-center">${mVO.lastname}${mVO.firstname}</p>
+								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${FilmreviewVO.mem_no}" class="center-block img-circle img-responsive">
+								<p class="text-center">${FilmreviewVO.memVO.lastname}${FilmreviewVO.memVO.firstname}</p>
 							</c:if>
-						</c:forEach>
+						
 							<c:if test="${FilmreviewVO.mem_no==null}">
 
 								<img src="<%=request.getContextPath() %>/img/M&S-05Z.png" class="center-block img-circle img-responsive">
