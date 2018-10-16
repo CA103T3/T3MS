@@ -34,7 +34,7 @@
   </div>
 </div>
 	
-	
+<%@ include file="/resources/page_code/pagef.file"%>	
 <section id="slideshow">
 			<div class="entire-content">
 				<div class="content-carrousel">
@@ -150,6 +150,7 @@
       </div>
     </div>
   </div>
+  <%@ include file="/resources/page_code/pageb.file"%>
 <script>
     trs=document.getElementsByClassName("starRow");
     for(let i=0;i<trs.length;i++){
@@ -186,27 +187,27 @@
   }
 </script>	
 
-<div align="center">
-			<nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-center">
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			        <span class="sr-only">Previous</span>
-			      </a>
-			    </li>
-			    <li class="page-item"><a class="page-link" href="?pageNo=1">1</a></li>
-			    <li class="page-item"><a class="page-link" href="?pageNo=2">2</a></li>
-			    <li class="page-item"><a class="page-link" href="?pageNo=3">3</a></li>
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			        <span class="sr-only">Next</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
-</div >			
+<!-- <div align="center"> -->
+<!-- 			<nav aria-label="Page navigation example"> -->
+<!-- 			  <ul class="pagination justify-content-center"> -->
+<!-- 			    <li class="page-item"> -->
+<!-- 			      <a class="page-link" href="#" aria-label="Previous"> -->
+<!-- 			        <span aria-hidden="true">&laquo;</span> -->
+<!-- 			        <span class="sr-only">Previous</span> -->
+<!-- 			      </a> -->
+<!-- 			    </li> -->
+<!-- 			    <li class="page-item"><a class="page-link" href="?pageNo=1">1</a></li> -->
+<!-- 			    <li class="page-item"><a class="page-link" href="?pageNo=2">2</a></li> -->
+<!-- 			    <li class="page-item"><a class="page-link" href="?pageNo=3">3</a></li> -->
+<!-- 			    <li class="page-item"> -->
+<!-- 			      <a class="page-link" href="#" aria-label="Next"> -->
+<!-- 			        <span aria-hidden="true">&raquo;</span> -->
+<!-- 			        <span class="sr-only">Next</span> -->
+<!-- 			      </a> -->
+<!-- 			    </li> -->
+<!-- 			  </ul> -->
+<!-- 			</nav> -->
+<!-- </div >			 -->
 
  
     <%@ include file="/forestage/template/footer.jsp" %>
