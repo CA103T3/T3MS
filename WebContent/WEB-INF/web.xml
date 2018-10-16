@@ -235,13 +235,23 @@
     <url-pattern>/backstage/role/Role.do</url-pattern>
   </servlet-mapping>
 
-<!--   <filter> -->
-<!--     <filter-name>Back_accountFilter</filter-name> -->
-<!--     <filter-class>com.common.filter.Back_accountFilter</filter-class> -->
-<!--   </filter> -->
-<!--   <filter-mapping> -->
-<!--     <filter-name>Back_accountFilter</filter-name> -->
-<!--     <url-pattern>/backstage/*</url-pattern> -->
-<!--   </filter-mapping> -->
+  <filter>
+    <filter-name>Back_accountFilter</filter-name>
+    <filter-class>com.common.filter.Back_accountFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Back_accountFilter</filter-name>
+    <url-pattern>/backstage/*</url-pattern>
+  </filter-mapping>
+  
+    <servlet>
+    <servlet-name>ServletLogoutA</servlet-name>
+    <servlet-class>com.account.controller.ServletLogoutA</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletLogoutA</servlet-name>
+    <url-pattern>/account/logout.do</url-pattern>
+  </servlet-mapping>
+  
 
 </web-app>
