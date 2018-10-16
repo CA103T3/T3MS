@@ -294,36 +294,6 @@ body {
 		document.getElementById("defaultOpen").click();
 	</script>
 
-	<script>
-$('.favorite').click(function(){
-    var productId = $(this).attr('data-like')
-    var memId = "${memVO.mem_id}";
-   
-     $.ajax({
-       type:"POST",
-       url:"<%=request.getContextPath()%>
-		/ProductFavoriteServlet",
-				data : {
-					"productId" : productId,
-					"memId" : memId,
-					"action" : "deleteFavorite"
-				},
-				dataType : "json",
-				success : function(data) {
-					$('tr[name="' + data.productId + '"]').remove()
-					swal({
-						title : "取消收藏",
-						text : "電影已取消收藏",
-						icon : "success",
-						button : "Aww yiss!",
-					});
-				},
-				error : function() {
-					alert("取消收藏")
-				}
-			})
-		})
-	</script>
 
 
 
