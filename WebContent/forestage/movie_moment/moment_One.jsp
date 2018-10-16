@@ -87,6 +87,7 @@ body {
 	margin-top: 12%;
 	width: 90px;
 	padding: 5px;
+	font-size:14px;
 }
 
 #ctype {
@@ -120,7 +121,7 @@ body {
 	background-color: #e7008c;
 }
 
-
+.love_m{font-size:20px}
 </style>
 
 </head>
@@ -194,7 +195,7 @@ body {
 
 					<div class="col-xs-12 col-sm-6">
 						<img
-							src="<%=request.getContextPath() %>/DBGifReader?movie_no=${movieVO.movie_no}"
+							src="<%=request.getContextPath()%>/DBGifReader?movie_no=${movieVO.movie_no}"
 							class="img-responsive img-rounded" id="imgm">
 					</div>
 
@@ -222,22 +223,19 @@ body {
 						<div class="sor1">${movieVO.tomato}</div>
 					</div>
 
+					<!-- ---------------------電影收藏------------------------------ -->
+					<div>
+						<img src="<%=request.getContextPath()%>/img/Test_UP_IMG/heart.png"
+							id="heart" title="加入收藏"> <span class="love_m">電影收藏</span>
+					</div>
+					<!-- ---------------------電影收藏------------------------------ -->
+
 				</div>
 			</div>
 		</div>
 
-		<!-- ---------------------收藏------------------------------ -->
-		<div>
-			<div>
-				<img class="favorite" id="favorite"
-					src="/T3MS/img/Test_UP_IMG/heart.png" alt="">
-			</div>
-			<div>
-				<img src="/T3MS/img/Test_UP_IMG/heart(1).png" alt="">
-			</div>
-		</div>
-
-
+	
+		
 	</div>
 
 
@@ -523,12 +521,35 @@ body {
 		document.getElementById("defaultOpen").click();
 	</script>
 
-
+<!-- ---------------------電影收藏------------------------------ -->
 	<script>
-		
-	</script>
+//加入收藏 或 取消收藏
+function switchFavorite(){
+
+	var heart = document.getElementById("heart");
+
+	if (heart.title == "加入收藏") {
+		heart.src = "<%=request.getContextPath()%>/img/Test_UP_IMG/heart2.png";
+		heart.title = "取消收藏" ;
+
+	}else{
+		heart.src = "<%=request.getContextPath()%>/img/Test_UP_IMG/heart.png";
+		heart.title ="加入收藏";
+	}
 
 
+}
+
+function init(){
+  //設定[加入收藏 或 取消收藏]的點按事件
+	
+  	document.getElementById("heart").onclick = switchFavorite;
+
+}//init
+window.onload = init;
+</script> 
+
+<!-- ---------------------電影收藏------------------------------ -->
 
 </body>
 

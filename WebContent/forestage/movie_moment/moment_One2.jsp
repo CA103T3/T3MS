@@ -110,10 +110,15 @@ body {
 	position: absolute;
 	margin-top: 50px;
 }
-.breadcrumb-item{font-size:18px;}
-.pulse-button:hover{
- background-color: #e7008c;
+
+.breadcrumb-item {
+	font-size: 18px;
 }
+
+.pulse-button:hover {
+	background-color: #e7008c;
+}
+.love_m{font-size:20px}
 </style>
 
 </head>
@@ -215,6 +220,13 @@ body {
 						<div class="sor1">${movieVO.tomato}</div>
 					</div>
 
+					<!-- ---------------------電影收藏------------------------------ -->
+					<div>
+						<img src="<%=request.getContextPath()%>/img/Test_UP_IMG/heart.png"
+							id="heart" title="加入收藏"> <span class="love_m">電影收藏</span>
+					</div>
+					<!-- ---------------------電影收藏------------------------------ -->
+
 				</div>
 			</div>
 		</div>
@@ -226,15 +238,17 @@ body {
 		<div class="container">
 
 
-<div class="container">		
-<div class="col-md-12">		
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
-  <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_Home.jsp">現正熱映</a></li>
-  <li class="breadcrumb-item active">電影時刻</li>
-</ol>
-</div>
-</div>
+			<div class="container">
+				<div class="col-md-12">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/index.jsp">首頁</a></li>
+						<li class="breadcrumb-item"><a
+							href="<%=request.getContextPath()%>/forestage/movie_moment/moment_Home.jsp">現正熱映</a></li>
+						<li class="breadcrumb-item active">電影時刻</li>
+					</ol>
+				</div>
+			</div>
 
 
 
@@ -400,37 +414,44 @@ body {
 				<!-- ----------------當日影城+時刻表--------------------- -->
 				<!--   ------------------  影城FOREach   ------------------  -->
 
-	
+
 				<%
 					if (request.getAttribute("selectA") != null) {
 				%>
 				<jsp:include page="td_Moment.jsp" />
 				<%
-					;}else if (request.getAttribute("selectB") != null) {
+					;
+					} else if (request.getAttribute("selectB") != null) {
 				%>
 				<jsp:include page="tom_Moment.jsp" />
 				<%
-					;}else if (request.getAttribute("selectC") != null) {
+					;
+					} else if (request.getAttribute("selectC") != null) {
 				%>
 				<jsp:include page="C_Moment.jsp" />
 				<%
-					;}else if (request.getAttribute("selectD") != null) {
+					;
+					} else if (request.getAttribute("selectD") != null) {
 				%>
 				<jsp:include page="D_Moment.jsp" />
 				<%
-					;}else if (request.getAttribute("selectE") != null) {
+					;
+					} else if (request.getAttribute("selectE") != null) {
 				%>
 				<jsp:include page="E_Moment.jsp" />
 				<%
-					;}else if (request.getAttribute("selectF") != null) {
+					;
+					} else if (request.getAttribute("selectF") != null) {
 				%>
 				<jsp:include page="F_Moment.jsp" />
 				<%
-					;}else if (request.getAttribute("selectG") != null) {
+					;
+					} else if (request.getAttribute("selectG") != null) {
 				%>
 				<jsp:include page="G_Moment.jsp" />
 				<%
-					;}else if (request.getAttribute("selectA") == null) {
+					;
+					} else if (request.getAttribute("selectA") == null) {
 				%>
 				<jsp:include page="td_Moment.jsp" />
 				<%
@@ -495,6 +516,38 @@ body {
 		// Get the element with id="defaultOpen" and click on it
 		document.getElementById("defaultOpen").click();
 	</script>
+
+
+	<!-- ---------------------電影收藏------------------------------ -->
+	<script>
+//加入收藏 或 取消收藏
+function switchFavorite(){
+
+	var heart = document.getElementById("heart");
+
+	if (heart.title == "加入收藏") {
+		heart.src = "<%=request.getContextPath()%>/img/Test_UP_IMG/heart2.png";
+		heart.title = "取消收藏" ;
+
+	}else{
+		heart.src = "<%=request.getContextPath()%>/img/Test_UP_IMG/heart.png";
+		
+				heart.title = "加入收藏";
+			}
+
+		}
+
+		function init() {
+			//設定[加入收藏 或 取消收藏]的點按事件
+
+			document.getElementById("heart").onclick = switchFavorite;
+
+		}//init
+		window.onload = init;
+	</script>
+	
+
+	<!-- ---------------------電影收藏------------------------------ -->
 
 
 </body>
