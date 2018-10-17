@@ -66,7 +66,7 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12">
 				<form method="POST" action="<%=request.getContextPath()%>/ticketOrder/ticketOrder.do">
-					<div class="panel panel-default">
+					<div class="panel panel-info">
 						<div class="panel-heading text-center">購票資訊</div>
 							<table class="table">
 							    <tr>
@@ -88,7 +88,7 @@
 						 	</table>
 					</div>
 					
-					<div class="panel panel-default">
+					<div class="panel panel-info">
 						<div class="panel-heading text-center">座位資訊</div>
 						  <table class="table">
 						    <tr>
@@ -114,8 +114,7 @@
 						    </tr>
 						  </table>
 					</div>
-		                
-		      			<div class="panel panel-default">
+		      			<div class="panel panel-info">
 							<div class="panel-heading">
 								<h3 class="panel-title text-center title-bold" style="font-size:25px">請輸入信用卡資訊</h3>
 							</div>

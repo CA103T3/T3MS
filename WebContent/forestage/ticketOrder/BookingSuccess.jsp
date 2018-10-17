@@ -71,7 +71,7 @@ System.out.println("==after=="+jsonArray);
 			
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12">
-						<div class="panel panel-default">
+						<div class="panel panel-success">
 						  <div class="panel-heading text-center">QR Code已寄到您的信箱，請至現場掃描取票，謝謝！</div>
 							<table class="table text-center">
 								<tr>

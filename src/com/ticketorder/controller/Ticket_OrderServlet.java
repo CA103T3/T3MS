@@ -173,62 +173,85 @@ public class Ticket_OrderServlet extends HttpServlet {
 		}
 
 		if ("search_ticketDetail_seats".equals(action)) {
-			String uuid = request.getParameter("uuid").trim();
+			try {
 
-			Ticket_OrderService orderSvc = new Ticket_OrderService();
-			List<String> seats = orderSvc.search_TicketDetail(uuid);
-			System.out.println(seats);
-			Iterator<String> is = seats.iterator();
-			StringBuffer sb = new StringBuffer();
-			while (is.hasNext()) {
-				sb.append("seat=" + is.next() + "&");
+				String uuid = request.getParameter("uuid").trim();
+
+				Ticket_OrderService orderSvc = new Ticket_OrderService();
+				List<String> seats = orderSvc.search_TicketDetail(uuid);
+				System.out.println(seats);
+				Iterator<String> is = seats.iterator();
+				StringBuffer sb = new StringBuffer();
+				while (is.hasNext()) {
+					sb.append("seat=" + is.next() + "&");
+				}
+				System.out.println(sb);
+				String refundView = "/forestage/ticketOrder/BookingRefund.jsp?" + sb;
+				request.getRequestDispatcher(refundView).forward(request, response);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace(System.err);
+				System.out.println("search_ticketDetail_seats Exception");
+				String url = "/forestage/ticketOrder/Norefund.jsp";
+				request.getRequestDispatcher(url).forward(request, response);
 			}
-			System.out.println(sb);
-			String refundView = "/forestage/ticketOrder/BookingRefund.jsp?" + sb;
-			request.getRequestDispatcher(refundView).forward(request, response);
+
 		}
 
 		if ("del_ticket_open_seat".equals(action)) {
-			System.out.println("=========Delete_Start===========");
-			String uuid = request.getParameter("uuid").trim();
-			System.out.println("UUID=" + uuid);
-			String a_seat = request.getParameter("a_seat").trim(); // 要退票的座位
-			Integer price = Integer.valueOf(request.getParameter("price"));
-			Integer amount = Integer.valueOf(request.getParameter("amount"));
-			Integer update_amount = amount - price; // 總價-單價
 
-			Ticket_OrderService ticket_OrderSvc = new Ticket_OrderService();
-			Ticket_OrderVO ticket_OrderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
-			String order_no = ticket_OrderVO.getOrder_no(); // 訂單編號
-			System.out.println("order_no=" + order_no);
+			try {
 
-			Ticket_DetailService tDetailSvc = new Ticket_DetailService();
-			Ticket_DetailVO ticket_DetailVO = tDetailSvc.find_TicketDetail_By_OrderNo(order_no);
-			String session_no = ticket_DetailVO.getSession_no(); // 取得該場次編號
-			System.out.println("session_no=" + session_no);
+				System.out.println("=========Delete_Start===========");
+				String uuid = request.getParameter("uuid").trim();
+				System.out.println("UUID=" + uuid);
+				String a_seat = request.getParameter("a_seat").trim(); // 要退票的座位
+				Integer price = Integer.valueOf(request.getParameter("price"));
+				Integer amount = Integer.valueOf(request.getParameter("amount"));
+				Integer update_amount = amount - price; // 總價-單價
 
-			SessionService sessionSvc = new SessionService();
-			SessionVO sessionVO = sessionSvc.getOneSession(session_no);
-			String seat_table = sessionVO.getSeat_table(); // 取得該場次座位資訊
-			System.out.println("==before==seat_table=" + seat_table);
+				Ticket_OrderService ticket_OrderSvc = new Ticket_OrderService();
+				Ticket_OrderVO ticket_OrderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
+				String order_no = ticket_OrderVO.getOrder_no(); // 訂單編號
+				System.out.println("order_no=" + order_no);
 
-			// 更改座位資訊，轉成JSONobject，取出key，因value是JSONarray所以再另外宣告來接值
-			JSONObject jsonObject = new JSONObject(seat_table);
-			JSONArray jsonArray = null;
-			Iterator<String> iterator = jsonObject.keys();
-			while (iterator.hasNext()) {
-				String key = iterator.next();
-				if (key.equals(a_seat)) {
-					jsonArray = jsonObject.getJSONArray(key);
-					System.out.println("===before===" + jsonArray);
-					jsonArray.put(1, "2");
-					System.out.println("===after===" + jsonArray);
+				Ticket_DetailService tDetailSvc = new Ticket_DetailService();
+				Ticket_DetailVO ticket_DetailVO = tDetailSvc.find_TicketDetail_By_OrderNo(order_no);
+				String session_no = ticket_DetailVO.getSession_no(); // 取得該場次編號
+				System.out.println("session_no=" + session_no);
+
+				SessionService sessionSvc = new SessionService();
+				SessionVO sessionVO = sessionSvc.getOneSession(session_no);
+				String seat_table = sessionVO.getSeat_table(); // 取得該場次座位資訊
+				System.out.println("==before==seat_table=" + seat_table);
+
+				// 更改座位資訊，轉成JSONobject，取出key，因value是JSONarray所以再另外宣告來接值
+				JSONObject jsonObject = new JSONObject(seat_table);
+				JSONArray jsonArray = null;
+				Iterator<String> iterator = jsonObject.keys();
+				while (iterator.hasNext()) {
+					String key = iterator.next();
+					if (key.equals(a_seat)) {
+						jsonArray = jsonObject.getJSONArray(key);
+						System.out.println("===before===" + jsonArray);
+						jsonArray.put(1, "2");
+						System.out.println("===after===" + jsonArray);
+					}
 				}
+				seat_table = jsonObject.toString();
+				System.out.println("==after==seat_table" + seat_table);
+				// 刪除訂單中的一筆座位，再修改訂單總金額，再修改該場次座位，再檢查訂單是否還有明細，若無則刪除訂單
+				tDetailSvc.delete_one_detail_update_seat(uuid, a_seat, update_amount, session_no, seat_table);
+				String url = "/forestage/member/membercenter.jsp";
+				request.getRequestDispatcher(url).forward(request, response);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace(System.err);
+				System.out.println("del_ticket_open_seat Exception");
+				String url = "/forestage/member/membercenter.jsp";
+				request.getRequestDispatcher(url).forward(request, response);
 			}
-			seat_table = jsonObject.toString();
-			System.out.println("==after==seat_table" + seat_table);
-			// 刪除訂單中的一筆座位，再修改訂單總金額，再修改該場次座位，再檢查訂單是否還有明細，若無則刪除訂單
-			tDetailSvc.delete_one_detail_update_seat(uuid, a_seat, update_amount, session_no, seat_table);
+
 		}
 	}
 }

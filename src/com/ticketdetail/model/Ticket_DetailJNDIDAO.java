@@ -146,6 +146,8 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			pstmt = conn.prepareStatement(DELETE_ONE_TICKETORDER_STMT);
 			pstmt.setString(1, uuid);
 			pstmt.executeUpdate();
+			conn.commit();
+			System.out.println("deleteOneTicketOrder OK");
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
@@ -511,15 +513,19 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			Ticket_OrderService ticket_OrderSvc = new Ticket_OrderService();
 			ticket_OrderSvc.updateAmount(uuid, amount, conn);
 			new SessionService().updateSessionSeat(seat_table, session_no, conn);
-//			Ticket_OrderVO orderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
-//			String order_no = orderVO.getOrder_no();
-//			System.out.println(order_no);
+			Ticket_OrderVO orderVO = ticket_OrderSvc.find_oneOrder_by_uuid(uuid);
+			String order_no = orderVO.getOrder_no();
+			System.out.println(order_no);
 			Ticket_DetailService tDetailSvc = new Ticket_DetailService();
+
 			List<Ticket_DetailVO> lDetailVOs = tDetailSvc.find_ticketDetail_list(uuid);
 			System.out.println("Ticket_DetailVO" + lDetailVOs);
 			System.out.println("Ticket_DetailVO" + lDetailVOs.toString());
 			System.out.println("Ticket_DetailVO.Size=" + lDetailVOs.size());
-			if (lDetailVOs.isEmpty() || lDetailVOs == null) {
+			if (orderVO.getAmount() == "0") {
+				tDetailSvc.deleteOneTicketOrder(uuid, conn);
+			}
+			if (lDetailVOs.size() == 1) {
 				tDetailSvc.deleteOneTicketOrder(uuid, conn);
 				System.out.println("delete Ticket Order,because there is only one ticket left!");
 			}

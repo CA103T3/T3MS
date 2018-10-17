@@ -69,8 +69,11 @@ public class Mem_Ticket_SearchVO implements Comparable<Mem_Ticket_SearchVO> {
 
 	@Override
 	public int compareTo(Mem_Ticket_SearchVO o) {
-		if (this.movie_no.equals(o.movie_no)) {
-			return 0;
+		System.out.println("mem_ticket_searchVO=" + o.movie_no);
+		if (o.movie_no != null) {
+			if (this.movie_no.equals(o.movie_no)) {
+				return 0;
+			}
 		}
 		return 1;
 	}

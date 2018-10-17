@@ -12,29 +12,36 @@
     </head>
     <body class="body-template">
         <%@ include file="/forestage/template/header.jsp" %>
-        <div class="container" style="color: #ffffff;font-size: 20px;">
+        <div class="container text-center" style="color: #ffffff;font-size: 20px;"><br><br><br>
         <!-- ==========================start============================= -->
        		  <div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="col-xs-12 col-sm-12 col-md-12 text-center">
 						<div class="panel panel-default">
 						  <div class="panel-heading text-center">請選擇要退票的座位</div>
 							<form method="post" action="<%=request.getContextPath()%>/ticketOrder/ticketOrder.do">
 								    <%
+								    String str = "";
+								    try{
 										String[] seatArr = request.getParameterValues("seat");
-										String str = "";
+										
 										for(int i=0; i<seatArr.length; i++){
 											String[] s = seatArr[i].split("_");
 											String temp = (char)(Integer.parseInt(s[0]) + 64) +" 排 "+ s[1] + " 號";
 											str+=seatArr[i]+"@";
 									%>
-										<button type="submit" class="btn btn-lg btn-danger" id="seat<%=s[0]+"_"+s[1]%>" value="<%=s[0]+"_"+s[1]%>"><%=temp %></button>
+										<button type="submit" class="btn btn-lg btn-info" id="seat<%=s[0]+"_"+s[1]%>" value="<%=s[0]+"_"+s[1]%>"><%=temp %></button>
 										
 										<script>
 											$("#seat<%=s[0]+"_"+s[1]%>").click(function(){
 												$('#a_seat').val("<%=s[0]+"_"+s[1]%>");
 											});
 										</script>
-								<%}%>
+								<%		}
+								   }catch(Exception e){
+										request.getRequestDispatcher("/forestage/member/membercenter.jsp").forward(request, response);											   
+								  }%>
+								   
+								
 										<input type="hidden" name="a_seat" id="a_seat" value="" />
 										<input type="hidden" name="session_no" value=<%=request.getParameter("session_no") %> />
 										<input type="hidden" name="uuid" value="<%=request.getParameter("uuid")%>"/>
@@ -45,6 +52,9 @@
 							</form>
 						</div>
 					</div>
+						<a href="<%=request.getContextPath()%>/forestage/member/ones_orderlist.jsp">
+							<button type="button" class="btn btn-lg btn-primary text-center">上一頁</button>
+						</a>
 				</div>
 		<!-- ==========================End============================= -->        
         </div>

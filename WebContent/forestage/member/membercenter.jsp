@@ -236,16 +236,20 @@ a {
 									id="locno" name="locno" class="form-control" type="text"
 									value="${memVO.locno}"></td>
 							</tr>
+							
 						</table>
-
-						<button class="btnp" type="submit">修改</button>
-
+							<button class="btnp" type="submit">修改</button>
+							<br/><br/><br>
+							<a href="<%=request.getContextPath()%>/forestage/member/ones_orderlist.jsp">
+								<button type="button" class="btnp">查詢訂單</button>
+							</a>
 					</div>
 					</div>
 			</form>
 <%-- 			<%@ include file="/forestage/member/TicketOrderlist.jsp"%> --%>
-			<div class="col-md-12">
+			<div class="col-md-11 text-right">
 				<hr class="style-seven">
+					
 			</div>
 			
 
