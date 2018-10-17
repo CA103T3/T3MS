@@ -11,7 +11,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                   <ul class="nav navbar-nav">
-                    <li class=""><a href="#">線上訂票</a></li>
+                    <li class=""><a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_Home.jsp">線上訂票</a></li>
                     <li><a href="<%=request.getContextPath()%>/forestage/introduction/introduction.jsp">合作影城</a></li>
                     <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">電影資訊<span class="caret"></span></a>
@@ -28,7 +28,7 @@
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">客服中心<span class="caret"></span></a>
                       <ul class="dropdown-menu font-custom">
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">線上客服</a></li>
+                        <li><a href="<%=request.getContextPath()%>/forestage/service_chat/chatClient.jsp">線上客服</a></li>
                         <li><a href="#">聯絡我們</a></li>
                       </ul>
                     </li>

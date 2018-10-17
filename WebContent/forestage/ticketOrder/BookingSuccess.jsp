@@ -79,27 +79,17 @@ System.out.println("==after=="+jsonArray);
 								</tr>
 							</table>
 						</div>
-						
-						<div class="panel panel-default">
-						  <div class="panel-heading text-center">訂購資訊</div>
-							<table class="table text-center">
-								<tr>
-									<td><% out.print("<img src='"+ request.getContextPath()+"/img/QRcode/" + TempFileName + "'>");%></td>
-								</tr>
-							</table>
-							
-						</div>
 					</div>
 				</div>
-				<form method="post" action="<%=request.getContextPath()%>/ticketOrder/ticketOrder.do">
-				<div class="row"> 
-					<div class="col-xd-12 col-sm-12 col-md-12">
-						<div class="panel panel-default">
-							<div class="panel-heading text-center">***</div>
-							  <button type="submit" class="btn btn-lg btn-danger btn-block">退票</button>
-					    </div>
-					</div>
-				</div>
+<%-- 				<form method="post" action="<%=request.getContextPath()%>/ticketOrder/ticketOrder.do"> --%>
+<!-- 				<div class="row">  -->
+<!-- 					<div class="col-xd-12 col-sm-12 col-md-12"> -->
+<!-- 						<div class="panel panel-default"> -->
+<!-- 							<div class="panel-heading text-center">***</div> -->
+<!-- 							  <button type="submit" class="btn btn-lg btn-danger btn-block">退票</button> -->
+<!-- 					    </div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 				
 				<input type="hidden" name="action" value="search_ticketDetail_seats"/>
 				<input type="hidden" name="uuid" value="<%=uuid %>"/>

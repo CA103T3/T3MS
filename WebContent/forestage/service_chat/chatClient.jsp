@@ -23,7 +23,6 @@
 <body onload="connect();" class="body-template">
 	<%@ include file="/forestage/template/header.jsp" %>
 	<div class="container" style="color: #ffffff;font-size: 20px;">
-        <!-- ==========================start============================= -->
     <br><br>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -35,18 +34,18 @@
                    SCROLLBAR-3DLIGHT-COLOR: #c2d3fc; SCROLLBAR-ARROW-COLOR:#000000; 
                    SCROLLBAR-TRACK-COLOR: FFFFFF; SCROLLBAR-DARKSHADOW-COLOR: EAECEC"
                     class="panel-body" id="content"></div>
-       </div>
+        </div>
             <hr/>
             <input type="text" class="form-control" placeholder="message" aria-describedby="sizing-addon1" id="msg">
             <hr/>
             <button type="button" id="sendmsg" class="btn btn-lg btn-success btn-block" onclick="emit()">發送</button>
     </div>
 	<script type="text/javascript">
-	$('#sendmsg').click(function(event){
-		event.preventDefault();
-		var n = $("#content").height();
-		$('html,body').animate({scorllTop:n},50);
-	});
+		$('#sendmsg').click(function(event){
+			event.preventDefault();
+			var n = $("#content").height();
+			$('html,body').animate({scorllTop:n},50);
+		});
 	</script> 
 	<script type="text/javascript">
     	$(document).ready(function(){
@@ -58,7 +57,7 @@
     	});
 	</script>
 	<script type="text/javascript">
-		 	var MyPoint = "/FriendWS/<%=mem_no%>";
+		 	var MyPoint = "/FriendWS/<%=mem_fullName%>";
 			var host = window.location.host;
 			var path = window.location.pathname;
 			var webCtx = path.substring(0, path.indexOf('/', 1)); 
@@ -70,8 +69,7 @@
 				
 				 webSocket.onopen = function() {
 					 <%
-					 	List<String> list = JedisHandleMessage.getHistoryMsg("Service", "結衣新垣");
-					 	
+					 	List<String> list = JedisHandleMessage.getHistoryMsg("Service", mem_fullName);
 					 	for(int i=list.size()-1; i>-1; i--){
 					 		String oldTalk = list.get(i);
 					 		JSONObject json = new JSONObject(oldTalk);
@@ -97,10 +95,12 @@
 			     webSocket.onclose = function(evt) {
 			         $("#content").append("<kbd>" + "Close!" + "</kbd></br>");
 			     }
+			     
 			     webSocket.onerror = function(evt) {
 			         $("#content").append("<kbd>" + "ERROR!" + "</kbd></br>");
 			     }
 			 }
+			
 			 document.onkeydown = function(event){
 			     var e = event || window.event || arguments.callee.caller.arguments[0];
 			     if(e && e.keyCode == 13){
@@ -109,30 +109,28 @@
 			     }
 	 		 }; 	
 			
-	 		
-		 function emit() {
-		     var text = encodeScript($("#msg").val());
-		     var msg = {
-		    		 "type":"<%=mem_fullName%>",
-		    		 "sender":"<%=mem_fullName%>", 
-		    		 "receiver":"客服人員",
-		    		 "message":"&nbsp;" + text + "&nbsp;"
-		     };
-		     msg = JSON.stringify(msg);
-		     //向server發送訊息
-		     webSocket.send(msg);
-		     $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>"+ "&nbsp;" + text + "&nbsp;" +"</span><br/>");
-		     $("#msg").val("");
-		 }
-		 
-		 function encodeScript(data) {
-			    if(null == data || "" == data) {
-			        return "";
-			    }
-			    return data.replace("<", "&lt;").replace(">", "&gt;").replace(" ","&nbsp;");
-		 }
+			 function emit() {
+			     var text = encodeScript($("#msg").val());
+			     var msg = {
+			    		 "type":"Xhistory",
+			    		 "sender":"<%=mem_fullName%>", 
+			    		 "receiver":"客服人員",
+			    		 "message":"&nbsp;" + text + "&nbsp;"
+			     };
+			     msg = JSON.stringify(msg);
+			     //向server發送訊息
+			     webSocket.send(msg);
+			     $("#content").append("<hr><span style='border-radius:10px;box-shadow:1px 1px 3px red;background-color:#000;color: #" + "fff" + ";float:right; font-size: " + 12 + ";'>"+ "&nbsp;" + text + "&nbsp;" +"</span><br/>");
+			     $("#msg").val("");
+			 }
+			 
+			 function encodeScript(data) {
+				    if(null == data || "" == data) {
+				        return "";
+				    }
+				    return data.replace("<", "&lt;").replace(">", "&gt;").replace(" ","&nbsp;");
+			 }
 	</script>    
-		<!-- ==========================End============================= -->        
     <%@ include file="/forestage/template/footer.jsp" %>
     <script src="<%=request.getContextPath()%>/js/template.js"></script>
     <script>

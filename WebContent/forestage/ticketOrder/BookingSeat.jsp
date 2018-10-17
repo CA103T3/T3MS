@@ -12,177 +12,231 @@
 <%@ page import="com.theater.model.*"%>
 <%@ page import="com.session.model.*"%>
 <%@ page import="com.member.model.*"%>
-<%@ page import="com.movie.model.*" %>
+<%@ page import="com.movie.model.*"%>
 <%@ page import="org.json.*"%>
 <%@ page import="java.io.Reader"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
 	//會員編號
-// 	String mem_no="M001";
-	MemVO memVO = (MemVO) session.getAttribute("memVO");	
+	// 	String mem_no="M001";
+	MemVO memVO = (MemVO) session.getAttribute("memVO");
 	String mem_no = memVO.getmemno();
-	
+
 	//場次編號
-// 	String session_no = "SES0000004";
+	// 	String session_no = "SES0000004";
 	String session_no = request.getParameter("session_no").trim();
 
 	//票種編號
-	String type_no = "TT00001";
-	
+	TypeService TypeSvc = new TypeService();
+
+	// 	String type_no = "TT00001";
+
 	SessionService sessionSvc = new SessionService();
 	MovieService movieSvc = new MovieService();
 	SessionVO sessionVO = sessionSvc.getOneSession(session_no);
-	
+	String theater_no = sessionVO.getTheater_no(); //影廳編號
+
+	TypeVO typeVO = TypeSvc.getOneTypeByTheaterNo(theater_no);
+	String type_no = typeVO.getType_no();
+
 	//取得電影資訊  movieVO.getMovie_name();
 	String movie_no = sessionVO.getMovie_no();
 	MovieVO movieVO = movieSvc.getOneMovie(movie_no);
 	String movieName = movieVO.getMovie_name(); //電影名稱
 	Date date = movieVO.getRelased(); // 上映日期
 	String rating = movieVO.getRating(); // 電影級別
-	 
+
 	//取得場次時間
 	Timestamp sessionVOtime = sessionVO.getSession_time();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    String session_time= sdf.format(sessionVOtime); //播放時間
-    
-	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String session_time = sdf.format(sessionVOtime); //播放時間
+
 	//取得票種資訊
 	TypeService typeSvc = new TypeService();
-	TypeVO typeVO = typeSvc.getOneType(type_no);
 	Integer price = typeVO.getPrice(); //票價
 	String identity = typeVO.getIdentity(); //成人票
-	
+
 	//取得影廳資訊 
-// 	String theater_no = "T00001";
-	String theater_no = sessionVO.getTheater_no();
+	// 	String theater_no = "T00001";
+// 	String theater_no = sessionVO.getTheater_no();
 	TheaterService tSvc = new TheaterService();
 	TheaterVO theaterVO = tSvc.getOneTheater(theater_no);
 	String theater_name = theaterVO.getTheater_name(); //影廳名稱
 	String cinema_no = theaterVO.getCinema_no(); //影城編號
-	
+
 	//影城資訊
 	CinemaService cinemaSvc = new CinemaService();
 	CinemaVO cinemaVO = cinemaSvc.getOneCinema(cinema_no);
 	String cinemaName = cinemaVO.getCinema_name(); //影城名稱
-	
-	
+
 	String sid = request.getSession().getId();
 	System.out.println("====servletSession:" + sid);
 %>
 <%-- <c:set var="session_NO" value="${sessionVO.session_no}" /> --%>
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <%@ include file="/forestage/template/link.jsp" %>
-        <title>M&amp;S</title>
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/css/Booking.css" />
-        
-    </head>
- <body onLoad="connect();" onunload="disconnect();" class="body-template">
-        <%@ include file="/forestage/template/header.jsp" %>
-        
-        <br><br><br>
-<!--     <div class="container" style="color: #ffffff;font-size: 20px;"> -->
- 	   <form method="post" action="BookingBuySeat.jsp" name="form1">
-	       <div class="row">
-	       		<div class="col-sm-8 col-md-8">
-	       		<table class="wwFormTable" style="width:60%;">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<%@ include file="/forestage/template/link.jsp"%>
+<title>M&amp;S</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/Booking.css" />
+
+</head>
+<body onLoad="connect();" onunload="disconnect();" class="body-template">
+	<%@ include file="/forestage/template/header.jsp"%>
+
+	<br>
+	<br>
+	<br>
+	<!--     <div class="container" style="color: #ffffff;font-size: 20px;"> -->
+	<form method="post" action="BookingBuySeat.jsp" name="form1">
+		<div class="row">
+			<div class="col-sm-8 col-md-8">
+				<table class="wwFormTable" style="width: 60%;">
 					<tr>
-						<td><b>螢幕</b></td>
+						<td>
+							<b>螢幕</b>
+						</td>
 					</tr>
 				</table>
-				<table class="wwFormTable" style="width:80%;color:#fff;">
+				<table class="wwFormTable" style="width: 80%; color: #fff;">
 					<tr>
-						<td><b><img src="<%=request.getContextPath() %>/img/sofa-skyblue.png" />&nbsp;&nbsp;可選位</b></td>
-						<td><b><img src="<%=request.getContextPath() %>/img/sofa-blue.png" />&nbsp;&nbsp;已選位</b></td>
-						<td><b><img src="<%=request.getContextPath() %>/img/sofa-yellow.png" />&nbsp;&nbsp;保留位</b></td>
-						<td><b><img src="<%=request.getContextPath() %>/img/sofa-red2.png" />&nbsp;&nbsp;選位中</b></td>
-						<td><b><img src="<%=request.getContextPath() %>/img/sofa-purple.png" />&nbsp;&nbsp;已售出</b></td>
+						<td>
+							<b>
+								<img src="<%=request.getContextPath()%>/img/sofa-skyblue.png" />
+								&nbsp;&nbsp;可選位
+							</b>
+						</td>
+						<td>
+							<b>
+								<img src="<%=request.getContextPath()%>/img/sofa-blue.png" />
+								&nbsp;&nbsp;已選位
+							</b>
+						</td>
+						<td>
+							<b>
+								<img src="<%=request.getContextPath()%>/img/sofa-yellow.png" />
+								&nbsp;&nbsp;保留位
+							</b>
+						</td>
+						<td>
+							<b>
+								<img src="<%=request.getContextPath()%>/img/sofa-red2.png" />
+								&nbsp;&nbsp;選位中
+							</b>
+						</td>
+						<td>
+							<b>
+								<img src="<%=request.getContextPath()%>/img/sofa-purple.png" />
+								&nbsp;&nbsp;已售出
+							</b>
+						</td>
 					</tr>
 				</table>
-				
-       		
-       	<table class="wwFormTable">
-			<c:forEach var="row" begin="1" end="<%=theaterVO.getT_rows()%>" varStatus="s1">
-				<tr>
-					<c:if test="${row==1}">
-						<td>&nbsp;</td>
-							<c:forEach var="numRow" begin="1" end="<%=theaterVO.getT_columns()%>" varStatus="r1">
-								<td>
-									<b>${r1.count}</b>
+
+
+				<table class="wwFormTable">
+					<c:forEach var="row" begin="1" end="<%=theaterVO.getT_rows()%>" varStatus="s1">
+						<tr>
+							<c:if test="${row==1}">
+								<td>&nbsp;</td>
+								<c:forEach var="numRow" begin="1" end="<%=theaterVO.getT_columns()%>" varStatus="r1">
+									<td>
+										<b>${r1.count}</b>
+									</td>
+								</c:forEach>
+							</c:if>
+						</tr>
+
+						<tr>
+							<td>
+								<b>
+									<script>document.write(String.fromCharCode(64+ ${s1.count}));</script>
+								</b>
+							</td>
+							<c:forEach var="col" begin="1" end="<%=theaterVO.getT_columns()%>" varStatus="s2">
+								<c:set scope="page" var="isBooked" value="${bookingMap.keySet().contains(s1.count.toString().concat('_').concat(s2.count.toString()))}" />
+								<td class="left1">
+									<input type="checkbox" id="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-checkbox2-red '":"class='css-checkbox1-blue'"} name="seats" value="${s1.count}_${s2.count}" onclick="sendMessage('${s1.count}_${s2.count}'); isChecked();" ${isBooked? "checked disabled":""}>
+									<label id="${s1.count}_${s2.count}" for="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-label2-red'":"class='css-label1-blue'"}></label>
+									<!-- ${s1.count}_${s2.count} -->
 								</td>
 							</c:forEach>
-					</c:if>
-				</tr>
-				
-				<tr>
-					<td>
-						<b><script>document.write(String.fromCharCode(64+ ${s1.count}));</script></b>
-					</td>
-					<c:forEach var="col" begin="1" end="<%=theaterVO.getT_columns()%>" varStatus="s2">
-						<c:set scope="page" var="isBooked" value="${bookingMap.keySet().contains(s1.count.toString().concat('_').concat(s2.count.toString()))}" />
-							<td class="left1">
-								<input type="checkbox" id="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-checkbox2-red '":"class='css-checkbox1-blue'"} name="seats" value="${s1.count}_${s2.count}" onclick="sendMessage('${s1.count}_${s2.count}'); isChecked();" ${isBooked? "checked disabled":""}> 	
-								<label id="${s1.count}_${s2.count}" for="checkboxG${s1.count}_${s2.count}" ${isBooked? "class='css-label2-red'":"class='css-label1-blue'"}></label> <!-- ${s1.count}_${s2.count} -->
-							</td>
+						</tr>
 					</c:forEach>
-				</tr>
-		</c:forEach>		
-			</table>
-<!--        			 col-sm-offset-2 col-md-offset-2 -->
-       	</div>
-       		<div class="col-sm-3 col-md-3">
-				<table class="wwFormTable" style="width:100%; font-size:25px;">
+				</table>
+				<!--        			 col-sm-offset-2 col-md-offset-2 -->
+			</div>
+			<div class="col-sm-3 col-md-3">
+				<table class="wwFormTable" style="width: 100%; font-size: 25px;">
 					<tr>
-						<td><b>影廳：<%=theater_name%></b></td>
-						<td><b>級別：<%=rating %></b></td>
+						<td>
+							<b>
+								影廳：<%=theater_name%></b>
+						</td>
+						<td>
+							<b>
+								級別：<%=rating%></b>
+						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><b>影城：<%=cinemaName %></b></td>
+						<td colspan="2">
+							<b>
+								影城：<%=cinemaName%></b>
+						</td>
 					</tr>
 				</table>
-				
-				<table class="wwFormTable" style="width:100%; font-size:25px;">
+
+				<table class="wwFormTable" style="width: 100%; font-size: 25px;">
 					<tr>
-						<td colspan="2"><b>場次時間：<%=session_time %></b></td>
+						<td colspan="2">
+							<b>
+								場次時間：<%=session_time%></b>
+						</td>
 					</tr>
 				</table>
-				
-				<table class="wwFormTable" style="width:100%;">
-					<tr><td colspan="2"><b>電影名稱：<%= movieName %></b></td></tr>
+
+				<table class="wwFormTable" style="width: 100%;">
+					<tr>
+						<td colspan="2">
+							<b>
+								電影名稱：<%=movieName%></b>
+						</td>
+					</tr>
 				</table>
-				
+
 				<table class="wwFormTable">
 					<tr>
-						<td><img style="width:350px; height:450px" id="movie_pic" src="<%=request.getContextPath() %>/DBGifReader?movie_no=<%=movie_no%>"></td>
+						<td>
+							<img style="width: 350px; height: 450px" id="movie_pic" src="<%=request.getContextPath()%>/DBGifReader?movie_no=<%=movie_no%>">
+						</td>
 					</tr>
 				</table>
-       		</div>
-       </div>
-        
+			</div>
+		</div>
+
 		<!------------------------------------------------------------------------------------------------->
 		<hr>
-		<input type="hidden" name="mem_no" value="<%=mem_no %>" />
-		<input type="hidden" name="movie_no" value="<%=movie_no %>" />
+		<input type="hidden" name="mem_no" value="<%=mem_no%>" />
+		<input type="hidden" name="movie_no" value="<%=movie_no%>" />
 		<input type="hidden" name="movie_name" value="<%=movieName%>" />
 		<input type="hidden" name="theater_name" value="<%=theater_name%>" />
-		<input type="hidden" name="type_no" value="<%=type_no %>" />
-		<input type="hidden" name="session_no" value="<%=session_no %>" />
-		<input type="hidden" name="price" value="<%=price %>" />
+		<input type="hidden" name="type_no" value="<%=type_no%>" />
+		<input type="hidden" name="session_no" value="<%=session_no%>" />
+		<input type="hidden" name="price" value="<%=price%>" />
 		<button type="button" class="btn btn-lg btn-primary btn-block" onClick="checkup()" id="save">下一步</button>
-<!-- 		<input class="myButton" type="button" value="下一步" onClick="checkup()"> -->
+		<!-- 		<input class="myButton" type="button" value="下一步" onClick="checkup()"> -->
 	</form>
 
-<!--   </div> -->
-  
-  
-  
-        <script type="text/javascript">
+	<!--   </div> -->
+
+
+
+	<script type="text/javascript">
 		
 			<%if (sessionVO != null) {
 
@@ -200,12 +254,12 @@
 						case "0" :%>
 						document.getElementById("<%=key%>").style.visibility="hidden";
 						<%break;
-						
+
 						case "1" :%>
 							document.getElementById("<%=key%>").className="css-purple";
 							document.getElementById("checkboxG<%=key%>").disabled = true;
-						<%break; 
-						
+						<%break;
+
 						case "3" :%>
 						document.getElementById("<%=key%>").className="css-label1-yellow";
 						document.getElementById("checkboxG<%=key%>").disabled = true;
@@ -214,8 +268,8 @@
 				<%}%>
 			<%}%>
 	</script>
-	
-        <script type="text/javascript">
+
+	<script type="text/javascript">
 		var MyPoint = "/MyBookingServer2/<%=session_no%>/<%=mem_no%>";
 		var host = window.location.host;
 		//取得web主機的網域名 host:localhost:8081
@@ -331,19 +385,19 @@ console.log('seat='+seat);
 			form1.submit(); //送出表單中的資料
 		}
 	</script>
-        
-        <!-- footer -->
-        
-        <%@ include file="/forestage/template/footer.jsp" %>
-        <script src="<%=request.getContextPath()%>/js/template.js"></script>
-       
-        <script>
+
+	<!-- footer -->
+
+	<%@ include file="/forestage/template/footer.jsp"%>
+	<script src="<%=request.getContextPath()%>/js/template.js"></script>
+
+	<script>
         $(document).ready(function(){
             $("li:contains('合作影城')").addClass("custom-active");
         });
         </script>
-        
- <script type="text/javascript">
+
+	<script type="text/javascript">
 	function isChecked(){
 		
 		var count = 0;
@@ -362,5 +416,5 @@ console.log('seat='+seat);
 		}
 	}
  </script>
-    </body>
+</body>
 </html>
