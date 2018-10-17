@@ -60,7 +60,7 @@
                         <tr>
                             <th>影評編號</th>
                             <th>影評標題</th>
-                            <th>建立日期</th>
+                   
                             <th>修改日期</th>
                             <th>電影名稱</th>
                             <th>會員</th>
@@ -72,7 +72,7 @@
                         <tr>
                             <td>${filmreviewVO.fr_no}</td>
                             <td>${filmreviewVO.title}</td>
-                            <td>${filmreviewVO.created_at}</td>
+                         
                             <td>${filmreviewVO.updated_at}</td>
 							<td>
 	                   					 【 ${filmreviewVO.movieVO.movie_name}】
