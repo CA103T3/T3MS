@@ -124,7 +124,7 @@ public class Ticket_OrderServlet extends HttpServlet {
 				deadline.append(mm).append(yy);
 
 				if (!errorMsgs.isEmpty()) {
-					request.getRequestDispatcher("/forestage/ticketOrder/BookingSeat.jsp").forward(request, response);
+					request.getRequestDispatcher("/index.jsp").forward(request, response);
 					return;
 				}
 				String amount = request.getParameter("amount").trim();

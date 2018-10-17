@@ -80,23 +80,26 @@ System.out.println("==after=="+jsonArray);
 							</table>
 						</div>
 					</div>
+						<div class="col-sm-12 text-center" style="font-size:20px;margin-top:20px;">
+							<a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/img/House-Icon.png" style="height:40px;edith:40px;"></a>
+						</div>
 				</div>
 <%-- 				<form method="post" action="<%=request.getContextPath()%>/ticketOrder/ticketOrder.do"> --%>
-<!-- 				<div class="row">  -->
-<!-- 					<div class="col-xd-12 col-sm-12 col-md-12"> -->
-<!-- 						<div class="panel panel-default"> -->
-<!-- 							<div class="panel-heading text-center">***</div> -->
-<!-- 							  <button type="submit" class="btn btn-lg btn-danger btn-block">退票</button> -->
-<!-- 					    </div> -->
+<!-- 					<div class="row">  -->
+<!-- 						<div class="col-xd-12 col-sm-12 col-md-12"> -->
+<!-- 							<div class="panel panel-default"> -->
+<!-- 								<div class="panel-heading text-center">***</div> -->
+<!-- 								  <button type="submit" class="btn btn-lg btn-danger btn-block">退票</button> -->
+<!-- 						    </div> -->
+<!-- 						</div> -->
 <!-- 					</div> -->
-<!-- 				</div> -->
-				
-				<input type="hidden" name="action" value="search_ticketDetail_seats"/>
-				<input type="hidden" name="uuid" value="<%=uuid %>"/>
-				<input type="hidden" name="session_no" value="<%=session_no %>" />
-				<input type="hidden" name="price" value="<%=request.getParameter("price") %>" />
-				<input type="hidden" name="amount" value="<%=request.getParameter("amount") %>" />
-				</form>
+					
+<!-- 					<input type="hidden" name="action" value="search_ticketDetail_seats"/> -->
+<%-- 					<input type="hidden" name="uuid" value="<%=uuid %>"/> --%>
+<%-- 					<input type="hidden" name="session_no" value="<%=session_no %>" /> --%>
+<%-- 					<input type="hidden" name="price" value="<%=request.getParameter("price") %>" /> --%>
+<%-- 					<input type="hidden" name="amount" value="<%=request.getParameter("amount") %>" /> --%>
+<!-- 				</form> -->
 		<!-- ==========================End============================= -->        
         </div>
         <%@ include file="/forestage/template/footer.jsp" %>

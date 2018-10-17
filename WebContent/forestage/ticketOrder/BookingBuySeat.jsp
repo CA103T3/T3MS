@@ -133,14 +133,15 @@
 											<br>
 											<div class="form-inline">
 												<label for="card">卡片檢核碼：</label>
-												<input type="text" name="auth_key" size="2" maxlength="3" name="card" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">
+												<input type="text" name="auth_key" size="2" maxlength="3" name="card" id="cardAuth" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">
 												<br><br>
 												<label for="card">到期日：</label>
-												<input type="text" name="mm"  size="2" maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">月
-												<input type="text" name="yy" size="2"  maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">年
+												<input type="text" name="mm" id="mm" size="2" maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">月
+												<input type="text" name="yy" id="yy" size="2"  maxlength="2" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control">年
 											</div>
 										</div>
 									</div>
+									<button type="button" class="btn btn-lg btn-success" id="btn1">DEMO</button>
 								</div>
 							</div>
 						</div>
@@ -162,11 +163,28 @@
 			</div>
 		</div>
 	</div>
-	
+	<div class="col-sm-12 text-center" style="font-size:20px;margin-top:20px;">
+		<a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/img/House-Icon.png" style="height:40px;edith:40px;"></a>
+	</div>
 	<%@ include file="/forestage/template/footer.jsp"%>
+	<script type="text/javascript">
+	
+	</script>
+	<script type="text/javascript">
+	$("#btn1").click(function(){
+		$("#card1").val("8065");
+		$("#card2").val("9587");
+		$("#card3").val("6542");
+		$("#card4").val("4752");
+		$("#cardAuth").val("168");
+		$("#mm").val("10");
+		$("#yy").val("22");
+	});
+
+	</script>
 <script type="text/javascript">
 	$(function(){
-	    $("#card1").focus();
+// 	    $("#card1").focus();
 	})
 	$("input[name^='card']").each(function(){
    		 $(this).keyup(function(e){

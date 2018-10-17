@@ -232,9 +232,11 @@
 		<!-- 		<input class="myButton" type="button" value="下一步" onClick="checkup()"> -->
 	</form>
 
-	<!--   </div> -->
-
-
+	<div class="col-sm-12 text-center" style="font-size:20px;margin-top:20px;">
+		<a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/img/House-Icon.png" style="height:40px;edith:40px;"></a>
+	</div>
+	<%@ include file="/forestage/template/footer.jsp"%>
+	
 
 	<script type="text/javascript">
 		
@@ -388,7 +390,6 @@ console.log('seat='+seat);
 
 	<!-- footer -->
 
-	<%@ include file="/forestage/template/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
 
 	<script>
@@ -415,6 +416,6 @@ console.log('seat='+seat);
 			}
 		}
 	}
- </script>
+	</script>
 </body>
 </html>
