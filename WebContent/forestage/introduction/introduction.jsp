@@ -235,7 +235,7 @@ body {
 	<div class="cards">
 <!-- 		<a class="card" href="#"> -->
 		<a class="card" href="https://www.vscinemas.com.tw/theater/detail.aspx?id=1" >
-			<span class="card-header" style="background-image: url(/T3MS/<%= list.get(0).getPhoto_path()%>);">
+			<span class="card-header" style="background-image: url(<%= list.get(0).getPhoto_path()%>);">
 				<span class="card-title">
 					<h3><%= list.get(0).getCinema_name()%></h3>
 <%-- 					<h3>${list.get(0).cinema_name}</h3> --%>
@@ -251,7 +251,7 @@ body {
 		</a>
 
 		<a class="card" href="http://www.skcinemas.com/Theater.aspx?TID=9011">
-			<span class="card-header" style="background-image: url(/T3MS/<%= list.get(1).getPhoto_path()%>);">
+			<span class="card-header" style="background-image: url(<%= list.get(1).getPhoto_path()%>);">
 				<span class="card-title">
 					<h3><%= list.get(1).getCinema_name()%></h3>
 				</span>
@@ -265,7 +265,7 @@ body {
 		</a>
 		
 		<a class="card" href="https://www.in89.com.tw/show.php?id=10">
-			<span class="card-header" style="background-image: url(/T3MS/<%= list.get(2).getPhoto_path()%>)">
+			<span class="card-header" style="background-image: url(<%= list.get(2).getPhoto_path()%>)">
 				<span class="card-title">
 					<h3><%= list.get(2).getCinema_name()%></h3>
 				</span>
@@ -279,7 +279,7 @@ body {
 		</a>
 
 		<a class="card" href="http://wonderful.movie.com.tw/">
-			<span class="card-header" style="background-image: url(/T3MS/<%= list.get(3).getPhoto_path()%>);">
+			<span class="card-header" style="background-image: url(<%= list.get(3).getPhoto_path()%>);">
 				<span class="card-title">
 					<h3><%= list.get(3).getCinema_name()%></h3>
 				</span>
@@ -293,7 +293,7 @@ body {
 		</a>
 		
 		<a class="card" href="http://ptcinema.movie.com.tw/time">
-			<span class="card-header" style="background-image: url(/T3MS/<%= list.get(4).getPhoto_path()%>);">
+			<span class="card-header" style="background-image: url(<%= list.get(4).getPhoto_path()%>);">
 				<span class="card-title">
 					<h3><%= list.get(4).getCinema_name()%></h3>
 				</span>
@@ -307,7 +307,7 @@ body {
 		</a>
 		
 		<a class="card" href="http://chungli2.iiiedu.org.tw/chungli/">
-			<span class="card-header" style="background-image: url(/T3MS/<%= list.get(5).getPhoto_path()%>);">
+			<span class="card-header" style="background-image: url(<%= list.get(5).getPhoto_path()%>);">
 				<span class="card-title">
 					<h3><%= list.get(5).getCinema_name()%></h3>
 				</span>
