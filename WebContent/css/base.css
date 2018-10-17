@@ -76,8 +76,20 @@
     top: 55px;
 }
 
+.announcement {
+	color: black;
+	font-family: "標楷體", DFKai-sb, BiauKai;
+	font-size: 22px;
+
+}
+
+.t-custom {
+    color: DodgerBlue;
+    text-decoration: none;
+}
+
 .hover-custom a:hover {
-    color: teal;
+    color: Cyan;
     text-decoration: none;
 }
 

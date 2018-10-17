@@ -50,8 +50,8 @@
                     <span class="close-item">
                     <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                     </span>
-                    <p>公告!</p>
-                    <p>提醒您：7/11（三）全台影城正常營業，如有於颱風期間7/10（二）相關退票退款事宜請點選首頁颱風公告圖或至ez訂fb粉絲團了解詳情，謝謝。<br>國泰世華紅利訂票系統維護中，暫時無法訂票，造成您的不便敬請見諒，謝謝！<br>配合美麗華大直影城營運公告，6/22(五)起將暫停【美麗華大直】訂票服務，造成您的不便敬請見諒，謝謝！<br>【ez訂絕對不會叫您去操作ATM】近期常有詐騙集團假冒ez訂客服/會計人員/影城工作人員來電（號碼開頭有+或竄改來電號碼顯示），告知您訂單錯誤（設定為「多筆訂單」、「分期付款」等），再冒充金融機構人員要求您至自動櫃員機（ATM）操作以解除錯誤設定，這是詐騙，請小心勿受騙！如有訂單疑問，可撥打ez訂客服專線02-8912-6600，謝謝</p>
+                    <p class="announcement t-custom">公告!</p>
+                    <p class="announcement">提醒您：7/11（三）全台影城正常營業，如有於颱風期間7/10（二）相關退票退款事宜請點選首頁颱風公告圖或至ez訂fb粉絲團了解詳情，謝謝。<br>國泰世華紅利訂票系統維護中，暫時無法訂票，造成您的不便敬請見諒，謝謝！<br>配合美麗華大直影城營運公告，6/22(五)起將暫停【美麗華大直】訂票服務，造成您的不便敬請見諒，謝謝！<br>【ez訂絕對不會叫您去操作ATM】近期常有詐騙集團假冒ez訂客服/會計人員/影城工作人員來電（號碼開頭有+或竄改來電號碼顯示），告知您訂單錯誤（設定為「多筆訂單」、「分期付款」等），再冒充金融機構人員要求您至自動櫃員機（ATM）操作以解除錯誤設定，這是詐騙，請小心勿受騙！如有訂單疑問，可撥打ez訂客服專線02-8912-6600，謝謝</p>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                 <c:forEach var="movie_introduceVO" items="${introList}" varStatus="s" begin="<%=0%>" end="<%=4%>">
                 <article>
                     <div class="col-md-12 text-center">
-                        <header><h3 class="hover-custom"><a href="<%=request.getContextPath()%>/forestage/movie_introduce/One_introduce.jsp?${movie_introduceVO.introd_no}" >${movie_introduceVO.title}</a></h3></header>
+                        <header><h3 class="hover-custom"><a class="t-custom" href="<%=request.getContextPath()%>/forestage/movie_introduce/One_introduce.jsp?${movie_introduceVO.introd_no}" >${movie_introduceVO.title}</a></h3></header>
                     </div>
                     <div class="row">
                         <div class="col-md-4 ">
@@ -171,7 +171,7 @@
                 <c:forEach var="filmreviewVO" items="${frList}" varStatus="s" begin="<%=0%>" end="<%=4%>">
                 <article>
                     <div class="col-md-12 text-center">
-                        <header><h3 class="hover-custom"><a href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?fr_no=${filmreviewVO.fr_no}">${filmreviewVO.title}</a></h3></header>
+                        <header><h3 class="hover-custom"><a class="t-custom" href="<%=request.getContextPath()%>/forestage/filmreview/fv.jsp?fr_no=${filmreviewVO.fr_no}">${filmreviewVO.title}</a></h3></header>
                     </div>
                     <div class="row">
                         <div class="col-md-4 ">
