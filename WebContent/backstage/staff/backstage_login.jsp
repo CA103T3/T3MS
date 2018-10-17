@@ -138,7 +138,7 @@ body{
 <script>
 window.onload = function(){
 function getDate(){
-debugger;
+//debugger;
 var today = new Date(); 
 var date; 
 date = (today.getFullYear()) +"-" + (today.getMonth() + 1 ) + "-" + today.getDate() + "-" + today.toLocaleTimeString(); 

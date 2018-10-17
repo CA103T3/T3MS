@@ -139,7 +139,6 @@ body{
        </div>
    
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
-    <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
 </body>
 
 <script>
