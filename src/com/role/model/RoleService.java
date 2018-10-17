@@ -24,7 +24,7 @@ public class RoleService {
 	
 	
 	public RoleVO findbyno(String br_no) {
-		return dao.findnoByname(br_no);
+		return dao.findByno(br_no);
 	}
 	
 	
