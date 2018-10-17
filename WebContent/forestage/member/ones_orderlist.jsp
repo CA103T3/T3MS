@@ -60,7 +60,7 @@
 	MemVO memVO = (MemVO)session.getAttribute("memVO");
 	MemService mSvc = new MemService();
 	Set<Mem_Ticket_SearchVO> tsSet = new TreeSet<>(); 
-	tsSet = mSvc.MEM_TICKET_SEARCH_STMT(memVO.getmemno());
+	tsSet = mSvc.mem_ticket_search(memVO.getmemno());
 	Object[] ob = tsSet.toArray();
 	
 	

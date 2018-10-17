@@ -782,7 +782,7 @@ public class MemJNDIDAO implements MemDAO_interface {
 	}
 
 	@Override
-	public Set<Mem_Ticket_SearchVO> MEM_TICKET_SEARCH_STMT(String memno) {
+	public Set<Mem_Ticket_SearchVO> mem_ticket_search(String memno) {
 		Set<Mem_Ticket_SearchVO> mem_TS_Set = new TreeSet<>();
 		Mem_Ticket_SearchVO mTicket_SearchVO = null;
 		Connection conn = null;

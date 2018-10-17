@@ -120,8 +120,8 @@ public class MemService {
 			dao.foul(memno);
 		}
 		
-		public Set<Mem_Ticket_SearchVO> MEM_TICKET_SEARCH_STMT(String memno){
-			return dao.MEM_TICKET_SEARCH_STMT(memno);
+		public Set<Mem_Ticket_SearchVO> mem_ticket_search(String memno){
+			return dao.mem_ticket_search(memno);
 		}
 		
 }
