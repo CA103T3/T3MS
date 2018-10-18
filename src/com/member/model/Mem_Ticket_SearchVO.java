@@ -69,7 +69,7 @@ public class Mem_Ticket_SearchVO implements Comparable<Mem_Ticket_SearchVO> {
 
 	@Override
 	public int compareTo(Mem_Ticket_SearchVO o) {
-		System.out.println("mem_ticket_searchVO=" + o.movie_no);
+		System.out.println("mem_ticket_searchVO.session=" + o.session_no);
 		if (o.session_no != null) {
 			if (this.session_no.equals(o.session_no)) {
 				return 0;
