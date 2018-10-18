@@ -8,3 +8,4 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="<%=request.getContextPath()%>/css/font-awesome.min.css">
         <link rel="stylesheet" href="<%=request.getContextPath()%>/css/base.css">
+        <link rel="icon" href="/T3MS/img/MS.png" type="image/png" />

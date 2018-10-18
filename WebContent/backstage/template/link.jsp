@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery-confirm.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-toggle.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.min.css">
+    <link rel="icon" href="/T3MS/img/MS.png" type="image/png" />
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
