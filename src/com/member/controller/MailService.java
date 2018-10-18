@@ -60,7 +60,7 @@ public class MailService {
 
 	      String to = email;
 	      
-	      String subject = "MS會員註冊驗證";
+	      String subject = "M&S會員註冊驗證";
 	      
 	      String ch_name = name;
 

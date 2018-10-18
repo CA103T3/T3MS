@@ -124,7 +124,7 @@ input[type=text]:focus {
 										style="font-size: 23.4px; line-height: 23.4px;">Movie
 											management&nbsp;</span>
 											
-												<a href="movie_Add.jsp" target="_blank">
+												<a href="<%=request.getContextPath()%>/backstage/movie/movie_Add.jsp" target="_blank">
 												<button id="btn6">新增電影</button>
 												</a>
 									</font>

@@ -27,8 +27,8 @@
 <link href="<%=request.getContextPath()%>/css/introduce.css" rel="stylesheet" type="text/css">
 <style>
 .row {
-  margin-left: -80px;
-  margin-right: -80px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 </style>
@@ -56,17 +56,15 @@
 			<div class="section">
 				<div class="container">
 					<div class="row">
-						<div class=" col-md-8 text-left">
+						<div class=" col-md-12 text-left">
 							<div class="page-header">
 								<h1>
-									電影情報管理 <font color="#777777"> 
+									電影情報管理 <font color="#777777">   
 										
  						<span style="font-size: 23.4px; line-height: 23.4px;"> Movie Introduction &nbsp; </span> 
 											
 																						
-										<a href="introduce_Add.jsp" target="_blank">
-											<button id="btn6">新增電影情報</button>
-									    </a>
+						
 										
 									</font>
 								</h1>
@@ -80,7 +78,12 @@
 			<div class="section">
 				<div class="container">
 					<div class="hidden-md row">
-						<div class="col-md-10 text-justify">
+						
+					
+					<div class="col-md-2">
+				
+					</div>
+						<div class="col-md-8">
 
 							<form METHOD="post" ACTION="movie_introduce.do" id="src_movie">
 								<input type="text" name="introd_no" placeholder="Search..">
@@ -220,6 +223,9 @@
 
 		</div>
 	</div>
+	<a href="introduce_Add.jsp" target="_blank">
+		<button id="btn6">新增電影情報</button>
+	</a>
 	<script src="<%=request.getContextPath() + "/js/back_index.js"%>"></script>
 	
 </body>

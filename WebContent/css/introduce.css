@@ -104,8 +104,8 @@ img {
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
 	position: absolute;
-	top: 120px;
-	right: 680px;
+	top: 80px;
+    right: 800px
 }
 
 #btn6:hover {
