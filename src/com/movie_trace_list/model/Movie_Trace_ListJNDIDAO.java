@@ -269,6 +269,12 @@ System.out.println("OK");
 		}
 		return list;
 	}
+
+	@Override
+	public void addheartgettwo(String mem_no, String movie_no) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

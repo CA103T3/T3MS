@@ -48,4 +48,9 @@ public class Movie_Trace_ListService {
 		System.out.println("OK");
 		return dao.getAll();
 	}
+	
+	public void addheartgettwo(String mem_no,String movie_no) {
+		dao.addheartgettwo(mem_no, movie_no);
+		
+	}
 }

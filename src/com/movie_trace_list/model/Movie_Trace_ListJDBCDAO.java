@@ -324,4 +324,10 @@ public class Movie_Trace_ListJDBCDAO implements Movie_Trace_ListDAO_interface{
 		}
 
 	}
+
+	@Override
+	public void addheartgettwo(String mem_no, String movie_no) {
+		// TODO Auto-generated method stub
+		
+	}
 }

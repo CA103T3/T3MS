@@ -1,15 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.movie.model.*" %>
+<%@ page import="com.movie_trace_list.model.*" %>
 
 
 <% 
-	MovieService movieservice=new MovieService();
-	List<MovieVO> list=movieservice.getAll();
+	Movie_Trace_ListService movie_Trace_listservice=new Movie_Trace_ListService();
+	List<Movie_Trace_ListVO> list=movie_Trace_listservice.getAll();
 	pageContext.setAttribute("list",list);
-
-
 %>
+
+
+<jsp:useBean id="movieSvc" scope="page" class="com.movie.model.MovieService"/>
+
 
 <!doctype html>
 <html lang="en">
@@ -145,7 +148,8 @@
               
               </tr>
               
-              <c:forEach var="movieVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%--               <c:forEach var="movie_Trace_listVO" items="${list}"> --%>
+              <c:forEach var="movie_Trace_listVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 <!-- 		<tr> -->
 <%-- 			<td><font color="#e6e6e6">${movieVO.movie_no}</font></td> --%>				
 <%-- 			<td><font color="#e6e6e6">${movieVO.movie_pic}</font></td> --%>
@@ -156,20 +160,21 @@
 <%-- 			<td><font color="#e6e6e6">${movieVO.imdb}</font></td> --%>
 <%-- 			<td><font color="#e6e6e6">${movieVO.tomato}</font></td>	 --%>
 			
-			
+<%-- 				${movieSvc.getOneMovie(movie_Trace_listVO.movie_no).movie_no} --%>
 			   <tr>
-                <td><font color="#e6e6e6">${movieVO.movie_no}</font></td>
-                <td><div><img src="/T3MS/${movieVO.movie_pic}"></div><font color="#e6e6e6">${movieVO.movie_name}</font>
+                <td><font color="#e6e6e6">${movie_Trace_listVO.movie_no}</font></td>
+                <td><div><img style="width:100px;" src="<%=request.getContextPath() %>/getPHOTO.do?movie_no=${movie_Trace_listVO.movie_no}"></div><font color="#e6e6e6">${movieSvc.getOneMovie(movie_Trace_listVO.movie_no).movie_name}</font>
+                
                 <table id ="czy">
                     <tr class="starRow">
                         <td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td><td class="star">★</td>
                     </tr>
                 </table><input type="button" class="btnScore" value="想看度"><span style="color:red;font-weight:bold"></span><font color="#ff6600">分</font></td>
-                <td><font color="#e6e6e6">${movieVO.relased}</font></td>
-                <td><font color="#e6e6e6">${movieVO.length}</font></td>
-                <td><font color="#e6e6e6">${movieVO.language}</font></td>
-                <td><font color="#e6e6e6">${movieVO.imdb}</font></td>
-                <td><font color="#e6e6e6">${movieVO.tomato}</font></td>
+                <td><font color="#e6e6e6">${movieSvc.getOneMovie(movie_Trace_listVO.movie_no).relased}</font></td>
+                <td><font color="#e6e6e6">${movieSvc.getOneMovie(movie_Trace_listVO.movie_no).length}</font></td>
+                <td><font color="#e6e6e6">${movieSvc.getOneMovie(movie_Trace_listVO.movie_no).language}</font></td>
+                <td><font color="#e6e6e6">${movieSvc.getOneMovie(movie_Trace_listVO.movie_no).imdb}</font></td>
+                <td><font color="#e6e6e6">${movieSvc.getOneMovie(movie_Trace_listVO.movie_no).tomato}</font></td>
               
               </tr>
 <!-- 		</tr> -->

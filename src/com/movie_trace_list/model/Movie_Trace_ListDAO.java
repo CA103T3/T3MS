@@ -16,7 +16,7 @@ public class Movie_Trace_ListDAO implements Movie_Trace_ListDAO_interface{
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/T3MS");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -32,6 +32,9 @@ public class Movie_Trace_ListDAO implements Movie_Trace_ListDAO_interface{
 		"DELETE FROM MOVIE_TRACE_LIST where MEM_NO = ?";
 	private static final String UPDATE = 
 		"UPDATE MOVIE_TRACE_LIST set MOVIE_NO=? where MEM_NO = ?";
+	
+	private static final String INSERT_STMT2 = 
+			"INSERT INTO MOVIE_TRACE_LIST(MEM_NO,MOVIE_NO) VALUES (?,?)";
 //	private static final String GET_Acts_ByActno_STMT = "SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM emp2 where deptno = ? order by empno";
 	@Override
 	public void insert(Movie_Trace_ListVO movie_Trace_listVO) {
@@ -269,9 +272,53 @@ System.out.println("OK");
 		}
 		return list;
 	}
+
+	@Override
+	public void addheartgettwo(String mem_no, String movie_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_STMT2);
+
+			
+			pstmt.setString(1,mem_no);
+			pstmt.setString(2,movie_no);
+			
+			
+			
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+		
+	}
 	
 	
 	
 
 
-}
+

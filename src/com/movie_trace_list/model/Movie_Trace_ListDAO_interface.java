@@ -10,4 +10,5 @@ public interface Movie_Trace_ListDAO_interface {
 	public void delete(String mem_no);	
 	public Movie_Trace_ListVO findByPrimaryKey(String mem_no);
 	public List<Movie_Trace_ListVO> getAll();
+	public void addheartgettwo(String mem_no,String movie_no); 
 }

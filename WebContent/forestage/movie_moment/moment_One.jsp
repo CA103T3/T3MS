@@ -12,6 +12,8 @@
 <%@ page import="com.session.model.*"%>
 <%@ page import="com.cinema.model.*"%>
 <%@ page import="com.theater.model.*"%>
+<%@ page import="com.movie_trace_list.model.*"%>
+<%@ page import="com.member.model.*"%>
 
 
 <%
@@ -31,10 +33,16 @@
 	pageContext.setAttribute("cvo", cvo);
 %>
 
-<%
+<%	MemVO memVO = (MemVO) session.getAttribute("memVO");
 	TheaterService theaterSvc = new TheaterService();
 	List<TheaterVO> thVO = theaterSvc.getAll();
 	pageContext.setAttribute("thVO", thVO);
+%>
+
+<% 	
+	Movie_Trace_ListService movie_Trace_listSvc = new Movie_Trace_ListService();
+
+	 
 %>
 
 <%
@@ -526,7 +534,25 @@ body {
 //加入收藏 或 取消收藏
 function switchFavorite(){
 
+   var mem_no ="${memVO.memno}";
+   var movie_no="${movieVO.movie_no}";
 	var heart = document.getElementById("heart");
+   if(mem_no != null){
+	   $.ajax({
+       type:"POST",
+       url:"<%=request.getContextPath()%>/forestage/Movie_Trace_List.do",
+       data:{"movie_no":movie_no,"mem_no":mem_no,"action":"addFavorite"},
+       dataType:"json",
+       success:function(data){
+       	heart.src = "<%=request.getContextPath()%>/img/Test_UP_IMG/heart.png";
+   		heart.title ="加入收藏";
+       },
+       error:function(){
+//          alert("加入收藏發生錯誤")
+       }
+     })} 
+   
+   else{ alert("請加入會員!!!")}
 
 	if (heart.title == "加入收藏") {
 		heart.src = "<%=request.getContextPath()%>/img/Test_UP_IMG/heart2.png";

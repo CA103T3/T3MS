@@ -6,6 +6,9 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.movie_trace_list.model.*;
 
 public class Movie_Trace_ListServlet extends HttpServlet{
@@ -369,6 +372,49 @@ public class Movie_Trace_ListServlet extends HttpServlet{
 //				failureView.forward(req, res);
 //			}
 //		}
+        
+        if ("addFavorite".equals(action)) { 
+        	String mem_no= req.getParameter("mem_no");
+        	String movie_no = req.getParameter("movie_no");
+        	         	   
+        	   new Movie_Trace_ListService().addheartgettwo(mem_no,movie_no);
+        	   JSONObject obj = new JSONObject();
+        	   try {
+        	    obj.put("movie_no", movie_no);
+        	   } catch (JSONException e) {
+        	    e.printStackTrace();
+        	   }
+        	   
+        	   res.setContentType("text/plain");
+        	   res.setCharacterEncoding("UTF-8");
+        	   PrintWriter out = res.getWriter();
+        	   out.write(obj.toString());
+        	   out.flush();
+        	   out.close();
+        }
+			
+			
+	
+		if ("get_one_pic".equals(action)) { 
+     	String mem_no= req.getParameter("mem_no");
+     	String movie_no = req.getParameter("movie_no");
+     	         	   
+     	   new Movie_Trace_ListService().addheartgettwo(mem_no,movie_no);
+     	   JSONObject obj = new JSONObject();
+     	   try {
+     	    obj.put("movie_no", movie_no);
+     	   } catch (JSONException e) {
+     	    e.printStackTrace();
+     	   }
+     	   
+     	   res.setContentType("text/plain");
+     	   res.setCharacterEncoding("UTF-8");
+     	   PrintWriter out = res.getWriter();
+     	   out.write(obj.toString());
+     	   out.flush();
+     	   out.close();
+     }
+			
+			
 	}
-
 }

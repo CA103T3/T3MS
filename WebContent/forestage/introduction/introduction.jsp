@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.cinema.model.*"%>
+<%@ page import="com.movie.model.*" %>
 <%@ page import="java.util.*"%>
 
 
@@ -227,96 +228,140 @@ body {
  <div class="container">
  	
         <div class="col-12">
-          <h1 class="">合作影城介紹</h1>
+          <h1 class=""><font color="#e6e6e6">合作影城介紹</font></h1>
         </div>
       
  </div>
+ <%@ include file="/resources/page_code/pagef.file"%>
   <div class="container">
 	<div class="cards">
 <!-- 		<a class="card" href="#"> -->
-		<a class="card" href="https://www.vscinemas.com.tw/theater/detail.aspx?id=1" >
-			<span class="card-header" style="background-image: url(<%= list.get(0).getPhoto_path()%>);">
-				<span class="card-title">
-					<h3><%= list.get(0).getCinema_name()%></h3>
-<%-- 					<h3>${list.get(0).cinema_name}</h3> --%>
-				</span>
-			</span>
-			<span class="card-summary">
-				<%= list.get(0).getIntroduction()%>
-			</span>	
-			<span class="card-meta">
-				<%= list.get(0).getCinema_tel()%>
-			</span>
-		
-		</a>
+<c:forEach var="cinemaVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<!-- 		<a class="card" href="https://www.lunacinemax.com.tw/movie_time/showtime.aspx" > -->
+		 
+<%-- 			<span class="card-header" style="background-image: url(<%= list.get(0).getPhoto_path()%>);"> --%>
+<!-- 				<span class="card-title"> -->
+<%-- 					<h3><%= list.get(0).getCinema_name()%></h3> --%>
 
-		<a class="card" href="http://www.skcinemas.com/Theater.aspx?TID=9011">
-			<span class="card-header" style="background-image: url(<%= list.get(1).getPhoto_path()%>);">
-				<span class="card-title">
-					<h3><%= list.get(1).getCinema_name()%></h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				<%= list.get(1).getIntroduction()%>
-			</span>
-			<span class="card-meta">
-				<%= list.get(1).getCinema_tel()%>
-			</span>
-		</a>
+<!-- 				</span> -->
+<!-- 			</span> -->
+<!-- 			<span class="card-summary"> -->
+<%-- 				<%= list.get(0).getIntroduction()%> --%>
+<!-- 			</span>	 -->
+<!-- 			<span class="card-meta"> -->
+<%-- 				<%= list.get(0).getCinema_tel()%> --%>
+<!-- 			</span> -->
 		
-		<a class="card" href="https://www.in89.com.tw/show.php?id=10">
-			<span class="card-header" style="background-image: url(<%= list.get(2).getPhoto_path()%>)">
-				<span class="card-title">
-					<h3><%= list.get(2).getCinema_name()%></h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				<%= list.get(2).getIntroduction()%>
-			</span>
-			<span class="card-meta">
-				<%= list.get(2).getCinema_tel()%>
-			</span>
-		</a>
+<!-- 		</a> -->
 
-		<a class="card" href="http://wonderful.movie.com.tw/">
-			<span class="card-header" style="background-image: url(<%= list.get(3).getPhoto_path()%>);">
-				<span class="card-title">
-					<h3><%= list.get(3).getCinema_name()%></h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				<%= list.get(3).getIntroduction()%>
-			</span>
-			<span class="card-meta">
-				<%= list.get(3).getCinema_tel()%>
-			</span>
-		</a>
+<!-- 		<a class="card" href="http://www.skcinemas.com/Theater.aspx?TID=9011"> -->
+<%-- 			<span class="card-header" style="background-image: url(<%= list.get(1).getPhoto_path()%>);"> --%>
+<!-- 				<span class="card-title"> -->
+<%-- 					<h3><%= list.get(1).getCinema_name()%></h3> --%>
+<!-- 				</span> -->
+<!-- 			</span> -->
+<!-- 			<span class="card-summary"> -->
+<%-- 				<%= list.get(1).getIntroduction()%> --%>
+<!-- 			</span> -->
+<!-- 			<span class="card-meta"> -->
+<%-- 				<%= list.get(1).getCinema_tel()%> --%>
+<!-- 			</span> -->
+<!-- 		</a> -->
 		
-		<a class="card" href="http://ptcinema.movie.com.tw/time">
-			<span class="card-header" style="background-image: url(<%= list.get(4).getPhoto_path()%>);">
-				<span class="card-title">
-					<h3><%= list.get(4).getCinema_name()%></h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				<%= list.get(4).getIntroduction()%>
-			</span>
-			<span class="card-meta">
-				<%= list.get(4).getCinema_tel()%>
-			</span>
-		</a>
+<!-- 		<a class="card" href="https://www.in89.com.tw/show.php?id=10"> -->
+<%-- 			<span class="card-header" style="background-image: url(<%= list.get(2).getPhoto_path()%>)"> --%>
+<!-- 				<span class="card-title"> -->
+<%-- 					<h3><%= list.get(2).getCinema_name()%></h3> --%>
+<!-- 				</span> -->
+<!-- 			</span> -->
+<!-- 			<span class="card-summary"> -->
+<%-- 				<%= list.get(2).getIntroduction()%> --%>
+<!-- 			</span> -->
+<!-- 			<span class="card-meta"> -->
+<%-- 				<%= list.get(2).getCinema_tel()%> --%>
+<!-- 			</span> -->
+<!-- 		</a> -->
+
+<!-- 		<a class="card" href="http://web.vscinemas.com.tw/theater/detail.aspx?id=2"> -->
+<%-- 			<span class="card-header" style="background-image: url(<%= list.get(3).getPhoto_path()%>);"> --%>
+<!-- 				<span class="card-title"> -->
+<%-- 					<h3><%= list.get(3).getCinema_name()%></h3> --%>
+<!-- 				</span> -->
+<!-- 			</span> -->
+<!-- 			<span class="card-summary"> -->
+<%-- 				<%= list.get(3).getIntroduction()%> --%>
+<!-- 			</span> -->
+<!-- 			<span class="card-meta"> -->
+<%-- 				<%= list.get(3).getCinema_tel()%> --%>
+<!-- 			</span> -->
+<!-- 		</a> -->
 		
-		<a class="card" href="http://chungli2.iiiedu.org.tw/chungli/">
-			<span class="card-header" style="background-image: url(<%= list.get(5).getPhoto_path()%>);">
+<!-- 		<a class="card" href="http://web.vscinemas.com.tw/theater/detail.aspx?id=1"> -->
+<%-- 			<span class="card-header" style="background-image: url(<%= list.get(4).getPhoto_path()%>);"> --%>
+<!-- 				<span class="card-title"> -->
+<%-- 					<h3><%= list.get(4).getCinema_name()%></h3> --%>
+<!-- 				</span> -->
+<!-- 			</span> -->
+<!-- 			<span class="card-summary"> -->
+<%-- 				<%= list.get(4).getIntroduction()%> --%>
+<!-- 			</span> -->
+<!-- 			<span class="card-meta"> -->
+<%-- 				<%= list.get(4).getCinema_tel()%> --%>
+<!-- 			</span> -->
+<!-- 		</a> -->
+		
+<!-- 		<a class="card" href="http://web.vscinemas.com.tw/theater/detail.aspx?id=4"> -->
+<%-- 			<span class="card-header" style="background-image: url(<%= list.get(5).getPhoto_path()%>);"> --%>
+<!-- 				<span class="card-title"> -->
+<%-- 					<h3><%= list.get(5).getCinema_name()%></h3> --%>
+<!-- 				</span> -->
+<!-- 			</span> -->
+<!-- 			<span class="card-summary"> -->
+<%-- 				<%= list.get(5).getIntroduction()%> --%>
+<!-- 			</span> -->
+<!-- 			<span class="card-meta"> -->
+<%-- 				<%= list.get(5).getCinema_tel()%> --%>
+<!-- 			</span> -->
+<!-- 		</a> -->
+<!-- 		<a class="card" href="http://web.vscinemas.com.tw/theater/detail.aspx?id=4"> -->
+<%-- 			<span class="card-header" style="background-image: url(<%= list.get(6).getPhoto_path()%>);"> --%>
+<!-- 				<span class="card-title"> -->
+<%-- 					<h3><%= list.get(6).getCinema_name()%></h3> --%>
+<!-- 				</span> -->
+<!-- 			</span> -->
+<!-- 			<span class="card-summary"> -->
+<%-- 				<%= list.get(6).getIntroduction()%> --%>
+<!-- 			</span> -->
+<!-- 			<span class="card-meta"> -->
+<%-- 				<%= list.get(6).getCinema_tel()%> --%>
+<!-- 			</span> -->
+<!-- 		</a> -->
+<!-- 		<a class="card" href="http://web.vscinemas.com.tw/theater/detail.aspx?id=4"> -->
+<%-- 			<span class="card-header" style="background-image: url(<%= list.get(7).getPhoto_path()%>);"> --%>
+<!-- 				<span class="card-title"> -->
+<%-- 					<h3><%= list.get(7).getCinema_name()%></h3> --%>
+<!-- 				</span> -->
+<!-- 			</span> -->
+<!-- 			<span class="card-summary"> -->
+<%-- 				<%= list.get(7).getIntroduction()%> --%>
+<!-- 			</span> -->
+<!-- 			<span class="card-meta"> -->
+<%-- 				<%= list.get(7).getCinema_tel()%> --%>
+<!-- 			</span> -->
+<!-- 		</a> -->
+		
+<%-- 		${movie_Trace_listVO.movie_no}  ${cinemaVO.photo_path} ${cinemaVO.cinema_name} ${cinemaVO.introduction} ${cinemaVO.cinema_tel} --%>
+		<a class="card" >
+			<span class="card-header" style="background-image: url(${cinemaVO.photo_path});">
 				<span class="card-title">
-					<h3><%= list.get(5).getCinema_name()%></h3>
+					<h3>${cinemaVO.cinema_name}</h3>
 				</span>
 			</span>
 			<span class="card-summary">
-				<%= list.get(5).getIntroduction()%>
+				${cinemaVO.introduction}
 			</span>
 			<span class="card-meta">
-				<%= list.get(5).getCinema_tel()%>
+				${cinemaVO.cinema_tel}
 			</span>
 		</a>
 
@@ -361,7 +406,9 @@ body {
 				Published: June 18th, 2015
 			</span>
 		</a> -->
+		</c:forEach>
 	</div>
+	<%@ include file="/resources/page_code/pageb.file"%>
 </div>
   
  <%@ include file="/forestage/template/footer.jsp" %>
