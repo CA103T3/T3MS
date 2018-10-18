@@ -337,7 +337,7 @@ input[type=submit]:hover {
 	<script src="<%=request.getContextPath()%>/js/template.js"></script>
 	<script>
 		$(document).ready(function() {
-			$("li:contains('合作影城')").addClass("custom-active");
+		
 			$('#dem5').jsRapStar({
 				length : 5,
 				starHeight : 26,
