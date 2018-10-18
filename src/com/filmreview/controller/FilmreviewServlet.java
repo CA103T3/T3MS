@@ -674,13 +674,9 @@ public class FilmreviewServlet extends HttpServlet {
 							String author = req.getParameter("author");
 							
 							String url = req.getParameter("url");
-							if (url == null || url.trim().length() == 0) {
-								errorMsgs.add("網址請勿空白");
-							}
+							
 							String source = req.getParameter("source");
-							if (source == null || source.trim().length() == 0) {
-								errorMsgs.add("來源請勿空白");
-							}
+						
 							
 							Double evaluation = null;
 							try {

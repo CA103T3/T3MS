@@ -131,7 +131,7 @@ input[type=submit]:hover {
 							<c:if test="${fv.mem_no==memVO.memno}">
 	                   			
 	                   			<div class="col-sm-1" style="width:130px;">
-	                   			${memVO.firstname}${memVO.lastname} 
+	                   			${memVO.lastname}${memVO.firstname}
 	                   			</div>
 	                   			<a href="<%=request.getContextPath()%>/forestage/filmreview/memfr.jsp?mem_no=${fv.mem_no}" class="btn-info col-sm-2" style="border-radius:13px;width:150px;">
 	                   			共<%

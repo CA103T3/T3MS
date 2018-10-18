@@ -76,10 +76,10 @@ public class Back_accountFilter implements Filter {
             request.getRequestDispatcher("/backstage/backstage_index.jsp").forward(request, response);
             
             
-//            out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-//            out.println("<BODY>你無權限<BR>");
+            out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+            out.println("<BODY><h1>你無權限</h1>");
 //            out.println("請按上一頁 <A HREF="+request.getContextPath()+"/backstage/stage/backstge_insert.jsp>按</A>");
-//            out.println("</BODY></HTML>");
+            out.println("</BODY></HTML>");
             return;
         }
 

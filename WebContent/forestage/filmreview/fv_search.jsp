@@ -177,7 +177,7 @@
 								<c:if test="${fv.mem_no!=null}">
 
 								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${fv.mem_no}" class="center-block img-circle img-responsive">
-								<p class="text-center">${fv.lastname}${fv.firstname}</p>
+								<p class="text-center">${fv.memVO.lastname}${fv.memVO.firstname}</p>
 							</c:if>
 					
 						<c:if test="${fv.mem_no==null}">

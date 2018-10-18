@@ -156,23 +156,6 @@
 
 							
 						
-						<div class="form-group">
-							<div class="col-sm-2">
-								<label for="inputEmail3" class="control-label">影評來源</label>
-							</div>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEmail3" name="source" value="<%=(filmreviewVO == null) ? "影評來源" : filmreviewVO.getSource()%>" placeholder="影評來源">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-2">
-								<label for="inputPassword3" class="control-label">影評網址</label>
-							</div>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="inputEmail3" name="url" value="<%=(filmreviewVO == null) ? "影評網址" : filmreviewVO.getUrl()%>" placeholder="影評網址">
-							</div>
-						</div>
-
 						<div class="col-md-12 text-center">
 						
 							<input type="hidden" name="fr_no" value="<%= request.getParameter("fr_no") %>">
