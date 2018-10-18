@@ -90,6 +90,17 @@
 	margin-right: 8px;
 }
 
+.container-btnp {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
 .btnp {
 	font-family: Ubuntu-Bold;
 	font-size: 18px;
@@ -118,9 +129,34 @@
 	-o-transition: all 0.4s;
 	-moz-transition: all 0.4s;
 	transition: all 0.4s;
-	position: absolute;
-	right: 10px;
 }
+
+.btnp::before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	border-radius: 21px;
+	background-color: #555555;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+}
+
+.btnp:hover {
+	background-color: transparent;
+}
+
+.btnp:hover:before {
+	opacity: 1;
+}
+
 
 .style-seven {
 	height: 30px;
@@ -238,20 +274,37 @@ a {
 							</tr>
 							
 						</table>
-							<button class="btnp" type="submit">修改</button>
-							<br/><br/><br>
-							<a href="<%=request.getContextPath()%>/forestage/member/ones_orderlist.jsp">
-								<button type="button" class="btnp">查詢訂單</button>
-							</a>
+							<button style="float: right;" class="btnp" type="submit">修改</button>
+									
+						
 					</div>
-					</div>
-			</form>
-<%-- 			<%@ include file="/forestage/member/TicketOrderlist.jsp"%> --%>
-			<div class="col-md-11 text-right">
-				<hr class="style-seven">
 					
-			</div>
-			
+					<div class="row">
+						<div class="col-md-12">					
+							<hr class="style-seven">
+						</div>
+						<div class="col-md-5"></div>
+						<div class="col-md-7">
+								<a href="<%=request.getContextPath()%>/forestage/member/ones_orderlist.jsp">
+									<button style="float: right;" type="button" class="btnp">查詢訂單</button>
+								</a>
+									<br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">					
+							<hr class="style-seven">
+						</div>
+						<div class="col-md-5"></div>
+						<div class="col-md-7">	
+								<a href="<%=request.getContextPath()%>/forestage/Management_tracking/Management_tracking.jsp">
+									<button style="float: right;" type="button" class="btnp">電影收藏</button>
+								</a>
+						</div>
+					</div>
+				</div>
+			</form>
+
 
 			<%@ include file="/forestage/template/footer.jsp"%>
 		</div>
