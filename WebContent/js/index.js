@@ -156,4 +156,25 @@ $(document).ready(function(){
         }
     });
 
+    $(".anc-con").each(function() {
+        console.log($(this).text());
+        let content = $(this).text();
+        //https://stackoverflow.com/questions/27464393/how-to-automatically-replace-n-with-br-in-the-current-document-text-as-oppo
+        content = content.replace(/(?:\n\r|\r\n|\r|\n)/g,"<br />");
+        console.log(content);
+        $(this).empty();
+        $(this).append(content);
+        /*
+        var maxwidth = 15;
+        //console.log($(this).text().trim());
+        if($(this).text().trim().length > maxwidth) {
+            let content = $(this).text();
+            //$(this).text($(this).text().trim().substring(0, maxwidth) + '...');
+            $(this).empty();
+            $(this).append(content);
+            //console.log($(this).text());
+        }
+        */
+    });
+
 });

@@ -5,6 +5,7 @@
 <%@ page import="com.filmreview.model.*"%>
 <%@ page import="com.boxoffice.model.*"%>
 <%@ page import="com.activity.model.*"%>
+<%@ page import="com.announcement.model.*"%>
 <%
     MovieService mSvc = new MovieService();
     List<MovieVO> mList = mSvc.getNow();
@@ -32,6 +33,10 @@
     ActivityService actSvc = new ActivityService();
     List<ActivityVO> actList = actSvc.getAll();
     pageContext.setAttribute("actList", actList);
+
+    AnnouncementService annSvc = new AnnouncementService();
+    List<AnnouncementVO> annList = annSvc.getAll();
+    pageContext.setAttribute("annList", annList);
 %>
 <!doctype html>
 <html>
@@ -56,7 +61,9 @@
                     <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                     </span>
                     <p class="announcement t-custom">公告!</p>
-                    <p class="announcement">提醒您：7/11（三）全台影城正常營業，如有於颱風期間7/10（二）相關退票退款事宜請點選首頁颱風公告圖或至ez訂fb粉絲團了解詳情，謝謝。<br>國泰世華紅利訂票系統維護中，暫時無法訂票，造成您的不便敬請見諒，謝謝！<br>配合美麗華大直影城營運公告，6/22(五)起將暫停【美麗華大直】訂票服務，造成您的不便敬請見諒，謝謝！<br>【ez訂絕對不會叫您去操作ATM】近期常有詐騙集團假冒ez訂客服/會計人員/影城工作人員來電（號碼開頭有+或竄改來電號碼顯示），告知您訂單錯誤（設定為「多筆訂單」、「分期付款」等），再冒充金融機構人員要求您至自動櫃員機（ATM）操作以解除錯誤設定，這是詐騙，請小心勿受騙！如有訂單疑問，可撥打ez訂客服專線02-8912-6600，謝謝</p>
+                    <c:forEach var="annVO" items="${annList}" varStatus="s" begin="<%=0%>" end="<%=annList.size()-1%>">
+                        <p class="announcement anc-con">${annVO.anc_con}</p><br />
+                    </c:forEach>
                 </div>
             </div>
         </div>

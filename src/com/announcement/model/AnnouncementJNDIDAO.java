@@ -3,6 +3,7 @@ package com.announcement.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class AnnouncementJNDIDAO implements AnnouncementDAO_interface {
 	// private Integer active;
 
 	private static final String INSERT = "INSERT INTO ANNOUNCEMENT (ANC_NO,ANC_CON,BACKSTAGE_NO,CREATED_AT,UPDATED_AT,ACTIVE)"
-			+ "VALUES ('A'||LPAD(ANNOUNCEMENT_SEQ.NEXTVAL,4,'0'),?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0)";
+			+ "VALUES ('A'||LPAD(ANNOUNCEMENT_SEQ.NEXTVAL,4,'0'),?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1)";
 	private static final String UPDATE = "UPDATE ANNOUNCEMENT SET " + "ANC_CON=?," + "UPDATED_AT=CURRENT_TIMESTAMP," + "ACTIVE=? "
 			+ "WHERE ANC_NO=?";
 	private static final String DELETE = "DELETE FROM ANNOUNCEMENT WHERE ANC_NO=?";
@@ -256,5 +257,59 @@ public class AnnouncementJNDIDAO implements AnnouncementDAO_interface {
 		}
 		return list;
 	}
+
+    @Override
+    public String insertReturnAncNo(AnnouncementVO newanc) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String anc_no = null;
+        try {
+            conn = ds.getConnection();
+            String[] cols = { "ANC_NO" }; // 或 int cols[] = {1};
+            pstmt = conn.prepareStatement(INSERT, cols);
+
+            pstmt.setString(1, newanc.getAnc_con());
+            pstmt.setString(2, newanc.getBackstage_no());
+            // pstmt.setInt(3, newanc.getActive());
+
+            pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            if (rs.next()) {
+                do {
+                    for (int i = 1; i <= columnCount; i++) {
+                        anc_no = rs.getString(i);
+                        // System.out.println("自增主鍵值 = " + theater_no);
+                    }
+                } while (rs.next());
+            } else {
+                System.out.println("NO KEYS WERE GENERATED.");
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("A database error occurred. " + e.getMessage());
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return anc_no;
+    }
 
 }

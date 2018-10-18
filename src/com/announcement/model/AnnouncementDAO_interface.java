@@ -6,6 +6,8 @@ public interface AnnouncementDAO_interface {
 
 	public void insert(AnnouncementVO newanc);
 
+	public String insertReturnAncNo(AnnouncementVO newanc);
+
 	public void update(AnnouncementVO ancmod);
 
 	public void delete(String anc_no);
