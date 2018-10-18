@@ -245,7 +245,7 @@ input[type=submit]:hover {
 							<c:if test="${fvm.mem_no==memVO.memno}">
 
 								<img src="<%=request.getContextPath() %>/DBGifReaderMem?memno=${memVO.memno}" class="center-block img-circle img-responsive" style="height: 44px;">
-								<p class="text-center">${memVO.firstname}${memVO.lastname}</p>
+								<p class="text-center">${memVO.lastname}${memVO.firstname}</p>
 							</c:if>
 						</c:forEach>
 

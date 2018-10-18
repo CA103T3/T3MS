@@ -144,12 +144,10 @@ transform: translateY(50%);
       <div class="container" style="background-color:white;">
         <div class="row">
           <div class="col-md-1">
-						<c:forEach var="mvVO" items="${mvSvc.all}">
-							<c:if test="${FilmreviewVO.movie_no==mvVO.movie_no}">
-								<a href="#"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${mvVO.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
+						
+								<a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_One2.jsp?${FilmreviewVO.movie_no}"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${FilmreviewVO.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
 								</a>
-							</c:if>
-						</c:forEach>
+							
 					</div>
           <div class="col-md-5">
             <h2>${FilmreviewVO.title}</h2>

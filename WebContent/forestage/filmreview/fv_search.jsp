@@ -159,7 +159,7 @@
 
 					<div class="col-md-1">
 					
-								<a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_One.jsp?${fv.movie_no}"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${fv.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
+								<a href="<%=request.getContextPath()%>/forestage/movie_moment/moment_One2.jsp?${fv.movie_no}"> <img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${fv.movie_no}" class="center-block img-circle img-responsive" style="border-radius: 1%;">
 								</a>
 						
 					</div>

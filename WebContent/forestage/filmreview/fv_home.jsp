@@ -187,7 +187,7 @@
 
 					<div class="col-md-1" >
 					
-								<a href="<%=request.getContextPath() %>/forestage/movie_moment/moment_One.jsp?${FilmreviewVO.movie_no}"> 
+								<a href="<%=request.getContextPath() %>/forestage/movie_moment/moment_One2.jsp?${FilmreviewVO.movie_no}"> 
 								<img src="<%=request.getContextPath() %>/DBGifReader?movie_no=${FilmreviewVO.movie_no}" class="center-block img-circle img-responsive " style="border-radius: 1%;">
 								</a>
 							
