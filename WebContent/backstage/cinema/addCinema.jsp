@@ -41,7 +41,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">影城名稱</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="cinema_name" value="<%= (cinemaVO==null) ? "" : cinemaVO.getCinema_name() %>" >
+                        <input class="form-control" id="cinema_name" type="text" name="cinema_name" value="<%= (cinemaVO==null) ? "" : cinemaVO.getCinema_name() %>" >
                       </div>
                       <div class="col-md-4">
                       </div>
@@ -49,7 +49,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">影城英文名稱</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="cinema_engname" value="<%= (cinemaVO==null) ? "" : cinemaVO.getCinema_engname() %>" >
+                        <input class="form-control" id="cinema_engname" type="text" name="cinema_engname" value="<%= (cinemaVO==null) ? "" : cinemaVO.getCinema_engname() %>" >
                       </div>
                       <div class="col-md-4">
                       </div>
@@ -57,7 +57,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">影城地址</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="cinema_address" value="<%= (cinemaVO==null) ? "" : cinemaVO.getCinema_address() %>" >
+                        <input class="form-control" id="cinema_address" type="text" name="cinema_address" value="<%= (cinemaVO==null) ? "" : cinemaVO.getCinema_address() %>" >
                       </div>
                       <div class="col-md-4">
                       </div>
@@ -65,7 +65,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">服務專線</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="cinema_tel" value="<%= (cinemaVO==null) ? "" : cinemaVO.getCinema_tel() %>" >
+                        <input class="form-control" id="cinema_tel" type="text" name="cinema_tel" value="<%= (cinemaVO==null) ? "" : cinemaVO.getCinema_tel() %>" >
                       </div>
                       <div class="col-md-4">
                       </div>
@@ -73,7 +73,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">圖片名稱</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="photo_title" value="<%= (cinemaVO==null) ? "" : cinemaVO.getPhoto_title() %>" >
+                        <input class="form-control" id="photo_title" type="text" name="photo_title" value="<%= (cinemaVO==null) ? "" : cinemaVO.getPhoto_title() %>" >
                       </div>
                       <div class="col-md-4">
                       </div>
@@ -116,6 +116,7 @@
                     <div class="form-group text-center">
                       <input type="hidden" name="action" value="insert">
                       <button class="btn btn-primary fs16" id="smtbtn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;送出</button>
+                      <button class="btn btn-success fs16" id="btn-data" type="button">資料鍵</button>
                     </div>
                 </form>
 
@@ -312,6 +313,28 @@
         $('.toggleswitch').bootstrapToggle({
             on: '是',
             off: '否'
+        });
+
+        $('#btn-data').on("click", function() {
+            $("#cinema_name").val("中壢影城");
+            $("#cinema_engname").val("Zhongli Cinema");
+            $("#cinema_address").val("桃園市中壢區元化路357號");
+            $("#cinema_tel").val("(03)422-7000");
+            $("#photo_title").val("Zhongli-Cinema");
+            let cinema_traffic = "中壢客運" +
+               "170 中壢←→高鐵桃園站\n" +
+               "桃園客運\n" +
+               "5087 中壢←→大園\n" +
+               "5089 中壢←→桃園機場\n" +
+               "118 中壢←→中壢高中\n" +
+               "135 中壢←→內壢高中\n" +
+               "171 中壢←→高鐵桃園站\n" +
+               "開車路線\n" +
+               "請沿新生路往元化路方向行駛";
+            $("#traffic").val(cinema_traffic);
+			      let introduction = "大廳採簡約優雅的寬敞空間設計，並增加休憩的CAFÉ BAR，給桃竹苗地區的大居民們感受休閒樂活的新生活氣象！這裡絕對是所有影迷的第二個「家」，隨處可見影城貼心設計，符合影迷們的消費模式。" +
+                "其中數位IMAX影廳可容納近300多人的座位，乃桃竹苗地區打造的首座擁有商用數位IMAX放映設備的影城，巨大弧形銀幕造完美觀影包覆感，不論坐在影廳內任何角落的觀眾，都能完全融入電影情境中，感受身置電影場景的震撼體驗！";
+            $("#introduction").val(introduction);
         });
 
       });

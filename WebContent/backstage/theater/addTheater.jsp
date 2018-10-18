@@ -67,7 +67,7 @@
                     <div class="form-group">
                       <label class="col-md-5 control-label">影廳名稱</label>
                       <div class="col-md-3">
-                        <input class="form-control" id="" type="text" name="theater_name" value="<%= (theaterVO==null) ? "" : theaterVO.getTheater_name() %>" >
+                        <input class="form-control" id="theater_name" type="text" name="theater_name" value="<%= (theaterVO==null) ? "" : theaterVO.getTheater_name() %>" >
                       </div>
                       <div class="col-md-4">
                       </div>
@@ -150,6 +150,7 @@
                     <div class="form-group text-center">
                       <input type="hidden" name="action" value="insert">
                       <button class="btn btn-basic fs16" id="smtbtn" type="submit" disabled><i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;送出</button>
+                      <button class="btn btn-success fs16" id="btn-data" type="button">資料鍵</button>
                     </div>
                 </form>
 
@@ -320,6 +321,10 @@
                 let model = ${strModel};
                 gen_seat_theater(row, col, model);
             </c:if>
+
+            $('#btn-data').on("click", function() {
+                $("#theater_name").val("GOLD 頂級影廳");
+            });
 
         });
     </script>
