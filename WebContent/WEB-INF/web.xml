@@ -262,4 +262,22 @@
     <servlet-name>ServletLogoutA</servlet-name>
     <url-pattern>/account/logout.do</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>Movie_Trace_ListServlet</servlet-name>
+    <servlet-class>com.movie_trace_list.controller.Movie_Trace_ListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Movie_Trace_ListServlet</servlet-name>
+    <url-pattern>/forestage/Movie_Trace_List.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>getPHOTO</servlet-name>
+    <servlet-class>com.movie_trace_list.controller.getPHOTO</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getPHOTO</servlet-name>
+    <url-pattern>/getPHOTO.do</url-pattern>
+  </servlet-mapping>
 </web-app>
