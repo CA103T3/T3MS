@@ -113,10 +113,10 @@ public class EzdingCrawlerServlet extends HttpServlet {
             app.run();
         }
         */
-        /*
+        
         //for comming movie
         driver.get(targetUrl);
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        //WebDriverWait wait = new WebDriverWait(driver, 5);
         EzdingCrawler.waitLoadingElement(wait, "div[class='post']");
         WebElement comingDiv = driver.findElement(By.cssSelector("div.btn2"));
         comingDiv.click(); //click coming movie
@@ -159,7 +159,7 @@ public class EzdingCrawlerServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        */
+        
         /*
         //Thread tForComing = new Thread(new EzdingCrawler(0, true)); //for coming movie
         EzdingCrawler crawlerForComing = new EzdingCrawler(0, true);

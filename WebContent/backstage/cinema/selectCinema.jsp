@@ -29,7 +29,17 @@
         <div class="flex-column" id="page-content-wrapper">
             <div class="container">
                 <h3 class="page-header"><label>請選擇影城</label></h3>
-                <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp">
+                <form class="form-horizontal" method="post" 
+                    <c:if test="${param.target.equals('theater')}" >
+                        action="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp"
+                    </c:if>
+                    <c:if test="${param.target.equals('session')}" >
+                        action="<%=request.getContextPath()%>/backstage/session/listAllSession.jsp"
+                    </c:if>
+                    <c:if test="${param.target.equals('ticketType')}" >
+                        action="<%=request.getContextPath()%>/backstage/ticketType/listAllTicketType.jsp"
+                    </c:if>
+                >
                     <div class="form-group">
                       <label class="col-md-5 control-label">影城名稱</label>
                       <div class="col-md-3">

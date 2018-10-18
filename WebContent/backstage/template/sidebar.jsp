@@ -1,26 +1,30 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*" %>
 <%@ page import="com.account.model.*"%>
 <%@ page import="com.permission.model.*"%>
-
+<%@ page import="com.role.model.*"%>
 
 
 <%
 PermissionService ppSvc = new PermissionService();
 AccountVO aVO0 = (AccountVO)session.getAttribute("aVO");
 List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
+//pageContext.setAttribute("aVO0", aVO0);
 
+RoleService roleSvc = new RoleService();
+RoleVO roleVO = roleSvc.findbyno(aVO0.getRole_no());
+pageContext.setAttribute("roleVO", roleVO);
 %>
         <!-- sidebar -->
         <div class="navbar sidebar-hidden collapse in" id="sidebar-wrapper">
             <ul class="nav sidebar">
                 <!-- 檢舉管理 側邊折疊 -->
-                <c:if test='<%=sidelist.contains("N001")||sidelist.contains("N002") %>'>   
+                <c:if test='<%=sidelist.contains("N001")||sidelist.contains("N002") %>'>
                 <li>
                     <a href="#sub1" data-toggle="collapse">檢舉管理
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub1" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N002") %>'>   
+                        <c:if test='<%=sidelist.contains("N002") %>'>
                         <li>
                             <a href="<%=request.getContextPath()%>/backstage/reportMsg/reportMsg_list.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影評留言管理</a>
@@ -38,7 +42,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub2" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N004") %>'> 
+                        <c:if test='<%=sidelist.contains("N004") %>'>
                         <li>
                             <a href="<%=request.getContextPath()%>/backstage/member/becomeFilmCriticism.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影評資格審核</a>
@@ -62,7 +66,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub3" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N007") %>'>
+                        <c:if test='<%=sidelist.contains("N007") %>'>
                         <li>
                             <a href="<%=request.getContextPath()%>/backstage/staff/backstage_insert.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;新增帳號</a>
@@ -91,7 +95,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
             
                 </c:if>
                 <!-- 後台帳號管理 側邊折疊 -->
-				
+
                 <!-- 後台角色管理 側邊折疊 -->
                 <c:if test='<%=sidelist.contains("N011")||sidelist.contains("N012")||sidelist.contains("N013")||sidelist.contains("N014") %>'>          
                 <li>
@@ -99,7 +103,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub4" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N012") %>'>
+                        <c:if test='<%=sidelist.contains("N012") %>'>
                         <li>
                             <a href="<%=request.getContextPath()%>/backstage/role/role_insert.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;新增角色/權限</a>
@@ -129,7 +133,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub5" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N016") %>'>
+                        <c:if test='<%=sidelist.contains("N016") %>'>
                         <li>
                             <a href="<%=request.getContextPath()%>/backstage/cinema/listAllCinema.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影城</a>
@@ -137,19 +141,34 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         </c:if>
                         <c:if test='<%=sidelist.contains("N017") %>'>
                         <li>
-                            <a href="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp?cinema_no=C001">
+                            <c:if test="${roleVO.br_name.equals('Admin')}" >
+                                <a href="<%=request.getContextPath()%>/backstage/cinema/selectCinema.jsp?target=theater">
+                            </c:if>
+                            <c:if test="${roleVO.br_name.equals('Cinema')}" >
+                                <a href="<%=request.getContextPath()%>/backstage/theater/listAllTheater.jsp?cinema_no=${aVO.cinema_no}">
+                            </c:if>
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;影廳</a>
                         </li>
                         </c:if>
                         <c:if test='<%=sidelist.contains("N018") %>'>
                         <li>
-                            <a href="<%=request.getContextPath()%>/backstage/session/listAllSession.jsp?cinema_no=C001">
+                            <c:if test="${roleVO.br_name.equals('Admin')}" >
+                                <a href="<%=request.getContextPath()%>/backstage/cinema/selectCinema.jsp?target=session">
+                            </c:if>
+                            <c:if test="${roleVO.br_name.equals('Cinema')}" >
+                                <a href="<%=request.getContextPath()%>/backstage/session/listAllSession.jsp?cinema_no=${aVO.cinema_no}">
+                            </c:if>
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;電影場次</a>
                         </li>
                         </c:if>
                         <c:if test='<%=sidelist.contains("N019") %>'>
                         <li>
-                            <a href="<%=request.getContextPath()%>/backstage/ticketType/listAllTicketType.jsp?cinema_no=C001">
+                            <c:if test="${roleVO.br_name.equals('Admin')}" >
+                                <a href="<%=request.getContextPath()%>/backstage/cinema/selectCinema.jsp?target=ticketType">
+                            </c:if>
+                            <c:if test="${roleVO.br_name.equals('Cinema')}" >
+                                <a href="<%=request.getContextPath()%>/backstage/ticketType/listAllTicketType.jsp?cinema_no=${aVO.cinema_no}">
+                            </c:if>
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;票種/票價</a>
                         </li>
                         </c:if>
@@ -165,7 +184,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub6" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N021") %>'>
+                        <c:if test='<%=sidelist.contains("N021") %>'>
                         <li>
                             <a href="<%=request.getContextPath()%>/backstage/movie/movie_List.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;電影管理</a>
@@ -201,7 +220,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub7" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N026") %>'>
+                        <c:if test='<%=sidelist.contains("N026") %>'>
                         <li>
                             <a href="#">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;查詢場次訂票狀況</a>
@@ -225,7 +244,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub8" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N029") %>'>
+                        <c:if test='<%=sidelist.contains("N029") %>'>
                         <li>
                             <a href="<%=request.getContextPath()%>/backstage/announcement/listAnnouncement.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;公告管理</a>
@@ -249,7 +268,7 @@ List<String> sidelist = ppSvc.getOnesP(aVO0.getRole_no());
                         <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </a>
                     <ul id="sub9" class="nav collapse">
-                    	<c:if test='<%=sidelist.contains("N032") %>'>
+                        <c:if test='<%=sidelist.contains("N032") %>'>
                         <li>
                             <a href="<%=request.getContextPath()%>/backstage/service_BackChat/chatServer.jsp">
                                 <span class="glyphicon glyphicon-list-alt"></span>&nbsp;即時客服聊天室</a>

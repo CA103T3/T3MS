@@ -236,7 +236,6 @@
     <servlet-name>RoleServlet</servlet-name>
     <url-pattern>/backstage/role/Role.do</url-pattern>
   </servlet-mapping>
-
   <filter>
     <filter-name>Back_accountFilter</filter-name>
     <filter-class>com.common.filter.Back_accountFilter</filter-class>
@@ -245,8 +244,17 @@
     <filter-name>Back_accountFilter</filter-name>
     <url-pattern>/backstage/*</url-pattern>
   </filter-mapping>
-  
-    <servlet>
+  <filter>
+    <filter-name>CinemaFilter</filter-name>
+    <filter-class>com.common.filter.CinemaFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CinemaFilter</filter-name>
+    <url-pattern>/backstage/theater/*</url-pattern>
+    <url-pattern>/backstage/session/*</url-pattern>
+    <url-pattern>/backstage/ticketType/*</url-pattern>
+  </filter-mapping>
+  <servlet>
     <servlet-name>ServletLogoutA</servlet-name>
     <servlet-class>com.account.controller.ServletLogoutA</servlet-class>
   </servlet>
@@ -254,6 +262,4 @@
     <servlet-name>ServletLogoutA</servlet-name>
     <url-pattern>/account/logout.do</url-pattern>
   </servlet-mapping>
-  
-
 </web-app>
