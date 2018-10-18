@@ -4,6 +4,7 @@
 <%@ page import="com.movie_introduce.model.*"%>
 <%@ page import="com.filmreview.model.*"%>
 <%@ page import="com.boxoffice.model.*"%>
+<%@ page import="com.activity.model.*"%>
 <%
     MovieService mSvc = new MovieService();
     List<MovieVO> mList = mSvc.getNow();
@@ -27,6 +28,10 @@
     pageContext.setAttribute("list_us", list_us);
     java.sql.Date stat_us = list_us.get(0).getStatistics();
     pageContext.setAttribute("stat_us", stat_us);
+
+    ActivityService actSvc = new ActivityService();
+    List<ActivityVO> actList = actSvc.getAll();
+    pageContext.setAttribute("actList", actList);
 %>
 <!doctype html>
 <html>
@@ -76,22 +81,27 @@
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <c:forEach var="actVO" items="${actList}" varStatus="s" begin="<%=0%>" end="<%=actList.size()-1%>">
+                        <li data-target="#myCarousel" data-slide-to="${s.index}" class='${(s.index==0) ? "active" : "" }'></li>
+<!--                         <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li> -->
+                    </c:forEach>
                 </ol>
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <div class="item active">
-                        <img class="img-custom" src="/T3MS/img/homepage_20180730001.jpg" alt="iShow儲值金消費多元平台">
-                        <div class="carousel-caption">
-                          <h3>iShow</h3>
-                          <p class="font-custom">iShow儲值金消費多元平台</p>
+                    <c:forEach var="actVO" items="${actList}" varStatus="s" begin="<%=0%>" end="<%=actList.size()-1%>">
+                        <div class='item ${(s.index==0) ? "active" : "" }'>
+                            <a href="${actVO.activity_url}" target="_blank">
+                                <img class="img-custom" src="<%=request.getContextPath() %>/DBGifReaderAct?activity_no=${actVO.activity_no}" alt="${actVO.activity_name}">
+                                <div class="carousel-caption">
+                                  <h3>${actVO.activity_name}</h3>
+                                  <p class="font-custom act-desc">${actVO.activity_desc}</p>
+                                </div>
+                            </a>
                         </div>
-                    </div>
-
-                    <div class="item">
+                    </c:forEach>
+<!--                     <div class="item">
                         <img class="img-custom" src="/T3MS/img/homepage_20180801002.jpg" alt="《全台七夕活動》">
                         <div class="carousel-caption">
                           <h3>《全台七夕活動》</h3>
@@ -105,11 +115,11 @@
                           <h3>New York</h3>
                           <p class="font-custom">We love the Big Apple!</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Left and right controls -->
-                <!--
+
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                     <span class="sr-only">Previous</span>
@@ -118,7 +128,7 @@
                     <span class="glyphicon glyphicon-chevron-right"></span>
                     <span class="sr-only">Next</span>
                 </a>
-                -->
+
             </div>
         </div>
         <%@ include file="/forestage/template/search_bar.jsp" %>

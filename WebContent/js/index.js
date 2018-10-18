@@ -144,4 +144,16 @@ $(document).ready(function(){
         }
     });
 
+    $(".act-desc").each(function() {
+        var maxwidth = 15;
+        //console.log($(this).text().trim());
+        if($(this).text().trim().length > maxwidth) {
+            let content = $(this).text().trim().substring(0, maxwidth) + '...';
+            //$(this).text($(this).text().trim().substring(0, maxwidth) + '...');
+            $(this).empty();
+            $(this).append(content);
+            //console.log($(this).text());
+        }
+    });
+
 });
