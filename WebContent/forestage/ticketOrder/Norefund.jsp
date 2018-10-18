@@ -19,7 +19,7 @@
         <%@ include file="/forestage/template/search_bar.jsp" %>
 
         <div class="container text-center" style="color: #ffffff;font-size: 20px;">
-        	<img src="<%=request.getContextPath() %>/img/norefund.png"/>
+        	<img src="<%=request.getContextPath() %>/img/SystemBusy.png"/>
         </div>
         
         <div class="col-sm-12 text-center" style="font-size:20px;margin-top:20px;">

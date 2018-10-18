@@ -36,9 +36,17 @@
 	MovieService movieSvc = new MovieService();
 	SessionVO sessionVO = sessionSvc.getOneSession(session_no);
 	String theater_no = sessionVO.getTheater_no(); //影廳編號
-
-	TypeVO typeVO = TypeSvc.getOneTypeByTheaterNo(theater_no);
-	String type_no = typeVO.getType_no();
+	System.out.println("theater_no="+theater_no);
+	TypeVO typeVO = null;
+	String type_no = null;
+	
+	try{
+		typeVO = TypeSvc.getOneTypeByTheaterNo(theater_no);
+		type_no = typeVO.getType_no();
+		
+	} catch(Exception e){
+		request.getRequestDispatcher("/forestage/ticketOrder/Norefund.jsp").forward(request, response);
+	}
 
 	//取得電影資訊  movieVO.getMovie_name();
 	String movie_no = sessionVO.getMovie_no();
