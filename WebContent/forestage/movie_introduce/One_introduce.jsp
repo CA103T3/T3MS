@@ -96,58 +96,7 @@ a {color: #ff54a7;}
 				</div>
 				
 				
-				<!-- down -->
-				<div class="container">
-	                 <div class="row">
-	               
-	                 	<div class="col-md-4 movie_rank">
-	                 	 <div class="panel panel-info panel-custom">
-                    		<div class="panel-heading text-center">全美週末票房排行榜<br>2018-07-06</div>
-                   			 <div class="panel-body">
-                       			 <div class="rank_list">
-                       			 
-	                            <ul class="hover-custom">
-	                                <li><a href="#">蟻人與黃蜂女</a></li>
-	                                <li><a href="#">侏羅紀世界：殞落國度</a></li>
-	                                <li><a href="#">超人特攻隊2</a></li>
-	                                <li><a href="#">殺戮元年</a></li>
-	                                <li><a href="#">怒火邊界2：毒刑者</a></li>
-	                                <li><a href="#">德魯大叔</a></li>
-	                                <li><a href="#">瞞天過海：八面玲瓏</a></li>
-	                                <li><a href="#">貼背戰</a></li>
-	                                <li><a href="#">願與我為鄰？</a></li>
-	                                <li><a href="#">死侍2</a></li>
-	                            </ul>
-		                        </div>
-		                    </div>
-		                </div>		                
-	                 	</div>
-	                 	
-	                 	<div class="col-md-4 movie_rank">
-			                 	  <div class="panel panel-info panel-custom">
-				                    <div class="panel-heading text-center">台北週末票房排行榜<br>2018-07-06</div>
-				                    <div class="panel-body">
-				                        <div class="rank_list">
-				                      <ul class="hover-custom">
-		                                <li><a href="#">蟻人與黃蜂女</a></li>
-		                                <li><a href="#">侏羅紀世界：殞落國度</a></li>
-		                                <li><a href="#">超人特攻隊2</a></li>
-		                                <li><a href="#">殺戮元年</a></li>
-		                                <li><a href="#">怒火邊界2：毒刑者</a></li>
-		                                <li><a href="#">德魯大叔</a></li>
-		                                <li><a href="#">瞞天過海：八面玲瓏</a></li>
-		                                <li><a href="#">貼背戰</a></li>
-		                                <li><a href="#">願與我為鄰？</a></li>
-		                                <li><a href="#">死侍2</a></li>
-		                            </ul>
-		                        </div>
-		                    </div>
-		                </div>
-	                 	
-	                 	</div>
-					 </div>       
-				</div>              
-            
+			
         </div>       
 		</div>
 		</div>

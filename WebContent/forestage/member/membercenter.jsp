@@ -130,7 +130,35 @@
 	-moz-transition: all 0.4s;
 	transition: all 0.4s;
 }
-
+.btnl {
+	font-family: Ubuntu-Bold;
+	font-size: 18px;
+	color: #fff;
+	line-height: 1.2;
+	text-transform: uppercase;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 20px;
+	min-width: 160px;
+	height: 42px;
+	border-radius: 21px;
+	background: #d41872;
+	background: -webkit-linear-gradient(left, #fa4299, #d41872, #a445b2);
+	background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
+	background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
+	background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+	position: relative;
+	z-index: 1;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+}
 .btnp::before {
 	content: "";
 	display: block;
@@ -274,34 +302,18 @@ a {
 							</tr>
 							
 						</table>
-							<button style="float: right;" class="btnp" type="submit">修改</button>
+							<button style="float: right;" class="btnp" type="submit" style="margin-left:15px !important; ">修改</button>
+								<a href="<%=request.getContextPath()%>/forestage/member/ones_orderlist.jsp">
+									<button style="float: right;" type="button" class="btnl" style="margin-right: 15px;">查詢訂單</button>
+								</a>
+								<a href="<%=request.getContextPath()%>/forestage/Management_tracking/Management_tracking.jsp">
+									<button style="float: right;" type="button" class="btnl">電影收藏</button>
+								</a>
 									
 						
 					</div>
 					
-					<div class="row">
-						<div class="col-md-12">					
-							<hr class="style-seven">
-						</div>
-						<div class="col-md-5"></div>
-						<div class="col-md-7">
-								<a href="<%=request.getContextPath()%>/forestage/member/ones_orderlist.jsp">
-									<button style="float: right;" type="button" class="btnp">查詢訂單</button>
-								</a>
-									<br>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">					
-							<hr class="style-seven">
-						</div>
-						<div class="col-md-5"></div>
-						<div class="col-md-7">	
-								<a href="<%=request.getContextPath()%>/forestage/Management_tracking/Management_tracking.jsp">
-									<button style="float: right;" type="button" class="btnp">電影收藏</button>
-								</a>
-						</div>
-					</div>
+				
 				</div>
 			</form>
 
