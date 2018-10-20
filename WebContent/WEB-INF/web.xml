@@ -205,14 +205,6 @@
     <url-pattern>/report_filmreview_msgServlet/report_filmreview_msgServlet.do</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>Account_BackstageServlet</servlet-name>
-    <servlet-class>com.account_backstage.controller.Account_BackstageServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Account_BackstageServlet</servlet-name>
-    <url-pattern>/backstage/account_backstage/account_backstageServlet.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>MomentServlet</servlet-name>
     <servlet-class>com.session.controller.MomentServlet</servlet-class>
   </servlet>

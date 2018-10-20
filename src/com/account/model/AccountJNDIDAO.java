@@ -18,10 +18,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.account_backstage.model.Account_BackstageVO;
-import com.role_permission_bs.model.Role_Permission_BsJNDIDAO;
-import com.role_permission_bs.model.Role_Permission_BsVO;
-
 public class AccountJNDIDAO implements AccountDAO_interface{
 	
 		private static DataSource ds = null;

@@ -3,10 +3,6 @@ package com.account.model;
 import java.sql.Timestamp;
 import java.util.*;
 
-import com.account_backstage.model.Account_BackstageVO;
-import com.role_permission_bs.model.Role_Permission_BsVO;
-
-
 public interface AccountDAO_interface {
 	public String insert(AccountVO account_BackstageVO);
 	public void update(AccountVO account_BackstageVO);
