@@ -146,7 +146,7 @@ public class Ticket_DetailJNDIDAO implements Ticket_DetailDAO_Interface {
 			pstmt = conn.prepareStatement(DELETE_ONE_TICKETORDER_STMT);
 			pstmt.setString(1, uuid);
 			pstmt.executeUpdate();
-			conn.commit();
+			
 			System.out.println("deleteOneTicketOrder OK");
 		} catch (SQLException e) {
 			try {
