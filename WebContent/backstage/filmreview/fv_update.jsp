@@ -22,8 +22,12 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/addTheater.css">
     <style type="text/css">
     </style>
+    <!--
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    -->
+    <link href="<%=request.getContextPath()%>/css/summernote.css" rel="stylesheet">
+    <script src="<%=request.getContextPath()%>/js/summernote.js"></script>
 </head>
 
 <body class="fs16">
@@ -102,8 +106,8 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                       </div>
                       <div class="col-md-12">
                         <textarea id="summernote" name="content" >
-							<%=(filmreviewVO == null) ? "" : filmreviewVO.getContent()%>
-						</textarea>
+                            <%=(filmreviewVO == null) ? "" : filmreviewVO.getContent()%>
+                        </textarea>
                       
                       </div>
                     </div>
@@ -149,11 +153,11 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
                    
                    
                   <div class="col-md-12 text-center">
-							<input type="hidden" name="mem_no" value="${filmreviewVO.mem_no}">
-							<input type="hidden" name="action" value="update">
-							<input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
-							<button type="submit" class="btn btn-default">發佈</button>
-						</div>
+                            <input type="hidden" name="mem_no" value="${filmreviewVO.mem_no}">
+                            <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="requestURL" value="<%=request.getServletPath()+"?"+request.getQueryString()%>">
+                            <button type="submit" class="btn btn-default">發佈</button>
+                        </div>
                 </form>
 
             </div>
@@ -161,7 +165,7 @@ FilmreviewVO filmreviewVO = (FilmreviewVO) request.getAttribute("filmreviewVO");
     </div>
 <script>
   $(document).ready(function() {
-			$('#summernote').summernote();});
+            $('#summernote').summernote();});
   </script>
     <script src="<%=request.getContextPath()+"/js/back_index.js"%>"></script>
     <script type="text/javascript">

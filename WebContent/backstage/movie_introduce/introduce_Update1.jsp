@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	import="java.util.*"%>
+    import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.movie_introduce.model.*"%>
 <%@ page import="com.movie.model.*"%>
@@ -22,10 +22,10 @@
 <%@ include file="/backstage/template/link.jsp"%>
 
 <!-- movie_back_movie CSS -->
-<link href="/css/movie_back_movie.css" rel="stylesheet" type="text/css">
+<!-- <link href="<%=request.getContextPath()%>/css/movie_back_movie.css" rel="stylesheet" type="text/css"> -->
 <!-- summernote CSS -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-	
+<!-- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> -->
+<!-- <link href="<%=request.getContextPath()%>/css/summernote.css" rel="stylesheet"> -->
 <style type="text/css">
 
 textarea{
@@ -38,149 +38,150 @@ margin-top: 10px;
 </head>
 
 <body class="fs16" ata-spy="scroll">
-	<%@ include file="/backstage/template/header.jsp"%>
-	<div id="wrapper" class="mt50">
-		<%@ include file="/backstage/template/sidebar.jsp"%>
-		<div class="flex-column" id="page-content-wrapper">
+    <%@ include file="/backstage/template/header.jsp"%>
+    <div id="wrapper" class="mt50">
+        <%@ include file="/backstage/template/sidebar.jsp"%>
+        <div class="flex-column" id="page-content-wrapper">
 
 
 
-			<!-- movie_introduce_Update -->
+            <!-- movie_introduce_Update -->
 
-				<div class="section">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-10">
-								<div class="page-header text-warning">
-									<h1>電影情報修改
-										 <font color="#777777"> 
-											<span style="font-size: 23.4px; line-height: 23.4px;">Introduce Update</span>												
-										</font>
-									</h1>
-								</div>
+                <div class="section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="page-header text-warning">
+                                    <h1>電影情報修改
+                                         <font color="#777777"> 
+                                            <span style="font-size: 23.4px; line-height: 23.4px;">Introduce Update</span>                                               
+                                        </font>
+                                    </h1>
+                                </div>
 
-								<%-- 錯誤表列 --%>
-								<c:if test="${not empty errorMsgs}">
-									<font style="color: red">請修正以下錯誤:</font>
-									<ul>
-										<c:forEach var="message" items="${errorMsgs}">
-											<li style="color: red">${message}</li>
-										</c:forEach>
-									</ul>
-								</c:if>
+                                <%-- 錯誤表列 --%>
+                                <c:if test="${not empty errorMsgs}">
+                                    <font style="color: red">請修正以下錯誤:</font>
+                                    <ul>
+                                        <c:forEach var="message" items="${errorMsgs}">
+                                            <li style="color: red">${message}</li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:if>
 
 
-								<form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie_introduce/movie_introduce.do" name="form1" enctype="multipart/form-data">
-									<div class="form-group has-error">
-										<label class="control-label">電影情報編號:*</label>
-										<div>${param.introd_no}</div>
-									</div>
-																		
-<!-- 									<div class="form-group"> -->
-<!-- 										<label class="control-label">電影編號:</label> <input -->
-<%-- 											class="form-control" type="text" name="movie_no" value="<%=movie_introduceVO.getMovie_no()%>"> --%>
-<!-- 									</div> -->
-									
-									<div class="form-group has-error">
-										<label class="control-label">電影名稱:*</label>
-										<select class="form-control" id="movie_no" name="movie_no">
-		                          		<c:forEach var="movieVO" items="${mList}" varStatus="s" begin="<%=0%>" end="<%=mList.size()%>">
-		                           			 <c:if test="${movieVO.active==1}">
-				                                <option value="${movieVO.movie_no}" ${(movieVO.movie_no==movie_introduceVO.movie_no)? 'selected': '' }>${movieVO.movie_name}</option>
-				                             </c:if>
-		                          		</c:forEach>
-                       				 </select>
-									</div>
-															
-									<div class="form-group hidden-md hidden-sm has-feedback">
-										<label class="control-label">來源:</label> <input
-											class="form-control" type="text" name="source" value="<%=movie_introduceVO.getSource()%>">
-									</div>
-									
-									<div class="form-group hidden-md hidden-sm has-feedback">
-										<label class="control-label">網址：</label> <input
-											class="form-control" type="text" name="url" value="<%=movie_introduceVO.getUrl()%>">
-									</div>
-									
-									<div class="form-group hidden-md hidden-sm has-feedback">
-										<label class="control-label">作者:</label> <input
-											class="form-control" type="text" name="author" value="<%=movie_introduceVO.getAuthor()%>">
-									</div>
-									
-									<div class="form-group hidden-md hidden-sm has-feedback">
-										<label class="control-label">標題：</label> <input
-											class="form-control" type="text" name="title" value="<%=movie_introduceVO.getTitle()%>">
-									</div>
-																		
-									<div class="form-group">
-										<label class="control-label">簡介:</label>
-										<textarea class="form-control" id="summernote" name="content" rows="20" ><%=movie_introduceVO.getContent()%></textarea>
-									</div>
-									
-									<div class="form-group">
-										<label class="control-label">狀態:</label>
-											<c:choose>
-									         <c:when test="<%=movie_introduceVO.getActive() == 0%>">
-									          <label><input name="active" type="radio" value="0"
-									           checked="checked">下線</label>
-									          <label><input name="active" type="radio" value="1">上線</label>
-									         </c:when>
-									         <c:otherwise>
-									          <label><input name="active" type="radio" value="0">下線</label>
-									          <label><input name="active" type="radio" value="1"
-									           checked="checked">上線</label>
-									         </c:otherwise>
-								           </c:choose>										
-									</div>
-									
-									
+                                <form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie_introduce/movie_introduce.do" name="form1" enctype="multipart/form-data">
+                                    <div class="form-group has-error">
+                                        <label class="control-label">電影情報編號:*</label>
+                                        <div>${param.introd_no}</div>
+                                    </div>
+                                                                        
+<!--                                    <div class="form-group"> -->
+<!--                                        <label class="control-label">電影編號:</label> <input -->
+<%--                                            class="form-control" type="text" name="movie_no" value="<%=movie_introduceVO.getMovie_no()%>"> --%>
+<!--                                    </div> -->
+                                    
+                                    <div class="form-group has-error">
+                                        <label class="control-label">電影名稱:*</label>
+                                        <select class="form-control" id="movie_no" name="movie_no">
+                                        <c:forEach var="movieVO" items="${mList}" varStatus="s" begin="<%=0%>" end="<%=mList.size()%>">
+                                             <c:if test="${movieVO.active==1}">
+                                                <option value="${movieVO.movie_no}" ${(movieVO.movie_no==movie_introduceVO.movie_no)? 'selected': '' }>${movieVO.movie_name}</option>
+                                             </c:if>
+                                        </c:forEach>
+                                     </select>
+                                    </div>
+                                                            
+                                    <div class="form-group hidden-md hidden-sm has-feedback">
+                                        <label class="control-label">來源:</label> <input
+                                            class="form-control" type="text" name="source" value="<%=movie_introduceVO.getSource()%>">
+                                    </div>
+                                    
+                                    <div class="form-group hidden-md hidden-sm has-feedback">
+                                        <label class="control-label">網址：</label> <input
+                                            class="form-control" type="text" name="url" value="<%=movie_introduceVO.getUrl()%>">
+                                    </div>
+                                    
+                                    <div class="form-group hidden-md hidden-sm has-feedback">
+                                        <label class="control-label">作者:</label> <input
+                                            class="form-control" type="text" name="author" value="<%=movie_introduceVO.getAuthor()%>">
+                                    </div>
+                                    
+                                    <div class="form-group hidden-md hidden-sm has-feedback">
+                                        <label class="control-label">標題：</label> <input
+                                            class="form-control" type="text" name="title" value="<%=movie_introduceVO.getTitle()%>">
+                                    </div>
+                                                                        
+                                    <div class="form-group">
+                                        <label class="control-label">簡介:</label>
+                                        <textarea class="form-control" id="summernote" name="content" rows="20" ><%=movie_introduceVO.getContent()%></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="control-label">狀態:</label>
+                                            <c:choose>
+                                             <c:when test="<%=movie_introduceVO.getActive() == 0%>">
+                                              <label><input name="active" type="radio" value="0"
+                                               checked="checked">下線</label>
+                                              <label><input name="active" type="radio" value="1">上線</label>
+                                             </c:when>
+                                             <c:otherwise>
+                                              <label><input name="active" type="radio" value="0">下線</label>
+                                              <label><input name="active" type="radio" value="1"
+                                               checked="checked">上線</label>
+                                             </c:otherwise>
+                                           </c:choose>                                      
+                                    </div>
+                                    
+                                    
                       
-									 <div class="form-group">
-                      					<label class="col-md-10 control-label">圖片:</label>
-                      				 <div class="col-md-3" id="drop-container">
-                        				<input class="" id="inputFile" type="file" data-img="dpimg" name="photo_path" value="" >
-                      				</div>
-                      				<div class="col-md-2">
-                        			<label class="control-label">可拖曳圖片到左方區塊</label>
-                      				</div>
-                    				</div>
-				                    <div class="col-md-10" id="img_div">
-				                      <img src='<%= (movie_introduceVO==null) ? "" : movie_introduceVO.getPhoto_small() %>' style="max-height: 100%;">
-				                    </div>
-									
-																				
-								<input type="hidden" name="action" value="update">
-								<input type="hidden" name="introd_no"  value="<%=movie_introduceVO.getIntrod_no()%>">
-								<input type="hidden" name="active" value="<%=movie_introduceVO.getActive()%>">
-								<input type="hidden" name="content">
-								
-							
-								<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> <!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
-								<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">  <!--只用於:movie_introduce_List.jsp-->
-								
-								<button id="upbtn" type="submit" class="btn btn-success btn-lg btn-block">送出修改</button> 	
-								</form>
+                                     <div class="form-group">
+                                        <label class="col-md-10 control-label">圖片:</label>
+                                     <div class="col-md-3" id="drop-container">
+                                        <input class="" id="inputFile" type="file" data-img="dpimg" name="photo_path" value="" >
+                                    </div>
+                                    <div class="col-md-2">
+                                    <label class="control-label">可拖曳圖片到左方區塊</label>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-10" id="img_div">
+                                      <img src='<%= (movie_introduceVO==null) ? "" : movie_introduceVO.getPhoto_small() %>' style="max-height: 100%;">
+                                    </div>
+                                    
+                                                                                
+                                <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="introd_no"  value="<%=movie_introduceVO.getIntrod_no()%>">
+                                <input type="hidden" name="active" value="<%=movie_introduceVO.getActive()%>">
+                                <input type="hidden" name="content">
+                                
+                            
+                                <input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> <!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+                                <input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">  <!--只用於:movie_introduce_List.jsp-->
+                                
+                                <button id="upbtn" type="submit" class="btn btn-success btn-lg btn-block">送出修改</button>     
+                                </form>
 
 
-							</div>
-						</div>
-					</div>
-				</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
-				<!-- movie_introduce_Update -->
-		</div>
-	</div>
-	
-	<script src="<%=request.getContextPath() + "/js/back_index.js"%>"></script>
-<!-- summernote JS -->	
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+                <!-- movie_introduce_Update -->
+        </div>
+    </div>
+    
+    <script src="<%=request.getContextPath() + "/js/back_index.js"%>"></script>
+<!-- summernote JS -->  
+<!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script> -->
+<script src="<%=request.getContextPath()%>/js/summernote.js"></script>
     
 <script>
       $(document).ready(function () {
-          $('#summernote').summernote({        	  
-        	  tabsize: 2,
+          $('#summernote').summernote({           
+              tabsize: 2,
               height: 600,
               minHeight: 600, // set minimum height of editor
               maxHeight: 600,

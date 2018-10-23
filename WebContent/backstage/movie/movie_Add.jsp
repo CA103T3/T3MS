@@ -17,7 +17,7 @@
 <title>M&amp;S</title>
 <%@ include file="/backstage/template/link.jsp"%>
 <!-- movie_back_movie CSS -->
-<link href="/css/movie_back_movie.css" rel="stylesheet" type="text/css">
+<!-- <link href="<%=request.getContextPath()%>/css/movie_back_movie.css" rel="stylesheet" type="text/css"> -->
 <style type="text/css">
 textarea{
 resize: none;
@@ -205,9 +205,9 @@ resize: none;
 	}
 	
 %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.datetimepicker.full.js"></script>
 
 <style>
 .xdsoft_datetimepicker .xdsoft_datepicker {
@@ -250,17 +250,17 @@ resize: none;
 	//      }});
 
 	//      2.以下為某一天之後的日期無法選擇
-	     var somedate2 = new Date('2018-10-12');
-	     $('#f_date1').datetimepicker({
-	         beforeShowDay: function(date) {
-	       	  if (  date.getYear() >  somedate2.getYear() || 
-			           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-			           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-	             ) {
-	                  return [false, ""]
-	             }
-	             return [true, ""];
-	     }});
+	     // var somedate2 = new Date('2018-10-12');
+	     // $('#f_date1').datetimepicker({
+	         // beforeShowDay: function(date) {
+	       	  // if (  date.getYear() >  somedate2.getYear() || 
+			           // (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
+			           // (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+	             // ) {
+	                  // return [false, ""]
+	             // }
+	             // return [true, ""];
+	     // }});
 
 	//      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
 	//      var somedate1 = new Date('2017-06-15');

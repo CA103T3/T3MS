@@ -3,12 +3,11 @@
 <%@ page import="com.movie_introduce.model.*"%>
 <%@ page import="com.movie.model.*"%>
 
-<%																				 
- Movie_IntroduceVO movie_introduceVO = (Movie_IntroduceVO) request.getAttribute("movie_introduceVO"); //Movie_IntroduceServlet.java (Concroller) 存入req的movie_introduceVO物件 (包括幫忙取出的movie_introduceVO, 也包括輸入資料錯誤時的movie_introduceVO物件)
- 
- MovieService mSvc = new MovieService();
- List<MovieVO> mList = mSvc.getAll();
- pageContext.setAttribute("mList",mList);
+<%
+    Movie_IntroduceVO movie_introduceVO = (Movie_IntroduceVO) request.getAttribute("movie_introduceVO"); //Movie_IntroduceServlet.java (Concroller) 存入req的movie_introduceVO物件 (包括幫忙取出的movie_introduceVO, 也包括輸入資料錯誤時的movie_introduceVO物件)
+    MovieService mSvc = new MovieService();
+    List<MovieVO> mList = mSvc.getAll();
+    pageContext.setAttribute("mList",mList);
 %>
 
 
@@ -22,9 +21,10 @@
 <title>M&amp;S</title>
 <%@ include file="/backstage/template/link.jsp"%>
 <!-- movie_back_movie CSS -->
-<link href="/css/movie_back_movie.css" rel="stylesheet" type="text/css">
+<!-- <link href="<%=request.getContextPath()%>/css/movie_back_movie.css" rel="stylesheet" type="text/css"> -->
 <!-- summernote CSS -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<!-- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet"> -->
+<link href="<%=request.getContextPath()%>/css/summernote.css" rel="stylesheet">
 <style type="text/css">
 textarea{
 resize: none;
@@ -37,131 +37,130 @@ margin-top: 10px;
 </head>
 
 <body class="fs16" ata-spy="scroll">
-	<%@ include file="/backstage/template/header.jsp"%>
-	<div id="wrapper" class="mt50">
-		<%@ include file="/backstage/template/sidebar.jsp"%>
-		<div class="flex-column" id="page-content-wrapper">
+    <%@ include file="/backstage/template/header.jsp"%>
+    <div id="wrapper" class="mt50">
+        <%@ include file="/backstage/template/sidebar.jsp"%>
+        <div class="flex-column" id="page-content-wrapper">
 
 
 <!--introduce_Add -->
 
-			<div class="section">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-10">
+            <div class="section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10">
 
-							<div class="page-header text-warning">
-								<h1>
-									電影情報新增
-									<font color="#777777">
-										<span style="font-size: 23.4px; line-height: 23.4px;">Introduce Add</span>
-									</font>
-								</h1>
-							</div>
+                            <div class="page-header text-warning">
+                                <h1>
+                                    電影情報新增
+                                    <font color="#777777">
+                                        <span style="font-size: 23.4px; line-height: 23.4px;">Introduce Add</span>
+                                    </font>
+                                </h1>
+                            </div>
 
-							<!-- 錯誤表列 -->
+                            <!-- 錯誤表列 -->
 
-							<%-- 錯誤表列 --%>
-							<c:if test="${not empty errorMsgs}">
-								<font style="color: red">請修正以下錯誤:</font>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red">${message}</li>
-									</c:forEach>
-								</ul>
-							</c:if>
+                            <%-- 錯誤表列 --%>
+                            <c:if test="${not empty errorMsgs}">
+                                <font style="color: red">請修正以下錯誤:</font>
+                                <ul>
+                                    <c:forEach var="message" items="${errorMsgs}">
+                                        <li style="color: red">${message}</li>
+                                    </c:forEach>
+                                </ul>
+                            </c:if>
 
 
 
-							<form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie_introduce/movie_introduce.do" name="form1" enctype="multipart/form-data" >
+                            <form METHOD="post" ACTION="<%=request.getContextPath()%>/backstage/movie_introduce/movie_introduce.do" name="form1" enctype="multipart/form-data" >
+                                <div class="form-group">
+                                    <label class="control-label">電影名稱:</label>
+                                    <select class="form-control" id="movie_no" name="movie_no">
+                                        <c:forEach var="movieVO" items="${mList}" varStatus="s" begin="<%=0%>" end="<%=mList.size()%>">
+                                             <c:if test="${movieVO.active==1}">
+                                                <option value="${movieVO.movie_no}" ${(movieVO.movie_no==movie_introduceVO.movie_no)? 'selected': '' }>${movieVO.movie_name}</option>
+                                             </c:if>
+                                        </c:forEach>
+                                     </select>
 
-							
-								<div class="form-group">
-									<label class="control-label">電影名稱:</label>
-									<select class="form-control" id="movie_no" name="movie_no">
-		                          		<c:forEach var="movieVO" items="${mList}" varStatus="s" begin="<%=0%>" end="<%=mList.size()%>">
-		                           			 <c:if test="${movieVO.active==1}">
-				                                <option value="${movieVO.movie_no}" ${(movieVO.movie_no==movie_introduceVO.movie_no)? 'selected': '' }>${movieVO.movie_name}</option>
-				                             </c:if>
-		                          		</c:forEach>
-                       				 </select>
+                                </div>
 
-								</div>
+                                <div class="form-group">
+                                    <label class="control-label">來源:</label>
+                                    <input type="TEXT" class="form-control" name="source" size="45" value="<%=(movie_introduceVO == null) ? "請輸入來源" : movie_introduceVO.getSource()%>" />
 
-								<div class="form-group">
-									<label class="control-label">來源:</label>
-									<input type="TEXT" class="form-control" name="source" size="45" value="<%=(movie_introduceVO == null) ? "請輸入來源" : movie_introduceVO.getSource()%>" />
+                                </div>
+            
+                                <div class="form-group hidden-md hidden-sm has-feedback">
+                                    <label class="control-label">網址:</label>
+                                    <input type="TEXT" class="form-control" name="url" size="45" value="<%=(movie_introduceVO == null) ? "請輸入網址" : movie_introduceVO.getUrl()%>" />
 
-								</div>
-			
-								<div class="form-group hidden-md hidden-sm has-feedback">
-									<label class="control-label">網址:</label>
-									<input type="TEXT" class="form-control" name="url" size="45" value="<%=(movie_introduceVO == null) ? "請輸入網址" : movie_introduceVO.getUrl()%>" />
+                                </div>
 
-								</div>
+                                <div class="form-group hidden-md hidden-sm has-feedback">
+                                    <label class="control-label">作者:</label>
+                                    <input type="TEXT" class="form-control" name="author" size="45" value="<%=(movie_introduceVO == null) ? "請輸入作者" : movie_introduceVO.getAuthor()%>" />
 
-								<div class="form-group hidden-md hidden-sm has-feedback">
-									<label class="control-label">作者:</label>
-									<input type="TEXT" class="form-control" name="author" size="45" value="<%=(movie_introduceVO == null) ? "請輸入作者" : movie_introduceVO.getAuthor()%>" />
+                                </div>
+                                
+                                <div class="form-group hidden-md hidden-sm has-feedback">
+                                    <label class="control-label">標題:</label>
+                                    <input type="TEXT" class="form-control" name="title" size="45" value="<%=(movie_introduceVO == null) ? "請輸入標題" : movie_introduceVO.getTitle()%>" />
 
-								</div>
-								
-								<div class="form-group hidden-md hidden-sm has-feedback">
-									<label class="control-label">標題:</label>
-									<input type="TEXT" class="form-control" name="title" size="45" value="<%=(movie_introduceVO == null) ? "請輸入標題" : movie_introduceVO.getTitle()%>" />
+                                </div>
+                                            
+                                <div class="form-group">
+                                    <label class="control-label">內容:</label>
+                                    <textarea class="form-control" id="summernote" name="content" rows="20"><%=(movie_introduceVO == null) ? "請輸入內容" : movie_introduceVO.getContent()%></textarea>                                  
+                                </div>
 
-								</div>
-											
-								<div class="form-group">
-									<label class="control-label">內容:</label>
-									<textarea class="form-control" id="summernote" name="content" rows="20"><%=(movie_introduceVO == null) ? "請輸入內容" : movie_introduceVO.getContent()%></textarea>									
-								</div>
-
-								<div>
-								    <label class="control-label">狀態:</label>
-									<input type="radio" name="active" value="0" checked="checked">
-									<label for="contactChoice1">下線</label>
-									<input type="radio" name="active" value="1">
-									<label for="contactChoice2">上線</label>
-								</div>
-								<label class="control-label">圖片:</label>
-								 <div class="form-group">                                
-	                                 <div class="col-md-4" id="drop-container">
-	                                     <input class="form-control" id="inputFile" type="file" data-img="dpimg" name="photo_path" value="" >
-	                                 </div>
-	                                 
-	                                 <div class="col-md-4">
-	                                     <label class="control-label">可拖曳圖片到左方區塊</label>
-	                                 </div>
+                                <div>
+                                    <label class="control-label">狀態:</label>
+                                    <input type="radio" name="active" value="0" checked="checked">
+                                    <label for="contactChoice1">下線</label>
+                                    <input type="radio" name="active" value="1">
+                                    <label for="contactChoice2">上線</label>
+                                </div>
+                                <label class="control-label">圖片:</label>
+                                 <div class="form-group">                                
+                                     <div class="col-md-4" id="drop-container">
+                                         <input class="form-control" id="inputFile" type="file" data-img="dpimg" name="photo_path" value="" >
+                                     </div>
+                                     
+                                     <div class="col-md-4">
+                                         <label class="control-label">可拖曳圖片到左方區塊</label>
+                                     </div>
                                  </div>
                                  
                                                                 
                                  <div class="row container text-center" id="img_div"></div>
                               
                                 <input type="hidden" name="action" value="insert">
-								<input type="hidden" name="content">							
-								<button  id="addbtn" type="submit" class="btn btn-primary btn-lg btn-block">送出新增</button> 
-							  
-							</form>
+                                <input type="hidden" name="content">                            
+                                <button  id="addbtn" type="submit" class="btn btn-primary btn-lg btn-block">送出新增</button> 
+                              
+                            </form>
 
-						</div>
-					</div>
-				</div>
-			</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 <!-- introduce_Add -->
 
-		</div>
-	</div>
-	<script src="<%=request.getContextPath() + "/js/back_index.js"%>"></script>
-	
-<!-- summernote JS -->	
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
-    
+        </div>
+    </div>
+    <script src="<%=request.getContextPath() + "/js/back_index.js"%>"></script>
+
+<!-- summernote JS -->  
+<!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script> -->
+<script src="<%=request.getContextPath()%>/js/summernote.js"></script>
+
 <script>
       $(document).ready(function () {
-          $('#summernote').summernote({        	  
-        	  tabsize: 2,
+          $('#summernote').summernote({           
+              tabsize: 2,
               height: 600,
               minHeight: 600, // set minimum height of editor
               maxHeight: 600,

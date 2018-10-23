@@ -20,8 +20,8 @@
 <title>M&amp;S</title>
 <%@ include file="/backstage/template/link.jsp"%>
 <!-- movie_back_movie CSS -->
-<link href="/css/movie_back_movie.css" rel="stylesheet" type="text/css">
-	
+<!-- <link href="<%=request.getContextPath()%>/css/movie_back_movie.css" rel="stylesheet" type="text/css"> -->
+
 <style>
 .table {border: 0px solid black;}
 .table tr:nth-child(even) {background: #FFF; }

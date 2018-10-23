@@ -8,28 +8,12 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>M&amp;S</title>
 
-    <!-- include libraries(jQuery, bootstrap) -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()+"/css/back_base.css"%>">
-<%-- 	<link rel="stylesheet" href="<%=request.getContextPath() %>/css/back_img_base.css"> --%>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-     <link rel="stylesheet" href="/T3MS/css/style_2.css">
+    <%@ include file="/backstage/template/link.jsp"%>
+    <link rel="stylesheet" href="/T3MS/css/style_2.css">
     <style type="text/css">
 
     </style>
-    
+
 </head>
 
 <body class="fs16" background="/T3MS/img/a1.jpg">
@@ -295,19 +279,19 @@
 
         <div class="flex-column" id="page-content-wrapper" style="margin-left:150px;">
            <section id="slideshow">
-			<div class="entire-content">
-				<div class="content-carrousel">
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-					<figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
-		</div>
-	</div>
+            <div class="entire-content">
+                <div class="content-carrousel">
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+                    <figure class="shadow"><img src="/T3MS/img/introduce/0800dab154184f1f998b3285cf44d570-s.jpg"/></figure>
+        </div>
+    </div>
 </section>
        </div>
    </div>
