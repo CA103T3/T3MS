@@ -81,11 +81,15 @@ public class EzdingMovieInfoAdv implements Runnable {
             String bgImg = postDiv.get(k).getAttribute("style");
             System.out.println("bgImg: " + bgImg); //bgImg: background-image: url("../../static/common/poster.png");
             //skip poster.png(no data inside)
-            if(bgImg.matches(".*poster.png.*")) {
+            if (bgImg.matches(".*poster.png.*")) {
                 System.out.printf("poster.png - no data inside, skip index %d %n", k);
-
                 backToMovieInfoIndex(driver, wait);
-
+                continue;
+            } else if (bgImg.matches("^.*url\\(\"\"\\);$")) {
+            // } else if(bgImg.matches(".*url\\(\"\"\\);")) {
+                // background-image: url("");
+                System.out.printf("url(\"\"); - no data inside, skip index %d %n", k);
+                backToMovieInfoIndex(driver, wait);
                 continue;
             }
 

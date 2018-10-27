@@ -91,6 +91,12 @@ public class EzdingCrawler implements Runnable {
                 System.out.printf("poster.png - no data inside, skip index %d %n", k);
                 backToMovieInfoIndex(driver, wait);
                 continue;
+            } else if(bgImg.matches("^.*url\\(\"\"\\);$")) {
+            //} else if(bgImg.matches(".*url\\(\"\"\\);")) {
+                //background-image: url("");
+                System.out.printf("url(\"\"); - no data inside, skip index %d %n", k);
+                backToMovieInfoIndex(driver, wait);
+                continue;
             }
 
             postDiv.get(k).click();
