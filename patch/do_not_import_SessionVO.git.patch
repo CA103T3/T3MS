@@ -1,0 +1,14 @@
+diff --git a/src/com/common/ser/SerUtilServlet.java b/src/com/common/ser/SerUtilServlet.java
+index 4d07a933..8bcc0df8 100644
+--- a/src/com/common/ser/SerUtilServlet.java
++++ b/src/com/common/ser/SerUtilServlet.java
+@@ -18,7 +18,8 @@ public class SerUtilServlet extends HttpServlet {
+     private static final long serialVersionUID = 1L;
+     PrintWriter out;
+     private String[] voList = {"MovieVO", "CinemaVO", "TheaterVO", "MemberVO", "FilmreviewVO", "Movie_IntroduceVO",
+-            "SessionVO", "TypeVO", "NavVO", "RoleVO", "PermissionVO", "AccountVO", "BoxOfficeVO", "ActivityVO", "AnnouncementVO"};
++            //"SessionVO", "TypeVO", "NavVO", "RoleVO", "PermissionVO", "AccountVO", "BoxOfficeVO", "ActivityVO", "AnnouncementVO"};
++            "TypeVO", "NavVO", "RoleVO", "PermissionVO", "AccountVO", "BoxOfficeVO", "ActivityVO", "AnnouncementVO"};
+     private String packagePath = "com.common.ser.";
+     private SerUtil su;
+     /**
